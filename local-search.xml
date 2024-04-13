@@ -4,26 +4,25 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2024/04/12/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
-    <url>/2024/04/12/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</url>
+    <title>web之命令执行(持续更新)</title>
+    <link href="/2024/04/13/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
+    <url>/2024/04/13/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</url>
     
-    <content type="html"><![CDATA[<h1 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h1><p>system<br>passthru<br>exec<br>show_source</p><h1 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h1><p>%09(tab)<br>$IFS$9<br>${IFS}<br>$IFS%09(tab)<br>&lt;(不能和通配符一起使用)<br>&lt;&gt;(不能和通配符一起使用)<br>%20(space)</p><h1 id="无字符绕过"><a href="#无字符绕过" class="headerlink" title="无字符绕过"></a>无字符绕过</h1><h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>第一种姿势利用poc文件上传，通过.&#x2F;tmp&#x2F;php??????这样的形式来写<br>通配符除了？和*之外还有[^x]可以使用，一般默认上传的最后一个字母是大写字母，可以用[ @-[ ]进行遍历<br>然后进行修改内容，可以先尝试whoami看看是否RCE成功，需要在#！&#x2F;bin&#x2F;sh下进行(我暂时还不太懂);然后ls看看，最后cat或者tac flag ,直接不行的情况下，可以在默认目录下(var&#x2F;www&#x2F;html&#x2F;XXX)<br>附上poc代码:<br><!DOCTYPE html></p><html lang="en"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>POST数据包POC</title></head><body><form action="http://这个根据实际情况选择代码" method="post" enctype="multipart/form-data"><!--链接是当前打开的题目链接-->    <label for="file">文件名：</label>    <input type="file" name="file" id="file"><br>    <input type="submit" name="submit" value="提交"></form></body></html>算是第一次接触到这种姿势，记录一下.<h2 id="构造数字"><a href="#构造数字" class="headerlink" title="$()构造数字"></a>$()构造数字</h2><p>在linux中,echo $(())默认为0，取反就是-1，也就是$((~ $(())))&#x3D;-1；<br>因为是默认相加构造负数最后整体相加即可。</p><h1 id="include包含"><a href="#include包含" class="headerlink" title="include包含"></a>include包含</h1><p>include$_GET[1]?&gt;&amp;1&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php<br>include函数传入的参数不能执行系统命令，需要使用伪协议</p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/2024/04/12/test/"/>
-    <url>/2024/04/12/test/</url>
-    
-    <content type="html"><![CDATA[<p><img src="/images/1.jpg"></p><p>测试一下啊</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h1><p>system<br>passthru<br>exec<br>show_source</p><h1 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h1><p>%09(tab)<br>$IFS$9<br>${IFS}<br>$IFS%09(tab)<br>&lt;(不能和通配符一起使用)<br>&lt;&gt;(不能和通配符一起使用)<br>%20(space)</p><h1 id="无字符绕过"><a href="#无字符绕过" class="headerlink" title="无字符绕过"></a>无字符绕过</h1><h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>第一种姿势利用poc文件上传，通过.&#x2F;tmp&#x2F;php??????这样的形式来写<br>通配符除了？和*之外还有[^x]可以使用，一般默认上传的最后一个字母是大写字母，可以用[ @-[ ]进行遍历<br>然后进行修改内容，可以先尝试whoami看看是否RCE成功，需要在#！&#x2F;bin&#x2F;sh下进行(我暂时还不太懂);然后ls看看，最后cat或者tac flag ,直接不行的情况下，可以在默认目录下(var&#x2F;www&#x2F;html&#x2F;XXX)<br>附上poc代码:</p><p><img src="/../images/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/poc.png"></p><p>算是第一次接触到这种姿势，记录一下.</p><h2 id="构造数字"><a href="#构造数字" class="headerlink" title="$()构造数字"></a>$()构造数字</h2><p>在linux中,echo $(())默认为0，取反就是-1，也就是$((~ $(())))&#x3D;-1；<br>因为是默认相加构造负数最后整体相加即可。</p><h1 id="include包含"><a href="#include包含" class="headerlink" title="include包含"></a>include包含</h1><p>include$_GET[1]?&gt;&amp;1&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php<br>include函数传入的参数不能执行系统命令，需要使用伪协议</p>]]></content>
     
     
+    <categories>
+      
+      <category>web</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>命令执行</tag>
+      
+    </tags>
     
   </entry>
   
