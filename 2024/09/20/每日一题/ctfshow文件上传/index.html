@@ -19,29 +19,29 @@
     <meta name="description" content="web1510x01测试了一下需要png结尾,传个一句话木马上传之后bp抓包改为php,然后执行就行了，或者蚁剑  0x02前端js进行修改，把对应的png改成php即可 web152参照web151的0x01 web153这题直接改结尾不能成功，尝试htaccess之后发现不行，查阅之后发现前者只适合apache,这里使.user.ini 12GIF89aauto_prepend_file&#x3D;sh">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ctfshow文件上传">
-<meta property="og:url" content="http://example.com/2024/09/20/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.html">
+<meta property="og:url" content="https://0ran9ewww.github.io/2024/09/20/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
 <meta property="og:description" content="web1510x01测试了一下需要png结尾,传个一句话木马上传之后bp抓包改为php,然后执行就行了，或者蚁剑  0x02前端js进行修改，把对应的png改成php即可 web152参照web151的0x01 web153这题直接改结尾不能成功，尝试htaccess之后发现不行，查阅之后发现前者只适合apache,这里使.user.ini 12GIF89aauto_prepend_file&#x3D;sh">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19174901.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19200002.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19201438.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19202826.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19211006.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19212242.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19214003.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19220630.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19224702.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20103904.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20110014.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20112040.png">
-<meta property="og:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20114308.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19174901.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19200002.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19201438.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19202826.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19211006.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19212242.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19214003.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19220630.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19224702.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20103904.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20110014.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20112040.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-20114308.png">
 <meta property="article:published_time" content="2024-09-20T03:30:00.000Z">
 <meta property="article:modified_time" content="2024-09-20T03:55:47.234Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="文件上传">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19174901.png">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-19174901.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -85,7 +85,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y20YQnBmfM0DqawGjwxeWhCq-gzGzoHsz","app_key":"Y55Ca02EpnhoEzDEjf7sqVwX","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y20YQnBmfM0DqawGjwxeWhCq-gzGzoHsz","app_key":"Y55Ca02EpnhoEzDEjf7sqVwX","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -140,7 +140,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>橙子</strong>
+      <strong>0raN9e的blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -491,7 +491,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>ctfshow文件上传</div>
-      <div>http://example.com/2024/09/20/每日一题/ctfshow文件上传/</div>
+      <div>https://0ran9ewww.github.io/2024/09/20/每日一题/ctfshow文件上传/</div>
     </div>
     <div class="license-meta">
       
