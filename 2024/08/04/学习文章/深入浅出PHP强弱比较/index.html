@@ -23,18 +23,15 @@
 <meta property="og:site_name" content="0raN9e的笔记">
 <meta property="og:description" content="鉴于最近打的一个比赛，来了解一下ctf中经常出现的弱等于强等于的问题 PHP弱类型Q1:二者弱比教这部分内容自己检索，简要的说&#x3D;&#x3D;的情况下，左右两边的类型会进行转化。 举个例子来说 123456789&lt;?phpshow_source(__FILE__);$a&#x3D;$_GET[&#x27;a&#x27;];$b&#x3D;$_GET[&#x27;b&#x27;];if($a !&#x3D; $b&amp;&amp;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAphp%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/1.png">
-<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAphp%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/2.png">
-<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAphp%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/3.png">
-<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAphp%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/4.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/background.png">
 <meta property="article:published_time" content="2024-08-04T14:00:00.000Z">
-<meta property="article:modified_time" content="2024-08-28T15:38:27.824Z">
+<meta property="article:modified_time" content="2024-09-21T14:58:58.255Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="Md5">
 <meta property="article:tag" content="sha1">
 <meta property="article:tag" content="php">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAphp%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/1.png">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/background.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -331,7 +328,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年8月28日 晚上
+                    本文最后更新于 2024年9月21日 晚上
                   
                 
               </p>
@@ -369,7 +366,9 @@
 <p>做下记录就行</p>
 <h3 id="Q3-登入用户Md5-万能密码"><a href="#Q3-登入用户Md5-万能密码" class="headerlink" title="Q3:登入用户Md5(万能密码)"></a>Q3:登入用户Md5(万能密码)</h3><p>这个常见于登陆界面</p>
 <p>可以参考这个文章，<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44879989/article/details/133363370">文章</a></p>
-<p><code>ffifdyop</code> 经过两次转化后得到的结果是 <code>&#39;or&#39;6�]��!r,��b</code>。位于 <code>or</code> 两侧的单引号可以用于闭合两端的单引号，使得 <code>or</code> 不再被 MySQL 认为是字符串，而是一个关键字，发挥着 <code>逻辑或运算符</code> 的作用。</p>
+<p><code>ffifdyop</code> 经过两次转化后得到的结果是 <code>&#39;or&#39;6�]��!r,��b</code>。位于 <code>or</code> 两侧的单引号可以用于闭合两端的单引号，使得 <code>or</code> 不再被 MySQL 认为是字符串，而是一个关键字，发挥着 <code>逻辑或运算符</code> 的作用,以下是常见的例子</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs markdown">ffifdyop<br>129581926211651571912466741651878684928<br></code></pre></td></tr></table></figure>
+
 <h3 id="Q4-Md5双层嵌套"><a href="#Q4-Md5双层嵌套" class="headerlink" title="Q4:Md5双层嵌套"></a>Q4:Md5双层嵌套</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">md5(md5($a))==md5($a)<br></code></pre></td></tr></table></figure>
 
 <p>列举几个例子</p>
