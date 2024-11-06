@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/Newstar/2024/back.png">
 <meta property="article:published_time" content="2024-11-04T03:00:00.000Z">
-<meta property="article:modified_time" content="2024-11-04T03:39:13.938Z">
+<meta property="article:modified_time" content="2024-11-05T12:37:27.931Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary_large_image">
@@ -265,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.9k 字
+          8.3k 字
         
       </span>
     
@@ -276,7 +276,7 @@
         
         
         
-          67 分钟
+          70 分钟
         
       </span>
     
@@ -326,7 +326,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年11月4日 中午
+                    本文最后更新于 2024年11月5日 晚上
                   
                 
               </p>
@@ -611,6 +611,31 @@
 <p><img src="/../../images/Newstar/2024/47.png" srcset="/img/loading.gif" lazyload alt="47"></p>
 <p>最后一层直接bpfuzz一下</p>
 <p><img src="/../../images/Newstar/2024/48.png" srcset="/img/loading.gif" lazyload alt="48"></p>
+<h3 id="ezcmsss-复现"><a href="#ezcmsss-复现" class="headerlink" title="ezcmsss(复现)"></a>ezcmsss(复现)</h3><p>用dir扫目录可以发现有<a target="_blank" rel="noopener" href="http://www.zip,下载下来里面有后台管理的账户和密码`admin_name=jizhicms1498/">www.zip，下载下来里面有后台管理的账户和密码`admin_name=jizhicms1498</a> &amp; admin_pass&#x3D;4oP4fB51r5&#96;</p>
+<p>后台界面在<code>admin.php</code>里登入后台，发现 jizhicms v1.9.5 有一个管理界面的任意文件下载漏洞，插件里面只有一个不能出网，<del>我到这里当时就卡住了</del>实际流程是需要在将<code>.zip</code>文件上传到题目容器里，然后通过任意文件下载漏洞本地下载解压</p>
+<p>其中的一种是在<code>栏目管理-栏目列表-新增栏目</code>中增加附件，上传构造好的php🐎的压缩包</p>
+<p>上传的时候bp截取然后获取压缩包的内容</p>
+<p><img src="/../../images/Newstar/2024/50.png" srcset="/img/loading.gif" lazyload alt="50"></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">/static/upload/file/20241104/1730714912409405.zip<br></code></pre></td></tr></table></figure>
+
+<p>然后就可以按照网上泄露的漏洞来打了</p>
+<p><img src="/../../images/Newstar/2024/51.png" srcset="/img/loading.gif" lazyload alt="51"></p>
+<p><code>filepath</code>的参数随意，然后把刚才抓到的zip路径贴上去</p>
+<p>然后对文件进行解压</p>
+<p><img src="/../../images/Newstar/2024/52.png" srcset="/img/loading.gif" lazyload alt="52"></p>
+<p>最后跟进<code>/A/exts/ma.php</code>进行命令执行</p>
+<p><img src="/../../images/Newstar/2024/53.png" srcset="/img/loading.gif" lazyload alt="53"></p>
+<p>没注意群里的提醒是不出网的，一直在想着出网，解题思路和我想的基本一致。</p>
+<h3 id="隐藏的密码-复现"><a href="#隐藏的密码-复现" class="headerlink" title="隐藏的密码(复现)"></a>隐藏的密码(复现)</h3><p>java还没会，学一下。找不到密码目录扫描</p>
+<p><img src="/../../images/Newstar/2024/54.png" srcset="/img/loading.gif" lazyload alt="54"></p>
+<p>可以扫到 <code>env</code> 和 <code>jolokia</code> 端点</p>
+<p><img src="/../../images/Newstar/2024/55.png" srcset="/img/loading.gif" lazyload alt="55"></p>
+<p>可以找到 <code>caef11.passwd</code> 属性是隐藏的</p>
+<p><img src="/../../images/Newstar/2024/56.png" srcset="/img/loading.gif" lazyload alt="56"></p>
+<p>读到密码后，根据题目描述和属性的名字可得用户名为 <code>caef11</code></p>
+<p>通过写定时任务（计划任务）的方式，以 flag 为文件名在根目录创建新文件，通过 <code>ls</code> 查看 flag</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-emphasis">*/1 *</span> * * * root cat /flag | xargs -I &#123;&#125; touch /&#123;&#125;<br></code></pre></td></tr></table></figure>
+
 <h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><h3 id="扫码领取flag"><a href="#扫码领取flag" class="headerlink" title="扫码领取flag"></a>扫码领取flag</h3><p>hint看一下里面base64解密，另外一个图片crc爆破一下得到二维码，搜索一下对应的二维码种类得到flag</p>
 <h2 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h2><h3 id="圣石匕首"><a href="#圣石匕首" class="headerlink" title="圣石匕首"></a>圣石匕首</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> gmpy2<br><span class="hljs-keyword">from</span> sage.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># Parameters</span><br>beta = <span class="hljs-number">0.37</span><br>delta = <span class="hljs-number">0.01</span><br>e = <span class="hljs-number">3668637434348843171145584606519031375027610199908169273169275927238735031431533260375377791001464799116453803408104076615710166171199990283470548282669948353598733020244755959461974603778630346457439345913209321194112256348302765254052193562603687450740346132207444615610078198488883539133291840346099727880587092122957231085658576850601488737629051252914095889313671875244094452330062619943781809984690384476868543570724769198985172300665613239047649089399919032152539462701309393130614829962670866062380816370571057536421400102100259975636785825540933280194583888638501981649650640939392658268133881679239293596283</span><br>N = <span class="hljs-number">9748523098652101859947730585916490335896800943242955095820326993765071194474558998322598145898741779502734772138283011560029368500998354183150180904846368209977332058847768859238711047784703104535311583123388923571789764758869419482184613566672922481672444028753365755071127320541645016370072493604532087980626825687519083734367691341907014061379844209864141989961751681235215504772582878202048494707090104738899927036896915997556102574747166491969027546256022019959716418675672979328622656831990050058120299353807110233202113906317969377201045402271911946244076903611612303290556012512559696538977841061277173754331</span><br>c = <span class="hljs-number">5374936627659221745209010619827617207565185520404653329184605916859755641352457088986635357806048863755173540232471505333583684733535121482637476692432365062808450583470788320547816186936317927449796090525477205337038591439577855884910604383190932340306435201976465543731935147881754136301375206828970248293731391543905441514528959500307972606931927112031018356411970001312995489429650903529877904694901310020882390008248466887950986326522740278880600110217817950511478637493101027659292006016454642135508207492151610829525082829566392116546434101694921106423469015683277992978077101831969525458693031031468092418427</span><br><br><span class="hljs-comment"># Calculate n and m</span><br>n = <span class="hljs-built_in">round</span>((<span class="hljs-number">1</span>-<span class="hljs-number">2</span>*beta-<span class="hljs-number">2</span>*delta)/((<span class="hljs-number">1</span>-beta)**<span class="hljs-number">2</span>-<span class="hljs-number">2</span>*delta-beta), <span class="hljs-number">6</span>)<br>m = (<span class="hljs-number">1</span>-beta) * n<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;m = <span class="hljs-subst">&#123;m&#125;</span>, n = <span class="hljs-subst">&#123;n&#125;</span>&quot;</span>)<br><br><span class="hljs-comment"># Round n up to the nearest integer and convert m to an integer</span><br>n = <span class="hljs-built_in">int</span>(n + <span class="hljs-number">1</span>)<br>m = <span class="hljs-built_in">int</span>(m)<br><br><span class="hljs-comment"># Calculate X and Y</span><br>X = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">pow</span>(N, delta))<br>Y = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">pow</span>(N, delta+beta))<br><br><span class="hljs-comment"># Set up the polynomial ring</span><br>Z.&lt;x,y&gt; = ZZ[]<br><br><span class="hljs-comment"># Create the lattice</span><br>L = Matrix(ZZ, n, n)<br>f = e*x - y<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>    g = <span class="hljs-built_in">list</span>(N**<span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>,m-i) * x**(n-<span class="hljs-number">1</span>-i) * f**i)<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(g)):<br>        L[i,j] = g[j][<span class="hljs-number">0</span>] * X**(n-<span class="hljs-number">1</span>-j) * Y**j<br><br><span class="hljs-comment"># Apply LLL algorithm</span><br>L = L.LLL()[<span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># Reconstruct the polynomial</span><br>coeff = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>    coeff.append((L[i]//(X**(n-<span class="hljs-number">1</span>-i)*Y**i), <span class="hljs-string">f&#x27;x**<span class="hljs-subst">&#123;n-<span class="hljs-number">1</span>-i&#125;</span>*y**<span class="hljs-subst">&#123;i&#125;</span>&#x27;</span>))<br>s = <span class="hljs-string">&#x27;+&#x27;</span>.join([<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;c[<span class="hljs-number">0</span>]&#125;</span>*<span class="hljs-subst">&#123;c[<span class="hljs-number">1</span>]&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> coeff])<br>f = <span class="hljs-built_in">eval</span>(s)<br><br><span class="hljs-comment"># Factor the polynomial</span><br>factored_f = f.factor()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Factored polynomial:&quot;</span>, factored_f)<br><br><span class="hljs-comment"># Extract the linear factor (if exists)</span><br>linear_factor = <span class="hljs-built_in">next</span>((factor <span class="hljs-keyword">for</span> factor, _ <span class="hljs-keyword">in</span> factored_f <span class="hljs-keyword">if</span> factor.degree() == <span class="hljs-number">1</span>), <span class="hljs-literal">None</span>)<br><br><span class="hljs-keyword">if</span> linear_factor:<br>    <span class="hljs-comment"># Extract k and dp from the linear factor</span><br>    k = <span class="hljs-built_in">abs</span>(linear_factor.coefficients()[<span class="hljs-number">0</span>]) + <span class="hljs-number">1</span><br>    dp = <span class="hljs-built_in">abs</span>(linear_factor.coefficients()[<span class="hljs-number">1</span>])<br>    <br>    <span class="hljs-comment"># Calculate p and q</span><br>    p = (e * dp - <span class="hljs-number">1</span>) // k + <span class="hljs-number">1</span><br>    q = N // p<br>    <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Possible p: <span class="hljs-subst">&#123;p&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Possible q: <span class="hljs-subst">&#123;q&#125;</span>&quot;</span>)<br>    <br>    <span class="hljs-comment"># Verify if p and q are correct</span><br>    <span class="hljs-keyword">if</span> p * q == N:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Successfully factored N!&quot;</span>)<br>        <br>        <span class="hljs-comment"># Calculate private key d</span><br>        phi = (p - <span class="hljs-number">1</span>) * (q - <span class="hljs-number">1</span>)<br>        d = <span class="hljs-built_in">int</span>(gmpy2.invert(e, phi))<br>        <br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Private key d: <span class="hljs-subst">&#123;d&#125;</span>&quot;</span>)<br>        <br>        <span class="hljs-comment"># Decrypt the message</span><br>        m = <span class="hljs-built_in">pow</span>(c, d, N)<br>        plaintext = <span class="hljs-built_in">bytes</span>.fromhex(<span class="hljs-built_in">hex</span>(m)[<span class="hljs-number">2</span>:])<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted message:&quot;</span>, plaintext)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Failed to factor N correctly.&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;No linear factor found. The attack might have failed.&quot;</span>)<br></code></pre></td></tr></table></figure>
 
@@ -713,6 +738,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/11/07/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-xss/" title="ctfshow-xss">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfshow-xss</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
