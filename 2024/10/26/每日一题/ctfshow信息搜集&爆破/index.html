@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="web1右键看源码 web2CTRL+shift+i web3用bp抓包，看标头有flag web4看一下robots.txt，再看&#x2F;flagishere.txt web5根据提示输入index.phps,打开看flag web6根据提示输入www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag web7根据提示输入&#x2F;.git web8输入&amp;#">
+    <meta name="description" content="web1 右键看源码  web2 CTRL+shift+i  web3 用bp抓包，看标头有flag  web4 看一下robots.txt，再看&#x2F;flagishere.txt  web5 根据提示输入index.phps,打开看flag  web6 根据提示输入www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag  web7 根据提示输入&#x2F;.git  web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ctfshow信息搜集&amp;爆破">
 <meta property="og:url" content="https://0ran9ewww.github.io/2024/10/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86&%E7%88%86%E7%A0%B4/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="web1右键看源码 web2CTRL+shift+i web3用bp抓包，看标头有flag web4看一下robots.txt，再看&#x2F;flagishere.txt web5根据提示输入index.phps,打开看flag web6根据提示输入www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag web7根据提示输入&#x2F;.git web8输入&amp;#">
+<meta property="og:description" content="web1 右键看源码  web2 CTRL+shift+i  web3 用bp抓包，看标头有flag  web4 看一下robots.txt，再看&#x2F;flagishere.txt  web5 根据提示输入index.phps,打开看flag  web6 根据提示输入www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag  web7 根据提示输入&#x2F;.git  web">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/backa.png">
 <meta property="article:published_time" content="2024-10-25T16:00:00.000Z">
@@ -115,7 +115,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -265,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          768 字
+          735 字
         
       </span>
     
@@ -334,45 +338,71 @@
             
               <div class="markdown-body">
                 
-                <h2 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h2><p>右键看源码</p>
-<h2 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h2><p>CTRL+shift+i</p>
-<h2 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h2><p>用bp抓包，看标头有flag</p>
-<h2 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h2><p>看一下robots.txt，再看&#x2F;flagishere.txt</p>
-<h2 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h2><p>根据提示输入index.phps,打开看flag</p>
-<h2 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h2><p>根据提示输入<a target="_blank" rel="noopener" href="http://www.zip,然后看index.php里面指向fl000g.txt,到这边拿到flag/">www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag</a></p>
-<h2 id="web7"><a href="#web7" class="headerlink" title="web7"></a>web7</h2><p>根据提示输入&#x2F;.git</p>
-<h2 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h2><p>输入&#x2F;.svn，都是常见的泄露</p>
-<h2 id="web9"><a href="#web9" class="headerlink" title="web9"></a>web9</h2><p>根据提示，输入index.php.swp,vim常见的泄露</p>
-<h2 id="web10"><a href="#web10" class="headerlink" title="web10"></a>web10</h2><p>直接抓包吧，看cookie得到flag</p>
-<h2 id="web11"><a href="#web11" class="headerlink" title="web11"></a>web11</h2><p>直接使用命令： nslookup -qt&#x3D;txt flag.ctfshow.com</p>
-<h2 id="web12"><a href="#web12" class="headerlink" title="web12"></a>web12</h2><p>先去看robots.txt，知道一个&#x2F;admin,默认管理员是admin，密码在网站下面372619038</p>
-<h2 id="web13"><a href="#web13" class="headerlink" title="web13"></a>web13</h2><p>划到最下面可以看到document,点进去给了文档</p>
+                <h2 id="web1"><a class="markdownIt-Anchor" href="#web1"></a> web1</h2>
+<p>右键看源码</p>
+<h2 id="web2"><a class="markdownIt-Anchor" href="#web2"></a> web2</h2>
+<p>CTRL+shift+i</p>
+<h2 id="web3"><a class="markdownIt-Anchor" href="#web3"></a> web3</h2>
+<p>用bp抓包，看标头有flag</p>
+<h2 id="web4"><a class="markdownIt-Anchor" href="#web4"></a> web4</h2>
+<p>看一下robots.txt，再看/flagishere.txt</p>
+<h2 id="web5"><a class="markdownIt-Anchor" href="#web5"></a> web5</h2>
+<p>根据提示输入index.phps,打开看flag</p>
+<h2 id="web6"><a class="markdownIt-Anchor" href="#web6"></a> web6</h2>
+<p>根据提示输入www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag</p>
+<h2 id="web7"><a class="markdownIt-Anchor" href="#web7"></a> web7</h2>
+<p>根据提示输入/.git</p>
+<h2 id="web8"><a class="markdownIt-Anchor" href="#web8"></a> web8</h2>
+<p>输入/.svn，都是常见的泄露</p>
+<h2 id="web9"><a class="markdownIt-Anchor" href="#web9"></a> web9</h2>
+<p>根据提示，输入index.php.swp,vim常见的泄露</p>
+<h2 id="web10"><a class="markdownIt-Anchor" href="#web10"></a> web10</h2>
+<p>直接抓包吧，看cookie得到flag</p>
+<h2 id="web11"><a class="markdownIt-Anchor" href="#web11"></a> web11</h2>
+<p>直接使用命令： nslookup -qt=txt <a target="_blank" rel="noopener" href="http://flag.ctfshow.com">flag.ctfshow.com</a></p>
+<h2 id="web12"><a class="markdownIt-Anchor" href="#web12"></a> web12</h2>
+<p>先去看robots.txt，知道一个/admin,默认管理员是admin，密码在网站下面372619038</p>
+<h2 id="web13"><a class="markdownIt-Anchor" href="#web13"></a> web13</h2>
+<p>划到最下面可以看到document,点进去给了文档</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">https://b8def508-478a-4a06-98e2-03816a76b5cb.challenge.ctf.show/system1103/login.php<br></code></pre></td></tr></table></figure>
-
-<p>admin&#x2F;admin1103</p>
-<h2 id="web14"><a href="#web14" class="headerlink" title="web14"></a>web14</h2><p>hint：不经意间泄露重要(editor)的信息,默认配置害死人</p>
-<p>先去editor,发现插入的文件 ，在文件空间中找文件插入是服务器中的文件，于是浏览一下目录 在var&#x2F;www&#x2F;html目录 中，存在 一个nothinghere有一个文件 fl000g.txt 直接访问这个fl000g.txt 即可获得flag</p>
-<h2 id="web15"><a href="#web15" class="headerlink" title="web15"></a>web15</h2><p>提醒看邮箱</p>
-<p><a href="mailto:&#x31;&#49;&#53;&#x36;&#x36;&#51;&#x31;&#57;&#x36;&#49;&#64;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;">&#x31;&#49;&#53;&#x36;&#x36;&#51;&#x31;&#57;&#x36;&#49;&#64;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;</a>，去qq看一下，得知地点西安，得到密码，在&#x2F;admin里面进行，得到flag</p>
-<h2 id="web16"><a href="#web16" class="headerlink" title="web16"></a>web16</h2><p>测试用的探针，使用完毕后要及时删除，可能会造成信息泄露</p>
-<p>&#x2F;tz.php然后跟进?act&#x3D;phpinfo</p>
-<h2 id="web17"><a href="#web17" class="headerlink" title="web17"></a>web17</h2><p>备份的sql文件会泄露敏感信息</p>
-<p>所以 &#x2F;backup.sql 下载一个数据库文件打开得到 flag</p>
-<h2 id="web18"><a href="#web18" class="headerlink" title="web18"></a>web18</h2><p>f12查看源码，然后根据提示进入 js 找到关键 score&gt;100，将得到的字符 Unicode 转换得到 “你赢了，去幺幺零点皮爱吃皮看看”，进入 110.php 得到 flag</p>
-<h2 id="web19"><a href="#web19" class="headerlink" title="web19"></a>web19</h2><p>根据提示，f12 查看源代码，根据逻辑 post 请求 <code>username=admin&amp;pazzword=a599ac85a73384ee3219fa684296eaa62667238d608efa81837030bd1ce1bf04</code> 得到 flag</p>
-<h2 id="web20"><a href="#web20" class="headerlink" title="web20"></a>web20</h2><p>mdb文件是早期asp+access构架的数据库文件，文件泄露相当于数据库被脱裤了。</p>
-<p>根据提示 &#x2F;db.mdb 打开得到 flag</p>
-<h2 id="web21"><a href="#web21" class="headerlink" title="web21"></a>web21</h2><p>进入环境直接弹出登录框，附件字典拿去 bp 爆破，随便输入一个密码抓包能发现进行了 base 编码，解码一下能发现是<code>用户:密码</code>这种形式，爆破的时候需要注意 base 编码。 admin:shark63</p>
-<h2 id="web22"><a href="#web22" class="headerlink" title="web22"></a>web22</h2><p>爆破子域名，子域名失效爆不出来了</p>
-<h2 id="web23"><a href="#web23" class="headerlink" title="web23"></a>web23</h2><p>分析代码：变量 token 被 md5 加密，它的第一位 &#x3D; 第十四位 &#x3D; 第十七位，化为整数后（第一位 + 第十四位 + 第十七位）&#x2F; 第一位 &#x3D; 第三十一位，可获得 flag。bp 爆破 token，数字1202 得到 flag</p>
-<h2 id="web24"><a href="#web24" class="headerlink" title="web24"></a>web24</h2><p>php 伪随机数</p>
+<p>admin/admin1103</p>
+<h2 id="web14"><a class="markdownIt-Anchor" href="#web14"></a> web14</h2>
+<p>hint：不经意间泄露重要(editor)的信息,默认配置害死人</p>
+<p>先去editor,发现插入的文件 ，在文件空间中找文件插入是服务器中的文件，于是浏览一下目录 在var/www/html目录 中，存在 一个nothinghere有一个文件 fl000g.txt 直接访问这个fl000g.txt 即可获得flag</p>
+<h2 id="web15"><a class="markdownIt-Anchor" href="#web15"></a> web15</h2>
+<p>提醒看邮箱</p>
+<p><a href="mailto:1156631961@qq.com">1156631961@qq.com</a>，去qq看一下，得知地点西安，得到密码，在/admin里面进行，得到flag</p>
+<h2 id="web16"><a class="markdownIt-Anchor" href="#web16"></a> web16</h2>
+<p>测试用的探针，使用完毕后要及时删除，可能会造成信息泄露</p>
+<p>/tz.php然后跟进?act=phpinfo</p>
+<h2 id="web17"><a class="markdownIt-Anchor" href="#web17"></a> web17</h2>
+<p>备份的sql文件会泄露敏感信息</p>
+<p>所以 /backup.sql 下载一个数据库文件打开得到 flag</p>
+<h2 id="web18"><a class="markdownIt-Anchor" href="#web18"></a> web18</h2>
+<p>f12查看源码，然后根据提示进入 js 找到关键 score&gt;100，将得到的字符 Unicode 转换得到 “你赢了，去幺幺零点皮爱吃皮看看”，进入 110.php 得到 flag</p>
+<h2 id="web19"><a class="markdownIt-Anchor" href="#web19"></a> web19</h2>
+<p>根据提示，f12 查看源代码，根据逻辑 post 请求 <code>username=admin&amp;pazzword=a599ac85a73384ee3219fa684296eaa62667238d608efa81837030bd1ce1bf04</code> 得到 flag</p>
+<h2 id="web20"><a class="markdownIt-Anchor" href="#web20"></a> web20</h2>
+<p>mdb文件是早期asp+access构架的数据库文件，文件泄露相当于数据库被脱裤了。</p>
+<p>根据提示 /db.mdb 打开得到 flag</p>
+<h2 id="web21"><a class="markdownIt-Anchor" href="#web21"></a> web21</h2>
+<p>进入环境直接弹出登录框，附件字典拿去 bp 爆破，随便输入一个密码抓包能发现进行了 base 编码，解码一下能发现是<code>用户:密码</code>这种形式，爆破的时候需要注意 base 编码。 admin:shark63</p>
+<h2 id="web22"><a class="markdownIt-Anchor" href="#web22"></a> web22</h2>
+<p>爆破子域名，子域名失效爆不出来了</p>
+<h2 id="web23"><a class="markdownIt-Anchor" href="#web23"></a> web23</h2>
+<p>分析代码：变量 token 被 md5 加密，它的第一位 = 第十四位 = 第十七位，化为整数后（第一位 + 第十四位 + 第十七位）/ 第一位 = 第三十一位，可获得 flag。bp 爆破 token，数字1202 得到 flag</p>
+<h2 id="web24"><a class="markdownIt-Anchor" href="#web24"></a> web24</h2>
+<p>php 伪随机数</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">mt_srand</span>(<span class="hljs-number">372619038</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">intval</span>(<span class="hljs-title function_ invoke__">mt_rand</span>());<br><span class="hljs-meta">?&gt;</span><br><br>&gt;<span class="hljs-number">1155388967</span><br></code></pre></td></tr></table></figure>
-
-<p>get 传入 r &#x3D; 1155388967 得到 flag</p>
-<h2 id="web25"><a href="#web25" class="headerlink" title="web25"></a>web25</h2><p>直接看官p方法一致。</p>
-<h2 id="web26"><a href="#web26" class="headerlink" title="web26"></a>web26</h2><p>bp 登录页直接抓包，repeater 发送看 response 得到 flag</p>
-<h2 id="web27"><a href="#web27" class="headerlink" title="web27"></a>web27</h2><p>下载录取名单，对名单中缺失的部分进行爆破，选择日期模式，从1980 开始爆破，得出日期去学籍信息查询系统查询学号，登录教务管理系统得到 flag</p>
-<h2 id="web28"><a href="#web28" class="headerlink" title="web28"></a>web28</h2><p>一看目录有问题，对目录进行爆破，把2.txt 去掉使用 Cluster bomb 模式爆破从 0-100 的数字，查看状态码 200 的包得到 flag</p>
+<p>get 传入 r = 1155388967 得到 flag</p>
+<h2 id="web25"><a class="markdownIt-Anchor" href="#web25"></a> web25</h2>
+<p>直接看官p方法一致。</p>
+<h2 id="web26"><a class="markdownIt-Anchor" href="#web26"></a> web26</h2>
+<p>bp 登录页直接抓包，repeater 发送看 response 得到 flag</p>
+<h2 id="web27"><a class="markdownIt-Anchor" href="#web27"></a> web27</h2>
+<p>下载录取名单，对名单中缺失的部分进行爆破，选择日期模式，从1980 开始爆破，得出日期去学籍信息查询系统查询学号，登录教务管理系统得到 flag</p>
+<h2 id="web28"><a class="markdownIt-Anchor" href="#web28"></a> web28</h2>
+<p>一看目录有问题，对目录进行爆破，把2.txt 去掉使用 Cluster bomb 模式爆破从 0-100 的数字，查看状态码 200 的包得到 flag</p>
 
                 
               </div>
@@ -781,6 +811,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 

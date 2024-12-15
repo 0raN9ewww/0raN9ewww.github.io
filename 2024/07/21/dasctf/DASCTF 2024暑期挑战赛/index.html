@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下 Miscpng_master 第一部分：010分析，结尾有类似base64解密的部分提取出来解密 得到第一段内容 Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.flag1:DASCTF{2f">
+    <meta name="description" content="孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下  Misc  png_master  第一部分：010分析，结尾有类似base64解密的部分提取出来解密 得到第一段内容 Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning. flag1:DASC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dasctf夏-复盘">
 <meta property="og:url" content="https://0ran9ewww.github.io/2024/07/21/dasctf/DASCTF%202024%E6%9A%91%E6%9C%9F%E6%8C%91%E6%88%98%E8%B5%9B/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下 Miscpng_master 第一部分：010分析，结尾有类似base64解密的部分提取出来解密 得到第一段内容 Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.flag1:DASCTF{2f">
+<meta property="og:description" content="孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下  Misc  png_master  第一部分：010分析，结尾有类似base64解密的部分提取出来解密 得到第一段内容 Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning. flag1:DASC">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/polarctf2024%E5%A4%8F/banner.jpg">
 <meta property="article:published_time" content="2024-07-21T03:00:00.000Z">
@@ -116,7 +116,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -336,24 +340,27 @@
               <div class="markdown-body">
                 
                 <p>孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下</p>
-<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="png-master"><a href="#png-master" class="headerlink" title="png_master"></a>png_master</h2><p><img src="/../../images/DASCTF/2024%E5%A4%8F/flag.png" srcset="/img/loading.gif" lazyload alt="flag"></p>
+<h1 id="misc"><a class="markdownIt-Anchor" href="#misc"></a> Misc</h1>
+<h2 id="png_master"><a class="markdownIt-Anchor" href="#png_master"></a> png_master</h2>
+<p><img src="/../../images/DASCTF/2024%E5%A4%8F/flag.png" srcset="/img/loading.gif" lazyload alt="flag"></p>
 <p>第一部分：010分析，结尾有类似base64解密的部分提取出来解密</p>
 <p>得到第一段内容</p>
-<p>Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.<br><strong>flag1:DASCTF{2fd9e9ff-e27</strong></p>
+<p>Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.<br>
+<strong>flag1:DASCTF{2fd9e9ff-e27</strong></p>
 <p>第二部分：</p>
 <p>使用stegsolve来获得</p>
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <p><strong>flag2:d-5405-c5f5-</strong></p>
 <p>第三部分:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br>Image=Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C:/Users/30226/Desktop/DASCTF/tempdir/MISC附件/flag.png&#x27;</span>)<br>Image.save(<span class="hljs-string">&#x27;a.png&#x27;</span>)<br></code></pre></td></tr></table></figure>
-
 <p>利用010进行对比发现IDAT多了一个很长的部分</p>
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <p>把这部分单独读取出来，加上png头，得到图片</p>
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
 <p>得到<strong>a19131f86216}</strong></p>
 <p>最后的flag是<strong>DASCTF{2fd9e9ff-e27d-5405-c5f5-a19131f86216}</strong></p>
-<h2 id="EZ-zip"><a href="#EZ-zip" class="headerlink" title="EZ_zip"></a>EZ_zip</h2><p>跟着复现一遍吧，感觉是提示点。</p>
+<h2 id="ez_zip"><a class="markdownIt-Anchor" href="#ez_zip"></a> EZ_zip</h2>
+<p>跟着复现一遍吧，感觉是提示点。</p>
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/c.png" srcset="/img/loading.gif" lazyload alt="c"></p>
 <p>zip文件损坏的问题</p>
 <p>使用010对两个地方进行修改，再进行解压</p>
@@ -361,23 +368,23 @@
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/b.png" srcset="/img/loading.gif" lazyload alt="b"></p>
 <p>后面就不明白了，直接引用套神的吧</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python">![解密](../../images/DASCTF/<span class="hljs-number">2024</span>夏/解密.png)<span class="hljs-keyword">import</span> pyzipper<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">crack_zip</span>(<span class="hljs-params">zip_file_path</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">256</span>):<br>        password = <span class="hljs-built_in">bytes</span>([i])<br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-keyword">with</span> pyzipper.AESZipFile(zip_file_path, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> zip_ref:<br>                zip_ref.extractall(pwd=password)<br>                extracted_files = zip_ref.namelist()<br>                <span class="hljs-keyword">if</span> extracted_files:<br>                    <span class="hljs-keyword">return</span> password, extracted_files[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>, <span class="hljs-literal">None</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    current_zip = <span class="hljs-string">&#x27;320.zip&#x27;</span><br>    all_passwords = <span class="hljs-string">&#x27;&#x27;</span><br><br>    <span class="hljs-keyword">while</span> current_zip:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Cracking <span class="hljs-subst">&#123;current_zip&#125;</span>...&#x27;</span>)<br>        password, next_zip = crack_zip(current_zip)<br>        <span class="hljs-keyword">if</span> password:<br>            all_passwords += password.<span class="hljs-built_in">hex</span>()<br>            current_zip = next_zip<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;Failed to crack <span class="hljs-subst">&#123;current_zip&#125;</span>&#x27;</span>)<br>            <span class="hljs-keyword">break</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;All passwords: <span class="hljs-subst">&#123;all_passwords&#125;</span>&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br><br></code></pre></td></tr></table></figure>
-
 <p>得到密码</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">1bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec6<br></code></pre></td></tr></table></figure>
-
 <p>并且得到一个AES-ECB.txt</p>
 <p>明显观察到这个密码是重复的<code>11bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec6</code></p>
 <p>然后得到AES的内容是<code>64ZpNmbv2Hg4Jj9bH8Kv6D3OBliD9hgyI3vZWfMDJs2TcEwVnBmH/zkBtPBE3g8e the key may be on your journey？</code></p>
 <p>尝试用这个密码当aes的密码不对，猜测是解压顺序是从320–&gt;1，而密码顺序是1–&gt;320，因此需要反过来</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">c64e5e2225444a9da66b0f28ad718f798cffa70a48124ec5873a610c5899bb11<br></code></pre></td></tr></table></figure>
-
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/%E8%A7%A3%E5%AF%86.png" srcset="/img/loading.gif" lazyload alt="解密"></p>
 <p><strong>DASCTF{514755c6-8280-463c-8378-a29702fc88df}</strong></p>
-<h1 id="Re"><a href="#Re" class="headerlink" title="Re"></a>Re</h1><h2 id="DosSnake"><a href="#DosSnake" class="headerlink" title="DosSnake"></a>DosSnake</h2><p>ida打开，定位到dasctf</p>
+<h1 id="re"><a class="markdownIt-Anchor" href="#re"></a> Re</h1>
+<h2 id="dossnake"><a class="markdownIt-Anchor" href="#dossnake"></a> DosSnake</h2>
+<p>ida打开，定位到dasctf</p>
 <p>这段部分的内容与dasctf进行xor得到flag</p>
 <p><img src="/../../images/DASCTF/2024%E5%A4%8F/re.png" srcset="/img/loading.gif" lazyload alt="re"></p>
-<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="complex-enc"><a href="#complex-enc" class="headerlink" title="complex_enc"></a>complex_enc</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">cipher, key</span>):<br>    decrypted_bits = [<span class="hljs-number">0</span>] * <span class="hljs-built_in">len</span>(key)  <span class="hljs-comment"># 初始化为与密钥相同长度的比特流</span><br><br>    <span class="hljs-comment"># 逆序遍历密钥，逐步恢复比特流</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(key) - <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):<br>        <span class="hljs-keyword">if</span> cipher &gt;= key[i]:<br>            cipher -= key[i]<br>            decrypted_bits[i] = <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">return</span> decrypted_bits<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bits_to_bytes</span>(<span class="hljs-params">bits</span>):<br>    byte_array = <span class="hljs-built_in">bytearray</span>()<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(bits), <span class="hljs-number">8</span>):<br>        byte = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> bit <span class="hljs-keyword">in</span> bits[i:i+<span class="hljs-number">8</span>]:<br>            byte = (byte &lt;&lt; <span class="hljs-number">1</span>) | bit<br>        byte_array.append(byte)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>(byte_array)<br><br><span class="hljs-comment"># 手动输入密文和密钥</span><br>cipher = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入密文 (c): &quot;</span>))<br>key_input = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入密钥 (key): &quot;</span>)<br>key = <span class="hljs-built_in">eval</span>(key_input)<br><br><span class="hljs-comment"># 解密密文</span><br>decrypted_bits = decrypt(cipher, key)<br>decrypted_bytes = bits_to_bytes(decrypted_bits)<br><br><span class="hljs-comment"># 打印解密后的内容</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted bytes (hex):&quot;</span>, decrypted_bytes.<span class="hljs-built_in">hex</span>())<br><span class="hljs-keyword">try</span>:<br>    flag = decrypted_bytes.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted flag (decoded):&quot;</span>, flag)<br><span class="hljs-keyword">except</span> UnicodeDecodeError:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted flag contains non-UTF-8 bytes.&quot;</span>)<br></code></pre></td></tr></table></figure>
-
+<h1 id="crypto"><a class="markdownIt-Anchor" href="#crypto"></a> Crypto</h1>
+<h2 id="complex_enc"><a class="markdownIt-Anchor" href="#complex_enc"></a> complex_enc</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">cipher, key</span>):<br>    decrypted_bits = [<span class="hljs-number">0</span>] * <span class="hljs-built_in">len</span>(key)  <span class="hljs-comment"># 初始化为与密钥相同长度的比特流</span><br><br>    <span class="hljs-comment"># 逆序遍历密钥，逐步恢复比特流</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(key) - <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):<br>        <span class="hljs-keyword">if</span> cipher &gt;= key[i]:<br>            cipher -= key[i]<br>            decrypted_bits[i] = <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">return</span> decrypted_bits<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bits_to_bytes</span>(<span class="hljs-params">bits</span>):<br>    byte_array = <span class="hljs-built_in">bytearray</span>()<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(bits), <span class="hljs-number">8</span>):<br>        byte = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> bit <span class="hljs-keyword">in</span> bits[i:i+<span class="hljs-number">8</span>]:<br>            byte = (byte &lt;&lt; <span class="hljs-number">1</span>) | bit<br>        byte_array.append(byte)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>(byte_array)<br><br><span class="hljs-comment"># 手动输入密文和密钥</span><br>cipher = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入密文 (c): &quot;</span>))<br>key_input = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入密钥 (key): &quot;</span>)<br>key = <span class="hljs-built_in">eval</span>(key_input)<br><br><span class="hljs-comment"># 解密密文</span><br>decrypted_bits = decrypt(cipher, key)<br>decrypted_bytes = bits_to_bytes(decrypted_bits)<br><br><span class="hljs-comment"># 打印解密后的内容</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted bytes (hex):&quot;</span>, decrypted_bytes.<span class="hljs-built_in">hex</span>())<br><span class="hljs-keyword">try</span>:<br>    flag = decrypted_bytes.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted flag (decoded):&quot;</span>, flag)<br><span class="hljs-keyword">except</span> UnicodeDecodeError:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted flag contains non-UTF-8 bytes.&quot;</span>)<br></code></pre></td></tr></table></figure>
 <p>背包密码</p>
 
                 
@@ -789,6 +796,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 

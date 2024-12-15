@@ -102,7 +102,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -267,6 +271,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/09/07/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-jwt/" target="_self">
+          ctfshow-jwt
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/07/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-jwt/" target="_self">
+        <div>
+          题目  web345 打开查看页面源码提示/admin/，抓包看看有没有东西，发现是jwt，放jwt.io里看一下没有加密方式，那就是简单的base64进行转化，这里利用hackerbar进行发包 1&#123;&quot;alg&quot;:&quot;None&quot;,&quot;typ&quot;:&quot;jwt&quot;&#125;[&#123;&quot;iss&quot;:
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-07 22:20" pubdate>
+              2024-09-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="category-chain-item">每日一题</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/jwt/">#jwt</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/09/04/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2019ciscn-ikun/" target="_self">
           2019ciscn-ikun
         </a>
@@ -275,7 +340,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/09/04/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2019ciscn-ikun/" target="_self">
         <div>
-          题目在线靶场 一个生成的网站，有提示需要买到Lv6，然后就没有然后了 分析下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页 点击图片看名称，src=&quot;/static/img/lv/lv3.png&quot;写脚本爆一下看看哪页有lv6.png的内容 12345678import requestsurl = &quot;http://c66eb3e7-b146-49bb-b9c7-e5
+          题目 在线靶场 一个生成的网站，有提示需要买到Lv6，然后就没有然后了  分析 下面有很多Lv2-Lv5的，可以尝试写个脚本找到网页 点击图片看名称，src=&quot;/static/img/lv/lv3.png&quot;写脚本爆一下看看哪页有lv6.png的内容 12345678import requestsurl = &quot;http://c66eb3e7-b146-49bb-b9c
         </div>
       </a>
 
@@ -338,7 +403,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/09/03/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/XGCTF-Ezzz_php/" target="_self">
         <div>
-          题目在线靶场 1234567891011121314151617181920212223242526272829303132 &lt;?php highlight_file(__FILE__);error_reporting(0);function substrstr($data)&#123;    $start = mb_strpos($data, &quot;[&quot;);    $end
+          题目 在线靶场 1234567891011121314151617181920212223242526272829303132 &lt;?php highlight_file(__FILE__);error_reporting(0);function substrstr($data)&#123;    $start = mb_strpos($data, &quot;[&quot;);    $e
         </div>
       </a>
 
@@ -399,7 +464,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/09/02/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/2023ciscn-Unzip/" target="_self">
         <div>
-          前言：😋，看到好友包师傅每日一题，我也打算开个每日一题，记录一下内容。 题目[在线靶场][https://ctf.show/challenges#Unzip-4002] 初始界面是一个文件上传，随手上传一个一句话木马，进入页面。 12345678910 &lt;?phperror_reporting(0);highlight_file(__FILE__);$finfo = finfo_open(
+          前言：😋，看到好友包师傅每日一题，我也打算开个每日一题，记录一下内容。  题目 [在线靶场][https://ctf.show/challenges#Unzip-4002] 初始界面是一个文件上传，随手上传一个一句话木马，进入页面。 12345678910 &lt;?phperror_reporting(0);highlight_file(__FILE__);$finfo = finfo_ope
         </div>
       </a>
 
@@ -466,7 +531,7 @@
       
       <a class="index-excerpt " href="/2024/09/02/%E6%9D%82%E8%B0%88/%E8%AE%B0%E4%B8%80%E6%AC%A1GZCTF%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%8A%A8%E6%80%81%E5%AE%B9%E5%99%A8/" target="_self">
         <div>
-          前言：因为学校需要招新生要搭建平台，简单的学习了一下。 GZCTF配置环境 ubuntu 22.04 第一步更新源 1sudo apt update    第二步安装docker和docker-compose 1sudo apt install docker.io docker-compose  中途按Y和Enter即可。 第三步docker换源 由于docker今年在中国地区的限制，需要换源才能
+          前言：因为学校需要招新生要搭建平台，简单的学习了一下。  GZCTF配置 环境 ubuntu 22.04  第一步 更新源 1sudo apt update    第二步 安装docker和docker-compose 1sudo apt install docker.io docker-compose 中途按Y和Enter即可。  第三步 docker换源 由于docker今年在中国地区的限制，
         </div>
       </a>
 
@@ -533,7 +598,7 @@
       
       <a class="index-excerpt " href="/2024/08/28/nepctf/nepctf2024/" target="_self">
         <div>
-          MiscNemophila123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566import base64print(&quot;这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋
+          Misc  Nemophila 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566import base64print(&quot;这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得
         </div>
       </a>
 
@@ -604,7 +669,7 @@
       
       <a class="index-excerpt " href="/2024/08/21/basectf/basectf2024/" target="_self">
         <div>
-          Week1Cryptohello_crypto12345678910111213141516171819from Crypto.Util.number import long_to_bytesfrom Crypto.Cipher import AESfrom Crypto.Util.Padding import unpad# 已知的 key1 和密文key1 = 20879775995328839
+          Week1  Crypto  hello_crypto 12345678910111213141516171819from Crypto.Util.number import long_to_bytesfrom Crypto.Cipher import AESfrom Crypto.Util.Padding import unpad# 已知的 key1 和密文key1 = 20879775995
         </div>
       </a>
 
@@ -671,7 +736,7 @@
       
       <a class="index-excerpt " href="/2024/08/04/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAPHP%E5%BC%BA%E5%BC%B1%E6%AF%94%E8%BE%83/" target="_self">
         <div>
-          鉴于最近打的一个比赛，来了解一下ctf中经常出现的弱等于强等于的问题 PHP弱类型Q1:二者弱比教这部分内容自己检索，简要的说==的情况下，左右两边的类型会进行转化。 举个例子来说 123456789&lt;?phpshow_source(__FILE__);$a=$_GET[&#x27;a&#x27;];$b=$_GET[&#x27;b&#x27;];if($a != $b&amp;&amp;
+          鉴于最近打的一个比赛，来了解一下ctf中经常出现的弱等于强等于的问题  PHP弱类型  Q1:二者弱比教 这部分内容自己检索，简要的说==的情况下，左右两边的类型会进行转化。 举个例子来说 123456789&lt;?phpshow_source(__FILE__);$a=$_GET[&#x27;a&#x27;];$b=$_GET[&#x27;b&#x27;];if($a != $b&amp;&a
         </div>
       </a>
 
@@ -742,7 +807,7 @@
       
       <a class="index-excerpt " href="/2024/07/21/dasctf/DASCTF%202024%E6%9A%91%E6%9C%9F%E6%8C%91%E6%88%98%E8%B5%9B/" target="_self">
         <div>
-          孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下 Miscpng_master 第一部分：010分析，结尾有类似base64解密的部分提取出来解密 得到第一段内容 Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.flag1:DASCTF{2f
+          孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下  Misc  png_master  第一部分：010分析，结尾有类似base64解密的部分提取出来解密 得到第一段内容 Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning. flag1:DASC
         </div>
       </a>
 
@@ -805,7 +870,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/07/16/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/sql%E6%B3%A8%E5%85%A5/" target="_self">
         <div>
-          前言:系统的再复习总结一次sql注入，最近比赛比较少见了，但还是要学会的。 一、sql注入的概念SQL注入（SQL Injection）是一种网络攻击技术，攻击者通过在输入字段中插入恶意的SQL代码，利用应用程序对用户输入处理不当的漏洞，诱使其执行未经授权的SQL查询。这种攻击可以导致数据库中的敏感数据泄露、数据篡改或删除，甚至让攻击者获得对整个数据库系统的控制。SQL注入常见于不安全的Web应用
+          前言:系统的再复习总结一次sql注入，最近比赛比较少见了，但还是要学会的。  一、sql注入的概念 SQL注入（SQL Injection）是一种网络攻击技术，攻击者通过在输入字段中插入恶意的SQL代码，利用应用程序对用户输入处理不当的漏洞，诱使其执行未经授权的SQL查询。这种攻击可以导致数据库中的敏感数据泄露、数据篡改或删除，甚至让攻击者获得对整个数据库系统的控制。SQL注入常见于不安全的Web
         </div>
       </a>
 
@@ -845,67 +910,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/sql%E6%B3%A8%E5%85%A5/">#sql注入</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/03/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" target="_self">
-          ssti模板注入学习
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/03/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/ssti%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" target="_self">
-        <div>
-          前言:主要讲的python的jinjia2,如果以后遇到其他相关的会继续补充。 参考文章: 1.SSTI（模板注入）漏洞（入门篇) 2.SSTI模板注入总结 3.Python模板注入(SSTI)深入学习 4.SSTI模板注入绕过(进阶篇) 5.CTFshow刷题日记-WEB-SSTI(web361-372)_ctfshow ssti 371-CSDN博客 一、基础知识1.初步了解SSTI就是服务器
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-03 13:10" pubdate>
-              2024-07-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/web/" class="category-chain-item">web</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ssti/">#ssti</a>
             
           </div>
         
@@ -1070,6 +1074,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 

@@ -102,7 +102,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -265,6 +269,73 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2024/11/11/cve%E5%A4%8D%E7%8E%B0/Pluck-CMS%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9ECVE-2023-50564/" target="_self">
+          <img src="/images/cve%E5%A4%8D%E7%8E%B0/background.png" srcset="/img/loading.gif" lazyload alt="Pluck-CMS任意文件上传漏洞CVE-2023-50564">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/11/11/cve%E5%A4%8D%E7%8E%B0/Pluck-CMS%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9ECVE-2023-50564/" target="_self">
+          Pluck-CMS任意文件上传漏洞CVE-2023-50564
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2024/11/11/cve%E5%A4%8D%E7%8E%B0/Pluck-CMS%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9ECVE-2023-50564/" target="_self">
+        <div>
+          靶标介绍 Pluck-CMS v4.7.18 中的 /inc/modules_install.php 组件，攻击者可以通过上传一个精心制作的 ZIP 文件来执行任意代码。  影响范围 Pluck-CMS的对应版本  信息收集  fofa “Pluck-CMS”(没怎么搜到，只有几个)  复现 进入靶场点击admin,进入管理页面，弱密码字典爆一下是admin123  让后在install a m
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-11-11 20:00" pubdate>
+              2024-11-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/cve%E5%A4%8D%E7%8E%B0/" class="category-chain-item">cve复现</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">#文件上传</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2024/11/10/cve%E5%A4%8D%E7%8E%B0/Jorani%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%20CVE-2023-26469/" target="_self">
           <img src="/images/cve%E5%A4%8D%E7%8E%B0/background.png" srcset="/img/loading.gif" lazyload alt="Jorani远程命令执行漏洞 CVE-2023-26469">
         </a>
@@ -281,7 +352,7 @@
       
       <a class="index-excerpt " href="/2024/11/10/cve%E5%A4%8D%E7%8E%B0/Jorani%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%20CVE-2023-26469/" target="_self">
         <div>
-          前言:最近比较浮躁，刷了一会玄机之后也不想打比赛，来春秋云镜复现看看cve吧 靶标介绍Jorani是一款开源的员工考勤和休假管理系统，适用于中小型企业和全球化组织，它简化了员工工时记录、休假请求和审批流程，并提供了多语言支持以满足不同地区的需求。在 Jorani 1.0.0 中，攻击者可以利用路径遍历来访问文件并在服务器上执行代码。 影响范围Jorani &lt; 1.0.2 信息收集fofati
+          前言:最近比较浮躁，刷了一会玄机之后也不想打比赛，来春秋云镜复现看看cve吧  靶标介绍 Jorani是一款开源的员工考勤和休假管理系统，适用于中小型企业和全球化组织，它简化了员工工时记录、休假请求和审批流程，并提供了多语言支持以满足不同地区的需求。在 Jorani 1.0.0 中，攻击者可以利用路径遍历来访问文件并在服务器上执行代码。  影响范围 Jorani &lt; 1.0.2  信息收集
         </div>
       </a>
 
@@ -348,7 +419,7 @@
       
       <a class="index-excerpt " href="/2024/11/09/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-ssrf/" target="_self">
         <div>
-          web3511234567891011&lt;?phperror_reporting(0);highlight_file(__FILE__);$url=$_POST[&#x27;url&#x27;];$ch=curl_init($url);curl_setopt($ch, CURLOPT_HEADER, 0);curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+          web351 1234567891011&lt;?phperror_reporting(0);highlight_file(__FILE__);$url=$_POST[&#x27;url&#x27;];$ch=curl_init($url);curl_setopt($ch, CURLOPT_HEADER, 0);curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1
         </div>
       </a>
 
@@ -415,7 +486,7 @@
       
       <a class="index-excerpt " href="/2024/11/07/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-xss/" target="_self">
         <div>
-          前置知识XSS（Cross-Site Scripting，跨站脚本攻击）是一种常见的安全漏洞，攻击者通过在网页中注入恶意脚本代码，诱使用户执行这些代码，从而实现窃取信息、伪造身份、篡改网页内容等攻击。 XSS 攻击可以分为三种主要类型：  反射型 XSS（Reflected XSS）：攻击者通过诱使受害者访问带有恶意脚本的 URL（如通过电子邮件链接、搜索引擎等），恶意脚本被即时执行并在用户的浏览
+          前置知识 XSS（Cross-Site Scripting，跨站脚本攻击）是一种常见的安全漏洞，攻击者通过在网页中注入恶意脚本代码，诱使用户执行这些代码，从而实现窃取信息、伪造身份、篡改网页内容等攻击。 XSS 攻击可以分为三种主要类型：   反射型 XSS（Reflected XSS）：攻击者通过诱使受害者访问带有恶意脚本的 URL（如通过电子邮件链接、搜索引擎等），恶意脚本被即时执行并在用户
         </div>
       </a>
 
@@ -482,7 +553,7 @@
       
       <a class="index-excerpt " href="/2024/11/04/Newstar/Newstar2024/" target="_self">
         <div>
-          前言:后面也没怎么打了，又没时间自己又笨，抄个冷饭放上来吧。 week1Signinez_answer正常答题老实一点就出flag了，正常的规则 Miscdecompress前几层正常的解压，到最后一层有hint提示，是正则提示简单的看一下，一共是五位密码，前三位是小写字母，第四位数字，第五位是小写字母，用常见的爆破工具进行爆破一下就行，需要十分钟左右的时间吧爆破出来的密码是xtr4m，进去打开第
+          前言:后面也没怎么打了，又没时间自己又笨，抄个冷饭放上来吧。  week1  Signin  ez_answer 正常答题老实一点就出flag了，正常的规则  Misc  decompress 前几层正常的解压，到最后一层有hint提示，是正则提示简单的看一下，一共是五位密码，前三位是小写字母，第四位数字，第五位是小写字母，用常见的爆破工具进行爆破一下就行，需要十分钟左右的时间吧爆破出来的密码是x
         </div>
       </a>
 
@@ -549,7 +620,7 @@
       
       <a class="index-excerpt " href="/2024/11/04/%E5%BC%BA%E7%BD%91%E6%9D%AF/%E5%BC%BA%E7%BD%91%E6%9D%AF2024%E5%88%9D%E8%B5%9B/" target="_self">
         <div>
-          前言：劳累了两天也估计没捞到强网先锋，明年不组校队了，和好基友一起打，下面是写出来的wp. cryptoEasyRSA原题，参考链接challenges&#x2F;crypto&#x2F;RSA&#x2F;huwangbei2019_Crypto1 at d7982b92088b0721a7e5d39e8b435eef342f0a43 · f61d&#x2F;challenges (github.
+          前言：劳累了两天也估计没捞到强网先锋，明年不组校队了，和好基友一起打，下面是写出来的wp.  crypto  EasyRSA 原题，参考链接challenges/crypto/RSA/huwangbei2019_Crypto1 at d7982b92088b0721a7e5d39e8b435eef342f0a43 · f61d/challenges (github.com) 注意nc之后不要再懂否
         </div>
       </a>
 
@@ -616,7 +687,7 @@
       
       <a class="index-excerpt " href="/2024/10/30/shctf/shctf2024/" target="_self">
         <div>
-          总排第28名,后续会对web复现 week1Misc签到题公众号发对应内容就可以得到flag Rasterizing Traffic给的流量包，wireshark导出全部内容，中间的三个flag拼接是假的 最后一个导入010得到一个图片，网上搜索了一番知道是光栅隐写吧（是这么叫嘛）直接上exp，会跑出五个图片，拼接一下就行 123456789from PIL import Imageimport
+          总排第28名,后续会对web复现  week1  Misc  签到题 公众号发对应内容就可以得到flag  Rasterizing Traffic 给的流量包，wireshark导出全部内容，中间的三个flag拼接是假的 最后一个导入010得到一个图片，网上搜索了一番知道是光栅隐写吧（是这么叫嘛）直接上exp，会跑出五个图片，拼接一下就行 123456789from PIL import Imag
         </div>
       </a>
 
@@ -683,7 +754,7 @@
       
       <a class="index-excerpt " href="/2024/10/30/%E7%BD%91%E9%BC%8E%E6%9D%AF/2024/2024%E7%BD%91%E9%BC%8E%E6%9D%AF%E9%9D%92%E9%BE%99%E7%BB%84%E5%88%9D%E8%B5%9B/" target="_self">
         <div>
-          前言:没什么好写的，自己基本零输出，原来不打算写的，到底还是抄个冷饭吧。只写写我这里有的wp，关注我的n0o0b鸽鸽的博客说不定能蹲到其他的。 Cryptocrypto1可能这就是原题杯的魅力吧，每个方向都有原题，该题最近的一次出现是2023年的领航杯的密码题，原题应该是一场国际赛的密码题 题目是p和q两个的同时高位泄露,e未知，直接上exp了 12345678910111213141516171
+          前言:没什么好写的，自己基本零输出，原来不打算写的，到底还是抄个冷饭吧。只写写我这里有的wp，关注我的n0o0b鸽鸽的博客说不定能蹲到其他的。  Crypto  crypto1 可能这就是原题杯的魅力吧，每个方向都有原题，该题最近的一次出现是2023年的领航杯的密码题，原题应该是一场国际赛的密码题 题目是p和q两个的同时高位泄露,e未知，直接上exp了 1234567891011121314151
         </div>
       </a>
 
@@ -750,7 +821,7 @@
       
       <a class="index-excerpt " href="/2024/10/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/LCTF2018-bestphp&#39;s%20revenge/" target="_self">
         <div>
-          前言:今天在学习php的原生类的时候看到的题，学习一下吧。 题目在线靶场 题目源码 123456789101112 &lt;?phphighlight_file(__FILE__);$b = &#x27;implode&#x27;;call_user_func($_GET[&#x27;f&#x27;], $_POST);session_start();if (isset($_GET[&#x27;n
+          前言:今天在学习php的原生类的时候看到的题，学习一下吧。  题目 在线靶场 题目源码 123456789101112 &lt;?phphighlight_file(__FILE__);$b = &#x27;implode&#x27;;call_user_func($_GET[&#x27;f&#x27;], $_POST);session_start();if (isset($_GET[&#x27
         </div>
       </a>
 
@@ -817,7 +888,7 @@
       
       <a class="index-excerpt " href="/2024/10/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
         <div>
-          web25412345678910111213141516171819202122232425262728293031323334353637383940414243&lt;?phperror_reporting(0);highlight_file(__FILE__);include(&#x27;flag.php&#x27;);class ctfShowUser&#123;    public $
+          web254 12345678910111213141516171819202122232425262728293031323334353637383940414243&lt;?phperror_reporting(0);highlight_file(__FILE__);include(&#x27;flag.php&#x27;);class ctfShowUser&#123;    public
         </div>
       </a>
 
@@ -857,73 +928,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">#反序列化</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/10/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86&amp;%E7%88%86%E7%A0%B4/" target="_self">
-          <img src="/images/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/backa.png" srcset="/img/loading.gif" lazyload alt="ctfshow信息搜集&amp;爆破">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/10/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86&amp;%E7%88%86%E7%A0%B4/" target="_self">
-          ctfshow信息搜集&amp;爆破
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/10/26/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/ctfshow%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86&amp;%E7%88%86%E7%A0%B4/" target="_self">
-        <div>
-          web1右键看源码 web2CTRL+shift+i web3用bp抓包，看标头有flag web4看一下robots.txt，再看&#x2F;flagishere.txt web5根据提示输入index.phps,打开看flag web6根据提示输入www.zip，然后看index.php里面指向fl000g.txt，到这边拿到flag web7根据提示输入&#x2F;.git web8输入&#
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-26 00:00" pubdate>
-              2024-10-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="category-chain-item">每日一题</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">#信息搜集</a>
             
           </div>
         
@@ -1088,6 +1092,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 

