@@ -16,25 +16,27 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1234title: BroncoCTF 2025-webdate: 2025.2.16 tags: [jwt,osint]categories: ctf  Web  Miku’s Autograph 1I am so proud of the fact that I have Miku&#x27;s autograph. Ha! You don&#x27;t! 抓包后会看到post发包会有jwt">
+    <meta name="description" content="Web  Miku’s Autograph 1I am so proud of the fact that I have Miku&#x27;s autograph. Ha! You don&#x27;t! 抓包后会看到post发包会有jwt，找不到密钥，两个思路，hs256改为none或者爆破，写脚本伪造 12345678910111213141516171819202122232425262">
 <meta property="og:type" content="article">
-<meta property="og:title" content="0raN9e的笔记">
-<meta property="og:url" content="https://0ran9ewww.github.io/2025/02/17/%E5%9B%BD%E9%99%85%E8%B5%9B/BroncoCTF%202025/index.html">
+<meta property="og:title" content="BroncoCTF 2025-web">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/02/16/%E5%9B%BD%E9%99%85%E8%B5%9B/BroncoCTF%202025/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="1234title: BroncoCTF 2025-webdate: 2025.2.16 tags: [jwt,osint]categories: ctf  Web  Miku’s Autograph 1I am so proud of the fact that I have Miku&#x27;s autograph. Ha! You don&#x27;t! 抓包后会看到post发包会有jwt">
+<meta property="og:description" content="Web  Miku’s Autograph 1I am so proud of the fact that I have Miku&#x27;s autograph. Ha! You don&#x27;t! 抓包后会看到post发包会有jwt，找不到密钥，两个思路，hs256改为none或者爆破，写脚本伪造 12345678910111213141516171819202122232425262">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E5%9B%BD%E9%99%85%E8%B5%9B/2025-02-16104351.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E5%9B%BD%E9%99%85%E8%B5%9B/2025-02-16104352.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E5%9B%BD%E9%99%85%E8%B5%9B/2025-02-16104354.png">
-<meta property="article:published_time" content="2025-02-16T16:04:51.934Z">
-<meta property="article:modified_time" content="2025-02-17T05:05:35.695Z">
+<meta property="article:published_time" content="2025-02-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-17T05:08:54.377Z">
 <meta property="article:author" content="orange">
+<meta property="article:tag" content="jwt">
+<meta property="article:tag" content="osint">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E5%9B%BD%E9%99%85%E8%B5%9B/2025-02-16104351.png">
   
   
   
-  <title>0raN9e的笔记</title>
+  <title>BroncoCTF 2025-web - 0raN9e的笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -245,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="BroncoCTF 2025-web"></span>
           
         </div>
 
@@ -256,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-17 00:04" pubdate>
-          2025年2月17日 凌晨
+        <time datetime="2025-02-16 00:00" pubdate>
+          2025年2月16日 凌晨
         </time>
       </span>
     
@@ -268,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          232 字
+          223 字
         
       </span>
     
@@ -324,7 +326,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">BroncoCTF 2025-web</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -337,8 +339,7 @@
             
               <div class="markdown-body">
                 
-                <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit">title: BroncoCTF 2025-web<br>date: 2025.2.16 <br><span class="hljs-keyword">tags:</span> [jwt,osint]<br>categories: ctf<br></code></pre></td></tr></table></figure>
-<h2 id="web"><a class="markdownIt-Anchor" href="#web"></a> Web</h2>
+                <h2 id="web"><a class="markdownIt-Anchor" href="#web"></a> Web</h2>
 <h3 id="mikus-autograph"><a class="markdownIt-Anchor" href="#mikus-autograph"></a> Miku’s Autograph</h3>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">I am so proud of the fact that I have Miku&#x27;s autograph. Ha! You don&#x27;t!<br></code></pre></td></tr></table></figure>
 <p>抓包后会看到post发包会有jwt，找不到密钥，两个思路，hs256改为none或者爆破，写脚本伪造</p>
@@ -361,6 +362,36 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/jwt/" class="print-no-link">#jwt</a>
+      
+        <a href="/tags/osint/" class="print-no-link">#osint</a>
+      
+    </div>
   
 </div>
 
@@ -370,8 +401,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>https://0ran9ewww.github.io/2025/02/17/国际赛/BroncoCTF 2025/</div>
+      <div>BroncoCTF 2025-web</div>
+      <div>https://0ran9ewww.github.io/2025/02/16/国际赛/BroncoCTF 2025/</div>
     </div>
     <div class="license-meta">
       
@@ -383,7 +414,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年2月17日</div>
+          <div>2025年2月16日</div>
         </div>
       
       
@@ -731,22 +762,6 @@
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
 
