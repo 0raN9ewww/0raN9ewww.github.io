@@ -1,0 +1,858 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢 前置知识可以先学习一下lunatic师傅的文章，初入入门一下取证 Misc-Forensics - ⚡Lunatic BLOG⚡  APK取证  1.涉案apk的包名是？[答题格式:com.baid.ccs] 根据下面的题目知道软件然后得到的包名(jadx可以直接看，或者使用专业软件查看) 1com.vestas.a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="蓝帽杯2023初赛复现(复现中)">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/04/09/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/%E8%93%9D%E5%B8%BD%E6%9D%AF2023%E5%88%9D%E8%B5%9B%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢 前置知识可以先学习一下lunatic师傅的文章，初入入门一下取证 Misc-Forensics - ⚡Lunatic BLOG⚡  APK取证  1.涉案apk的包名是？[答题格式:com.baid.ccs] 根据下面的题目知道软件然后得到的包名(jadx可以直接看，或者使用专业软件查看) 1com.vestas.a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09154428.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09155021.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09153300.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09160302.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09165957.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09213524.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09233319.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09221525.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09223413.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09225911.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09230039.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09231633.png">
+<meta property="article:published_time" content="2025-04-09T06:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-09T15:48:22.907Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="取证">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09154428.png">
+  
+  
+  
+  <title>蓝帽杯2023初赛复现(复现中) - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="蓝帽杯2023初赛复现(复现中)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-09 14:00" pubdate>
+          2025年4月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          939 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">蓝帽杯2023初赛复现(复现中)</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月9日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢</p>
+<p>前置知识可以先学习一下lunatic师傅的文章，初入入门一下取证</p>
+<p><a target="_blank" rel="noopener" href="https://goodlunatic.github.io/posts/761da51/#%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%92%8C%E7%8E%AF%E5%A2%83">Misc-Forensics - ⚡Lunatic BLOG⚡</a></p>
+<h1 id="apk取证"><a class="markdownIt-Anchor" href="#apk取证"></a> APK取证</h1>
+<h2 id="1涉案apk的包名是答题格式combaidccs"><a class="markdownIt-Anchor" href="#1涉案apk的包名是答题格式combaidccs"></a> 1.涉案apk的包名是？[答题格式:com.baid.ccs]</h2>
+<p>根据下面的题目知道软件然后得到的包名(jadx可以直接看，或者使用专业软件查看)</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">com</span>.vestas.app<br></code></pre></td></tr></table></figure>
+<h2 id="2涉案apk的签名序列号是答题格式0x93829bd"><a class="markdownIt-Anchor" href="#2涉案apk的签名序列号是答题格式0x93829bd"></a> 2.涉案apk的签名序列号是？[答题格式:0x93829bd]</h2>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09154428.png" srcset="/img/loading.gif" lazyload alt="2025-04-09154428"></p>
+<p>在jadx的资源文件的apk signature里面有序列号</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">0x563b45ca</span><br></code></pre></td></tr></table></figure>
+<h2 id="3涉案apk中dcloud_ad_id的值是答题格式2354642"><a class="markdownIt-Anchor" href="#3涉案apk中dcloud_ad_id的值是答题格式2354642"></a> 3.涉案apk中DCLOUD_AD_ID的值是？[答题格式:2354642]</h2>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09155021.png" srcset="/img/loading.gif" lazyload alt="2025-04-09155021"></p>
+<p>jadx全局搜索得到value</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns"><span class="hljs-number">2147483647</span><br></code></pre></td></tr></table></figure>
+<h3 id="4涉案apk的服务器域名是答题格式httpslesvipscom"><a class="markdownIt-Anchor" href="#4涉案apk的服务器域名是答题格式httpslesvipscom"></a> 4.涉案apk的服务器域名是？[答题格式:<a target="_blank" rel="noopener" href="http://sles.vips.com">http://sles.vips.com</a>]</h3>
+<p>放到模拟器运行一下</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09153300.png" srcset="/img/loading.gif" lazyload alt="2025-04-09153300"></p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//vip.licai.com</span><br></code></pre></td></tr></table></figure>
+<h2 id="5涉案apk的主入口是答题格式combaiccinitactivity"><a class="markdownIt-Anchor" href="#5涉案apk的主入口是答题格式combaiccinitactivity"></a> 5.涉案apk的主入口是？[答题格式:com.bai.cc.initactivity]</h2>
+<p>查看MainActivity</p>
+<p>先全局搜索一下定位在</p>
+<p>确定在io.dcloud里</p>
+<p>答案是（稍微翻一会就有了</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">io</span>.dcloud.PandoraEntry<br></code></pre></td></tr></table></figure>
+<h1 id="手机取证"><a class="markdownIt-Anchor" href="#手机取证"></a> 手机取证</h1>
+<h2 id="6该镜像是用的什么模拟器答题格式天天模拟器"><a class="markdownIt-Anchor" href="#6该镜像是用的什么模拟器答题格式天天模拟器"></a> 6.该镜像是用的什么模拟器？[答题格式:天天模拟器]</h2>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09160302.png" srcset="/img/loading.gif" lazyload alt="2025-04-09160302"></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">雷电模拟器<br></code></pre></td></tr></table></figure>
+<h2 id="7该镜像中用的聊天软件名称是什么答题格式微信"><a class="markdownIt-Anchor" href="#7该镜像中用的聊天软件名称是什么答题格式微信"></a> 7.该镜像中用的聊天软件名称是什么？[答题格式:微信]</h2>
+<p>（爬行，我没有火眼</p>
+<p>利用取证大师可以看到n多的图片，路径里有与你</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">与你<br></code></pre></td></tr></table></figure>
+<h2 id="8聊天软件的包名是答题格式combaiduces"><a class="markdownIt-Anchor" href="#8聊天软件的包名是答题格式combaiduces"></a> 8.聊天软件的包名是？[答题格式:com.baidu.ces]</h2>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">com</span>.uneed.yuni<br></code></pre></td></tr></table></figure>
+<h2 id="9投资理财产品中受害人最后投资的产品最低要求投资多少钱答题格式1万"><a class="markdownIt-Anchor" href="#9投资理财产品中受害人最后投资的产品最低要求投资多少钱答题格式1万"></a> 9.投资理财产品中，受害人最后投资的产品最低要求投资多少钱？[答题格式:1万]</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">5万<br></code></pre></td></tr></table></figure>
+<h2 id="10受害人是经过谁介绍认识王哥答题格式董慧"><a class="markdownIt-Anchor" href="#10受害人是经过谁介绍认识王哥答题格式董慧"></a> 10.受害人是经过谁介绍认识王哥？[答题格式:董慧]</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">华哥<br></code></pre></td></tr></table></figure>
+<p>没工具，之后会写（orz</p>
+<h1 id="计算机取证"><a class="markdownIt-Anchor" href="#计算机取证"></a> 计算机取证</h1>
+<h2 id="11请给出计算机镜像pce01的sha-1值答案格式字母小写"><a class="markdownIt-Anchor" href="#11请给出计算机镜像pce01的sha-1值答案格式字母小写"></a> 11.请给出计算机镜像pc.e01的SHA-1值？[答案格式：字母小写]</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">23F861B2E9C5CE9135AFC520CBD849677522F54C<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09165957.png" srcset="/img/loading.gif" lazyload alt="2025-04-09165957"></p>
+<p>用xways看一下属性</p>
+<h2 id="12给出pce01在提取时候的检查员答案格式admin"><a class="markdownIt-Anchor" href="#12给出pce01在提取时候的检查员答案格式admin"></a> 12.给出pc.e01在提取时候的检查员？[答案格式：admin]</h2>
+<p>查看上面的图片，对应的内容是</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pgs</span><br></code></pre></td></tr></table></figure>
+<h2 id="13请给出嫌疑人计算机内ie浏览器首页地址答案格式httpwwwbaiducom"><a class="markdownIt-Anchor" href="#13请给出嫌疑人计算机内ie浏览器首页地址答案格式httpwwwbaiducom"></a> 13.请给出嫌疑人计算机内IE浏览器首页地址？[答案格式：<a target="_blank" rel="noopener" href="http://www.baidu.com">http://www.baidu.com</a>]</h2>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">http:</span><span class="hljs-comment">//go.microsoft.com/fwlink/?LinkId=72186</span><br><span class="hljs-symbol">http:</span><span class="hljs-comment">//go.microsoft.com</span><br></code></pre></td></tr></table></figure>
+<p>maybe应该是这个</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09213524.png" srcset="/img/loading.gif" lazyload alt="2025-04-09213524"></p>
+<h2 id="14请给出嫌疑人杨某登录理财网站前台所用账号密码答案格式rootadmin"><a class="markdownIt-Anchor" href="#14请给出嫌疑人杨某登录理财网站前台所用账号密码答案格式rootadmin"></a> 14.请给出嫌疑人杨某登录理财网站前台所用账号密码？[答案格式：root/admin]</h2>
+<h2 id="15请给出嫌疑人电脑内pdf文件默认打开程序的当前版本号答案格式xxxxxx"><a class="markdownIt-Anchor" href="#15请给出嫌疑人电脑内pdf文件默认打开程序的当前版本号答案格式xxxxxx"></a> 15.请给出嫌疑人电脑内pdf文件默认打开程序的当前版本号？[答案格式：xxxx(xx)]</h2>
+<p>利用取证大师可以知道版本是<code>11.1.0.14309</code>,可以确定是2023年的更新</p>
+<p>查看一下网页的具体图片是<img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09233319.png" srcset="/img/loading.gif" lazyload alt="2025-04-09233319"></p>
+<p>类似这样的格式，所以无非就是2023春季更新或者夏季更新，后面是14309</p>
+<p>所以是<code>2023春季跟新(14309)</code>当然了，之后会仿真一下</p>
+<h2 id="16请给出嫌疑人计算机内文件名为c盘清理bat的sha-1答案格式字母小写"><a class="markdownIt-Anchor" href="#16请给出嫌疑人计算机内文件名为c盘清理bat的sha-1答案格式字母小写"></a> 16.请给出嫌疑人计算机内文件名为“C盘清理.bat”的SHA-1？[答案格式：字母小写]</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">24cfcfdf1fa894244f904067838e7e01e28ff450<br></code></pre></td></tr></table></figure>
+<p>在d盘里有镜像拿出来挂载，然后提前bat，放virustotal分析出来对应的数据</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09221525.png" srcset="/img/loading.gif" lazyload alt="2025-04-09221525"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">MD5</span><br><span class="hljs-attribute">5fc9538a1161933a1b4e93d3ce6f1b74</span> <br><span class="hljs-attribute">SHA</span>-<span class="hljs-number">1</span><br><span class="hljs-attribute">24cfcfdf1fa894244f904067838e7e01e28ff450</span><br></code></pre></td></tr></table></figure>
+<h2 id="17请给出嫌疑人vera-crypt加密容器的解密密码答案格式admin"><a class="markdownIt-Anchor" href="#17请给出嫌疑人vera-crypt加密容器的解密密码答案格式admin"></a> 17.请给出嫌疑人Vera Crypt加密容器的解密密码？[答案格式：admin!@#]</h2>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09223413.png" srcset="/img/loading.gif" lazyload alt="2025-04-09223413"></p>
+<h2 id="18请给出嫌疑人电脑内iscsi服务器对外端口号答案格式8080"><a class="markdownIt-Anchor" href="#18请给出嫌疑人电脑内iscsi服务器对外端口号答案格式8080"></a> 18.请给出嫌疑人电脑内iSCSI服务器对外端口号？[答案格式：8080]</h2>
+<p>默认是3260,但是我还没有仿真，之后仿真后会具体看一下，可以看到在取证大师里有访问starwind的记录</p>
+<ul>
+<li><strong>广播发现端口</strong>：<code>3261</code>（用于服务发现）</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">3261</span><br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09225911.png" srcset="/img/loading.gif" lazyload alt="2025-04-09225911"></p>
+<h2 id="19请给出嫌疑人电脑内iscsi服务器chap认证的账号密码答案格式rootadmin"><a class="markdownIt-Anchor" href="#19请给出嫌疑人电脑内iscsi服务器chap认证的账号密码答案格式rootadmin"></a> 19.请给出嫌疑人电脑内iSCSI服务器CHAP认证的账号密码？[答案格式：root/admin]</h2>
+<p><strong>.cfg</strong>（配置文件）可能包含 <strong>iSCSI 服务器端口号</strong> 的配置信息。(后来发现cfg里面都有配置信息，18也是)</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09230039.png" srcset="/img/loading.gif" lazyload alt="2025-04-09230039"></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">检索chap<br><span class="hljs-keyword">user</span> <span class="hljs-title">panguite</span>.com<br></code></pre></td></tr></table></figure>
+<h2 id="20分析嫌疑人电脑内提现记录表用户mi51888提现总额为多少答案格式10000"><a class="markdownIt-Anchor" href="#20分析嫌疑人电脑内提现记录表用户mi51888提现总额为多少答案格式10000"></a> 20.分析嫌疑人电脑内提现记录表，用户“mi51888”提现总额为多少？[答案格式：10000]</h2>
+<p>之前在img里有一个很大的txt文件，利用vc挂载，密码是17题那边的密码</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09231633.png" srcset="/img/loading.gif" lazyload alt="2025-04-09231633"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">1019</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="category-chain-item">每日一题</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8F%96%E8%AF%81/" class="print-no-link">#取证</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>蓝帽杯2023初赛复现(复现中)</div>
+      <div>https://0ran9ewww.github.io/2025/04/09/每日一题/蓝帽杯2023初赛复现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年4月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/18/%E6%B8%97%E9%80%8F/ciscn&amp;ccb-ISW%20%E6%B8%97%E9%80%8F%20web-git/" title="ciscn&amp;ccb-ISW 渗透 web-git">
+                        <span class="hidden-mobile">ciscn&amp;ccb-ISW 渗透 web-git</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
