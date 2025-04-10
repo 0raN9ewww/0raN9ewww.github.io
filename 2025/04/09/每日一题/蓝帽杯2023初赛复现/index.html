@@ -16,12 +16,12 @@
   <meta name="author" content="orange">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢 前置知识可以先学习一下lunatic师傅的文章，初入入门一下取证 Misc-Forensics - ⚡Lunatic BLOG⚡  APK取证  1.涉案apk的包名是？[答题格式:com.baid.ccs] 根据下面的题目知道软件然后得到的包名(jadx可以直接看，或者使用专业软件查看) 1com.vestas.a">
+    <meta name="description" content="前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢 (由于种种非自然因素很多题复现的很模糊，就此跳过，本身就是浅浅入门一下😋) 前置知识可以先学习一下lunatic师傅的文章，初步入门一下取证 Misc-Forensics - ⚡Lunatic BLOG⚡  APK取证  1.涉案apk的包名是？[答题格式:com.baid.ccs] 根据下面的题目知道软件然后得到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="蓝帽杯2023初赛复现(复现中)">
+<meta property="og:title" content="蓝帽杯2023初赛复现(阉割复现)">
 <meta property="og:url" content="https://0ran9ewww.github.io/2025/04/09/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/%E8%93%9D%E5%B8%BD%E6%9D%AF2023%E5%88%9D%E8%B5%9B%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="0raN9e的笔记">
-<meta property="og:description" content="前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢 前置知识可以先学习一下lunatic师傅的文章，初入入门一下取证 Misc-Forensics - ⚡Lunatic BLOG⚡  APK取证  1.涉案apk的包名是？[答题格式:com.baid.ccs] 根据下面的题目知道软件然后得到的包名(jadx可以直接看，或者使用专业软件查看) 1com.vestas.a">
+<meta property="og:description" content="前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢 (由于种种非自然因素很多题复现的很模糊，就此跳过，本身就是浅浅入门一下😋) 前置知识可以先学习一下lunatic师傅的文章，初步入门一下取证 Misc-Forensics - ⚡Lunatic BLOG⚡  APK取证  1.涉案apk的包名是？[答题格式:com.baid.ccs] 根据下面的题目知道软件然后得到">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09154428.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09155021.png">
@@ -35,8 +35,14 @@
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09225911.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09230039.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-09231633.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-10142506.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-1045023.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-10145927.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-10150102.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-10190849.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E8%93%9D%E5%B8%BD/2023/2025-04-10195647.png">
 <meta property="article:published_time" content="2025-04-09T06:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-09T15:48:22.907Z">
+<meta property="article:modified_time" content="2025-04-10T13:11:43.009Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="取证">
 <meta name="twitter:card" content="summary_large_image">
@@ -44,7 +50,7 @@
   
   
   
-  <title>蓝帽杯2023初赛复现(复现中) - 0raN9e的笔记</title>
+  <title>蓝帽杯2023初赛复现(阉割复现) - 0raN9e的笔记</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -255,7 +261,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="蓝帽杯2023初赛复现(复现中)"></span>
+            <span id="subtitle" data-typed-text="蓝帽杯2023初赛复现(阉割复现)"></span>
           
         </div>
 
@@ -278,7 +284,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          939 字
+          2.8k 字
         
       </span>
     
@@ -289,7 +295,7 @@
         
         
         
-          8 分钟
+          24 分钟
         
       </span>
     
@@ -334,12 +340,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">蓝帽杯2023初赛复现(复现中)</h1>
+            <h1 id="seo-header">蓝帽杯2023初赛复现(阉割复现)</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年4月9日 晚上
+                    本文最后更新于 2025年4月10日 晚上
                   
                 
               </p>
@@ -348,7 +354,8 @@
               <div class="markdown-body">
                 
                 <p>前言:备赛，接下来几个月有取证的比赛，提前学学取证知识😋，万一我被带飞进线下呢</p>
-<p>前置知识可以先学习一下lunatic师傅的文章，初入入门一下取证</p>
+<p>(由于种种非自然因素很多题复现的很模糊，就此跳过，本身就是浅浅入门一下😋)</p>
+<p>前置知识可以先学习一下lunatic师傅的文章，初步入门一下取证</p>
 <p><a target="_blank" rel="noopener" href="https://goodlunatic.github.io/posts/761da51/#%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%92%8C%E7%8E%AF%E5%A2%83">Misc-Forensics - ⚡Lunatic BLOG⚡</a></p>
 <h1 id="apk取证"><a class="markdownIt-Anchor" href="#apk取证"></a> APK取证</h1>
 <h2 id="1涉案apk的包名是答题格式combaidccs"><a class="markdownIt-Anchor" href="#1涉案apk的包名是答题格式combaidccs"></a> 1.涉案apk的包名是？[答题格式:com.baid.ccs]</h2>
@@ -388,6 +395,9 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">华哥<br></code></pre></td></tr></table></figure>
 <p>没工具，之后会写（orz</p>
 <h1 id="计算机取证"><a class="markdownIt-Anchor" href="#计算机取证"></a> 计算机取证</h1>
+<p>这题我尝试了FTK进行挂载，但是物理镜像没成功，询问了之后使用了qemu-img进行convert,</p>
+<p>可以先info查看是raw文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">qemu<span class="hljs-literal">-img</span> convert <span class="hljs-operator">-f</span> raw <span class="hljs-literal">-O</span> vmdk <span class="hljs-literal">-S</span> <span class="hljs-number">0</span> pc.E01 pc.vmdk<br></code></pre></td></tr></table></figure>
 <h2 id="11请给出计算机镜像pce01的sha-1值答案格式字母小写"><a class="markdownIt-Anchor" href="#11请给出计算机镜像pce01的sha-1值答案格式字母小写"></a> 11.请给出计算机镜像pc.e01的SHA-1值？[答案格式：字母小写]</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">23F861B2E9C5CE9135AFC520CBD849677522F54C<br></code></pre></td></tr></table></figure>
 <p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09165957.png" srcset="/img/loading.gif" lazyload alt="2025-04-09165957"></p>
@@ -400,6 +410,7 @@
 <p>maybe应该是这个</p>
 <p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09213524.png" srcset="/img/loading.gif" lazyload alt="2025-04-09213524"></p>
 <h2 id="14请给出嫌疑人杨某登录理财网站前台所用账号密码答案格式rootadmin"><a class="markdownIt-Anchor" href="#14请给出嫌疑人杨某登录理财网站前台所用账号密码答案格式rootadmin"></a> 14.请给出嫌疑人杨某登录理财网站前台所用账号密码？[答案格式：root/admin]</h2>
+<p>得知登录的信息是yang88，密码不知道虽然可以猜出来和电脑密码一致，之后仿真看看</p>
 <h2 id="15请给出嫌疑人电脑内pdf文件默认打开程序的当前版本号答案格式xxxxxx"><a class="markdownIt-Anchor" href="#15请给出嫌疑人电脑内pdf文件默认打开程序的当前版本号答案格式xxxxxx"></a> 15.请给出嫌疑人电脑内pdf文件默认打开程序的当前版本号？[答案格式：xxxx(xx)]</h2>
 <p>利用取证大师可以知道版本是<code>11.1.0.14309</code>,可以确定是2023年的更新</p>
 <p>查看一下网页的具体图片是<img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09233319.png" srcset="/img/loading.gif" lazyload alt="2025-04-09233319"></p>
@@ -427,6 +438,97 @@
 <p>之前在img里有一个很大的txt文件，利用vc挂载，密码是17题那边的密码</p>
 <p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-09231633.png" srcset="/img/loading.gif" lazyload alt="2025-04-09231633"></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">1019</span><br></code></pre></td></tr></table></figure>
+<h1 id="内存取证"><a class="markdownIt-Anchor" href="#内存取证"></a> 内存取证</h1>
+<h2 id="21请给出计算机内存创建北京时间答案格式2000-01-11-000000"><a class="markdownIt-Anchor" href="#21请给出计算机内存创建北京时间答案格式2000-01-11-000000"></a> 21.请给出计算机内存创建北京时间？[答案格式：2000-01-11 00:00:00]</h2>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-10142506.png" srcset="/img/loading.gif" lazyload alt="2025-04-10142506"></p>
+<h2 id="22请给出计算机内用户yang88的开机密码答案格式abc123"><a class="markdownIt-Anchor" href="#22请给出计算机内用户yang88的开机密码答案格式abc123"></a> 22.请给出计算机内用户yang88的开机密码？[答案格式：abc.123]</h2>
+<p>也是利用lovelymem执行猕猴桃</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs csv">Module   User             Domain           Password                                <br><br>-------- ---------------- ---------------- ----------------------------------------<br><br>wdigest  yang88           yang88-PC        3w.qax.com                              <br>wdigest  YANG88-PC$       WORKGROUP                                                <br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">3</span>w.qax.<span class="hljs-keyword">com</span><br></code></pre></td></tr></table></figure>
+<h2 id="23提取内存镜像中的usb设备信息给出该usb设备的最后连接北京时间答案格式2000-01-11-000000"><a class="markdownIt-Anchor" href="#23提取内存镜像中的usb设备信息给出该usb设备的最后连接北京时间答案格式2000-01-11-000000"></a> 23.提取内存镜像中的USB设备信息，给出该USB设备的最后连接北京时间？[答案格式：2000-01-11 00:00:00]</h2>
+<p>使用usbstor可以执行得到答案(插件)</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2023</span>-<span class="hljs-number">06</span>-<span class="hljs-number">21</span> <span class="hljs-number">01</span>:<span class="hljs-number">01</span>:<span class="hljs-number">25</span><br></code></pre></td></tr></table></figure>
+<h2 id="24请给出用户yang88的lmhash值答案格式字母小写"><a class="markdownIt-Anchor" href="#24请给出用户yang88的lmhash值答案格式字母小写"></a> 24.请给出用户yang88的LMHASH值？[答案格式：字母小写]</h2>
+<p>执行hashdump</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">Administrator:<span class="hljs-number">500</span>:aad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>eeaad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>ee:<span class="hljs-number">31</span>d<span class="hljs-number">6</span>cfe<span class="hljs-number">0</span>d<span class="hljs-number">16</span>ae<span class="hljs-number">931</span>b<span class="hljs-number">73</span><span class="hljs-keyword">c</span><span class="hljs-number">59</span>d<span class="hljs-number">7e0</span><span class="hljs-keyword">c</span><span class="hljs-number">089</span><span class="hljs-keyword">c</span><span class="hljs-number">0</span>:::<br>Guest:<span class="hljs-number">501</span>:aad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>eeaad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>ee:<span class="hljs-number">31</span>d<span class="hljs-number">6</span>cfe<span class="hljs-number">0</span>d<span class="hljs-number">16</span>ae<span class="hljs-number">931</span>b<span class="hljs-number">73</span><span class="hljs-keyword">c</span><span class="hljs-number">59</span>d<span class="hljs-number">7e0</span><span class="hljs-keyword">c</span><span class="hljs-number">089</span><span class="hljs-keyword">c</span><span class="hljs-number">0</span>:::<br>yang<span class="hljs-number">88</span>:<span class="hljs-number">1000</span>:aad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>eeaad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>ee:<span class="hljs-number">46e5597</span>f<span class="hljs-number">00</span><span class="hljs-keyword">c</span><span class="hljs-number">98</span>ae<span class="hljs-number">6</span>cf<span class="hljs-number">3917</span>b<span class="hljs-number">07</span>bcc<span class="hljs-number">00</span>be:::<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">aad3b435b51404eeaad3b435b51404ee<br></code></pre></td></tr></table></figure>
+<h2 id="25请给出用户yang88访问过文件提现记录xlsx的北京时间答案格式2000-01-11-000000"><a class="markdownIt-Anchor" href="#25请给出用户yang88访问过文件提现记录xlsx的北京时间答案格式2000-01-11-000000"></a> 25.请给出用户yang88访问过文件“提现记录.xlsx”的北京时间？[答案格式：2000-01-11 00:00:00]</h2>
+<p>之前的pc里面是有xlsx的，可以使用取证大师进行提取vc挂载的那个地方(算钱的那个地方)</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">2023</span>-<span class="hljs-number">06</span>-<span class="hljs-number">21</span> <span class="hljs-number">00</span>:<span class="hljs-number">29</span>:<span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
+<h2 id="26请给出veracrypt最后一次执行的北京时间答案格式2000-01-11-000000"><a class="markdownIt-Anchor" href="#26请给出veracrypt最后一次执行的北京时间答案格式2000-01-11-000000"></a> 26.请给出“VeraCrypt”最后一次执行的北京时间？[答案格式：2000-01-11 00:00:00]</h2>
+<p>执行plist可以获取数据</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-1045023.png" srcset="/img/loading.gif" lazyload alt="2025-04-1045023"></p>
+<h2 id="27分析内存镜像请给出用户在2023-06-20-165657-utc0访问过维斯塔斯后台多少次答案格式10"><a class="markdownIt-Anchor" href="#27分析内存镜像请给出用户在2023-06-20-165657-utc0访问过维斯塔斯后台多少次答案格式10"></a> 27.分析内存镜像，请给出用户在“2023-06-20 16:56:57 UTC+0”访问过“维斯塔斯”后台多少次？[答案格式:10]</h2>
+<p>也是可以在取证大师里可以查看的(两个大的附件其实是互通的)换算的时间也就是国内21日的零点</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">2<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-10145927.png" srcset="/img/loading.gif" lazyload alt="2025-04-10145927"></p>
+<h2 id="28请给出用户最后一次访问chrome浏览器的进程pid答案格式1234"><a class="markdownIt-Anchor" href="#28请给出用户最后一次访问chrome浏览器的进程pid答案格式1234"></a> 28.请给出用户最后一次访问chrome浏览器的进程PID？[答案格式：1234]</h2>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">2456</span><br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-10150102.png" srcset="/img/loading.gif" lazyload alt="2025-04-10150102"></p>
+<h1 id="服务器取证"><a class="markdownIt-Anchor" href="#服务器取证"></a> 服务器取证</h1>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livescript">qemu-img convert -f qcow2 .<span class="hljs-string">\fw.qcow2</span>  -O vmdk .<span class="hljs-string">\fw.vmdk</span><br></code></pre></td></tr></table></figure>
+<p>挂载是centos的系统，存在密码，利用这个项目拿一下密文</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/dshh-sec/DiskImage_PasswdBypass/tree/main">dshh-sec/DiskImage_PasswdBypass: 对windows、Linux磁盘镜像文件，密码清除、绕过。</a></p>
+<p>爆破一下密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(orange㉿Coyano)-[~]<br>└─$ john --wordlist=/usr/share/wordlists/rockyou.txt <span class="hljs-built_in">hash</span><br>Using default input encoding: UTF-8<br>Loaded 1 password <span class="hljs-built_in">hash</span> (sha512crypt, crypt(3) $6$ [SHA512 512/512 AVX512BW 8x])<br>Cost 1 (iteration count) is 5000 <span class="hljs-keyword">for</span> all loaded hashes<br>Will run 32 OpenMP threads<br>Press <span class="hljs-string">&#x27;q&#x27;</span> or Ctrl-C to abort, almost any other key <span class="hljs-keyword">for</span> status<br>P@ssw0rd         (?)<br>1g 0:00:00:00 DONE (2025-04-10 16:13) 9.090g/s 74472p/s 74472c/s 74472C/s 123456..total90<br>Use the <span class="hljs-string">&quot;--show&quot;</span> option to display all of the cracked passwords reliably<br>Session completed.<br></code></pre></td></tr></table></figure>
+<h2 id="29分析涉案服务器请给出涉案服务器的内核版本答案格式xxxxx-xxxxxxx"><a class="markdownIt-Anchor" href="#29分析涉案服务器请给出涉案服务器的内核版本答案格式xxxxx-xxxxxxx"></a> 29.分析涉案服务器，请给出涉案服务器的内核版本？[答案格式：xx.xxx-xxx.xx.xx]</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost ~]# <span class="hljs-built_in">uname</span> -r<br>3.10.0-957.el7.x86_64<br></code></pre></td></tr></table></figure>
+<h2 id="30分析涉案服务器请给出mysql数据库的root账号密码答案格式admin123"><a class="markdownIt-Anchor" href="#30分析涉案服务器请给出mysql数据库的root账号密码答案格式admin123"></a> 30.分析涉案服务器，请给出MySQL数据库的root账号密码？[答案格式：Admin123]</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost ~]# find / -<span class="hljs-built_in">type</span> f \( -name <span class="hljs-string">&quot;*.php&quot;</span> -o -name <span class="hljs-string">&quot;*.env&quot;</span> -o -name <span class="hljs-string">&quot;*.yml&quot;</span> -o -name <span class="hljs-string">&quot;*.conf&quot;</span> -o -name <span class="hljs-string">&quot;*.ini&quot;</span> \) 2&gt;/dev/null | xargs grep -i <span class="hljs-string">&quot;DB_pass&quot;</span><br>/www/wwwroot/v9.licai.com/.env:DB_PASSWORD=ff1d923939ca2dcf<br></code></pre></td></tr></table></figure>
+<h2 id="31分析涉案服务器请给出涉案网站rds数据库地址答题格式-xx-xxxxxxxxxx"><a class="markdownIt-Anchor" href="#31分析涉案服务器请给出涉案网站rds数据库地址答题格式-xx-xxxxxxxxxx"></a> 31.分析涉案服务器，请给出涉案网站RDS数据库地址？[答题格式: xx-xx.xx.xx.xx.xx]</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost v9.licai.com]# <span class="hljs-built_in">cd</span> .<span class="hljs-built_in">env</span><br>-bash: <span class="hljs-built_in">cd</span>: .<span class="hljs-built_in">env</span>: Not a directory<br>[root@localhost v9.licai.com]# <span class="hljs-built_in">cat</span> .<span class="hljs-built_in">env</span><br>APP_NAME=LaravelGlobalBonus<br>APP_ENV=<span class="hljs-built_in">local</span><br>APP_KEY=<span class="hljs-built_in">base64</span>:+90gHlNsoj6J0G9OepRfOkW/9IJHiK+bGS1Lt+wzn+M=<br><span class="hljs-comment">#APP_DEBUG=false</span><br>APP_DEBUG=<span class="hljs-literal">true</span><br>APP_URL=http://localhost<br><br>LOG_CHANNEL=stack<br><br>DB_CONNECTION=mysql<br>DB_HOST=pc-uf6mmj68r91f78hkj.rwlb.rds.aliyuncs.com<br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">pc-uf6mmj68r91f78hkj<span class="hljs-selector-class">.rwlb</span><span class="hljs-selector-class">.rds</span><span class="hljs-selector-class">.aliyuncs</span>.com<br></code></pre></td></tr></table></figure>
+<h2 id="32请给出涉网网站数据库版本号-答题格式-5600"><a class="markdownIt-Anchor" href="#32请给出涉网网站数据库版本号-答题格式-5600"></a> 32.请给出涉网网站数据库版本号? [答题格式: 5.6.00]</h2>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[root@localhost ~]# mysql -<span class="hljs-keyword">Version</span><br>mysql  Ver <span class="hljs-number">14.14</span> Distrib <span class="hljs-number">5.7</span><span class="hljs-number">.40</span>, <span class="hljs-keyword">for</span> Linux (x86_64) <span class="hljs-keyword">using</span>  EditLine <span class="hljs-keyword">wrapper</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">5</span>.<span class="hljs-number">7</span>.<span class="hljs-number">40</span><br></code></pre></td></tr></table></figure>
+<h2 id="33请给出嫌疑人累计推广人数答案格式100"><a class="markdownIt-Anchor" href="#33请给出嫌疑人累计推广人数答案格式100"></a> 33.请给出嫌疑人累计推广人数？[答案格式：100]</h2>
+<p>执行ls可以看到<code>install.sh</code>，里面是宝塔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost ~]# bt<br>===============宝塔面板命令行==================<br>(1) 重启面板服务           (8) 改面板端口<br>(2) 停止面板服务           (9) 清除面板缓存<br>(3) 启动面板服务           (10) 清除登录限制<br>(4) 重载面板服务           (11) 设置是否开启IP + User-Agent验证<br>(5) 修改面板密码           (12) 取消域名绑定限制<br>(6) 修改面板用户名         (13) 取消IP访问限制<br>(7) 强制修改MySQL密码      (14) 查看面板默认信息<br>(22) 显示面板错误日志      (15) 清理系统垃圾<br>(23) 关闭BasicAuth认证     (16) 修复面板(检查错误并更新面板文件到最新版)<br>(24) 关闭动态口令认证          (17) 设置日志切割是否压缩<br>(25) 设置是否保存文件历史副本  (18) 设置是否自动备份面板<br>(0) 取消                   (29) 取消访问设备验证<br>===============================================<br>请输入命令编号：5<br>===============================================<br>正在执行(5)...<br>===============================================<br>请输入新的面板密码：123456<br>|-用户名: alviosso<br>|-新密码: 123456<br>请输入命令编号：14<br>===============================================<br>正在执行(14)...<br>===============================================<br>==================================================================<br>BT-Panel default info!<br>==================================================================<br>外网面板地址: http://58.218.234.160:11438/c2b2f950<br>内网面板地址: http://61.139.2.173:11438/c2b2f950<br>username: alviosso<br>password: ********<br></code></pre></td></tr></table></figure>
+<p>查看一下root密码</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-10190849.png" srcset="/img/loading.gif" lazyload alt="2025-04-10190849"></p>
+<p><code>.xb</code> 文件，这通常是使用 <strong>Percona XtraBackup</strong> 工具生成的 MySQL 物理备份文件。</p>
+<p>参考文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40230682/article/details/118703478">阿里云Mysql5.7 数据库恢复 qp.xb文件恢复数据_qp文件-CSDN博客</a></p>
+<p>大体的恢复过程在这里，之后需要加域名</p>
+<p>参考27题访问的网址加一下hosts</p>
+<p><img src="/../../images/%E8%93%9D%E5%B8%BD/2023/2025-04-10195647.png" srcset="/img/loading.gif" lazyload alt="2025-04-10195647"></p>
+<p>去看一下源码逻辑</p>
+<p>(爬行~~~~扭曲，虽然只是过了两年，但是现在centos系统已经不再维护了，导致数据库不能完全恢复，想恢复数据不是很容易后续一系列的题目不太好写)</p>
+<p>后面就说说吧</p>
+<p>按道理需要修改源码，绕过登录，并且需要修改<code>.env</code>的数据库的，进去之后就可以看到推广人数</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">69<br></code></pre></td></tr></table></figure>
+<h2 id="34请给出涉案网站后台启用的超级管理员答题格式abc"><a class="markdownIt-Anchor" href="#34请给出涉案网站后台启用的超级管理员答题格式abc"></a> 34.请给出涉案网站后台启用的超级管理员?[答题格式:abc]</h2>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">admin</span><br></code></pre></td></tr></table></figure>
+<p>可以有vip*那个数据库进行查找，也可以在宝塔界面查看</p>
+<p>有个小混淆就是还有个root账户迷惑</p>
+<h2 id="35投资项目贵州六盘水市风力发电基建工程的日化收益为答题格式100"><a class="markdownIt-Anchor" href="#35投资项目贵州六盘水市风力发电基建工程的日化收益为答题格式100"></a> 35.投资项目“贵州六盘水市风力发电基建工程”的日化收益为？[答题格式:1.00%]</h2>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">4</span>.<span class="hljs-number">00</span>%<br></code></pre></td></tr></table></figure>
+<p>查看对应页面即可</p>
+<h2 id="36最早访问涉案网站后台的ip地址为答题格式8888"><a class="markdownIt-Anchor" href="#36最早访问涉案网站后台的ip地址为答题格式8888"></a> 36.最早访问涉案网站后台的IP地址为[答题格式:8.8.8.8]</h2>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">183.160.76.194</span><br></code></pre></td></tr></table></figure>
+<h2 id="37分析涉案网站数据库或者后台vip2的会员有多少个答案格式100"><a class="markdownIt-Anchor" href="#37分析涉案网站数据库或者后台vip2的会员有多少个答案格式100"></a> 37.分析涉案网站数据库或者后台VIP2的会员有多少个[答案格式:100]</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">20<br></code></pre></td></tr></table></figure>
+<h2 id="38分析涉案网站数据库的用户表中账户余额大于零且银行卡开户行归属于上海市的潜在受害人的数量为答题格式8"><a class="markdownIt-Anchor" href="#38分析涉案网站数据库的用户表中账户余额大于零且银行卡开户行归属于上海市的潜在受害人的数量为答题格式8"></a> 38.分析涉案网站数据库的用户表中账户余额大于零且银行卡开户行归属于上海市的潜在受害人的数量为[答题格式:8]</h2>
+<p>使用宝塔面板的phpmyadmin和Navicat连接数据库，走ssh隧道</p>
+<p>在phpmyadmin中可以看到member为会员表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> `<span class="hljs-keyword">member</span>` <span class="hljs-keyword">WHERE</span> bankaddress <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%上海%&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">2<br></code></pre></td></tr></table></figure>
+<h2 id="39分析涉案网站数据库或者后台统计嫌疑人的下线成功提现多少钱答题格式1000000"><a class="markdownIt-Anchor" href="#39分析涉案网站数据库或者后台统计嫌疑人的下线成功提现多少钱答题格式1000000"></a> 39.分析涉案网站数据库或者后台，统计嫌疑人的下线成功提现多少钱？[答题格式:10000.00]</h2>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">128457</span>.<span class="hljs-number">00</span><br></code></pre></td></tr></table></figure>
+<h2 id="40分析涉案网站数据库或者后台受害人上线在平台内共有下线多少人答题格式123"><a class="markdownIt-Anchor" href="#40分析涉案网站数据库或者后台受害人上线在平台内共有下线多少人答题格式123"></a> 40.分析涉案网站数据库或者后台受害人上线在平台内共有下线多少人？[答题格式:123]</h2>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">受害人叫陈昊民<br>推荐人也就是上线ID为513935，就是嫌疑人<br>到数据库中查询<br><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">FROM</span> <span class="hljs-symbol">`member`</span> <span class="hljs-keyword">WHERE</span> inviter = <span class="hljs-string">&#x27;513935&#x27;</span><br><span class="hljs-number">17</span><br></code></pre></td></tr></table></figure>
+<h2 id="41分析涉案网站数据库或者后台网站内下线大于2的代理有多少个答题格式10"><a class="markdownIt-Anchor" href="#41分析涉案网站数据库或者后台网站内下线大于2的代理有多少个答题格式10"></a> 41.分析涉案网站数据库或者后台网站内下线大于2的代理有多少个？[答题格式:10]</h2>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">AS</span> inviter_count, <span class="hljs-symbol">`inviter`</span> <span class="hljs-keyword">FROM</span> <span class="hljs-symbol">`member`</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-symbol">`inviter`</span> <span class="hljs-keyword">HAVING</span> <span class="hljs-built_in">COUNT</span>(*) &gt; <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+<p>60</p>
+<h2 id="42分析涉案网站数据库或者后台网站内下线最多的代理真实名字为答题格式张三"><a class="markdownIt-Anchor" href="#42分析涉案网站数据库或者后台网站内下线最多的代理真实名字为答题格式张三"></a> 42.分析涉案网站数据库或者后台网站内下线最多的代理真实名字为[答题格式:张三]</h2>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">SELECT</span> <span class="hljs-built_in">COUNT</span>(*) <span class="hljs-keyword">AS</span> inviter_count, <span class="hljs-symbol">`inviter`</span> <span class="hljs-keyword">FROM</span> <span class="hljs-symbol">`member`</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-symbol">`inviter`</span> <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> inviter_count <span class="hljs-keyword">DESC</span><br><span class="hljs-keyword">SELECT</span> realname <span class="hljs-keyword">FROM</span> <span class="hljs-symbol">`member`</span> <span class="hljs-keyword">WHERE</span> invicode = <span class="hljs-number">617624</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">骆潇原<br></code></pre></td></tr></table></figure>
+<h2 id="43分析涉案网站数据库或者后台流水明细本网站总共盈利多少钱答题格式1000000"><a class="markdownIt-Anchor" href="#43分析涉案网站数据库或者后台流水明细本网站总共盈利多少钱答题格式1000000"></a> 43.分析涉案网站数据库或者后台流水明细，本网站总共盈利多少钱[答题格式:10,000.00]</h2>
+<p>hpmyadmin可以看到流水明细表为moneylog</p>
+<p>统计金额为正也就是入账的钱数</p>
+<p>统计金额为负也就是转出的钱数</p>
+<p>相减得到收益</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">15078796</span>.<span class="hljs-number">38</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -472,7 +574,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>蓝帽杯2023初赛复现(复现中)</div>
+      <div>蓝帽杯2023初赛复现(阉割复现)</div>
       <div>https://0ran9ewww.github.io/2025/04/09/每日一题/蓝帽杯2023初赛复现/</div>
     </div>
     <div class="license-meta">
@@ -491,7 +593,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年4月9日</div>
+          <div>2025年4月10日</div>
         </div>
       
       
