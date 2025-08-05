@@ -1,0 +1,888 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="**前言：**原由是上周nepctf2025出了一道cs的流量题，刚好我没刷过类似题目，虽然写出来了，但是还是系统学习一下比较好的。 参考博客： Cobalt Strike流量解密 - 1cePeak （●´3｀●）やれやれだぜ  基础前置 本人使用的cs4.7,同时teamserver放在本地kali上面 1.&#x2F;teamserver [服务端ip] [密码] 比如说 1.&#x2F;teamserver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS流量分析">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/08/05/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/CS%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="**前言：**原由是上周nepctf2025出了一道cs的流量题，刚好我没刷过类似题目，虽然写出来了，但是还是系统学习一下比较好的。 参考博客： Cobalt Strike流量解密 - 1cePeak （●´3｀●）やれやれだぜ  基础前置 本人使用的cs4.7,同时teamserver放在本地kali上面 1.&#x2F;teamserver [服务端ip] [密码] 比如说 1.&#x2F;teamserver">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01111845.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01113312.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01143054.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01143409.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01151856.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01152627.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-04211849.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-05111255.png">
+<meta property="article:published_time" content="2025-08-05T04:00:00.000Z">
+<meta property="article:modified_time" content="2025-08-05T03:26:14.753Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="cs流量">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/%E6%96%87%E7%AB%A0/cs/2025-08-01111845.png">
+  
+  
+  
+  <title>CS流量分析 - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CS流量分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-05 12:00" pubdate>
+          2025年8月5日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CS流量分析</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年8月5日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>**前言：**原由是上周nepctf2025出了一道cs的流量题，刚好我没刷过类似题目，虽然写出来了，但是还是系统学习一下比较好的。</p>
+<p>参考博客：</p>
+<p><a target="_blank" rel="noopener" href="https://1cepeak.cn/posts/cobaltstrike-traffic-analysis/">Cobalt Strike流量解密 - 1cePeak</a></p>
+<p><a target="_blank" rel="noopener" href="https://nnnpc.github.io/2024/04/16/CS%E6%B5%81%E9%87%8F%E6%B5%85%E6%9E%90/">（●´3｀●）やれやれだぜ</a></p>
+<h1 id="基础前置"><a class="markdownIt-Anchor" href="#基础前置"></a> 基础前置</h1>
+<p>本人使用的cs4.7,同时teamserver放在本地kali上面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./teamserver [服务端ip] [密码]<br></code></pre></td></tr></table></figure>
+<p>比如说</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./teamserver 192.168.71.3 123456<br></code></pre></td></tr></table></figure>
+<p>然后创建一个监听器，生成一个可执行程序然后在本地的虚拟机上线</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-01111845.png" srcset="/img/loading.gif" lazyload alt="2025-08-01111845"></p>
+<p>最后类似就是这样的内容</p>
+<h1 id="加密算法"><a class="markdownIt-Anchor" href="#加密算法"></a> 加密算法</h1>
+<p>Cobalt Strike（CS）在通信过程中采用多层加密机制，以实现 Beacon 和 TeamServer 间的加密通讯与流量伪装。其加密算法与版本、Profile 配置有关</p>
+<h2 id="aes-128-cbcbeacon-加密-payload-和通信数据"><a class="markdownIt-Anchor" href="#aes-128-cbcbeacon-加密-payload-和通信数据"></a> AES-128-CBC（Beacon 加密 Payload 和通信数据）</h2>
+<ul>
+<li>用途：对 Beacon 的任务、回传数据、Stage payload 等进行加密。</li>
+<li>Key 生成方式：Beacon 在初始化时从 TeamServer 获取对称密钥，通常为预设或通过 RSA 握手生成。</li>
+<li>IV：随机或固定，取决于 Malleable C2 配置。</li>
+<li>实现语言：Java（TeamServer）与 C（Beacon）</li>
+</ul>
+<p><strong>通常这种是默认的，也是最常见的加密算法，本文也是围绕这一块来谈</strong></p>
+<h2 id="rsa-2048beacon-与-teamserver-握手"><a class="markdownIt-Anchor" href="#rsa-2048beacon-与-teamserver-握手"></a> RSA-2048（Beacon 与 TeamServer 握手）</h2>
+<ul>
+<li>用途：在 Beacon 初次上线时使用 RSA 公钥加密 AES 会话密钥。</li>
+<li>流程：
+<ul>
+<li>Beacon 内置 RSA 公钥（由 TeamServer 生成）。</li>
+<li>Beacon 使用该公钥加密 AES 密钥并发送。</li>
+<li>TeamServer 用私钥解密并获取 AES 会话密钥。</li>
+</ul>
+</li>
+<li>密钥位置：
+<ul>
+<li>存储在 <code>.cobaltstrike.beacon_keys</code> 或内嵌于 Payload。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-01113312.png" srcset="/img/loading.gif" lazyload alt="2025-08-01113312"></p>
+<h1 id="流量传递"><a class="markdownIt-Anchor" href="#流量传递"></a> 流量传递</h1>
+<p>Cobalt Strike 流量传递流程简述：</p>
+<ol>
+<li><strong>握手阶段</strong><br>
+Beacon 启动后，用 Team Server 公钥加密 AES 会话密钥发送给服务器，完成密钥交换。</li>
+<li><strong>加密通信</strong><br>
+后续数据用 AES-128-CBC 加密，数据再经 Base64 等编码，伪装成正常 HTTP/DNS/SMB 流量。</li>
+<li><strong>定时请求</strong><br>
+Beacon 按配置的 sleep 和 jitter 定时发起请求，获取任务并回传结果。</li>
+<li><strong>Malleable C2</strong><br>
+通过配置 HTTP 头、URI、编码方式等，实现流量伪装，降低检测风险。</li>
+</ol>
+<p>Cobalt Strike 的 Beacon 在初始通信中常通过 HTTP GET 请求伪装为正常浏览行为，访问如 <code>/dpixel</code>、<code>/__utm.gif</code>、<code>/pixel.gif</code> 等路径，并将包含 AES 会话密钥等元数据的信息使用 RSA 公钥加密后，通过 Base64 编码写入 Cookie 头中发送给 C2 服务器，从而完成安全信道的建立。</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-01143054.png" srcset="/img/loading.gif" lazyload alt="2025-08-01143054"></p>
+<p>这里抓了一下本地的流量，可以注意到伪装的<code>ga.js</code>(也可以伪装成其他的内容)然后一段长的cookie值</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-01143409.png" srcset="/img/loading.gif" lazyload alt="2025-08-01143409"></p>
+<p>下发指令的时候会请求 <code>/submit.php?id=一串数字</code>同时post一段一串 <code>0000</code> 开头的16进制数据，这是 cs 流量的<strong>发送任务数据</strong>，这里我执行的是getuid的命令</p>
+<h1 id="流量解密"><a class="markdownIt-Anchor" href="#流量解密"></a> 流量解密</h1>
+<h2 id="方法一"><a class="markdownIt-Anchor" href="#方法一"></a> 方法一</h2>
+<p>这里假如CTF题目提供了<code>.cobaltstrike.beacon_keys</code>可以通过脚本来获取内容</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Slzdude/cs-scripts/blob/master/parse_beacon_keys.py">cs-scripts/parse_beacon_keys.py at master · Slzdude/cs-scripts</a></p>
+<p>参考这个脚本,我贴一下我微调的脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> javaobj<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">to_pem</span>(<span class="hljs-params">key_bytes: <span class="hljs-built_in">bytes</span>, header: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    pem_body = base64.encodebytes(key_bytes).decode().replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>    lines = [<span class="hljs-string">f&quot;-----BEGIN <span class="hljs-subst">&#123;header&#125;</span>-----&quot;</span>]<br>    lines += [pem_body[i:i+<span class="hljs-number">64</span>] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(pem_body), <span class="hljs-number">64</span>)]<br>    lines.append(<span class="hljs-string">f&quot;-----END <span class="hljs-subst">&#123;header&#125;</span>-----&quot;</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;\n&#x27;</span>.join(lines)<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;.cobaltstrike.beacon_keys&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    pobj = javaobj.load(f)<br><br><span class="hljs-comment"># 结构访问</span><br>key_entry = pobj.array.value<br><br><span class="hljs-comment"># 获取 JavaByteArray._data</span><br>priv_raw = key_entry.privateKey.encoded._data<br>pub_raw = key_entry.publicKey.encoded._data<br><br><span class="hljs-comment"># 转换为字节流</span><br>priv_bytes = <span class="hljs-built_in">bytes</span>([b &amp; <span class="hljs-number">0xFF</span> <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> priv_raw])<br>pub_bytes = <span class="hljs-built_in">bytes</span>([b &amp; <span class="hljs-number">0xFF</span> <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> pub_raw])<br><br><span class="hljs-comment"># 转 PEM</span><br>private_pem = to_pem(priv_bytes, <span class="hljs-string">&quot;PRIVATE KEY&quot;</span>)<br>public_pem = to_pem(pub_bytes, <span class="hljs-string">&quot;PUBLIC KEY&quot;</span>)<br><br><span class="hljs-built_in">print</span>(private_pem)<br><span class="hljs-built_in">print</span>(public_pem)<br><br></code></pre></td></tr></table></figure>
+<p>这样可以获得公钥和私钥</p>
+<p>再拿这个项目<a target="_blank" rel="noopener" href="https://github.com/WBGlIl/CS_Decrypt">WBGlIl/CS_Decrypt</a>,这个代码不兼容,我也贴一下我微调的代码，把心跳的时候的cookie贴进去</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> cryptography.hazmat.primitives <span class="hljs-keyword">import</span> serialization, hashes<br><span class="hljs-keyword">from</span> cryptography.hazmat.primitives.asymmetric <span class="hljs-keyword">import</span> padding<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> hexdump<br><br><br>PRIVATE_KEY = <span class="hljs-string">b&quot;&quot;&quot;-----BEGIN PRIVATE KEY-----</span><br><span class="hljs-string"></span><br><span class="hljs-string">-----END PRIVATE KEY-----</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># base64 编码密文（C2 返回的 Beacon metadata 字段）</span><br><span class="hljs-comment"># 请替换此变量</span><br>encode_data = <span class="hljs-string">&quot;QGhgfFHXZOUsjC8YcgAdkB6fAgepIFJDM9iO7j39Q8aHelwnzqRILSMxM9gPUy3b+TfLpbNd33HdSXisl36A2Qj9qYFEaM8F3DTzAPFHpXs91tEaBUavdSRFLk13sUFAI7Cd41FlAc/ChNRidbGApbjB08JPpv0nvQE44gTuao0=&quot;</span>  <br><br><span class="hljs-comment"># 加载私钥</span><br>private_key = serialization.load_pem_private_key(PRIVATE_KEY, password=<span class="hljs-literal">None</span>)<br><br><span class="hljs-comment"># 解密（PKCS#1 v1.5）</span><br>ciphertext = private_key.decrypt(<br>    base64.b64decode(encode_data),<br>    padding=padding.PKCS1v15()<br>)<br><br><span class="hljs-comment"># ========== 以下为原始 Beacon metadata 字段结构解析 ==========</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">isFlag</span>(<span class="hljs-params">var, flag</span>): <span class="hljs-keyword">return</span> (var &amp; flag) == flag<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">toIP</span>(<span class="hljs-params">var</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;.&quot;</span>.join([<span class="hljs-built_in">str</span>((var &gt;&gt; (<span class="hljs-number">8</span> * i)) &amp; <span class="hljs-number">0xff</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">reversed</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>))])<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getName</span>(<span class="hljs-params">var0</span>):<br>    mapping = &#123;<br>        <span class="hljs-number">936</span>: <span class="hljs-string">&quot;gbk&quot;</span>, <span class="hljs-number">950</span>: <span class="hljs-string">&quot;big5&quot;</span>, <span class="hljs-number">65001</span>: <span class="hljs-string">&quot;utf-8&quot;</span>, <span class="hljs-number">1252</span>: <span class="hljs-string">&quot;windows-1252&quot;</span>, <span class="hljs-number">0</span>: <span class="hljs-string">&quot;ISO8859-1&quot;</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> mapping.get(var0, <span class="hljs-string">&quot;ISO8859-1&quot;</span>)<br><br><span class="hljs-keyword">if</span> ciphertext[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>] == <span class="hljs-string">b&#x27;\x00\x00\xBE\xEF&#x27;</span>:<br>    raw_aes_keys = ciphertext[<span class="hljs-number">8</span>:<span class="hljs-number">24</span>]<br>    var9 = <span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">24</span>:<span class="hljs-number">26</span>], <span class="hljs-string">&quot;little&quot;</span>)<br>    var9_name = getName(var9)<br><br>    beacon_id = <span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">28</span>:<span class="hljs-number">32</span>], <span class="hljs-string">&quot;big&quot;</span>)<br>    pid = <span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">32</span>:<span class="hljs-number">36</span>], <span class="hljs-string">&quot;big&quot;</span>)<br>    port = <span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">36</span>:<span class="hljs-number">38</span>], <span class="hljs-string">&quot;big&quot;</span>)<br>    flag = <span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">38</span>:<span class="hljs-number">39</span>], <span class="hljs-string">&quot;big&quot;</span>)<br><br>    arch = <span class="hljs-string">&quot;x64&quot;</span> <span class="hljs-keyword">if</span> isFlag(flag, <span class="hljs-number">2</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;x86&quot;</span><br>    is64 = <span class="hljs-string">&quot;1&quot;</span> <span class="hljs-keyword">if</span> isFlag(flag, <span class="hljs-number">4</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;0&quot;</span><br>    bypass_uac = <span class="hljs-string">&quot;True&quot;</span> <span class="hljs-keyword">if</span> isFlag(flag, <span class="hljs-number">8</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;False&quot;</span><br><br>    win_major = ciphertext[<span class="hljs-number">39</span>]<br>    win_minor = ciphertext[<span class="hljs-number">40</span>]<br>    win_build = <span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">41</span>:<span class="hljs-number">43</span>], <span class="hljs-string">&quot;big&quot;</span>)<br><br>    ip = toIP(<span class="hljs-built_in">int</span>.from_bytes(ciphertext[<span class="hljs-number">55</span>:<span class="hljs-number">59</span>], <span class="hljs-string">&quot;little&quot;</span>))<br>    ip = ip <span class="hljs-keyword">if</span> ip != <span class="hljs-string">&quot;0.0.0.0&quot;</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;unknown&quot;</span><br><br>    <span class="hljs-comment"># 解码字符串部分</span><br>    <span class="hljs-keyword">try</span>:<br>        ddata = ciphertext[<span class="hljs-number">59</span>:].decode(var9_name, errors=<span class="hljs-string">&quot;replace&quot;</span>)<br>    <span class="hljs-keyword">except</span>:<br>        ddata = ciphertext[<span class="hljs-number">59</span>:].decode(<span class="hljs-string">&quot;ISO8859-1&quot;</span>, errors=<span class="hljs-string">&quot;replace&quot;</span>)<br><br>    fields = ddata.split(<span class="hljs-string">&quot;\t&quot;</span>)<br>    computer = fields[<span class="hljs-number">0</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(fields) &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span><br>    username = fields[<span class="hljs-number">1</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(fields) &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span><br>    process = fields[<span class="hljs-number">2</span>] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(fields) &gt; <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;&quot;</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Beacon ID: <span class="hljs-subst">&#123;beacon_id&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;PID: <span class="hljs-subst">&#123;pid&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Port: <span class="hljs-subst">&#123;port&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Arch: <span class="hljs-subst">&#123;arch&#125;</span>, is64: <span class="hljs-subst">&#123;is64&#125;</span>, BypassUAC: <span class="hljs-subst">&#123;bypass_uac&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Windows version: <span class="hljs-subst">&#123;win_major&#125;</span>.<span class="hljs-subst">&#123;win_minor&#125;</span>.<span class="hljs-subst">&#123;win_build&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Host IP: <span class="hljs-subst">&#123;ip&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Computer: <span class="hljs-subst">&#123;computer&#125;</span>, Username: <span class="hljs-subst">&#123;username&#125;</span>, Process: <span class="hljs-subst">&#123;process&#125;</span>&quot;</span>)<br><br>    digest = hashlib.sha256(raw_aes_keys).digest()<br>    aes_key = digest[:<span class="hljs-number">16</span>]<br>    hmac_key = digest[<span class="hljs-number">16</span>:]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;AES key: <span class="hljs-subst">&#123;aes_key.<span class="hljs-built_in">hex</span>()&#125;</span>&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;HMAC key: <span class="hljs-subst">&#123;hmac_key.<span class="hljs-built_in">hex</span>()&#125;</span>&quot;</span>)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nFull metadata hexdump:&quot;</span>)<br>    <span class="hljs-built_in">print</span>(hexdump.hexdump(ciphertext))<br><br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Invalid Beacon metadata header&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-01151856.png" srcset="/img/loading.gif" lazyload alt="2025-08-01151856"></p>
+<p>成功拿到被控主机信息和两个需要用到的 key</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">AES <span class="hljs-built_in">key</span>: b3fbe5014705d989f005deb2f759fb80<br>HMAC <span class="hljs-built_in">key</span>: af2bcf97ce60a201446fe44c3e7d2cbe<br></code></pre></td></tr></table></figure>
+<p>然后再解密CS流量，既然存在通信，那么必然有数据传输，所以直接查看存在data字段的数据包。</p>
+<p>还是用上面的项目的<code>CS_Task_AES_Decrypt.py</code>代码</p>
+<p>需要先fromhex再to base64</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">cobaltstrike任务解密</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-keyword">import</span> hmac<br><span class="hljs-keyword">import</span> binascii<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> struct<br><br><span class="hljs-keyword">import</span> hexdump<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">compare_mac</span>(<span class="hljs-params">mac, mac_verif</span>):<br>	<span class="hljs-keyword">if</span> mac == mac_verif:<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(mac) != <span class="hljs-built_in">len</span>(mac_verif):<br>		<span class="hljs-built_in">print</span><br>		<span class="hljs-string">&quot;invalid MAC size&quot;</span><br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>	result = <span class="hljs-number">0</span><br><br>	<span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(mac, mac_verif):<br>		result |= x ^ y<br><br>	<span class="hljs-keyword">return</span> result == <span class="hljs-number">0</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">encrypted_data, iv_bytes, signature, shared_key, hmac_key</span>):<br>	<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> compare_mac(hmac.new(hmac_key, encrypted_data, digestmod=<span class="hljs-string">&quot;sha256&quot;</span>).digest()[<span class="hljs-number">0</span>:<span class="hljs-number">16</span>], signature):<br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;message authentication failed&quot;</span>)<br>		<span class="hljs-keyword">return</span><br><br>	cypher = AES.new(shared_key, AES.MODE_CBC, iv_bytes)<br>	data = cypher.decrypt(encrypted_data)<br>	<span class="hljs-keyword">return</span> data<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">readInt</span>(<span class="hljs-params">buf</span>):<br>	<span class="hljs-keyword">return</span> struct.unpack(<span class="hljs-string">&#x27;&gt;L&#x27;</span>, buf[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>])[<span class="hljs-number">0</span>]<br><br><span class="hljs-comment">#接收到的任务数据</span><br>shell_whoami=<span class="hljs-string">&quot;G2ZeKrJpjQiBVl8KiUhPm0Gcc8iWcq/mbiCtn0uPTqE/cD9OsYRO9J2riLj1CXrC&quot;</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>	<span class="hljs-comment">#key源自Beacon_metadata_RSA_Decrypt.py</span><br>	SHARED_KEY = binascii.unhexlify(<span class="hljs-string">&quot;b3fbe5014705d989f005deb2f759fb80&quot;</span>)<br>	HMAC_KEY = binascii.unhexlify(<span class="hljs-string">&quot;af2bcf97ce60a201446fe44c3e7d2cbe&quot;</span>)<br><br>	enc_data = base64.b64decode(shell_whoami)<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;数据总长度:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">len</span>(enc_data)))<br>	signature = enc_data[-<span class="hljs-number">16</span>:]<br>	encrypted_data = enc_data[:-<span class="hljs-number">16</span>]<br><br>	iv_bytes = <span class="hljs-built_in">bytes</span>(<span class="hljs-string">&quot;abcdefghijklmnop&quot;</span>,<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br>	dec = decrypt(encrypted_data,iv_bytes,signature,SHARED_KEY,HMAC_KEY)<br><br>	counter = readInt(dec)<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;时间戳:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(counter))<br><br>	decrypted_length = readInt(dec[<span class="hljs-number">4</span>:])<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;任务数据包长度:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(decrypted_length))<br><br>	data = dec[<span class="hljs-number">8</span>:<span class="hljs-built_in">len</span>(dec)]<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;任务Data&quot;</span>)<br>	<span class="hljs-built_in">print</span>(hexdump.hexdump(data))<br><br>	<span class="hljs-comment"># 任务标志</span><br>	Task_Sign=data[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>]<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Task_Sign:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(Task_Sign))<br><br>	<span class="hljs-comment"># 实际的任务数据长度</span><br>	Task_file_len = <span class="hljs-built_in">int</span>.from_bytes(data[<span class="hljs-number">4</span>:<span class="hljs-number">8</span>], byteorder=<span class="hljs-string">&#x27;big&#x27;</span>, signed=<span class="hljs-literal">False</span>)<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Task_file:&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(Task_file_len))<br><br>	<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;data.bin&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>		f.write(data[<span class="hljs-number">8</span>:Task_file_len])<br><br>	<span class="hljs-built_in">print</span>(hexdump.hexdump(data[Task_file_len:]))<br><br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-01152627.png" srcset="/img/loading.gif" lazyload alt="2025-08-01152627"></p>
+<p>可以得到数据，然后?id=那个的数据包用<code>Beacon_Task_return_AES_Decrypt.py</code>来解密，也是先from hex再to base64，大体流程就是这样。</p>
+<h2 id="方法二"><a class="markdownIt-Anchor" href="#方法二"></a> 方法二</h2>
+<p>参考这个项目</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/minhangxiaohui/CSthing">minhangxiaohui/CSthing: somthing about Cobaltstrike</a></p>
+<p>参考文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.nviso.eu/2021/10/27/cobalt-strike-using-known-private-keys-to-decrypt-traffic-part-2/">Cobalt Strike：使用已知私钥解密流量 – 第 2 部分 – NVISO Labs — Cobalt Strike: Using Known Private Keys To Decrypt Traffic – Part 2 – NVISO Labs</a></p>
+<p>这种情况一般是在没有提供密钥也就是没有提供<code>.cobaltstrike.beacon_keys</code>,可以尝试用这个方法</p>
+<p>利用wireshark提取出来</p>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-04211849.png" srcset="/img/loading.gif" lazyload alt="2025-08-04211849"></p>
+<p>很明显这里不是已知的cskey库里的，所以没给出密钥，拿到信标依然没有作用</p>
+<p>还是得拿到本地的 key 文件才能解密流量，这里没啥用</p>
+<p>(或者这里可以根据n在factordb进行分解，可以得到p和q的话，或者使用rsactftool弱公钥解,那么可以构造私钥，进一步也能实现，也是概率问题，不一定能成功)</p>
+<p>那在如果有的情况下，可以继续执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python3 cs-decrypt-metadata.py -p 私钥 cookie<br></code></pre></td></tr></table></figure>
+<p>得到 Raw key、AES key 和 HMAC key</p>
+<p>接下来用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python3 cs-parse-http-traffic.py -r [Raw key] xxx.pcapng<br></code></pre></td></tr></table></figure>
+<p>这样就能得到一定的数据，在不规定其它参数的情况下解密出流量包中的通信流量，解决的比较快，但是大概率在实际情况还是要配合其他方法一起食用。</p>
+<h2 id="方法三"><a class="markdownIt-Anchor" href="#方法三"></a> 方法三</h2>
+<p>通过进程转储(dump)直接从内存中提取加密密钥(AES key、HMAC key和RAW key)，从而绕过传统的私钥解密过程。</p>
+<p>这里需要用到的脚本</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DidierStevens/Beta/blob/master/cs-extract-key.py">Beta/cs-extract-key.py at master · DidierStevens/Beta</a></p>
+<h3 id="3x"><a class="markdownIt-Anchor" href="#3x"></a> 3.x</h3>
+<p>在 Cobalt Strike 3.x 中，信标的关键元数据（如 AES Key、HMAC Key、IV）在内存中以明文形式存储，且以特征标志 <code>0x0000BEEF</code> 开头。通过对信标进程进行内存转储，可在早期阶段直接提取这三组未加密的密钥信息，适用于内存取证与样本分析等场景。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python3 cs-extract-key.py test.dmp<br></code></pre></td></tr></table></figure>
+<p>之后获得key之后大体的逻辑是差不多的</p>
+<h3 id="4x"><a class="markdownIt-Anchor" href="#4x"></a> 4.x</h3>
+<p>Cobalt Strike 3.x 中信标的元数据以明文形式存储于内存，易通过特征标志如 <code>0x0000BEEF</code> 提取关键密钥；而在 4.x 中，这些数据被加密并进行了结构混淆，内存中不再直接暴露明文 key，大幅提升了对抗分析与取证的难度，是从易识别向高隐匿演进的重要转变。</p>
+<p>具体例题可以参考nepCTF2025的misc题客服小美，我没上传博客</p>
+<p>首先先用上文提到的 <a target="_blank" rel="noopener" href="http://cs-parse-http-traffic.py">cs-parse-http-traffic.py</a> 脚本对抓取的流量包进行提取加密数据的操作</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">python cs<span class="hljs-literal">-parse-http-traffic</span>.py <span class="hljs-literal">-k</span> unknown  DESKTOP.pcapng<br></code></pre></td></tr></table></figure>
+<p>这时候可以获得数据，得到加密数据之后，再用动态信标的进程转储文件进行爆破解密，得到 key</p>
+<p>然后执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python3 cs-extract-key.py -t 加密data test.dmp<br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/%E6%96%87%E7%AB%A0/cs/2025-08-05111255.png" srcset="/img/loading.gif" lazyload alt="2025-08-05111255"></p>
+<p>差不多就是这样的例子，那么最后也可以照着前面的进行解密得到内容</p>
+<p>比如利用 RAWkey 使用 <a target="_blank" rel="noopener" href="http://cs-parse-http-traffic.py">cs-parse-http-traffic.py</a> 对通信流量进行解密了，不同的是这里使用的是 SHA256 Raw Key，参数为 - k</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">python cs<span class="hljs-literal">-parse-http-traffic</span>.py <span class="hljs-literal">-k</span> [<span class="hljs-type">SHA256</span> <span class="hljs-type">Raw</span> <span class="hljs-type">key</span>] test.pcapng<br></code></pre></td></tr></table></figure>
+<p>当然也可以带入到<code>CS_Task_AES_Decrypt.py</code>这个脚本使用，具体问题具体分析。</p>
+<h1 id="后话"><a class="markdownIt-Anchor" href="#后话"></a> 后话</h1>
+<p>配合食用几个题目，大体逻辑应该就是了解了，这篇就水到这里了。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/" class="category-chain-item">学习文章</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/cs%E6%B5%81%E9%87%8F/" class="print-no-link">#cs流量</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CS流量分析</div>
+      <div>https://0ran9ewww.github.io/2025/08/05/学习文章/CS流量分析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年8月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/23/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-CC1%E9%93%BE/" title="Java反序列化-CC1链">
+                        <span class="hidden-mobile">Java反序列化-CC1链</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
