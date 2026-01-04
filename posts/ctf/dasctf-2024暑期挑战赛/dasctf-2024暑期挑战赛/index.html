@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>dasctf夏-复盘 | 0raN9e&#39;s Blog</title>
+<meta name="keywords" content="png, zip">
+<meta name="description" content="孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下
+Misc
+png_master
+
+第一部分：010分析，结尾有类似base64解密的部分提取出来解密
+得到第一段内容
+Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.
+flag1:DASCTF{2fd9e9ff-e27
+第二部分：
+使用stegsolve来获得
+
+flag2:d-5405-c5f5-
+第三部分:
+from PIL import Image
+Image=Image.open(&#39;C:/Users/30226/Desktop/DASCTF/tempdir/MISC附件/flag.png&#39;)
+Image.save(&#39;a.png&#39;)
+利用010进行对比发现IDAT多了一个很长的部分
+
+把这部分单独读取出来，加上png头，得到图片
+
+得到a19131f86216}
+最后的flag是DASCTF{2fd9e9ff-e27d-5405-c5f5-a19131f86216}
+EZ_zip
+跟着复现一遍吧，感觉是提示点。
+
+zip文件损坏的问题
+使用010对两个地方进行修改，再进行解压
+
+
+后面就不明白了，直接引用套神的吧
+![解密](../../images/DASCTF/2024夏/解密.png)import pyzipper
+
+def crack_zip(zip_file_path):
+    for i in range(256):
+        password = bytes([i])
+        try:
+            with pyzipper.AESZipFile(zip_file_path, &#39;r&#39;) as zip_ref:
+                zip_ref.extractall(pwd=password)
+                extracted_files = zip_ref.namelist()
+                if extracted_files:
+                    return password, extracted_files[0]
+        except:
+            continue
+    return None, None
+
+def main():
+    current_zip = &#39;320.zip&#39;
+    all_passwords = &#39;&#39;
+
+    while current_zip:
+        print(f&#39;Cracking {current_zip}...&#39;)
+        password, next_zip = crack_zip(current_zip)
+        if password:
+            all_passwords &#43;= password.hex()
+            current_zip = next_zip
+        else:
+            print(f&#39;Failed to crack {current_zip}&#39;)
+            break
+
+    print(f&#39;All passwords: {all_passwords}&#39;)
+
+if __name__ == &#34;__main__&#34;:
+    main()
+得到密码">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/ctf/dasctf-2024%E6%9A%91%E6%9C%9F%E6%8C%91%E6%88%98%E8%B5%9B/dasctf-2024%E6%9A%91%E6%9C%9F%E6%8C%91%E6%88%98%E8%B5%9B/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/ctf/dasctf-2024%E6%9A%91%E6%9C%9F%E6%8C%91%E6%88%98%E8%B5%9B/dasctf-2024%E6%9A%91%E6%9C%9F%E6%8C%91%E6%88%98%E8%B5%9B/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="0raN9e&#39;s Blog (Alt + H)">0raN9e&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/links/" title="友链">
+                    <span>友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      dasctf夏-复盘
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><p>孱弱，打是一打一个不吱声的，赛后跟着师傅复现一下</p>
+<h1 id="misc">Misc<a hidden class="anchor" aria-hidden="true" href="#misc">#</a></h1>
+<h2 id="png_master">png_master<a hidden class="anchor" aria-hidden="true" href="#png_master">#</a></h2>
+<p><img alt="flag" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/flag.png"></p>
+<p>第一部分：010分析，结尾有类似base64解密的部分提取出来解密</p>
+<p>得到第一段内容</p>
+<p>Congratulations on finding the first paragraph of flag, but the understanding of png is just beginning.
+<strong>flag1:DASCTF{2fd9e9ff-e27</strong></p>
+<p>第二部分：</p>
+<p>使用stegsolve来获得</p>
+<p><img alt="1" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/1.png"></p>
+<p><strong>flag2:d-5405-c5f5-</strong></p>
+<p>第三部分:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> PIL <span style="color:#f92672">import</span> Image
+</span></span><span style="display:flex;"><span>Image<span style="color:#f92672">=</span>Image<span style="color:#f92672">.</span>open(<span style="color:#e6db74">&#39;C:/Users/30226/Desktop/DASCTF/tempdir/MISC附件/flag.png&#39;</span>)
+</span></span><span style="display:flex;"><span>Image<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;a.png&#39;</span>)
+</span></span></code></pre></div><p>利用010进行对比发现IDAT多了一个很长的部分</p>
+<p><img alt="2" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/2.png"></p>
+<p>把这部分单独读取出来，加上png头，得到图片</p>
+<p><img alt="3" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/3.png"></p>
+<p>得到<strong>a19131f86216}</strong></p>
+<p>最后的flag是<strong>DASCTF{2fd9e9ff-e27d-5405-c5f5-a19131f86216}</strong></p>
+<h2 id="ez_zip">EZ_zip<a hidden class="anchor" aria-hidden="true" href="#ez_zip">#</a></h2>
+<p>跟着复现一遍吧，感觉是提示点。</p>
+<p><img alt="c" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/c.png"></p>
+<p>zip文件损坏的问题</p>
+<p>使用010对两个地方进行修改，再进行解压</p>
+<p><img alt="a" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/a.png"></p>
+<p><img alt="b" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/b.png"></p>
+<p>后面就不明白了，直接引用套神的吧</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">!</span>[解密](<span style="color:#f92672">../../</span>images<span style="color:#f92672">/</span>DASCTF<span style="color:#f92672">/</span><span style="color:#ae81ff">2024</span>夏<span style="color:#f92672">/</span>解密<span style="color:#f92672">.</span>png)<span style="color:#f92672">import</span> pyzipper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">crack_zip</span>(zip_file_path):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+</span></span><span style="display:flex;"><span>        password <span style="color:#f92672">=</span> bytes([i])
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> pyzipper<span style="color:#f92672">.</span>AESZipFile(zip_file_path, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> zip_ref:
+</span></span><span style="display:flex;"><span>                zip_ref<span style="color:#f92672">.</span>extractall(pwd<span style="color:#f92672">=</span>password)
+</span></span><span style="display:flex;"><span>                extracted_files <span style="color:#f92672">=</span> zip_ref<span style="color:#f92672">.</span>namelist()
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> extracted_files:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> password, extracted_files[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    current_zip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;320.zip&#39;</span>
+</span></span><span style="display:flex;"><span>    all_passwords <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> current_zip:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Cracking </span><span style="color:#e6db74">{</span>current_zip<span style="color:#e6db74">}</span><span style="color:#e6db74">...&#39;</span>)
+</span></span><span style="display:flex;"><span>        password, next_zip <span style="color:#f92672">=</span> crack_zip(current_zip)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> password:
+</span></span><span style="display:flex;"><span>            all_passwords <span style="color:#f92672">+=</span> password<span style="color:#f92672">.</span>hex()
+</span></span><span style="display:flex;"><span>            current_zip <span style="color:#f92672">=</span> next_zip
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Failed to crack </span><span style="color:#e6db74">{</span>current_zip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;All passwords: </span><span style="color:#e6db74">{</span>all_passwords<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><p>得到密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>1bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec611bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec6
+</span></span></code></pre></div><p>并且得到一个AES-ECB.txt</p>
+<p>明显观察到这个密码是重复的<code>11bb99580c613a87c54e12480aa7ff8c798f71ad280f6ba69d4a4425225e4ec6</code></p>
+<p>然后得到AES的内容是<code>64ZpNmbv2Hg4Jj9bH8Kv6D3OBliD9hgyI3vZWfMDJs2TcEwVnBmH/zkBtPBE3g8e the key may be on your journey？</code></p>
+<p>尝试用这个密码当aes的密码不对，猜测是解压顺序是从320&ndash;&gt;1，而密码顺序是1&ndash;&gt;320，因此需要反过来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>c64e5e2225444a9da66b0f28ad718f798cffa70a48124ec5873a610c5899bb11
+</span></span></code></pre></div><p><img alt="解密" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/%E8%A7%A3%E5%AF%86.png"></p>
+<p><strong>DASCTF{514755c6-8280-463c-8378-a29702fc88df}</strong></p>
+<h1 id="re">Re<a hidden class="anchor" aria-hidden="true" href="#re">#</a></h1>
+<h2 id="dossnake">DosSnake<a hidden class="anchor" aria-hidden="true" href="#dossnake">#</a></h2>
+<p>ida打开，定位到dasctf</p>
+<p>这段部分的内容与dasctf进行xor得到flag</p>
+<p><img alt="re" loading="lazy" src="../../images/DASCTF/2024%E5%A4%8F/re.png"></p>
+<h1 id="crypto">Crypto<a hidden class="anchor" aria-hidden="true" href="#crypto">#</a></h1>
+<h2 id="complex_enc">complex_enc<a hidden class="anchor" aria-hidden="true" href="#complex_enc">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(cipher, key):
+</span></span><span style="display:flex;"><span>    decrypted_bits <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> len(key)  <span style="color:#75715e"># 初始化为与密钥相同长度的比特流</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 逆序遍历密钥，逐步恢复比特流</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(key) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> cipher <span style="color:#f92672">&gt;=</span> key[i]:
+</span></span><span style="display:flex;"><span>            cipher <span style="color:#f92672">-=</span> key[i]
+</span></span><span style="display:flex;"><span>            decrypted_bits[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> decrypted_bits
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bits_to_bytes</span>(bits):
+</span></span><span style="display:flex;"><span>    byte_array <span style="color:#f92672">=</span> bytearray()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(bits), <span style="color:#ae81ff">8</span>):
+</span></span><span style="display:flex;"><span>        byte <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> bit <span style="color:#f92672">in</span> bits[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">8</span>]:
+</span></span><span style="display:flex;"><span>            byte <span style="color:#f92672">=</span> (byte <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span> bit
+</span></span><span style="display:flex;"><span>        byte_array<span style="color:#f92672">.</span>append(byte)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> bytes(byte_array)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 手动输入密文和密钥</span>
+</span></span><span style="display:flex;"><span>cipher <span style="color:#f92672">=</span> int(input(<span style="color:#e6db74">&#34;请输入密文 (c): &#34;</span>))
+</span></span><span style="display:flex;"><span>key_input <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;请输入密钥 (key): &#34;</span>)
+</span></span><span style="display:flex;"><span>key <span style="color:#f92672">=</span> eval(key_input)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 解密密文</span>
+</span></span><span style="display:flex;"><span>decrypted_bits <span style="color:#f92672">=</span> decrypt(cipher, key)
+</span></span><span style="display:flex;"><span>decrypted_bytes <span style="color:#f92672">=</span> bits_to_bytes(decrypted_bits)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 打印解密后的内容</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Decrypted bytes (hex):&#34;</span>, decrypted_bytes<span style="color:#f92672">.</span>hex())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    flag <span style="color:#f92672">=</span> decrypted_bytes<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Decrypted flag (decoded):&#34;</span>, flag)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">UnicodeDecodeError</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Decrypted flag contains non-UTF-8 bytes.&#34;</span>)
+</span></span></code></pre></div><p>背包密码</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/png/">Png</a></li>
+      <li><a href="http://localhost:1313/tags/zip/">Zip</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">0raN9e&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

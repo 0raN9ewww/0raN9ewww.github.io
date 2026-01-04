@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>渗透 on 0raN9e's Blog</title><link>http://localhost:1313/categories/%E6%B8%97%E9%80%8F/</link><description>Recent content in 渗透 on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Fri, 10 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%B8%97%E9%80%8F/index.xml" rel="self" type="application/rss+xml"/><item><title>GeatWall_2025</title><link>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/greatwall2025/</link><pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/greatwall2025/</guid><description>GeatWall_2025 wp</description></item><item><title>春秋GeatWall</title><link>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/greatwall/</link><pubDate>Mon, 19 May 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/greatwall/</guid><description>春秋GeatWall wp</description></item><item><title>网鼎杯2022半决赛复现</title><link>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/%E7%BD%91%E9%BC%8E%E6%9D%AF2022/</link><pubDate>Thu, 01 May 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/%E7%BD%91%E9%BC%8E%E6%9D%AF2022/</guid><description>网鼎杯2022半决赛渗透复现</description></item><item><title>ciscn&amp;ccb-ISW 渗透 web-git</title><link>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/ciscnccb-isw-%E6%B8%97%E9%80%8F-web-git/</link><pubDate>Tue, 18 Mar 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/%E6%B8%97%E9%80%8F/ciscnccb-isw-%E6%B8%97%E9%80%8F-web-git/</guid><description>&lt;p&gt;前言:个人打的最多的一个机子，赛后向学长和师傅要了wp整理复盘了一下&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-markdown" data-lang="markdown"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;题目共包含五处flag
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;172.16.160.40
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;正常的思路是先进行nmap和dir&lt;/p&gt;
+&lt;p&gt;nmap扫到了以下目录&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;25/tcp open smtp Postfix smtpd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_smtp-commands: work.com, PIPELINING, SIZE 10240000, VRFY, ETRN, ENHANCEDSTATUSCODES, 8BITMIME, DSN
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;80/tcp open http Apache httpd 2.4.6 &lt;span style="color:#f92672"&gt;((&lt;/span&gt;CentOS&lt;span style="color:#f92672"&gt;)&lt;/span&gt; OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/7.2.34&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| http-git:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 172.16.160.40:80/.git/
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Git repository found!
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Repository description: Unnamed repository; edit this file &lt;span style="color:#e6db74"&gt;&amp;#39;description&amp;#39;&lt;/span&gt; to name the...
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Last commit message: flag commit
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| http-methods:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Supported Methods: GET HEAD POST OPTIONS TRACE
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Potentially risky methods: TRACE
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Gitlab
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: Apache/2.4.6 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;CentOS&lt;span style="color:#f92672"&gt;)&lt;/span&gt; OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/7.2.34
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;110/tcp open pop3 Dovecot pop3d &lt;span style="color:#f92672"&gt;([&lt;/span&gt;XCLIENT&lt;span style="color:#f92672"&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: TLS randomness does not represent time
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Issuer: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key type: rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key bits: &lt;span style="color:#ae81ff"&gt;3072&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Signature Algorithm: sha256WithRSAEncryption
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2022-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid after: 2023-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| MD5: e80c:698b:0ca6:1fc3:6d60:31eb:9cfc:b849
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_SHA-1: d211:674c:69e4:7c54:2152:3034:e88e:0562:011b:6362
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_pop3-capabilities: CAPA PIPELINING RESP-CODES STLS UIDL AUTH-RESP-CODE TOP SASL&lt;span style="color:#f92672"&gt;(&lt;/span&gt;PLAIN&lt;span style="color:#f92672"&gt;)&lt;/span&gt; USER
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;111/tcp open rpcbind 2-4 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;RPC &lt;span style="color:#75715e"&gt;#100000)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| rpcinfo:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| program version port/proto service
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| &lt;span style="color:#ae81ff"&gt;100000&lt;/span&gt; 2,3,4 111/tcp rpcbind
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| &lt;span style="color:#ae81ff"&gt;100000&lt;/span&gt; 2,3,4 111/udp rpcbind
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| &lt;span style="color:#ae81ff"&gt;100000&lt;/span&gt; 3,4 111/tcp6 rpcbind
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ &lt;span style="color:#ae81ff"&gt;100000&lt;/span&gt; 3,4 111/udp6 rpcbind
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;143/tcp open imap Dovecot imapd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Issuer: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key type: rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key bits: &lt;span style="color:#ae81ff"&gt;3072&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Signature Algorithm: sha256WithRSAEncryption
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2022-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid after: 2023-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| MD5: e80c:698b:0ca6:1fc3:6d60:31eb:9cfc:b849
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_SHA-1: d211:674c:69e4:7c54:2152:3034:e88e:0562:011b:6362
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: TLS randomness does not represent time
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_imap-capabilities: Pre-login listed post-login have SASL-IR ENABLE LOGIN-REFERRALS more capabilities LITERAL+ STARTTLS ID IMAP4rev1 IDLE AUTH&lt;span style="color:#f92672"&gt;=&lt;/span&gt;PLAINA0001 OK
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;443/tcp open ssl/http Apache httpd 2.4.6 &lt;span style="color:#f92672"&gt;((&lt;/span&gt;CentOS&lt;span style="color:#f92672"&gt;)&lt;/span&gt; OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/7.2.34&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| http-methods:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Supported Methods: GET HEAD POST OPTIONS TRACE
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Potentially risky methods: TRACE
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: Gitlab
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| http-git:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| 172.16.160.40:443/.git/
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Git repository found!
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Repository description: Unnamed repository; edit this file &lt;span style="color:#e6db74"&gt;&amp;#39;description&amp;#39;&lt;/span&gt; to name the...
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ Last commit message: flag commit
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;localhost/organizationName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;SomeOrganization/stateOrProvinceName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;SomeState/countryName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;--
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Issuer: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;localhost/organizationName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;SomeOrganization/stateOrProvinceName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;SomeState/countryName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;--
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key type: rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key bits: &lt;span style="color:#ae81ff"&gt;2048&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Signature Algorithm: sha256WithRSAEncryption
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2022-11-18T09:02:14
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid after: 2023-11-18T09:02:14
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| MD5: 3c47:9ba9:c35e:d7da:dd8d:92b8:5653:3f9e
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_SHA-1: 67dc:6f7f:f385:fe12:d7a8:9d88:df12:b572:97db:f35a
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: Apache/2.4.6 &lt;span style="color:#f92672"&gt;(&lt;/span&gt;CentOS&lt;span style="color:#f92672"&gt;)&lt;/span&gt; OpenSSL/1.0.2k-fips mod_fcgid/2.3.9 PHP/7.2.34
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: TLS randomness does not represent time
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;993/tcp open ssl/imap Dovecot imapd
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_imap-capabilities: Pre-login post-login have SASL-IR ENABLE LOGIN-REFERRALS more listed capabilities LITERAL+ ID AUTH&lt;span style="color:#f92672"&gt;=&lt;/span&gt;PLAINA0001 IDLE IMAP4rev1 OK
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Issuer: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key type: rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key bits: &lt;span style="color:#ae81ff"&gt;3072&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Signature Algorithm: sha256WithRSAEncryption
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2022-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid after: 2023-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| MD5: e80c:698b:0ca6:1fc3:6d60:31eb:9cfc:b849
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_SHA-1: d211:674c:69e4:7c54:2152:3034:e88e:0562:011b:6362
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: TLS randomness does not represent time
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;995/tcp open ssl/pop3 Dovecot pop3d &lt;span style="color:#f92672"&gt;([&lt;/span&gt;XCLIENT&lt;span style="color:#f92672"&gt;])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| ssl-cert: Subject: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Issuer: commonName&lt;span style="color:#f92672"&gt;=&lt;/span&gt;imap.example.com
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key type: rsa
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Public Key bits: &lt;span style="color:#ae81ff"&gt;3072&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Signature Algorithm: sha256WithRSAEncryption
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid before: 2022-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| Not valid after: 2023-11-28T16:40:31
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;| MD5: e80c:698b:0ca6:1fc3:6d60:31eb:9cfc:b849
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_SHA-1: d211:674c:69e4:7c54:2152:3034:e88e:0562:011b:6362
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_pop3-capabilities: CAPA UIDL SASL&lt;span style="color:#f92672"&gt;(&lt;/span&gt;PLAIN&lt;span style="color:#f92672"&gt;)&lt;/span&gt; AUTH-RESP-CODE TOP RESP-CODES USER PIPELINING
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_ssl-date: TLS randomness does not represent time
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3306/tcp open mysql MySQL &lt;span style="color:#f92672"&gt;(&lt;/span&gt;unauthorized&lt;span style="color:#f92672"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;9999/tcp open http nginx 1.24.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-server-header: nginx/1.24.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|_http-title: &lt;span style="color:#ae81ff"&gt;403&lt;/span&gt; Forbidden
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="flag1"&gt;flag1&lt;/h2&gt;
+&lt;p&gt;根据信息是有git的，使用githack进行恢复，其中有一个flag.php，其中显示的是no here,可以使用&lt;code&gt;git log&lt;/code&gt;进行查询&lt;/p&gt;</description></item></channel></rss>

