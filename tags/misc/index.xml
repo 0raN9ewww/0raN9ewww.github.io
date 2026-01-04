@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Misc on 0raN9e's Blog</title><link>http://localhost:1313/tags/misc/</link><description>Recent content in Misc on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/misc/index.xml" rel="self" type="application/rss+xml"/><item><title>第八届强网拟态决赛-Misc</title><link>http://localhost:1313/posts/ctf/qwnt2025/</link><pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/qwnt2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Misc on 0raN9e's Blog</title><link>http://blog.0ran9e.cn/tags/misc/</link><description>Recent content in Misc on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://blog.0ran9e.cn/tags/misc/index.xml" rel="self" type="application/rss+xml"/><item><title>第八届强网拟态决赛-Misc</title><link>http://blog.0ran9e.cn/posts/ctf/qwnt2025/</link><pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/qwnt2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
 &lt;h2 id="泄漏的时间与电码三血"&gt;泄漏的时间与电码(三血)&lt;/h2&gt;
 &lt;p&gt;把log和chal的加密脚本直接扔给ai&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;solve&lt;/span&gt;():
@@ -56,18 +56,18 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; __name__ &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; solve()
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img alt="2025-11-28123536" loading="lazy" src="http://localhost:1313/posts/ctf/qwnt2025/2025-11-28123536.png"&gt;&lt;/p&gt;</description></item><item><title>RCTF2025-Misc</title><link>http://localhost:1313/posts/ctf/rctf2025/</link><pubDate>Tue, 18 Nov 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/rctf2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img alt="2025-11-28123536" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/qwnt2025/2025-11-28123536.png"&gt;&lt;/p&gt;</description></item><item><title>RCTF2025-Misc</title><link>http://blog.0ran9e.cn/posts/ctf/rctf2025/</link><pubDate>Tue, 18 Nov 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/rctf2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
 &lt;h2 id="signin"&gt;Signin&lt;/h2&gt;
 &lt;p&gt;直接改成&lt;code&gt;?score=100&lt;/code&gt;就获得flag了
-&lt;img alt="2025-11-17103820" loading="lazy" src="http://localhost:1313/posts/ctf/rctf2025/2025-11-17103820.png"&gt;&lt;/p&gt;
+&lt;img alt="2025-11-17103820" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/rctf2025/2025-11-17103820.png"&gt;&lt;/p&gt;
 &lt;h2 id="speak-softly-love"&gt;Speak Softly Love&lt;/h2&gt;
 &lt;p&gt;是一个web端的系列社工题，给的是一个MP4
-&lt;img alt="2025-11-17110308" loading="lazy" src="http://localhost:1313/posts/ctf/rctf2025/2025-11-17110308.png"&gt;
+&lt;img alt="2025-11-17110308" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/rctf2025/2025-11-17110308.png"&gt;
 可以看到给到视频里面是东芝，题目的提示是8086,去油管检索一下看到原视频
 第一问-视频ID:&lt;code&gt;8ssDGBTssUI&lt;/code&gt;
 这里用gpt检索一下这个人的信息，得到ip
 &lt;a href="https://mateusz.viste.fr/"&gt;Mateusz Viste - homepage&lt;/a&gt;
-他的页面说的是利用svn，dump一下他的网站&lt;/p&gt;</description></item><item><title>nepctf2024复盘</title><link>http://localhost:1313/posts/ctf/nepctf2024/</link><pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/nepctf2024/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
+他的页面说的是利用svn，dump一下他的网站&lt;/p&gt;</description></item><item><title>nepctf2024复盘</title><link>http://blog.0ran9e.cn/posts/ctf/nepctf2024/</link><pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/nepctf2024/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
 &lt;h2 id="nemophila"&gt;Nemophila&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; base64
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;

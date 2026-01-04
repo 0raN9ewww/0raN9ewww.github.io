@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ctf on 0raN9e's Blog</title><link>http://localhost:1313/tags/ctf/</link><description>Recent content in Ctf on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Hgame2025-web</title><link>http://localhost:1313/posts/ctf/hgame2025/</link><pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/hgame2025/</guid><description>&lt;h1 id="week1"&gt;Week1&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Ctf on 0raN9e's Blog</title><link>http://blog.0ran9e.cn/tags/ctf/</link><description>Recent content in Ctf on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://blog.0ran9e.cn/tags/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Hgame2025-web</title><link>http://blog.0ran9e.cn/posts/ctf/hgame2025/</link><pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/hgame2025/</guid><description>&lt;h1 id="week1"&gt;Week1&lt;/h1&gt;
 &lt;h2 id="web"&gt;web&lt;/h2&gt;
 &lt;h3 id="level-24-pacman"&gt;Level 24 Pacman&lt;/h3&gt;
 &lt;p&gt;直接去找源码，控制台赋值&lt;/p&gt;
@@ -10,13 +10,13 @@ _LIFE=true;
 创建一个包含EJS代码的文件，内容为读取flag的代码：
 aaa.ejs
 &amp;lt;%= process.env.FLAG || require(&amp;#39;fs&amp;#39;).readFileSync(&amp;#39;/flag&amp;#39;, &amp;#39;utf8&amp;#39;) %&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用POST请求上传此文件到&lt;code&gt;/upload&lt;/code&gt;接口。&lt;/p&gt;</description></item><item><title>春秋杯冬季赛2025</title><link>http://localhost:1313/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</guid><description>春秋杯冬季赛2025 个人题解</description></item><item><title>Newstar2024</title><link>http://localhost:1313/posts/ctf/newstar2024/</link><pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/newstar2024/</guid><description>Newstar2024 个人题解</description></item><item><title>SHCTF2024</title><link>http://localhost:1313/posts/ctf/shctf2024/</link><pubDate>Wed, 30 Oct 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/shctf2024/</guid><description>&lt;p&gt;总排第28名,后续会对web复现&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用POST请求上传此文件到&lt;code&gt;/upload&lt;/code&gt;接口。&lt;/p&gt;</description></item><item><title>春秋杯冬季赛2025</title><link>http://blog.0ran9e.cn/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</guid><description>春秋杯冬季赛2025 个人题解</description></item><item><title>Newstar2024</title><link>http://blog.0ran9e.cn/posts/ctf/newstar2024/</link><pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/newstar2024/</guid><description>Newstar2024 个人题解</description></item><item><title>SHCTF2024</title><link>http://blog.0ran9e.cn/posts/ctf/shctf2024/</link><pubDate>Wed, 30 Oct 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/shctf2024/</guid><description>&lt;p&gt;总排第28名,后续会对web复现&lt;/p&gt;
 &lt;h1 id="week1"&gt;week1&lt;/h1&gt;
 &lt;h2 id="misc"&gt;Misc&lt;/h2&gt;
 &lt;h3 id="签到题"&gt;签到题&lt;/h3&gt;
 &lt;p&gt;公众号发对应内容就可以得到flag&lt;/p&gt;
 &lt;h3 id="rasterizing-traffic"&gt;Rasterizing Traffic&lt;/h3&gt;
-&lt;p&gt;给的流量包，wireshark导出全部内容，中间的三个flag拼接是假的&lt;/p&gt;</description></item><item><title>YLCTF2024</title><link>http://localhost:1313/posts/ctf/ylctf2024/</link><pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/ylctf2024/</guid><description>&lt;p&gt;前言:总排23，新生赛道11&lt;/p&gt;
+&lt;p&gt;给的流量包，wireshark导出全部内容，中间的三个flag拼接是假的&lt;/p&gt;</description></item><item><title>YLCTF2024</title><link>http://blog.0ran9e.cn/posts/ctf/ylctf2024/</link><pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/ylctf2024/</guid><description>&lt;p&gt;前言:总排23，新生赛道11&lt;/p&gt;
 &lt;h3 id="round-1"&gt;Round 1&lt;/h3&gt;
 &lt;h4 id="crypto"&gt;crypto&lt;/h4&gt;
 &lt;h5 id="round1break"&gt;[round1]BREAK&lt;/h5&gt;
@@ -56,11 +56,11 @@ aaa.ejs
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# YLCTF{fbb6186c-6603-11ef-ba80-deb857dc15be}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id="round1signrsa"&gt;[round1]signrsa&lt;/h5&gt;
-&lt;p&gt;RSA 模数 n1 和 n2 之间有公因子 q，从而使得可以分别对这两个模数进行分解，然后使用对应的私钥对密文进行解密，通过共模攻击解密&lt;/p&gt;</description></item><item><title>moectf2024</title><link>http://localhost:1313/posts/ctf/moectf2024/</link><pubDate>Sat, 12 Oct 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/moectf2024/</guid><description>&lt;p&gt;个人排名第25，后期就没怎么打了，复盘整理一下。&lt;/p&gt;
+&lt;p&gt;RSA 模数 n1 和 n2 之间有公因子 q，从而使得可以分别对这两个模数进行分解，然后使用对应的私钥对密文进行解密，通过共模攻击解密&lt;/p&gt;</description></item><item><title>moectf2024</title><link>http://blog.0ran9e.cn/posts/ctf/moectf2024/</link><pubDate>Sat, 12 Oct 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/moectf2024/</guid><description>&lt;p&gt;个人排名第25，后期就没怎么打了，复盘整理一下。&lt;/p&gt;
 &lt;h1 id="0基础入门"&gt;0基础入门&lt;/h1&gt;
 &lt;p&gt;看完pdf，在群里输入识别码，获得flag&lt;/p&gt;
-&lt;p&gt;&lt;img alt="1" loading="lazy" src="http://localhost:1313/posts/ctf/moectf2024/1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="1" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/moectf2024/1.png"&gt;&lt;/p&gt;
 &lt;h1 id="安全杂项"&gt;安全杂项&lt;/h1&gt;
 &lt;h2 id="signin"&gt;signin&lt;/h2&gt;
 &lt;p&gt;登入网址，按照要求，给luo选择缺勤，其他签到&lt;/p&gt;
-&lt;p&gt;注意：完成所有要求再提交&lt;/p&gt;</description></item><item><title>Basectf2024</title><link>http://localhost:1313/posts/ctf/basectf2024/</link><pubDate>Wed, 21 Aug 2024 15:00:00 +0800</pubDate><guid>http://localhost:1313/posts/ctf/basectf2024/</guid><description>BaseCTF 2024 个人题解</description></item></channel></rss>
+&lt;p&gt;注意：完成所有要求再提交&lt;/p&gt;</description></item><item><title>Basectf2024</title><link>http://blog.0ran9e.cn/posts/ctf/basectf2024/</link><pubDate>Wed, 21 Aug 2024 15:00:00 +0800</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/basectf2024/</guid><description>BaseCTF 2024 个人题解</description></item></channel></rss>

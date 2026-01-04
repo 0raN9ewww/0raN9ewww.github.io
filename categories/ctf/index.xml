@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CTF on 0raN9e's Blog</title><link>http://localhost:1313/categories/ctf/</link><description>Recent content in CTF on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Re:从零开始的BUU的web生活</title><link>http://localhost:1313/posts/ctf/buuctf-web/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/buuctf-web/</guid><description>&lt;h2 id="极客大挑战-2019easysql"&gt;[极客大挑战 2019]EasySQL&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CTF on 0raN9e's Blog</title><link>http://blog.0ran9e.cn/categories/ctf/</link><description>Recent content in CTF on 0raN9e's Blog</description><generator>Hugo -- 0.154.1</generator><language>zh-cn</language><lastBuildDate>Sun, 30 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://blog.0ran9e.cn/categories/ctf/index.xml" rel="self" type="application/rss+xml"/><item><title>Re:从零开始的BUU的web生活</title><link>http://blog.0ran9e.cn/posts/ctf/buuctf-web/</link><pubDate>Sat, 01 Mar 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/buuctf-web/</guid><description>&lt;h2 id="极客大挑战-2019easysql"&gt;[极客大挑战 2019]EasySQL&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;admin&lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt; or 1&lt;span style="color:#f92672"&gt;=&lt;/span&gt;1#
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="极客大挑战-2019havefun"&gt;[极客大挑战 2019]Havefun&lt;/h2&gt;
 &lt;p&gt;f12看源码&lt;/p&gt;
@@ -63,7 +63,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;echo&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;lt;br&amp;gt;&amp;lt;img src=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\&amp;#34;&lt;/span&gt;&lt;span style="color:#e6db74"&gt;https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\&amp;#34;&lt;/span&gt;&lt;span style="color:#e6db74"&gt; /&amp;gt;&amp;#34;&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;?&amp;gt;&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;hint.php&lt;/code&gt;&lt;/p&gt;</description></item><item><title>第八届强网拟态决赛-Misc</title><link>http://localhost:1313/posts/ctf/qwnt2025/</link><pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/qwnt2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;hint.php&lt;/code&gt;&lt;/p&gt;</description></item><item><title>第八届强网拟态决赛-Misc</title><link>http://blog.0ran9e.cn/posts/ctf/qwnt2025/</link><pubDate>Sun, 30 Nov 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/qwnt2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
 &lt;h2 id="泄漏的时间与电码三血"&gt;泄漏的时间与电码(三血)&lt;/h2&gt;
 &lt;p&gt;把log和chal的加密脚本直接扔给ai&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;solve&lt;/span&gt;():
@@ -121,18 +121,18 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; __name__ &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; solve()
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img alt="2025-11-28123536" loading="lazy" src="http://localhost:1313/posts/ctf/qwnt2025/2025-11-28123536.png"&gt;&lt;/p&gt;</description></item><item><title>RCTF2025-Misc</title><link>http://localhost:1313/posts/ctf/rctf2025/</link><pubDate>Tue, 18 Nov 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/rctf2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img alt="2025-11-28123536" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/qwnt2025/2025-11-28123536.png"&gt;&lt;/p&gt;</description></item><item><title>RCTF2025-Misc</title><link>http://blog.0ran9e.cn/posts/ctf/rctf2025/</link><pubDate>Tue, 18 Nov 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/rctf2025/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
 &lt;h2 id="signin"&gt;Signin&lt;/h2&gt;
 &lt;p&gt;直接改成&lt;code&gt;?score=100&lt;/code&gt;就获得flag了
-&lt;img alt="2025-11-17103820" loading="lazy" src="http://localhost:1313/posts/ctf/rctf2025/2025-11-17103820.png"&gt;&lt;/p&gt;
+&lt;img alt="2025-11-17103820" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/rctf2025/2025-11-17103820.png"&gt;&lt;/p&gt;
 &lt;h2 id="speak-softly-love"&gt;Speak Softly Love&lt;/h2&gt;
 &lt;p&gt;是一个web端的系列社工题，给的是一个MP4
-&lt;img alt="2025-11-17110308" loading="lazy" src="http://localhost:1313/posts/ctf/rctf2025/2025-11-17110308.png"&gt;
+&lt;img alt="2025-11-17110308" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/rctf2025/2025-11-17110308.png"&gt;
 可以看到给到视频里面是东芝，题目的提示是8086,去油管检索一下看到原视频
 第一问-视频ID:&lt;code&gt;8ssDGBTssUI&lt;/code&gt;
 这里用gpt检索一下这个人的信息，得到ip
 &lt;a href="https://mateusz.viste.fr/"&gt;Mateusz Viste - homepage&lt;/a&gt;
-他的页面说的是利用svn，dump一下他的网站&lt;/p&gt;</description></item><item><title>Hgame2025-web</title><link>http://localhost:1313/posts/ctf/hgame2025/</link><pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/hgame2025/</guid><description>&lt;h1 id="week1"&gt;Week1&lt;/h1&gt;
+他的页面说的是利用svn，dump一下他的网站&lt;/p&gt;</description></item><item><title>Hgame2025-web</title><link>http://blog.0ran9e.cn/posts/ctf/hgame2025/</link><pubDate>Sat, 22 Feb 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/hgame2025/</guid><description>&lt;h1 id="week1"&gt;Week1&lt;/h1&gt;
 &lt;h2 id="web"&gt;web&lt;/h2&gt;
 &lt;h3 id="level-24-pacman"&gt;Level 24 Pacman&lt;/h3&gt;
 &lt;p&gt;直接去找源码，控制台赋值&lt;/p&gt;
@@ -144,13 +144,13 @@ _LIFE=true;
 创建一个包含EJS代码的文件，内容为读取flag的代码：
 aaa.ejs
 &amp;lt;%= process.env.FLAG || require(&amp;#39;fs&amp;#39;).readFileSync(&amp;#39;/flag&amp;#39;, &amp;#39;utf8&amp;#39;) %&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用POST请求上传此文件到&lt;code&gt;/upload&lt;/code&gt;接口。&lt;/p&gt;</description></item><item><title>春秋杯冬季赛2025</title><link>http://localhost:1313/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</guid><description>春秋杯冬季赛2025 个人题解</description></item><item><title>Newstar2024</title><link>http://localhost:1313/posts/ctf/newstar2024/</link><pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/newstar2024/</guid><description>Newstar2024 个人题解</description></item><item><title>SHCTF2024</title><link>http://localhost:1313/posts/ctf/shctf2024/</link><pubDate>Wed, 30 Oct 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/shctf2024/</guid><description>&lt;p&gt;总排第28名,后续会对web复现&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用POST请求上传此文件到&lt;code&gt;/upload&lt;/code&gt;接口。&lt;/p&gt;</description></item><item><title>春秋杯冬季赛2025</title><link>http://blog.0ran9e.cn/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B2025/</guid><description>春秋杯冬季赛2025 个人题解</description></item><item><title>Newstar2024</title><link>http://blog.0ran9e.cn/posts/ctf/newstar2024/</link><pubDate>Mon, 04 Nov 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/newstar2024/</guid><description>Newstar2024 个人题解</description></item><item><title>SHCTF2024</title><link>http://blog.0ran9e.cn/posts/ctf/shctf2024/</link><pubDate>Wed, 30 Oct 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/shctf2024/</guid><description>&lt;p&gt;总排第28名,后续会对web复现&lt;/p&gt;
 &lt;h1 id="week1"&gt;week1&lt;/h1&gt;
 &lt;h2 id="misc"&gt;Misc&lt;/h2&gt;
 &lt;h3 id="签到题"&gt;签到题&lt;/h3&gt;
 &lt;p&gt;公众号发对应内容就可以得到flag&lt;/p&gt;
 &lt;h3 id="rasterizing-traffic"&gt;Rasterizing Traffic&lt;/h3&gt;
-&lt;p&gt;给的流量包，wireshark导出全部内容，中间的三个flag拼接是假的&lt;/p&gt;</description></item><item><title>YLCTF2024</title><link>http://localhost:1313/posts/ctf/ylctf2024/</link><pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/ylctf2024/</guid><description>&lt;p&gt;前言:总排23，新生赛道11&lt;/p&gt;
+&lt;p&gt;给的流量包，wireshark导出全部内容，中间的三个flag拼接是假的&lt;/p&gt;</description></item><item><title>YLCTF2024</title><link>http://blog.0ran9e.cn/posts/ctf/ylctf2024/</link><pubDate>Thu, 17 Oct 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/ylctf2024/</guid><description>&lt;p&gt;前言:总排23，新生赛道11&lt;/p&gt;
 &lt;h3 id="round-1"&gt;Round 1&lt;/h3&gt;
 &lt;h4 id="crypto"&gt;crypto&lt;/h4&gt;
 &lt;h5 id="round1break"&gt;[round1]BREAK&lt;/h5&gt;
@@ -190,14 +190,14 @@ aaa.ejs
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# YLCTF{fbb6186c-6603-11ef-ba80-deb857dc15be}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id="round1signrsa"&gt;[round1]signrsa&lt;/h5&gt;
-&lt;p&gt;RSA 模数 n1 和 n2 之间有公因子 q，从而使得可以分别对这两个模数进行分解，然后使用对应的私钥对密文进行解密，通过共模攻击解密&lt;/p&gt;</description></item><item><title>moectf2024</title><link>http://localhost:1313/posts/ctf/moectf2024/</link><pubDate>Sat, 12 Oct 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/moectf2024/</guid><description>&lt;p&gt;个人排名第25，后期就没怎么打了，复盘整理一下。&lt;/p&gt;
+&lt;p&gt;RSA 模数 n1 和 n2 之间有公因子 q，从而使得可以分别对这两个模数进行分解，然后使用对应的私钥对密文进行解密，通过共模攻击解密&lt;/p&gt;</description></item><item><title>moectf2024</title><link>http://blog.0ran9e.cn/posts/ctf/moectf2024/</link><pubDate>Sat, 12 Oct 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/moectf2024/</guid><description>&lt;p&gt;个人排名第25，后期就没怎么打了，复盘整理一下。&lt;/p&gt;
 &lt;h1 id="0基础入门"&gt;0基础入门&lt;/h1&gt;
 &lt;p&gt;看完pdf，在群里输入识别码，获得flag&lt;/p&gt;
-&lt;p&gt;&lt;img alt="1" loading="lazy" src="http://localhost:1313/posts/ctf/moectf2024/1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="1" loading="lazy" src="http://blog.0ran9e.cn/posts/ctf/moectf2024/1.png"&gt;&lt;/p&gt;
 &lt;h1 id="安全杂项"&gt;安全杂项&lt;/h1&gt;
 &lt;h2 id="signin"&gt;signin&lt;/h2&gt;
 &lt;p&gt;登入网址，按照要求，给luo选择缺勤，其他签到&lt;/p&gt;
-&lt;p&gt;注意：完成所有要求再提交&lt;/p&gt;</description></item><item><title>nepctf2024复盘</title><link>http://localhost:1313/posts/ctf/nepctf2024/</link><pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/ctf/nepctf2024/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
+&lt;p&gt;注意：完成所有要求再提交&lt;/p&gt;</description></item><item><title>nepctf2024复盘</title><link>http://blog.0ran9e.cn/posts/ctf/nepctf2024/</link><pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/nepctf2024/</guid><description>&lt;h1 id="misc"&gt;Misc&lt;/h1&gt;
 &lt;h2 id="nemophila"&gt;Nemophila&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; base64
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
@@ -265,4 +265,4 @@ aaa.ejs
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; exit(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;print(&lt;span style="color:#e6db74"&gt;&amp;#34;恭喜你~发现了上个世纪的秘密~快去向冒险家协会索要报酬吧！&amp;#34;&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;exp&lt;/p&gt;</description></item><item><title>Basectf2024</title><link>http://localhost:1313/posts/ctf/basectf2024/</link><pubDate>Wed, 21 Aug 2024 15:00:00 +0800</pubDate><guid>http://localhost:1313/posts/ctf/basectf2024/</guid><description>BaseCTF 2024 个人题解</description></item></channel></rss>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;exp&lt;/p&gt;</description></item><item><title>Basectf2024</title><link>http://blog.0ran9e.cn/posts/ctf/basectf2024/</link><pubDate>Wed, 21 Aug 2024 15:00:00 +0800</pubDate><guid>http://blog.0ran9e.cn/posts/ctf/basectf2024/</guid><description>BaseCTF 2024 个人题解</description></item></channel></rss>
